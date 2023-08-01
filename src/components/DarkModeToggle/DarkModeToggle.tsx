@@ -1,8 +1,14 @@
+"use client"
 import React from 'react'
 import { styled } from '@mui/material';
 import Switch from '@mui/material/Switch';
+import { useContext } from 'react';
+import { ThemeContext } from '@/context/ThemeContext';
+// import { useThemeContext } from '../../theme/ThemeContext';
 
 const DarkModeToggle = () => {
+    const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
+
     const DarkLightModeSwitch = styled(Switch)(({ theme }) => ({
         width: 62,
         height: 34,
@@ -49,8 +55,16 @@ const DarkModeToggle = () => {
         },
     }));
 
+    const handleDarkModeChange = () => {
+        toggleDarkMode();
+    };
+
     return (
-        <DarkLightModeSwitch sx={{ m: 1 }} defaultChecked />
+        <DarkLightModeSwitch
+            sx={{ m: 1 }}
+            checked={isDarkMode} // Use the isDarkMode value here
+            onChange={handleDarkModeChange}
+        />
     )
 }
 

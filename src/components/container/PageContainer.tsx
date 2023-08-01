@@ -1,5 +1,5 @@
 "use client"
-// import { Helmet } from 'react-helmet';
+import { Box } from '@mui/material';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 type Props = {
@@ -8,16 +8,18 @@ type Props = {
   title?: string;
 };
 
-const PageContainer = ({ title, description, children }: Props) => (
-  <HelmetProvider>
-    <div color='primary'>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-      </Helmet>
-      {children}
-    </div>
-  </HelmetProvider>
-);
+const PageContainer = ({ title, description, children } : Props) => {
+  return (
+    <HelmetProvider>
+      <div>
+        <Helmet>
+          <title>{title}</title>
+          <meta name="description" content={description} />
+        </Helmet>
+        {children}
+      </div>
+    </HelmetProvider>
+  );
+};
 
 export default PageContainer;

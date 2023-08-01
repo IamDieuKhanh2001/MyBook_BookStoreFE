@@ -1,6 +1,6 @@
 "use client"
 
-import { useMediaQuery, Box, Drawer } from '@mui/material';
+import { useMediaQuery, Box, Drawer, useTheme} from '@mui/material';
 import Logo from '../shared/logo/Logo';
 import SidebarItems from './SidebarItems';
 
@@ -11,6 +11,7 @@ interface ItemType {
 }
 
 const Sidebar = ({ isMobileSidebarOpen, onSidebarClose, isSidebarOpen }: ItemType) => {
+  const theme = useTheme();
 
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("lg"));
 
@@ -35,6 +36,7 @@ const Sidebar = ({ isMobileSidebarOpen, onSidebarClose, isSidebarOpen }: ItemTyp
             sx: {
               width: sidebarWidth,
               boxSizing: 'border-box',
+              background: theme.palette.primary.main,
             },
           }}
         >
@@ -75,6 +77,7 @@ const Sidebar = ({ isMobileSidebarOpen, onSidebarClose, isSidebarOpen }: ItemTyp
         sx: {
           width: sidebarWidth,
           boxShadow: (theme) => theme.shadows[8],
+          background: theme.palette.primary.main,
         },
       }}
     >

@@ -120,7 +120,7 @@ const CategoriesCrudPage = () => {
                                             </Button>
                                         </TableCell>
                                         <TableCell align="right">
-                                            <Button size="small">
+                                            <Button color='info' size="small">
                                                 <IconEdit />
                                             </Button>
                                         </TableCell>
