@@ -4,6 +4,7 @@ import { styled, Container, Box } from "@mui/material";
 
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
+import { useTheme } from '@mui/material/styles';
 
 //Layout với đầy đủ component sidebar, heading
 //Sử dụng bằng phương thức getLayout
@@ -30,9 +31,14 @@ const FullLayout: React.FC<Props> = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   // const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+  const theme = useTheme();
 
   return (
-    <MainWrapper className="mainwrapper">
+    <MainWrapper className="mainwrapper"
+      style={{
+        backgroundColor: theme.palette.primary.dark,
+      }}
+    >
       {/* ------------------------------------------- */}
       {/* Sidebar */}
       {/* ------------------------------------------- */}

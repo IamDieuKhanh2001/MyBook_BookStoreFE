@@ -12,11 +12,14 @@ import {
   ListItemIcon,
   ListItemText,
   Badge,
+  useTheme,
+  styled
 } from "@mui/material";
 
 import { IconListCheck, IconMail, IconUser } from "@tabler/icons-react";
 
 const Profile = () => {
+  const theme = useTheme();
   const [anchorEl2, setAnchorEl2] = useState(null);
   const handleClick2 = (event: any) => {
     setAnchorEl2(event.currentTarget);
@@ -24,7 +27,21 @@ const Profile = () => {
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
-
+  //styled component
+  const StyledMenuItem = styled(MenuItem)(() => ({
+    color: theme.palette.text.secondary,
+    '&:hover': {
+      background: theme.palette.secondary.main,         
+      color: theme.palette.grey[100],
+    },
+  }));
+  const StyledListItemIcon  = styled(ListItemIcon)(() => ({
+    color: theme.palette.text.secondary,
+  '&.MuiListItem:hover &': {
+    background: theme.palette.secondary.main,         
+    color: theme.palette.grey[100],
+  },
+  }));
   return (
     <Box>
       <IconButton
@@ -35,7 +52,7 @@ const Profile = () => {
         aria-haspopup="true"
         sx={{
           ...(typeof anchorEl2 === "object" && {
-            color: "primary.main",
+            color: theme.palette.text.secondary,
           }),
         }}
         onClick={handleClick2}
@@ -80,24 +97,24 @@ const Profile = () => {
           },
         }}
       >
-        <MenuItem>
-          <ListItemIcon>
+        <StyledMenuItem>
+          <StyledListItemIcon>
             <IconUser width={20} />
-          </ListItemIcon>
+          </StyledListItemIcon>
           <ListItemText>My Profile</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
+        </StyledMenuItem>
+        <StyledMenuItem>
+          <StyledListItemIcon>
             <IconMail width={20} />
-          </ListItemIcon>
+          </StyledListItemIcon>
           <ListItemText>Email</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
+        </StyledMenuItem>
+        <StyledMenuItem>
+          <StyledListItemIcon>
             <IconListCheck width={20} />
-          </ListItemIcon>
+          </StyledListItemIcon>
           <ListItemText>My Tasks</ListItemText>
-        </MenuItem>
+        </StyledMenuItem>
         <Box mt={1} py={1} px={2}>
           <Button
             href="/authentication/login"

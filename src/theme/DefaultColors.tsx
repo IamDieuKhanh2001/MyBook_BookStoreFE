@@ -5,9 +5,9 @@ const baselightTheme = createTheme({
   direction: "ltr",
   palette: {
     primary: {
-      main: "#5D87FF",
+      main: "#e6e6ed",
       light: "#fff",
-      dark: "#4570EA",
+      dark: "#d7e1ea",
     },
     secondary: {
       main: "#111",
@@ -47,8 +47,8 @@ const baselightTheme = createTheme({
       600: "#2A3547",
     },
     text: {
-      primary: "#2A3547",
-      secondary: "#5A6A85",
+      primary: "#5A6A85",
+      secondary: "#91979e",
     },
     action: {
       disabledBackground: "rgba(73,82,88,0.12)",
@@ -192,8 +192,63 @@ const baseDarkTheme = createTheme({
     divider: '#bdbdbd',
   },
   typography: {
-    fontFamily: "'Roboto', sans-serif;",
-    // Các khai báo typography khác cho dark mode nếu cần
+    fontFamily: "'Plus Jakarta Sans', sans-serif;",
+    h1: {
+      fontWeight: 600,
+      fontSize: "2.25rem",
+      lineHeight: "2.75rem",
+      fontFamily: "'Plus Jakarta Sans', sans-serif;",
+    },
+    h2: {
+      fontWeight: 600,
+      fontSize: "1.875rem",
+      lineHeight: "2.25rem",
+      fontFamily: "'Plus Jakarta Sans', sans-serif;",
+    },
+    h3: {
+      fontWeight: 600,
+      fontSize: "1.5rem",
+      lineHeight: "1.75rem",
+      fontFamily: "'Plus Jakarta Sans', sans-serif;",
+    },
+    h4: {
+      fontWeight: 600,
+      fontSize: "1.3125rem",
+      lineHeight: "1.6rem",
+    },
+    h5: {
+      fontWeight: 600,
+      fontSize: "1.125rem",
+      lineHeight: "1.6rem",
+    },
+    h6: {
+      fontWeight: 600,
+      fontSize: "1rem",
+      lineHeight: "1.2rem",
+    },
+    button: {
+      textTransform: "capitalize",
+      fontWeight: 400,
+    },
+    body1: {
+      fontSize: "0.875rem",
+      fontWeight: 400,
+      lineHeight: "1.334rem",
+    },
+    body2: {
+      fontSize: "0.75rem",
+      letterSpacing: "0rem",
+      fontWeight: 400,
+      lineHeight: "1rem",
+    },
+    subtitle1: {
+      fontSize: "0.875rem",
+      fontWeight: 400,
+    },
+    subtitle2: {
+      fontSize: "0.875rem",
+      fontWeight: 400,
+    },
   },
   components: {
     MuiCssBaseline: {

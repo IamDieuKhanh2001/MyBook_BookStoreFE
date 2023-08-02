@@ -1,20 +1,17 @@
 "use client"
 
-import React, { ReactNode } from 'react'
-import { ThemeProvider } from "@mui/material/styles";
-import { baseDarkTheme, baselightTheme } from '@/theme/DefaultColors';
+import React, { ReactNode, useContext } from 'react'
+import { ThemeContext, ThemeProvider } from '@/context/ThemeContext';
 
 interface Props {
     children: ReactNode
 }
 const providers = ({ children }: Props) => {
-    const theme = baselightTheme;
-    // const theme = baseDarkTheme;
 
     return (
         <React.Fragment>
-            <ThemeProvider theme={theme}>
-                {children}
+            <ThemeProvider>
+                    {children}
             </ThemeProvider>
         </React.Fragment>
     )

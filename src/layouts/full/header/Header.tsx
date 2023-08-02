@@ -31,9 +31,10 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
   const ToolbarStyled = styled(Toolbar)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
-
   return (
-    <AppBarStyled position="sticky" color="default">
+    <AppBarStyled position="sticky"
+      style={{ background: theme.palette.primary.main }}
+    >
       <ToolbarStyled>
         <IconButton
           color="inherit"
@@ -90,7 +91,7 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
         <Stack spacing={1} direction="row" alignItems="center">
           <Button
             startIcon={<IconBellRinging />}
-            style={{background: theme.palette.secondary.main }}
+            color="secondary"            
             size='small' disableElevation variant="contained" href="">
             Chức năng 1
           </Button>
