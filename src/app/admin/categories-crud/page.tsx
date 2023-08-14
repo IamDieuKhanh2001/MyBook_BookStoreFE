@@ -15,13 +15,14 @@ import PageContainer from '@/components/container/PageContainer';
 import DashboardCard from '@/components/shared/DashboardCard';
 import { categories as categoriesSample } from '../../../SampleData/categories'
 import Link from "next/link";
-import { APIGetAllCategory } from '@/lib/axios/api/categoryAPI';
 import { APIUserLogin } from '@/lib/axios/api/accountAPI';
 import UpdateModal from '@/components/categoryCRUD/update.modal';
+import { useCustomSWR } from '@/lib/swr/useCustomSWR';
+import { toast } from 'react-toastify';
 
 const CategoriesCrudPage = () => {
     const [categorySelected, setCategorySelected] = useState<ICategory | null>(null);
-    const { data, mutate, isLoading, isError } = APIGetAllCategory();
+
     const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
     const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
     // const LoadCategoryList = async () => {
@@ -29,8 +30,14 @@ const CategoriesCrudPage = () => {
     //     console.log(res)
     //     setCategories(res.data)
     // }
+    const headersCategoryAPI = {
+        Authorization: `new header`
+    }
+    const { data, mutate, isLoading, isError } = useCustomSWR(`/api/Loai`, undefined, headersCategoryAPI);
+
     const handleDelete = async (id: string) => {
         alert("delete id" + id)
+        toast.success("delete success id" + id)
     };
     return (
         <PageContainer title='Categories CRUD' description='My CRUD Operation for categories'>

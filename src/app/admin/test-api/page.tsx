@@ -5,16 +5,19 @@ import PageContainer from '@/components/container/PageContainer';
 import DashboardCard from '@/components/shared/DashboardCard';
 import { APIGetTestAdmin } from '@/lib/axios/api/testAPI';
 import { useSession } from 'next-auth/react';
+import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
+import { toast } from 'react-toastify';
 
 const TestPage = () => {
     const { data: session } = useSession();
+    const axiosAuth = useAxiosAuth();
 
     const LoadGetTestAPIAdmin = async () => {
         try {
-            const res = await APIGetTestAdmin();
-            console.log(res)
-        } catch (e) {
-            console.log(">>>>>Fetch fail ", e)
+            const response = await axiosAuth.get(`/api/Test/Admin`);
+            console.log(response)
+        } catch (error) {
+            console.log(">>>>>>", error);
         }
     }
 
@@ -31,7 +34,7 @@ const TestPage = () => {
                                 Tên tk:{session?.user.userInfo?.userName}
                             </Typography>
                             <Typography variant="body1" sx={{ color: (theme) => theme.palette.success.main }}>
-                                jwt:{session?.user.jwtToken}
+                                {session?.user.jwtToken}
                             </Typography>
                             <Typography variant="body1" sx={{ color: (theme) => theme.palette.success.main }}>
                                 ROLE name: {session?.user.userInfo?.roles[0].roleName}
@@ -46,6 +49,13 @@ const TestPage = () => {
                     )}
                     <Button size='large' variant="contained" disableElevation color="secondary" onClick={() => LoadGetTestAPIAdmin()}>
                         Fetch api admin
+                    </Button>
+                    <Button size='large' variant="contained" disableElevation color="secondary" 
+                    onClick={() => {
+                        toast.success("success")
+                    }}
+                    >
+                        show toast
                     </Button>
                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.success.main }}>
                         Kiểm tra console

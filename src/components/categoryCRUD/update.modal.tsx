@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 import CustomTextField from '../forms/theme-elements/CustomTextField';
 import { APIGetAllCategory, APIUpdateCategory } from '@/lib/axios/api/categoryAPI';
 import { useSession } from 'next-auth/react';
+import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
+import { toast } from 'react-toastify';
 
 interface FormValues {
     maLoai: string;
@@ -22,6 +24,7 @@ const UpdateModal = (props: IProps) => {
     const theme = useTheme();
     const { data: session } = useSession();
     const { mutate } = APIGetAllCategory();
+    const axiosAuth = useAxiosAuth();
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -56,11 +59,20 @@ const UpdateModal = (props: IProps) => {
     }
     const handleSubmit = async (values: FormValues) => {
         try {
-            const res = await APIUpdateCategory(values.maLoai, values.tenLoai, session);
+            const url = `/api/Loai/${values?.maLoai}`;
+            const body = {
+                maLoai: values?.maLoai,
+                tenLoai: values?.tenLoai,
+            };
+            const res = await axiosAuth.put(url, body);
             console.log(res)
             mutate()
+            handleCloseModal()
+            toast.success("update loai complete id: " + values?.maLoai)
         } catch (e) {
+            console.log("Something when wrong, Please try again!")
             console.log("fetch fail")
+            toast.error("Something when wrong, Please try again!")
         }
     };
     return (

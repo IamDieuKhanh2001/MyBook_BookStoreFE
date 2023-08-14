@@ -10,9 +10,13 @@ const BASE_URL = "http://localhost:5140"; // https://localhost:7140;
 
 import axios from "axios";
 import axiosRetry from "axios-retry";
-import { requestErrorInterceptor, requestInterceptor, responseErrorInterceptor, responseInterceptor } from "./axiosInterceptors";
 
-export const axiosClient = axios.create({ //axios instance create
+export default axios.create({
+    //default instance axios config for axios calling
+    baseURL: BASE_URL,
+    headers: { "Content-Type": "application/json" },
+});
+export const axiosAuth = axios.create({ //axios instance create
     //Stater config for axios calling
     baseURL: BASE_URL,
     headers: { "Content-Type": "application/json" },
@@ -24,7 +28,7 @@ const retryDelay = (retryNumber = 0) => {
 };
 
 // Axios will retry for error responses
-axiosRetry(axiosClient, {
+axiosRetry(axiosAuth, {
     retries: 1, //retry 1 time after fail (404, 500, ... etc)
     retryDelay,
     retryCondition: (error) => {
@@ -33,7 +37,7 @@ axiosRetry(axiosClient, {
     },
 });
 // Thêm interceptor để gọi API với access token và xử lý refresh token
-axiosClient.interceptors.request.use(requestInterceptor, requestErrorInterceptor);
+// axiosClient.interceptors.request.use(requestInterceptor, requestErrorInterceptor);
 // axiosClient.interceptors.request.use(
 //     async (config) => {
 //         const session = await getSession();
@@ -47,7 +51,7 @@ axiosClient.interceptors.request.use(requestInterceptor, requestErrorInterceptor
 //     }
 // );
 // Thêm interceptor để xử lý lỗi 401 và refresh token
-axiosClient.interceptors.response.use(responseInterceptor, responseErrorInterceptor);
+// axiosClient.interceptors.response.use(responseInterceptor, responseErrorInterceptor);
 
 // axiosClient.interceptors.response.use(
 //     (response) => response,

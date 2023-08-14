@@ -1,7 +1,10 @@
+"use client"
 import FullLayout from '@/layouts/full/FullLayout'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Providers from "./providers";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,6 +28,18 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
+        <ToastContainer
+          // position="bottom-center"
+          // autoClose={5000}
+          // hideProgressBar={false}
+          // newestOnTop={false}
+          // closeOnClick
+          // rtl={false}
+          // pauseOnFocusLoss
+          // draggable
+          // pauseOnHover
+          // theme="light"
+        />
       </body>
     </html>
   )

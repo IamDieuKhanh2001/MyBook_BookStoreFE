@@ -1,14 +1,32 @@
 "use client"
 
-import { Typography } from "@mui/material";
+import { CardContent, Grid, Typography } from "@mui/material";
 import { signIn, signOut, useSession } from "next-auth/react";
-import React from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+import React, { useEffect } from 'react'
 
 const TestPage = () => {
-    const { data: session } = useSession();
+    const { data: session, update } = useSession();
+    const searchParams = useSearchParams();
+    const sessionIsExpired = searchParams ? searchParams.get("sessionIsExpired") === "true" : false;
 
     return (
         <div className="bg-gradient-to-b from-cyan-50 to-cyan-200 p-2 flex gap-5 ">
+            {/* {encodedSessionIsExpired} */}
+            {sessionIsExpired === true && (
+                <Grid item sm={12}>
+                    <CardContent>
+                        <Typography variant="h5" sx={{ color: (theme) => theme.palette.warning.main }}>
+                            Your Session Has Been expired
+                        </Typography>
+
+                        <Typography variant="body1" sx={{ color: (theme) => theme.palette.warning.main }}>
+                            Sorry, please login again!
+                        </Typography>
+                    </CardContent>
+                </Grid>
+            )}
+            {sessionIsExpired}
             <Typography>Sample for login with next auth, will be delete in future</Typography>
             <h1>Status: {session?.user ? ("Is Login") : ("not login")}</h1>
             {session?.user ? (
@@ -39,6 +57,18 @@ const TestPage = () => {
                         <button className="text-red-500" onClick={() => signOut()}>
                             Sign Out
                         </button>
+                        <button onClick={async () => {
+                            if (session) {
+                                await update({
+                                    ...session,
+                                    user: {
+                                        ...session?.user,
+                                        jwtToken: "new jwt",
+                                        refreshToken: "new refresh",
+                                    }
+                                })
+                            }
+                        }}>add new token</button>
                     </>
                 ) : (
                     <button className="text-green-600" onClick={() => signIn()}>

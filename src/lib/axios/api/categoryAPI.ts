@@ -1,5 +1,5 @@
 import { useCustomSWR } from "@/lib/swr/useCustomSWR";
-import { axiosClient } from "../axiosClient";
+import { axiosAuth } from "../axiosAuth";
 import { AxiosResponse } from 'axios';
 import { Session } from "next-auth";
 import useSWR from 'swr';
@@ -35,7 +35,7 @@ export const APIUpdateCategory = async (maLoai: string, tenLoai: string, session
   //   Authorization: `Bearer ${session?.user?.jwtToken || 'Bearer'}`
   // }
   try {
-    const response = await axiosClient.put(url, body);
+    const response = await axiosAuth.put(url, body);
     return response;
   } catch (error) {
     console.log("Can't call API after 2 retries", error);
