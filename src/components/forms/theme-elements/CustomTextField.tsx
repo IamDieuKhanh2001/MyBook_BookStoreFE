@@ -6,11 +6,13 @@ import { TextField } from '@mui/material';
 
 const CustomTextField = styled((props: any) => <TextField {...props} />)(({ theme }) => ({
   '& .MuiOutlinedInput-input::-webkit-input-placeholder': {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
+    background: theme.palette.primary.dark,
     opacity: '0.8',
   },
   '& .MuiOutlinedInput-input.Mui-disabled::-webkit-input-placeholder': {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
+    background: theme.palette.primary.dark,
     opacity: '1',
   },
   '& .Mui-disabled .MuiOutlinedInput-notchedOutline': {

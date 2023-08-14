@@ -1,7 +1,8 @@
 "use client"
 
-import React, { ReactNode, useContext } from 'react'
-import { ThemeContext, ThemeProvider } from '@/context/ThemeContext';
+import React, { ReactNode } from 'react';
+import { SessionProvider } from 'next-auth/react'
+import { ThemeProvider } from '@/context/ThemeContext';
 
 interface Props {
     children: ReactNode
@@ -10,11 +11,12 @@ const providers = ({ children }: Props) => {
 
     return (
         <React.Fragment>
-            <ThemeProvider>
+            <SessionProvider>
+                <ThemeProvider>
                     {children}
-            </ThemeProvider>
+                </ThemeProvider>
+            </SessionProvider>
         </React.Fragment>
     )
 }
-
 export default providers
