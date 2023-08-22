@@ -10,7 +10,7 @@ import {
     Button,
     Grid,
 } from '@mui/material';
-import { IconEye, IconEdit, IconTrash } from '@tabler/icons-react';
+import { IconEye, IconEdit, IconTrash, IconPlus } from '@tabler/icons-react';
 import PageContainer from '@/components/container/PageContainer';
 import DashboardCard from '@/components/shared/DashboardCard';
 import { categories as categoriesSample } from '../../../SampleData/categories'
@@ -19,25 +19,42 @@ import { APIUserLogin } from '@/lib/axios/api/accountAPI';
 import UpdateModal from '@/components/categoryCRUD/update.modal';
 import { useCustomSWR } from '@/lib/swr/useCustomSWR';
 import { toast } from 'react-toastify';
+import CreateModal from '@/components/categoryCRUD/create.modal';
+import { useConfirm } from 'material-ui-confirm';
+import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
 
 const CategoriesCrudPage = () => {
     const [categorySelected, setCategorySelected] = useState<ICategory | null>(null);
 
     const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
     const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
-    // const LoadCategoryList = async () => {
-    //     const res = await APIGetAllCategory();
-    //     console.log(res)
-    //     setCategories(res.data)
-    // }
+    const confirm = useConfirm();
+    const axiosAuth = useAxiosAuth();
+
     const headersCategoryAPI = {
         Authorization: `new header`
     }
     const { data, mutate, isLoading, isError } = useCustomSWR(`/api/Loai`, undefined, headersCategoryAPI);
 
     const handleDelete = async (id: string) => {
-        alert("delete id" + id)
-        toast.success("delete success id" + id)
+        confirm({
+            title: 'Đồng ý xóa ?',
+            description: 'Bạn có chắc chắn muốn thực hiện hành động này?',
+        })
+            .then(async () => {
+                // Thực hiện hành động xóa api ở đây
+                try {
+                    const url = `/api/Loai/${id}`;
+                    const res = await axiosAuth.delete(url);
+                    console.log(res)
+                    mutate()
+                    toast.success(`delete loai id: ${id}`)
+                } catch (e) {
+                    console.log("Something when wrong, Please try again!")
+                    console.log("fetch fail")
+                    toast.error("Something when wrong, Please try again!")
+                }
+            })
     };
     return (
         <PageContainer title='Categories CRUD' description='My CRUD Operation for categories'>
@@ -48,6 +65,17 @@ const CategoriesCrudPage = () => {
                         subtitle='Manage category'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
+                            <Button
+                                startIcon={<IconPlus />}
+                                color="success"
+                                size='small'
+                                disableElevation
+                                variant="contained"
+                                onClick={() => {
+                                    setShowModalCreate(true);
+                                }}>
+                                Add new
+                            </Button>
                             <Table
                                 aria-label="simple table"
                                 sx={{
@@ -164,6 +192,10 @@ const CategoriesCrudPage = () => {
                     setShowModalUpdate={setShowModalUpdate}
                     categorySelected={categorySelected}
                     setCategorySelected={setCategorySelected}
+                />
+                <CreateModal
+                    showModalCreate={showModalCreate}
+                    setShowModalCreate={setShowModalCreate}
                 />
 
                 {/* Grid example */}

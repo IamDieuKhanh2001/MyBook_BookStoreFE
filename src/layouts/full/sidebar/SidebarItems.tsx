@@ -5,10 +5,11 @@ import Menuitems from './MenuItems';
 import { Box, List } from '@mui/material';
 import NavItem from './NavItem';
 import NavGroup from './NavGroup/NavGroup';
+import { usePathname } from 'next/navigation'
 
 const SidebarItems = ({ toggleMobileSidebar }: any) => {
-  // const currentPathname = usePathName();
-  const pathDirect = "current path name"; //Not edit yet
+  let currentPathname = usePathname();
+  const pathDirect = currentPathname !== null ? currentPathname : ''; //edit path
 
   return (
     <Box sx={{ px: 3 }}>

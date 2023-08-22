@@ -8,6 +8,7 @@ import { APIGetAllCategory, APIUpdateCategory } from '@/lib/axios/api/categoryAP
 import { useSession } from 'next-auth/react';
 import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
 import { toast } from 'react-toastify';
+import { useCustomSWR } from '@/lib/swr/useCustomSWR';
 
 interface FormValues {
     maLoai: string;
@@ -23,7 +24,7 @@ const UpdateModal = (props: IProps) => {
     const { showModalUpdate, setShowModalUpdate, categorySelected, setCategorySelected } = props;
     const theme = useTheme();
     const { data: session } = useSession();
-    const { mutate } = APIGetAllCategory();
+    const { mutate } = useCustomSWR(`/api/Loai`);
     const axiosAuth = useAxiosAuth();
 
     const style = {
