@@ -8,11 +8,11 @@ export default withAuth(
 
     if (req.nextUrl.pathname.startsWith("/admin") && (req.nextauth.token as any)?.userInfo.roles[0].roleName !== "Admin")
       return NextResponse.rewrite(
-        new URL("/404", req.url)
+        new URL("/404", req.url) //Not admin redirect to 404
       );
     if (req.nextUrl.pathname.startsWith("/user") && (req.nextauth.token as any)?.userInfo.roles[0].roleName !== "Member")
       return NextResponse.rewrite(
-        new URL("/404", req.url)
+        new URL("/404", req.url) //Not Member redirect to 404
       );
   },
   {
