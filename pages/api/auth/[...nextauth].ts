@@ -22,14 +22,6 @@ export const authOptions: AuthOptions = {
             async authorize(credentials, req) {
                 try {
                     process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0"; // disable self-signed certificate
-                    // const res = await fetch("https://localhost:7140/api/Account/signIn", {
-                    //     method: 'POST',
-                    //     body: JSON.stringify({
-                    //         email: credentials?.email,
-                    //         password: credentials?.password,
-                    //     }),
-                    //     headers: { "Content-Type": "application/json" }
-                    // });
                     const res = await APIUserLogin(credentials?.email, credentials?.password)
                     const user = res.data;
 
@@ -50,18 +42,21 @@ export const authOptions: AuthOptions = {
         }),
     ],
     callbacks: {
-        async jwt({ token, user, account , trigger, session}) {
-            // console.log({ account });
-            if(trigger === "update") {
+        async jwt({ token, user, account, trigger, session }) {
+            if (trigger === "update") {
                 return { ...token, ...session.user };
             }
             return { ...token, ...user };
         },
         async session({ session, token, user }) {
-            session.user = token as any;
+            session.user = token as any; // same type as session user
 
             return session;
         },
+    },
+    secret: process.env.JWT_SECRET,
+    pages: {
+        signIn: "/authentication/login",
     },
 };
 export default NextAuth(authOptions);

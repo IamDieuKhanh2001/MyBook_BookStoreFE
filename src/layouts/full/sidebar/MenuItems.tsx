@@ -11,13 +11,19 @@ import { uniqueId } from 'lodash';
 const Menuitems = [
   {
     navlabel: true,
-    subheader: 'CRUD Operations',
+    subheader: 'CRUD Operations demo',
   },
   {
     id: uniqueId(),
     title: 'Categories CRUD',
     icon: IconCategory,
     href: '/admin/categories-crud',
+  },
+  {
+    id: uniqueId(),
+    title: 'Product CRUD',
+    icon: IconCategory,
+    href: '/admin/product-crud',
   },
   {
     navlabel: true,

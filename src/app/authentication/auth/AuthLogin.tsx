@@ -12,6 +12,8 @@ import {
   Button,
   Stack,
   Checkbox,
+  AlertTitle,
+  Alert,
 } from "@mui/material";
 import Link from "next/link";
 import dynamic from 'next/dynamic'
@@ -19,47 +21,56 @@ import dynamic from 'next/dynamic'
 //   ssr: false
 // })
 import CustomTextField from '../../../components/forms/theme-elements/CustomTextField';
+import { useTheme } from '@mui/material/styles';
+import { toast } from "react-toastify";
+import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 
 interface FormValues {
-  username: string;
+  email: string;
   password: string;
 }
 
-interface loginType {
+interface loginProps {
   title?: string;
   subtitle?: JSX.Element | JSX.Element[];
   subtext?: JSX.Element | JSX.Element[];
+  isLoading: Boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<Boolean>>;
 }
 
-const AuthLogin = ({ title, subtitle, subtext, setIsLoading }: loginType) => {
-
+const AuthLogin = ({ title, subtitle, subtext, isLoading, setIsLoading }: loginProps) => {
+  const theme = useTheme();
+  const searchParams = useSearchParams();
+  const isError = searchParams && searchParams.get('error') === "CredentialsSignin" ? true : false;
+  const isSessionExpired = searchParams ? searchParams.get("isSessionExpired") === "true" : false;
   const initialValues: FormValues = {
-    username: '',
+    email: '',
     password: '',
   };
 
   const validationSchema = Yup.object({
-    username: Yup.string()
-      .max(50, "Username must be <= 50 characters")
-      .required("username not be empty"),
+    email: Yup.string()
+      .required("email not be empty"),
     password: Yup.string().required("Password not be empty"),
   });
 
-  const handleSubmit = (values: FormValues) => {
+  const handleSubmit = async (values: FormValues) => {
     try {
       // Xử lý logic khi form được submit
-      alert("Login with" + values.username + " " + values.password)
+      toast.warning("Login with" + values.email)
       setIsLoading(true);
-
-      // Thực hiện công việc bất đồng bộ (ví dụ: fetch data, gửi request, ...)
-      // Sau khi hoàn thành công việc, thay đổi trạng thái isLoading lại thành false
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 4000);
-
+      const result = await signIn("credentials", {
+        email: values?.email,
+        password: values?.password,
+        redirect: true,
+        callbackUrl: "/",
+      });
+      setIsLoading(false);
     } catch (e) {
       console.log(e)
+      setIsLoading(false);
+      toast.error("Can not Login with" + values.email)
     }
   };
 
@@ -70,8 +81,19 @@ const AuthLogin = ({ title, subtitle, subtext, setIsLoading }: loginType) => {
           {title}
         </Typography>
       ) : null}
-
       {subtext}
+      {isError === true && (
+        <Alert severity="error" >
+          <AlertTitle>Login Error!</AlertTitle>
+          Something went wrong — <strong>Please try again!</strong>
+        </Alert>
+      )}
+      {isSessionExpired === true && (
+        <Alert severity="warning" >
+          <AlertTitle>Session Has expired!</AlertTitle>
+          Your session not available — <strong>Please login again!</strong>
+        </Alert>
+      )}
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -85,22 +107,26 @@ const AuthLogin = ({ title, subtitle, subtext, setIsLoading }: loginType) => {
                   variant="subtitle1"
                   fontWeight={600}
                   component="label"
-                  htmlFor="username"
+                  htmlFor="email"
                   mb="5px"
                 >
                   Username
                 </Typography>
-                <CustomTextField
-                  id={"username"}
-                  name={"username"}
+                <Field
+                  as={CustomTextField}
+                  id={"email"}
+                  name={"email"}
                   variant="outlined"
                   onChange={handleChange}
                   fullWidth
+                  InputProps={{
+                    style: { color: '#000' }, // Màu chữ đen
+                  }}
                 />
                 {/* <ErrorMessage name="username" component="div" /> */}
-                {errors.username && touched.username && (
+                {errors.email && touched.email && (
                   <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
-                    {errors.username}
+                    {errors.email}
                   </Typography>
                 )}
               </Box>
@@ -114,13 +140,17 @@ const AuthLogin = ({ title, subtitle, subtext, setIsLoading }: loginType) => {
                 >
                   Password
                 </Typography>
-                <CustomTextField
+                <Field
+                  as={CustomTextField}
                   id={"password"}
                   name="password"
                   type="password"
                   onChange={handleChange}
                   variant="outlined"
                   fullWidth
+                  InputProps={{
+                    style: { color: '#000' }, // Màu chữ đen
+                  }}
                 />
                 {/* <ErrorMessage name="password" component="div" /> */}
                 {errors.password && touched.password && (
@@ -166,10 +196,10 @@ const AuthLogin = ({ title, subtitle, subtext, setIsLoading }: loginType) => {
                 size="large"
                 fullWidth
                 type="submit"
-                disabled={isSubmitting}
+                disabled={!!isLoading}
               >
                 {
-                  isSubmitting ?
+                  isLoading ?
                     (<CircularProgress color="inherit" size={25} />)
                     :
                     "Sign In"

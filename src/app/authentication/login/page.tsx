@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React, { useState } from 'react'
 import { Grid, Box, Card, Stack, Typography } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
+import { useTheme } from '@mui/material/styles';
 
 // components
 import PageContainer from '@/components/container/PageContainer';
@@ -12,22 +13,23 @@ import AuthLogin from '../auth/AuthLogin';
 
 const Login2 = () => {
   const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const theme = useTheme();
+
   return (
     <>
       <PageContainer title="Login" description="this is Login page">
-      {isLoading && (
-        //Loading login submitting form
-        <Stack sx={{ width: '100%' }} spacing={0}>
-          <LinearProgress color="primary" />
-        </Stack>
-      )}
+        {isLoading && (
+          //Loading login submitting form
+          <Stack sx={{ width: '100%' }} spacing={0}>
+            <LinearProgress color="primary" />
+          </Stack>
+        )}
 
         <Box
           sx={{
             position: 'relative',
             '&:before': {
               content: '""',
-              background: 'radial-gradient(#d2f1df, #d3d7fa, #bad8f4)',
               backgroundSize: '400% 400%',
               animation: 'gradient 15s ease infinite',
               position: 'absolute',
@@ -48,7 +50,12 @@ const Login2 = () => {
               justifyContent="center"
               alignItems="center"
             >
-              <Card elevation={9} sx={{ p: 4, zIndex: 1, width: '100%', maxWidth: '500px' }}>
+              <Card elevation={9}
+                sx={{
+                  p: 4, zIndex: 1, width: '100%', maxWidth: '500px',
+                  // color: theme.palette.text.primary,
+                  // bgcolor: theme.palette.primary.light,
+                }}>
                 <Box display="flex" alignItems="center" justifyContent="center">
                   <Logo />
                 </Box>
@@ -76,6 +83,7 @@ const Login2 = () => {
                       </Typography>
                     </Stack>
                   }
+                  isLoading={isLoading}
                   setIsLoading={setIsLoading}
                 />
               </Card>

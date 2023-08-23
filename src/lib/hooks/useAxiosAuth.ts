@@ -38,7 +38,7 @@ const useAxiosAuth = () => {
                 console.log(res)
                 if (res && res.data.success === false && res.status === 200) {
                     console.log("redirect back to login success false")
-                    await signOut({ callbackUrl: '/authentication?sessionIsExpired=true' }); // clear session
+                    await signOut({ callbackUrl: '/authentication/login?isSessionExpired=true' }); // clear session
                 } else if (res && res.data.success === true && res.status === 200) {
                     console.log("change session current to new session jwt, success")
                     await update({
@@ -52,15 +52,15 @@ const useAxiosAuth = () => {
                     console.log("new session >> " + session)
                 } else {
                     console.log("Error occured, clear session, redirect login")
-                    await signOut({ callbackUrl: '/authentication?sessionIsExpired=true' }); // clear session
+                    await signOut({ callbackUrl: '/authentication/login?isSessionExpired=true' }); // clear session
                 }
             } catch (e) {
-                await signOut({ callbackUrl: '/authentication?sessionIsExpired=true' }); // clear session
+                await signOut({ callbackUrl: '/authentication/login?isSessionExpired=true' }); // clear session
                 console.log("redirect back to login catch error refresh")
                 console.log(">>>catch refresh error: " + e)
             }
         } else {
-            await signOut({ callbackUrl: '/authentication?sessionIsExpired=true' }); // clear session
+            await signOut({ callbackUrl: '/authentication/login?isSessionExpired=true' }); // clear session
             console.log("redirect back to login session undefined")
         }
     }

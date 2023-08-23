@@ -8,12 +8,12 @@ import React, { useEffect } from 'react'
 const TestPage = () => {
     const { data: session, update } = useSession();
     const searchParams = useSearchParams();
-    const sessionIsExpired = searchParams ? searchParams.get("sessionIsExpired") === "true" : false;
+    const isSessionExpired = searchParams ? searchParams.get("isSessionExpired") === "true" : false;
 
     return (
         <div className="bg-gradient-to-b from-cyan-50 to-cyan-200 p-2 flex gap-5 ">
             {/* {encodedSessionIsExpired} */}
-            {sessionIsExpired === true && (
+            {isSessionExpired === true && (
                 <Grid item sm={12}>
                     <CardContent>
                         <Typography variant="h5" sx={{ color: (theme) => theme.palette.warning.main }}>
@@ -26,7 +26,7 @@ const TestPage = () => {
                     </CardContent>
                 </Grid>
             )}
-            {sessionIsExpired}
+            {isSessionExpired}
             <Typography>Sample for login with next auth, will be delete in future</Typography>
             <h1>Status: {session?.user ? ("Is Login") : ("not login")}</h1>
             {session?.user ? (
