@@ -34,7 +34,6 @@ const DashboardCard = ({
     <Card
       sx={{
         padding: 0,
-        // boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.1)',
         boxShadow: '0px 0px 2px 0px rgba(145, 158, 171, 0.12), 0px 12px 24px -4px rgba(145, 158, 171, 0.12)',
       }}
       style={{ color: theme.palette.text.primary, background: theme.palette.primary.light }}

@@ -2,7 +2,7 @@
 
 import {
   IconAperture, IconCopy, IconLayoutDashboard, IconLogin, IconMoodHappy, IconTypography, IconUserPlus,
-  IconCategory
+  IconCategory,
 } from '@tabler/icons-react';
 
 import { uniqueId } from 'lodash';
@@ -11,13 +11,19 @@ import { uniqueId } from 'lodash';
 const Menuitems = [
   {
     navlabel: true,
-    subheader: 'CRUD Operations',
+    subheader: 'CRUD Operations demo',
   },
   {
     id: uniqueId(),
     title: 'Categories CRUD',
     icon: IconCategory,
     href: '/admin/categories-crud',
+  },
+  {
+    id: uniqueId(),
+    title: 'Product CRUD',
+    icon: IconCategory,
+    href: '/admin/product-crud',
   },
   {
     navlabel: true,
@@ -44,6 +50,16 @@ const Menuitems = [
     title: 'Register',
     icon: IconUserPlus,
     href: '/authentication/register',
+  },
+  {
+    navlabel: true,
+    subheader: 'Test page',
+  },
+  {
+    id: uniqueId(),
+    title: 'Test API',
+    icon: IconTypography,
+    href: '/admin/test-api',
   },
   {
     navlabel: true,

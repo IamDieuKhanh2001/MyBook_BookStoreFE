@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+"use client"
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const usePathName = () => {
   const router = useRouter();
-  const [pathname, setPathname] = useState(router.pathname);
+  const [currentPathname, setCurrentPathname] = useState(router.pathname);
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
-      setPathname(url);
+      setCurrentPathname(url);
     };
 
     router.events.on('routeChangeComplete', handleRouteChange);
@@ -17,7 +18,8 @@ const usePathName = () => {
     };
   }, [router]);
 
-  return pathname;
+  return currentPathname;
 };
 
 export default usePathName;
+
