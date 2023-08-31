@@ -7,7 +7,8 @@ import Sidebar from "./sidebar/Sidebar";
 import { useTheme } from '@mui/material/styles';
 
 //Layout với đầy đủ component sidebar, heading
-//Sử dụng bằng phương thức getLayout
+//Warp bên trong layout.tsx
+//Layout for Admin user
 const MainWrapper = styled("div")(() => ({
   display: "flex",
   minHeight: "100vh",
