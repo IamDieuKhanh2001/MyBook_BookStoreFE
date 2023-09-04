@@ -23,6 +23,7 @@ export default withAuth(
   }
 );
 
+//Allow access /admin/** path required login
 export const config = {
   matcher: ["/admin/:path*", "/user/:path*"],
 };

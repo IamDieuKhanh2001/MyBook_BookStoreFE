@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
-import SortBar from './SortBar'
 import ProductList from './ProductList'
+import SortSideBar from './SortSideBar'
 
 const Product = () => {
     return (
@@ -17,15 +17,17 @@ const Product = () => {
                                 <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
                             </div>
                         </div>
-                        <SortBar />
+                    </div>
+                    <div className='row'>
+                        <div className='col-xl-3 col-sm-12 filterProduct'>
+                            <SortSideBar />
+                        </div>
+                        <div className='col-xl-9 col-sm-12'>
+                            <ProductList />
+                        </div>
                     </div>
                     {/* Title End */}
-                    <ProductList />
                 </div>
-            </div>
-            <div className="col-12 text-center">
-                {/* Go to product list page  */}
-                <a className="btn btn-primary rounded-pill py-3 px-5" href="">Browse More Products</a>
             </div>
             {/* Product End */}
         </>

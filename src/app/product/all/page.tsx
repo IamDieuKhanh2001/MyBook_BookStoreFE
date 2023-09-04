@@ -1,10 +1,17 @@
+"use client"
+import ClientHeader from '@/components/ClientHeader/ClientHeader'
+import Product from '@/components/product/Product'
+import ClientLayout from '@/layouts/ClientLayout/ClientLayout'
 import React from 'react'
 
 const ProductListPage = () => {
   return (
-    <div>
-      <h1>Product ALL</h1>
-    </div>
+    <>
+      <ClientLayout>
+        <ClientHeader />
+        <Product />
+      </ClientLayout>
+    </>
   )
 }
 
