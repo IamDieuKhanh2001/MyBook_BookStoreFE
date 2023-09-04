@@ -50,7 +50,7 @@ const Testimonial = () => {
                         data-wow-delay="0.1s"
                     >
                         {testimonialList?.map((item, index) => (
-                            <div className="testimonial-item position-relative bg-white p-5 mt-4">
+                            <div key={index} className="testimonial-item position-relative bg-white p-5 mt-4">
                             <i className="fa fa-quote-left fa-3x text-primary position-absolute top-0 start-0 mt-n4 ms-5" />
                             <p className="mb-4">
                                 {item.content}
