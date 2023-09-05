@@ -59,11 +59,11 @@ const ProductDetail = () => {
                                     max={99}
                                     name="quantity"
                                     defaultValue={1}
-                                    value={quantity}
+                                    // value={quantity}
                                     title="Qty"
                                     inputMode="numeric" />
                                 <div className={`${styles.qtyNumber} qty-number-minus d-flex justify-content-center align-items-center text-center`}
-                                    onClick={handleDecreaseQuantity}
+                                    // onClick={handleDecreaseQuantity}
                                 >
                                     <IconMinus />
                                 </div>

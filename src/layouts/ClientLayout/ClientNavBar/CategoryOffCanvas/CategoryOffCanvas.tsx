@@ -10,7 +10,7 @@ const CategoryOffCanvas = () => {
             </div>
             <div className="offcanvas-body p-0">
                 <div className="d-flex align-items-start">
-                    <div className="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical" style={{
+                    <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical" style={{
                         flexGrow: 1,
                         width: '87px',
                         fontSize: '13px',
@@ -18,18 +18,16 @@ const CategoryOffCanvas = () => {
                     }}>
                         <button className="nav-link active"
                             id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
-                            <div>
-                                name category 111111111111
-                            </div>
+                            name category 1
                         </button>
                         <button className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
-                            The loai
+                            name category 2
                         </button>
                         <button className="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">
-                            The loai 3
+                            name category 3
                         </button>
                         <button className="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
-                            The loai 4
+                            name category 4
                         </button>
                     </div>
                     <div className="tab-content" id="v-pills-tabContent" style={{

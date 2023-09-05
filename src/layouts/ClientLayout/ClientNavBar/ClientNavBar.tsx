@@ -61,8 +61,8 @@ function ClientNavBar() {
                     >
                         <span className="navbar-toggler-icon" />
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarCollapse">
-                        <div className="navbar-nav ms-auto p-4 p-lg-0">
+                    <div className="collapse navbar-collapse h-100" id="navbarCollapse">
+                        <div className="navbar-nav ms-auto p-4 p-lg-0 align-items-lg-center">
                             <Link href={"#"} className={`nav-item nav-link`} data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
                                 <IconCategory />
                             </Link>
@@ -85,14 +85,18 @@ function ClientNavBar() {
                                     <Link href="/product/all" className="dropdown-item">
                                         product list
                                     </Link>
+                                    <Link href="/account" className='dropdown-item'>
+                                        Account
+                                    </Link>     
+                                    <Link href="/account/address" className='dropdown-item'>
+                                        Address CRUD
+                                    </Link>
                                     <Link href="/404" className='dropdown-item'>
                                         404 Page
                                     </Link>
                                 </div>
                             </div>
-                        </div>
-                        <div className="d-none d-lg-flex ms-2">
-                            <div className={`d-flex ${styles.searchField}`}>
+                            <div className={`d-flex  ${styles.searchField}`}>
                                 <input
                                     name={keyword}
                                     className={`${styles.searchBarInput}`}
@@ -103,12 +107,27 @@ function ClientNavBar() {
                                 <button
                                     className={`${styles.buttonSearch}`}
                                 >
-                                    <small className="fa fa-search text-body" />                                </button>
+                                    <small className="fa fa-search text-body" />
+                                </button>
                             </div>
-                            <Link className="btn-sm-square bg-white rounded-circle ms-3" href="">
-                                <small className="fa fa-user text-body" />
-                            </Link>
-                            <Link className="btn-sm-square bg-white rounded-circle ms-3" href="">
+                            <div className="nav-item dropdown">
+                                <Link className="nav-link dropdown-toggle btn-sm-square ms-3" href="">
+                                    <small className="fa fa-user text-body" />
+                                </Link>
+                                <div className="dropdown-menu m-0">
+                                    <Link href="" className="dropdown-item">
+                                        Login
+                                    </Link>
+                                    <Link href="" className="dropdown-item">
+                                        Register
+                                    </Link>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <Link href="" className="dropdown-item">
+                                        Logout
+                                    </Link>
+                                </div>
+                            </div>
+                            <Link className="btn-sm-square ms-3" href="">
                                 <small className="fa fa-shopping-bag text-body" />
                             </Link>
                         </div>

@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import ProductList from './ProductList'
 
@@ -5,7 +6,7 @@ const SortSideBar = () => {
     return (
         <>
             <div>
-                <h6 className="p-1 border-bottom">Home Furniture</h6>
+                <h6 className="p-1 border-bottom">Danh mục</h6>
                 <ul className='' style={{
                     listStyle: 'none',
                     padding: '5px',
