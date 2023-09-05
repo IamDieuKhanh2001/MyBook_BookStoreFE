@@ -8,7 +8,7 @@ interface BlankLayoutProps {
 }
 
 //Layout trống
-//Sử dụng bằng phương thức getLayout
+//Warp bên trong layout.tsx
 const BlankLayout = ({ children }: BlankLayoutProps) => {
   const theme = useTheme();
 

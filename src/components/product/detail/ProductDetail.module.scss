@@ -1,0 +1,17 @@
+.quantity {
+    input {
+        pointer-events: none;
+        color: black;
+        width: 40px;
+        height: 30px;
+        border: 1px solid gray;
+    }
+
+    .qtyNumber {
+        width: 40px;
+        height: 30px;
+        cursor: pointer;
+        border: 1px solid gray;
+        transition: .3s;
+    }
+}
