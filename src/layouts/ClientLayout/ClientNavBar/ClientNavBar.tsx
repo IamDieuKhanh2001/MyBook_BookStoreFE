@@ -1,6 +1,6 @@
-"use client"
+
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './ClientNavBar.module.scss'
 import CategoryOffCanvas from './CategoryOffCanvas/CategoryOffCanvas';
 import {
@@ -8,7 +8,6 @@ import {
 } from '@tabler/icons-react';
 
 function ClientNavBar() {
-    const [keyword, setKeyword] = useState("");
 
     return (
         <>
@@ -98,7 +97,7 @@ function ClientNavBar() {
                             </div>
                             <div className={`d-flex  ${styles.searchField}`}>
                                 <input
-                                    name={keyword}
+                                    name={"searchField"}
                                     className={`${styles.searchBarInput}`}
                                     id="inputEmailAddress"
                                     type="text"

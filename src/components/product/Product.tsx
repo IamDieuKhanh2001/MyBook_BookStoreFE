@@ -1,4 +1,3 @@
-"use client"
 import React from 'react'
 import ProductList from './ProductList'
 import SortSideBar from './SortSideBar'

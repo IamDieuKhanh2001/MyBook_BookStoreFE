@@ -1,4 +1,3 @@
-"use client"
 import AccountOverview from '@/components/account/AccountOverview'
 import React from 'react'
 

@@ -1,4 +1,3 @@
-"use client"
 import ClientHeader from '@/components/ClientHeader/ClientHeader';
 import AccountSideBar from '@/components/account/AccountSideBar';
 import ClientLayout from '@/layouts/ClientLayout/ClientLayout'

@@ -1,4 +1,3 @@
-"use client"
 import ClientHeader from '@/components/ClientHeader/ClientHeader'
 import ProductImgSlider from '@/components/ProductImgSlider/ProductImgSlider'
 import ProductDetail from '@/components/product/detail/ProductDetail'

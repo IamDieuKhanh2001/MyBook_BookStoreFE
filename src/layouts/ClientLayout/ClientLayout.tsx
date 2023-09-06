@@ -1,4 +1,3 @@
-"use client"
 import Script from "next/script";
 import React, { useState } from "react";
 import ClientNavBar from "./ClientNavBar/ClientNavBar";

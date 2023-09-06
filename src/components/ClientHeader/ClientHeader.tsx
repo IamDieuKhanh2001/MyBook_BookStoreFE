@@ -1,7 +1,10 @@
-"use client"
+
 import React from 'react'
 
-const ClientHeader = () => {
+interface ClientHeaderProps {
+    // Các props nếu có
+  }
+const ClientHeader: React.FC<ClientHeaderProps> = () => {
     return (
         <>
             {/* Page Header Start */}
