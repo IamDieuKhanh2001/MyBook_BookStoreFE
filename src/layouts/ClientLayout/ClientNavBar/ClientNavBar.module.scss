@@ -11,6 +11,7 @@
 .navbar {
 	.dropdownToggle {
 		&::after {
+			display: none;
 			border: none;
 			content: "\f107";
 			font-family: "Font Awesome 5 Free";

@@ -66,7 +66,7 @@ function ClientNavBar() {
                                 <IconCategory />
                             </Link>
                             <CategoryOffCanvas />
-                            <Link href="about.html" className={`${styles.navLink} ${styles.navItem} nav-item nav-link`}>
+                            <Link href="#" className={`${styles.navLink} ${styles.navItem} nav-item nav-link`}>
                                 About Us
                             </Link>
                             <div className={`${styles.navItem} nav-item dropdown`}>
@@ -109,8 +109,16 @@ function ClientNavBar() {
                                     <small className="fa fa-search text-body" />
                                 </button>
                             </div>
-                            <div className={`${styles.navItem} nav-item dropdown`}>
-                                <Link data-bs-toggle="dropdown" className={`${styles.navLink} ${styles.dropdownToggle} nav-link dropdown-toggle btn-sm-square ms-3`} href="">
+                            <div className={`${styles.navItem} dropdown`}>
+                                <Link data-bs-toggle="dropdown" className={`${styles.dropdownToggle} nav-link dropdown-toggle btn-sm-square ms-3`} href="">
+                                    <small className="fa fa-shopping-bag text-body" />
+                                </Link>
+                                <div className={`${styles.dropdownMenu} dropdown-menu m-0`}>
+                                    Cart
+                                </div>
+                            </div>
+                            <div className={`${styles.navItem} dropdown`}>
+                                <Link data-bs-toggle="dropdown" className={`${styles.dropdownToggle} nav-link dropdown-toggle btn-sm-square ms-3`} href="">
                                     <small className="fa fa-user text-body" />
                                 </Link>
                                 <div className={`${styles.dropdownMenu} dropdown-menu m-0`}>
@@ -126,9 +134,6 @@ function ClientNavBar() {
                                     </Link>
                                 </div>
                             </div>
-                            <Link className="btn-sm-square ms-3" href="">
-                                <small className="fa fa-shopping-bag text-body" />
-                            </Link>
                         </div>
                     </div>
                 </nav>
