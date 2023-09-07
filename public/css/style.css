@@ -6,14 +6,14 @@
     --dark: #111111;
 }
 
-.back-to-top {
+/* .back-to-top {
     position: fixed;
     display: none;
     right: 30px;
     bottom: 30px;
     z-index: 99;
-}
-
+} */
+/* 
 .my-6 {
     margin-top: 6rem;
     margin-bottom: 6rem;
@@ -27,11 +27,11 @@
 .bg-icon {
     background: url(../img/bg-icon.png) center center repeat;
     background-size: contain;
-}
+} */
 
 
 /*** Spinner ***/
-#spinner {
+/* #spinner {
     opacity: 0;
     visibility: hidden;
     transition: opacity .5s ease-out, visibility 0s linear .5s;
@@ -42,11 +42,11 @@
     transition: opacity .5s ease-out, visibility 0s linear 0s;
     visibility: visible;
     opacity: 1;
-}
+} */
 
 
 /*** Button ***/
-.btn {
+/* .btn {
     font-weight: 500;
     transition: .5s;
 }
@@ -81,11 +81,11 @@
     align-items: center;
     justify-content: center;
     font-weight: normal;
-}
+} */
 
 
 /*** Navbar ***/
-.fixed-top {
+/* .fixed-top {
     transition: .5s;
 }
 
@@ -144,11 +144,11 @@
         transition: .5s;
         opacity: 1;
     }
-}
+} */
 
 
-/*** Header ***/
-.carousel-caption {
+/*** carousel ***/
+/* .carousel-caption {
     top: 0;
     left: 0;
     right: 0;
@@ -186,9 +186,10 @@
         height: 100%;
         object-fit: cover;
     }
-}
+} */
 
-.page-header {
+/* client header  */
+/* .page-header {
     padding-top: 12rem;
     padding-bottom: 6rem;
     background: url(../img/carousel-1.jpg) top right no-repeat;
@@ -197,10 +198,10 @@
 
 .breadcrumb-item+.breadcrumb-item::before {
     color: #999999;
-}
+} */
 
 
-/*** Section Header ***/
+/*** Section Header (Our feature) ***/
 .section-header {
     position: relative;
     padding-top: 25px;
@@ -237,10 +238,10 @@
 
 
 /*** About ***/
-.about-img img {
+/* .about-img img {
     position: relative;
     z-index: 2;
-}
+} */
 
 /* .about-img::before {
     position: absolute;

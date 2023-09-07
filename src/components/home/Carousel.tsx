@@ -1,17 +1,17 @@
 
 import React from 'react'
+import styles from './Carousel.module.scss'
 
 const Carousel = () => {
     return (
         <>
-
             {/* Carousel Start */}
             <div className="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
                 <div id="header-carousel" className="carousel slide" data-bs-ride="carousel">
                     <div className="carousel-inner">
-                        <div className="carousel-item active">
+                        <div className={`${styles.carouselItem} carousel-item active`}>
                             <img className="w-100" src="img/carousel/carousel-item1.jpg" alt="Image" />
-                            <div className="carousel-caption">
+                            <div className={`${styles.carouselCaption} carousel-caption`}>
                                 <div className="container">
                                     <div className="row justify-content-start">
                                         <div className="col-lg-7">
@@ -23,9 +23,9 @@ const Carousel = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="carousel-item">
+                        <div className={`${styles.carouselItem} carousel-item`}>
                             <img className="w-100" src="img/carousel/carousel-item2.jpg" alt="Image" />
-                            <div className="carousel-caption">
+                            <div className={`${styles.carouselCaption} carousel-caption`}>
                                 <div className="container">
                                     <div className="row justify-content-start">
                                         <div className="col-lg-7">
@@ -38,12 +38,12 @@ const Carousel = () => {
                             </div>
                         </div>
                     </div>
-                    <button className="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
-                        <span className="carousel-control-prev-icon" aria-hidden="true" />
+                    <button className={`${styles.carouselControlPrev} carousel-control-prev`} type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
+                        <span className={`${styles.carouselControlPrevIcon} carousel-control-prev-icon`} aria-hidden="true" />
                         <span className="visually-hidden">Previous</span>
                     </button>
-                    <button className="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
-                        <span className="carousel-control-next-icon" aria-hidden="true" />
+                    <button className={`${styles.carouselControlNext} carousel-control-next`} type="button" data-bs-target="#header-carousel" data-bs-slide="next">
+                        <span className={`${styles.carouselControlNextIcon} carousel-control-next-icon`} aria-hidden="true" />
                         <span className="visually-hidden">Next</span>
                     </button>
                 </div>

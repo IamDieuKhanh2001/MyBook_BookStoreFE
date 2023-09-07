@@ -3,7 +3,7 @@ import { height } from "@mui/system";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import React, { useState } from 'react'
-import styles from './ProductImgSlider.module.css'
+import styles from './ProductImgSlider.module.scss'
 
 interface ProductImgSliderProps {
     imgList: string[],
