@@ -6,7 +6,7 @@ const nextConfig = {
             transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}'
         },
     },
-    trailingSlash: true,
+    trailingSlash: true, //Current not work in netlify
 }
 
 module.exports = nextConfig
