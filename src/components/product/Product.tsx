@@ -1,7 +1,7 @@
-"use client"
 import React from 'react'
-import ProductList from './ProductList'
-import SortSideBar from './SortSideBar'
+import ProductList from './ProductList/ProductList'
+import SortSideBar from './SortSideBar/SortSideBar'
+import styles from "./Product.module.scss"
 
 const Product = () => {
     return (

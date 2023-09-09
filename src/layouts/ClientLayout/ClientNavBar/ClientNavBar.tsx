@@ -1,51 +1,25 @@
-"use client"
+
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './ClientNavBar.module.scss'
 import CategoryOffCanvas from './CategoryOffCanvas/CategoryOffCanvas';
 import {
     IconCategory,
 } from '@tabler/icons-react';
+import TopBar from './TopBar/TopBar';
 
 function ClientNavBar() {
-    const [keyword, setKeyword] = useState("");
 
     return (
         <>
             {/* Navbar Start */}
             <div
-                className={`container-fluid px-0 wow fadeIn fixed-top`}
+                className={`${styles.fixedTop} container-fluid px-0 wow fadeIn fixed-top`}
                 data-wow-delay="0.1s"
             >
-                <div className={`top-bar row gx-0 align-items-center d-none d-lg-flex`}>
-                    <div className="col-lg-6 px-5 text-start">
-                        <small>
-                            <i className="fa fa-map-marker-alt me-2" />
-                            123 Street, New York, USA
-                        </small>
-                        <small className="ms-4">
-                            <i className="fa fa-envelope me-2" />
-                            info@example.com
-                        </small>
-                    </div>
-                    <div className="col-lg-6 px-5 text-end">
-                        <small>Follow us:</small>
-                        <a className="text-body ms-3" href="">
-                            <i className="fab fa-facebook-f" />
-                        </a>
-                        <a className="text-body ms-3" href="">
-                            <i className="fab fa-twitter" />
-                        </a>
-                        <a className="text-body ms-3" href="">
-                            <i className="fab fa-linkedin-in" />
-                        </a>
-                        <a className="text-body ms-3" href="">
-                            <i className="fab fa-instagram" />
-                        </a>
-                    </div>
-                </div>
+                <TopBar />
                 <nav
-                    className={`navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn`}
+                    className={`${styles.navbar} navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn`}
                     data-wow-delay="0.1s"
                 >
                     <Link href="/" className="navbar-brand ms-4 ms-lg-0">
@@ -62,23 +36,23 @@ function ClientNavBar() {
                         <span className="navbar-toggler-icon" />
                     </button>
                     <div className="collapse navbar-collapse h-100" id="navbarCollapse">
-                        <div className="navbar-nav ms-auto p-4 p-lg-0 align-items-lg-center">
-                            <Link href={"#"} className={`nav-item nav-link`} data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                        <div className={`${styles.navbarNav} navbar-nav ms-auto p-4 p-lg-0 align-items-lg-center`}>
+                            <Link href={"#"} className={`${styles.navLink} ${styles.navItem} nav-item nav-link`} data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
                                 <IconCategory />
                             </Link>
                             <CategoryOffCanvas />
-                            <Link href="about.html" className="nav-item nav-link">
+                            <Link href="#" className={`${styles.navLink} ${styles.navItem} nav-item nav-link`}>
                                 About Us
                             </Link>
-                            <div className="nav-item dropdown">
-                                <a
+                            <div className={`${styles.navItem} nav-item dropdown`}>
+                                <Link
                                     href="#"
-                                    className={`nav-link dropdown-toggle`}
+                                    className={`${styles.dropdownToggle} ${styles.navLink} nav-link dropdown-toggle`}
                                     data-bs-toggle="dropdown"
                                 >
                                     Pages
-                                </a>
-                                <div className="dropdown-menu m-0">
+                                </Link>
+                                <div className={`${styles.dropdownMenu} dropdown-menu m-0`}>
                                     <Link href="/product/detail" className="dropdown-item">
                                         product single
                                     </Link>
@@ -87,9 +61,12 @@ function ClientNavBar() {
                                     </Link>
                                     <Link href="/account" className='dropdown-item'>
                                         Account
-                                    </Link>     
+                                    </Link>
                                     <Link href="/account/address" className='dropdown-item'>
                                         Address CRUD
+                                    </Link>
+                                    <Link href="/cart" className='dropdown-item'>
+                                        cart
                                     </Link>
                                     <Link href="/404" className='dropdown-item'>
                                         404 Page
@@ -98,7 +75,7 @@ function ClientNavBar() {
                             </div>
                             <div className={`d-flex  ${styles.searchField}`}>
                                 <input
-                                    name={keyword}
+                                    name={"searchField"}
                                     className={`${styles.searchBarInput}`}
                                     id="inputEmailAddress"
                                     type="text"
@@ -110,26 +87,31 @@ function ClientNavBar() {
                                     <small className="fa fa-search text-body" />
                                 </button>
                             </div>
-                            <div className="nav-item dropdown">
-                                <Link className="nav-link dropdown-toggle btn-sm-square ms-3" href="">
+                            <div className={`${styles.navItem} dropdown`}>
+                                <Link data-bs-toggle="dropdown" className={`${styles.dropdownToggle} nav-link dropdown-toggle btn-sm-square ms-3`} href="">
+                                    <small className="fa fa-shopping-bag text-body" />
+                                </Link>
+                                <div className={`${styles.dropdownMenu} dropdown-menu m-0`}>
+                                    Cart
+                                </div>
+                            </div>
+                            <div className={`${styles.navItem} dropdown`}>
+                                <Link data-bs-toggle="dropdown" className={`${styles.dropdownToggle} nav-link dropdown-toggle btn-sm-square ms-3`} href="">
                                     <small className="fa fa-user text-body" />
                                 </Link>
-                                <div className="dropdown-menu m-0">
-                                    <Link href="" className="dropdown-item">
+                                <div className={`${styles.dropdownMenu} dropdown-menu m-0`}>
+                                    <Link href="#" className="dropdown-item">
                                         Login
                                     </Link>
-                                    <Link href="" className="dropdown-item">
+                                    <Link href="#" className="dropdown-item">
                                         Register
                                     </Link>
                                     <li><hr className="dropdown-divider" /></li>
-                                    <Link href="" className="dropdown-item">
+                                    <Link href="#" className="dropdown-item">
                                         Logout
                                     </Link>
                                 </div>
                             </div>
-                            <Link className="btn-sm-square ms-3" href="">
-                                <small className="fa fa-shopping-bag text-body" />
-                            </Link>
                         </div>
                     </div>
                 </nav>

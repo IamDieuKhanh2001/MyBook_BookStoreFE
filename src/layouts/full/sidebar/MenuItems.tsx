@@ -1,5 +1,3 @@
-"use client"
-
 import {
   IconAperture, IconCopy, IconLayoutDashboard, IconLogin, IconMoodHappy, IconTypography, IconUserPlus,
   IconCategory,

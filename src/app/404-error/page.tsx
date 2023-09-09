@@ -1,4 +1,3 @@
-"use client"
 import ClientHeader from '@/components/ClientHeader/ClientHeader'
 import ClientLayout from '@/layouts/ClientLayout/ClientLayout'
 import React from 'react'

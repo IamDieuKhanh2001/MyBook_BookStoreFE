@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import ProductList from './ProductList'
+import ProductList from '../ProductList/ProductList'
 
 const SortSideBar = () => {
     return (

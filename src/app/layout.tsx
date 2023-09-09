@@ -54,7 +54,6 @@ export default function RootLayout({
             <link href="/css/style.css" rel="stylesheet" />
           </>
         )}
-
       </head>
       <body
         className={inter.className}

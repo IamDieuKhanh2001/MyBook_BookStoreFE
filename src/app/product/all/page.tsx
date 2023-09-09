@@ -1,4 +1,3 @@
-"use client"
 import ClientHeader from '@/components/ClientHeader/ClientHeader'
 import Product from '@/components/product/Product'
 import ClientLayout from '@/layouts/ClientLayout/ClientLayout'

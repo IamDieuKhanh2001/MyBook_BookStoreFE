@@ -1,5 +1,3 @@
-"use client"
-
 import { Card } from "@mui/material";
 
 type Props = {

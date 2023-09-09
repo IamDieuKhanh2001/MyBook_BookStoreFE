@@ -1,0 +1,17 @@
+.backToTop {
+    position: fixed;
+    display: none;
+    right: 30px;
+    bottom: 30px;
+    z-index: 99;
+    animation: move 3s infinite ease alternate;
+}
+
+@keyframes move {
+    from {
+        transform: translateY(-10px);
+    }
+    to {
+        transform: translateY(10px);
+    }
+}

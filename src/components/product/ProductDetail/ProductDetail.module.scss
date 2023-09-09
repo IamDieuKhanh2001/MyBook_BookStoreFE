@@ -1,0 +1,9 @@
+.media {
+    display: flex;
+    align-items: flex-start;
+    
+    .mediaBody {
+        flex: 1;
+        padding-left: 10px;
+    }
+}

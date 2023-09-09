@@ -25,7 +25,7 @@ import BtnBackToTop from '@/layouts/ClientLayout/BtnBackToTop/BtnBackToTop'
 import ClientLayout from '@/layouts/ClientLayout/ClientLayout'
 import { Metadata } from 'next'
 import React from 'react'
-import ProductList from '@/components/product/ProductList'
+import ProductList from '@/components/product/ProductList/ProductList'
 
 export const metadata: Metadata = {
   // title: 'My App Title',
