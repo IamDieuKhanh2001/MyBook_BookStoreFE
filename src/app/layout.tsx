@@ -20,12 +20,6 @@ export default function RootLayout({
   // Kiểm tra trang không là trang admin (đang Sử dụng MUI) sẽ cho phép dùng bootstrap css
   // BS class name sẽ ảnh hưởng đến MUI do 2 thư viện này có cùng class name có tên giống nhau, style css giống nhau 
 
-  useEffect(() => {
-    // Đặt thông tin metadata sau khi component đã render
-    document.title = 'My App Name';
-    // Các tùy chọn khác như description, keywords, ...
-  }, []);
-
   return (
     <html lang="en">
       <head>
