@@ -6,6 +6,7 @@ import CategoryOffCanvas from './CategoryOffCanvas/CategoryOffCanvas';
 import {
     IconCategory,
 } from '@tabler/icons-react';
+import TopBar from './TopBar/TopBar';
 
 function ClientNavBar() {
 
@@ -16,33 +17,7 @@ function ClientNavBar() {
                 className={`${styles.fixedTop} container-fluid px-0 wow fadeIn fixed-top`}
                 data-wow-delay="0.1s"
             >
-                <div className={`${styles.topBar} row gx-0 align-items-center d-none d-lg-flex`}>
-                    <div className="col-lg-6 px-5 text-start">
-                        <small>
-                            <i className="fa fa-map-marker-alt me-2" />
-                            123 Street, New York, USA
-                        </small>
-                        <small className="ms-4">
-                            <i className="fa fa-envelope me-2" />
-                            info@example.com
-                        </small>
-                    </div>
-                    <div className="col-lg-6 px-5 text-end">
-                        <small>Follow us:</small>
-                        <a className="text-body ms-3" href="">
-                            <i className="fab fa-facebook-f" />
-                        </a>
-                        <a className="text-body ms-3" href="">
-                            <i className="fab fa-twitter" />
-                        </a>
-                        <a className="text-body ms-3" href="">
-                            <i className="fab fa-linkedin-in" />
-                        </a>
-                        <a className="text-body ms-3" href="">
-                            <i className="fab fa-instagram" />
-                        </a>
-                    </div>
-                </div>
+                <TopBar />
                 <nav
                     className={`${styles.navbar} navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn`}
                     data-wow-delay="0.1s"
@@ -89,6 +64,9 @@ function ClientNavBar() {
                                     </Link>
                                     <Link href="/account/address" className='dropdown-item'>
                                         Address CRUD
+                                    </Link>
+                                    <Link href="/cart" className='dropdown-item'>
+                                        cart
                                     </Link>
                                     <Link href="/404" className='dropdown-item'>
                                         404 Page

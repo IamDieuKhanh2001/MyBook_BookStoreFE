@@ -262,15 +262,18 @@
 
 
 /*** Product ***/
-.nav-pills .nav-item .btn {
+/* sort tab button  */
+/* .nav-pills .nav-item .btn {
     color: var(--dark);
 }
 
 .nav-pills .nav-item .btn:hover,
 .nav-pills .nav-item .btn.active {
     color: #FFFFFF;
-}
+} */
 
+/* product item  */
+/* 
 .product-item {
     box-shadow: 0 0 45px rgba(0, 0, 0, .07);
 }
@@ -285,7 +288,7 @@
 
 .product-item small a:hover {
     color: var(--primary) !important;
-}
+} */
 
 
 /*** Testimonial ***/
@@ -340,11 +343,10 @@
 
 
 /*** Footer ***/
-.footer {
+/* .footer { 
     color: #999999;
-}
-
-.footer .btn.btn-link {
+} */
+/* .footer .btn.btn-link {
     display: block;
     margin-bottom: 5px;
     padding: 0;
@@ -369,7 +371,6 @@
     letter-spacing: 1px;
     box-shadow: none;
 }
-
 .footer .copyright {
     padding: 25px 0;
     font-size: 15px;
@@ -382,4 +383,4 @@
 
 .footer .copyright a:hover {
     color: var(--primary);
-}
+} 

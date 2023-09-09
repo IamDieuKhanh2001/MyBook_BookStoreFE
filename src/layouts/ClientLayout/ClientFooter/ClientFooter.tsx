@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import React from 'react'
+import styles from './ClientFooter.module.scss'
 
 const ClientFooter = () => {
     return (
         <>
             {/* Footer Start */}
-            <div className="container-fluid bg-dark footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div className={`${styles.footer} container-fluid bg-dark mt-5 pt-5 wow fadeIn`} data-wow-delay="0.1s">
                 <div className="container py-5">
                     <div className="row g-5">
                         <div className="col-lg-3 col-md-6">
@@ -14,10 +15,10 @@ const ClientFooter = () => {
                             </h1>
                             <p>Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita</p>
                             <div className="d-flex pt-2">
-                                <a className="btn btn-square btn-outline-light rounded-circle me-1" href=""><i className="fab fa-twitter" /></a>
-                                <a className="btn btn-square btn-outline-light rounded-circle me-1" href=""><i className="fab fa-facebook-f" /></a>
-                                <a className="btn btn-square btn-outline-light rounded-circle me-1" href=""><i className="fab fa-youtube" /></a>
-                                <a className="btn btn-square btn-outline-light rounded-circle me-0" href=""><i className="fab fa-linkedin-in" /></a>
+                                <a className={`btn btn-square btn-outline-light rounded-circle me-1`} href=""><i className="fab fa-twitter" /></a>
+                                <a className={`btn btn-square btn-outline-light rounded-circle me-1`} href=""><i className="fab fa-facebook-f" /></a>
+                                <a className={`btn btn-square btn-outline-light rounded-circle me-1`} href=""><i className="fab fa-youtube" /></a>
+                                <a className={`btn btn-square btn-outline-light rounded-circle me-0`} href=""><i className="fab fa-linkedin-in" /></a>
                             </div>
                         </div>
                         <div className="col-lg-3 col-md-6">
@@ -28,11 +29,11 @@ const ClientFooter = () => {
                         </div>
                         <div className="col-lg-3 col-md-6">
                             <h4 className="text-light mb-4">Quick Links</h4>
-                            <a className="btn btn-link" href="">About Us</a>
-                            <a className="btn btn-link" href="">Contact Us</a>
-                            <a className="btn btn-link" href="">Our Services</a>
-                            <a className="btn btn-link" href="">Terms &amp; Condition</a>
-                            <a className="btn btn-link" href="">Support</a>
+                            <a className={`${styles.btnLinkFooterCustom} btn btn-link `} href="">About Us</a>
+                            <a className={`${styles.btnLinkFooterCustom} btn btn-link`} href="">Contact Us</a>
+                            <a className={`${styles.btnLinkFooterCustom} btn btn-link`} href="">Our Services</a>
+                            <a className={`${styles.btnLinkFooterCustom} btn btn-link`} href="">Terms &amp; Condition</a>
+                            <a className={`${styles.btnLinkFooterCustom} btn btn-link`} href="">Support</a>
                         </div>
                         <div className="col-lg-3 col-md-6">
                             <h4 className="text-light mb-4">Newsletter</h4>
@@ -44,15 +45,24 @@ const ClientFooter = () => {
                         </div>
                     </div>
                 </div>
-                <div className="container-fluid copyright">
+                <div className={`container-fluid ${styles.copyright}`}>
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                                © <a href="#">Your Site Name</a>, All Right Reserved.
+                                19110226 | <a href="#">Quách Diệu Khánh</a>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                19110304 | <a href="#">Nguyễn Thành Trung</a>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                © 2023 <a href="#">MyBook.com</a>, All Right Reserved.
                             </div>
                             <div className="col-md-6 text-center text-md-end">
-                                {/*/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. *** /*/}
-                                Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                                Khóa luận tốt nghiệp khóa 2019 | <a href="#">Đại Học Sư Phạm Kĩ Thuật</a>
                             </div>
                         </div>
                     </div>

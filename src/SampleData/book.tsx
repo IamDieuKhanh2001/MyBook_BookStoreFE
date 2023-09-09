@@ -1,0 +1,58 @@
+export const book = [
+    {
+        id: "1",
+        title: "Sach1",
+        img: "/img/book/sach1.jpg",
+        priceAfterSale: "$19.00",
+        initialPrice: "$29.00",
+    },
+    {
+        id: "2",
+        title: "Sach2",
+        img: "/img/book/sach2.jpg",
+        priceAfterSale: "$19.00",
+        initialPrice: "$29.00",
+    },
+    {
+        id: "3",
+        title: "Sach3",
+        img: "/img/book/sach3.jpg",
+        priceAfterSale: "$19.00",
+        initialPrice: "$29.00",
+    },
+    {
+        id: "4",
+        title: "Sach4",
+        img: "/img/book/sach4.jpg",
+        priceAfterSale: "$19.00",
+        initialPrice: "$29.00",
+    },
+    {
+        id: "5",
+        title: "Sach5",
+        img: "/img/book/sach5.jpg",
+        priceAfterSale: "$19.00",
+        initialPrice: "$29.00",
+    },
+    {
+        id: "6",
+        title: "Sach6",
+        img: "/img/book/sach6.jpg",
+        priceAfterSale: "$19.00",
+        initialPrice: "$29.00",
+    },
+    {
+        id: "7",
+        title: "Sach7",
+        img: "/img/book/sach7.jpg",
+        priceAfterSale: "$19.00",
+        initialPrice: "$29.00",
+    },
+    {
+        id: "8",
+        title: "Sach8",
+        img: "/img/book/sach8.jpg",
+        priceAfterSale: "$19.00",
+        initialPrice: "$29.00",
+    },
+];
