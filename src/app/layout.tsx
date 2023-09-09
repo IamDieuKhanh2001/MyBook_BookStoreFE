@@ -25,11 +25,11 @@ export default function RootLayout({
     document.title = 'My App Name';
     // Các tùy chọn khác như description, keywords, ...
   }, []);
-  
+
   return (
     <html lang="en">
       <head>
-        <title>Foody - Organic Food Website Template</title>
+        <title>Bookstore KLTN</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="keywords" />
         <meta content="" name="description" />
