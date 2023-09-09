@@ -1,4 +1,4 @@
-import LoadingOverLay from '@/components/loadingOverLay/loadingOverLay'
+import LoadingOverLay from '@/components/loadingOverLay/LoadingOverLay'
 import React from 'react'
 
 const loading = () => {
