@@ -6,6 +6,7 @@ const nextConfig = {
             transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}'
         },
     },
+    trailingSlash: true,
 }
 
 module.exports = nextConfig
