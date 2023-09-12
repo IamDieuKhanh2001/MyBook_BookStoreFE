@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import styles from './page.module.scss'
 import ClientLayout from '@/layouts/ClientLayout/ClientLayout'
@@ -22,7 +23,8 @@ const ProductCartPage = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="align-middle">
-                                    <tr className='border border-1 border-top-0 border-end-0 border-start-0'>
+                                    <tr
+                                        className='border border-1 border-top-0 border-end-0 border-start-0'>
                                         <td className="align-middle">
                                             <img src="/img/book/sach1.jpg" alt="" style={{ width: 50 }} />{" "}
                                             Product Name
@@ -58,7 +60,7 @@ const ProductCartPage = () => {
                                         </td>
                                     </tr>
                                     <tr className='border border-1 border-top-0 border-end-0 border-start-0'>
-                                        <td className="align-middle">
+                                        <td className="align-middle text-danger">
                                             <img src="/img/book/sach2.jpg" alt="" style={{ width: 50 }} />{" "}
                                             Product Name
                                         </td>
@@ -146,6 +148,9 @@ const ProductCartPage = () => {
                             <h5 className={`${styles.sectionTitle} position-relative text-uppercase mb-3`}>
                                 <span className="bg-white pe-3">Cart Summary</span>
                             </h5>
+                            <div className="alert alert-danger" role="alert">
+                                Sản phẩm product 2 đã hết hàng, xin hãy gỡ bỏ
+                            </div>
                             <div className="bg-light p-4 mb-5">
                                 <div className="border-bottom pb-2">
                                     <div className="d-flex justify-content-between mb-3">
