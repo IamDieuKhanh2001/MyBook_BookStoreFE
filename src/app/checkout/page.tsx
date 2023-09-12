@@ -23,6 +23,7 @@ const CheckOutPage = () => {
       <ClientLayout>
         <ClientHeader />
         <div className='container'>
+          {/* dia chi  */}
           <div className="row">
             <div className="col-12">
               {/* tach component title section  */}
@@ -199,6 +200,115 @@ const CheckOutPage = () => {
                     <label className={`${styles.paymentName} form-check-label`} htmlFor="payment-method-4">
                       Thanh toán bằng tiền mặt khi nhận hàng
                     </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Mã quà tặng  */}
+          <div className='row'>
+            <div className="col-12">
+              <h5 className={`${styles.sectionTitle} position-relative text-uppercase my-3`}>
+                <span className="bg-white pe-3">Mã Khuyến mãi / Mã quà tặng</span>
+              </h5>
+              <div className="bg-light p-4">
+                <form className='mb-3' action="">
+                  <div className={styles.inputGroup}>
+                    <input
+                      type="text"
+                      className={`${styles.formControl} p-2`}
+                      placeholder="Coupon Code"
+                    />
+                    <div className='d-flex'>
+                      <button className="btn btn-primary">Apply Coupon</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          {/* Kiểm tra lại đơn hàng  */}
+          <div className='row'>
+            <div className="col-12">
+              <h5 className={`${styles.sectionTitle} position-relative text-uppercase my-3`}>
+                <span className="bg-white pe-3">Kiểm tra lại đơn hàng</span>
+              </h5>
+              <div className="bg-light p-4">
+                <div className={styles.checkoutProductContent}>
+                  <div className={styles.checkoutProductItem}>
+                    <div className={styles.checkoutProductItemImg}>
+                      <img src="/img/book/sach1.jpg" alt="sach1" />
+                    </div>
+                    <div className={styles.checkoutProductItemDetail}>
+                      <div className={styles.checkoutProductItemName}>
+                        <div>BlueLock - Tập 13 - Tặng Kèm Card PVC</div>
+                      </div>
+                      <div className={styles.checkoutProductItemPrice}>
+                        <div>
+                          31.500 VND
+                        </div>
+                        <div className={styles.checkoutProductItemOriginalPrice}>
+                          35.000 VND
+                        </div>
+                      </div>
+                      <div className={styles.checkoutProductItemQty}>
+                        <span>Số lượng: </span>
+                        1
+                      </div>
+                      <div className={styles.checkoutProductItemTotal}>
+                        31.500 VND
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.checkoutProductItem}>
+                    <div className={styles.checkoutProductItemImg}>
+                      <img src="/img/book/sach1.jpg" alt="sach1" />
+                    </div>
+                    <div className={styles.checkoutProductItemDetail}>
+                      <div className={styles.checkoutProductItemName}>
+                        <div>BlueLock - Tập 13 - Tặng Kèm Card PVC</div>
+                      </div>
+                      <div className={styles.checkoutProductItemPrice}>
+                        <div>
+                          31.500 VND
+                        </div>
+                        <div className={styles.checkoutProductItemOriginalPrice}>
+                          35.000 VND
+                        </div>
+                      </div>
+                      <div className={styles.checkoutProductItemQty}>
+                        <span>Số lượng: </span>
+                        1
+                      </div>
+                      <div className={styles.checkoutProductItemTotal}>
+                        31.500 VND
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.checkoutProductItem}>
+                    <div className={styles.checkoutProductItemImg}>
+                      <img src="/img/book/sach1.jpg" alt="sach1" />
+                    </div>
+                    <div className={styles.checkoutProductItemDetail}>
+                      <div className={styles.checkoutProductItemName}>
+                        <div>BlueLock - Tập 13 - Tặng Kèm Card PVC</div>
+                      </div>
+                      <div className={styles.checkoutProductItemPrice}>
+                        <div>
+                          31.500 VND
+                        </div>
+                        <div className={styles.checkoutProductItemOriginalPrice}>
+                          35.000 VND
+                        </div>
+                      </div>
+                      <div className={styles.checkoutProductItemQty}>
+                        <span>Số lượng: </span>
+                        1
+                      </div>
+                      <div className={styles.checkoutProductItemTotal}>
+                        31.500 VND
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

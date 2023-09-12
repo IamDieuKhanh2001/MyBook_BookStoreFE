@@ -133,18 +133,6 @@ const ProductCartPage = () => {
                             </table>
                         </div>
                         <div className="col-lg-4">
-                            <form className='mb-3' action="">
-                                <div className={styles.inputGroup}>
-                                    <input
-                                        type="text"
-                                        className={`${styles.formControl} p-2`}
-                                        placeholder="Coupon Code"
-                                    />
-                                    <div className='d-flex'>
-                                        <button className="btn btn-primary">Apply Coupon</button>
-                                    </div>
-                                </div>
-                            </form>
                             <h5 className={`${styles.sectionTitle} position-relative text-uppercase mb-3`}>
                                 <span className="bg-white pe-3">Cart Summary</span>
                             </h5>

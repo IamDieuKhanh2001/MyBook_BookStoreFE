@@ -1,20 +1,4 @@
-.inputGroup {
-	position: relative;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: stretch;
-	width: 100%;
-    input {
-        border: 1px solid rgba(0, 0, 0, 0.2);
-    }
-	>.formControl {
-		position: relative;
-		flex: 1 1 auto;
-		width: 1%;
-		min-width: 0;
-		margin-bottom: 0;
-	}
-}
+
 
 .sectionTitle::after {
     position: absolute;
