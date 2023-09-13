@@ -8,6 +8,7 @@ import {
 } from '@tabler/icons-react';
 import TopBar from './TopBar/TopBar';
 import CartDropdown from './CartDropdown/CartDropdown';
+import UserDropdown from './UserDropdown/UserDropdown';
 
 function ClientNavBar() {
 
@@ -90,24 +91,7 @@ function ClientNavBar() {
                                 </button>
                             </div>
                             <CartDropdown />
-                            {/* user dropdown  */}
-                            <div className={`${styles.navItem} dropdown`}>
-                                <Link data-bs-toggle="dropdown" className={`${styles.dropdownToggle} nav-link dropdown-toggle btn-sm-square ms-3`} href="">
-                                    <small className="fa fa-user text-body" />
-                                </Link>
-                                <div className={`${styles.dropdownMenu} dropdown-menu m-0`}>
-                                    <Link href="#" className="dropdown-item">
-                                        Login
-                                    </Link>
-                                    <Link href="#" className="dropdown-item">
-                                        Register
-                                    </Link>
-                                    <li><hr className="dropdown-divider" /></li>
-                                    <Link href="#" className="dropdown-item">
-                                        Logout
-                                    </Link>
-                                </div>
-                            </div>
+                            <UserDropdown />
                         </div>
                     </div>
                 </nav>

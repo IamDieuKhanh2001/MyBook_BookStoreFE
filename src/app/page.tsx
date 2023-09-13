@@ -164,7 +164,6 @@ export default function Home() {
         {/* Blog End */}
 
       </div>
-      <BtnBackToTop />
     </ClientLayout>
   )
 }
