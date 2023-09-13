@@ -88,6 +88,7 @@
         }
         >.checkoutProductItemDetail {
             width: calc(100% - 145px);
+            font-size: 15px;
             padding: 0 4px;
             display: flex;
             flex-direction: row;
@@ -189,7 +190,6 @@
 
         .checkoutTotal {
             padding: 4px 0;
-            font-size: 1.1em;
             border-bottom: 1px solid #ced4da;
 
             >div {
