@@ -1,6 +1,8 @@
 "use client"
 import Link from 'next/link'
 import React from 'react'
+import styles from './Address.module.scss'
+import AddNewAddress from './AddNewAddress/AddNewAddress'
 
 const AddressEdit = () => {
     return (
@@ -15,12 +17,7 @@ const AddressEdit = () => {
                         <div className="card-body">
                             {/* default address  */}
                             <ol>
-                                <li className='' style={{
-                                    listStyle: 'none',
-                                    // padding: '0px 13px',
-                                    margin: '0px 0px',
-                                    fontSize: '13px',
-                                }}>
+                                <li className={styles.address}>
                                     <address className='mb-1'>
                                         Quach Khanh
                                         <br />
@@ -48,19 +45,12 @@ const AddressEdit = () => {
                             <p className="">
                                 Địa chỉ khác
                             </p>
-                            <button type="button" className="btn btn-success">
-                                Thêm địa chỉ mới
-                            </button>
+                            <AddNewAddress />
                         </div>
                         <div className="card-body">
                             {/* address item  */}
                             <ol>
-                                <li className='' style={{
-                                    listStyle: 'none',
-                                    // padding: '0px 13px',
-                                    margin: '0px 0px',
-                                    fontSize: '13px',
-                                }}>
+                                <li className={styles.address}>
                                     <address className='mb-1'>
                                         Quach Khanh
                                         <br />
@@ -86,12 +76,7 @@ const AddressEdit = () => {
                                 </li>
                             </ol>
                             <ol>
-                                <li className='' style={{
-                                    listStyle: 'none',
-                                    // padding: '0px 13px',
-                                    margin: '0px 0px',
-                                    fontSize: '13px',
-                                }}>
+                                <li className={styles.address}>
                                     <address className='mb-1'>
                                         Quach Khanh
                                         <br />

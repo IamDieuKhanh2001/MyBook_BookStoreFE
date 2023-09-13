@@ -1,17 +1,25 @@
+"use client"
 import Link from 'next/link'
 import React from 'react'
+import styles from './AccountOverview.module.scss'
 
 const AccountOverview = () => {
     return (
         <>
             <div className="card mb-4">
                 <div className="card-body text-center">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" className="rounded-circle img-fluid" style={{ width: 150 }} />
+                    <img
+                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                        alt="avatar"
+                        className={`${styles.avatar} rounded-circle img-fluid`}
+                    />
                     <h5 className="my-3">Quach Khanh</h5>
                     <p className="text-muted mb-4">Thành viên</p>
                     <div className="d-flex justify-content-center mb-2">
                         <button type="button" className="btn btn-primary">Thay đổi avatar</button>
-                        <button type="button" className="btn btn-outline-primary ms-1">Thay đổi thông tin cá nhân</button>
+                        <Link href={'/account/edit'} type="button" className="btn btn-outline-primary ms-1">
+                            Thay đổi thông tin cá nhân
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -55,12 +63,7 @@ const AccountOverview = () => {
                         <div className="card-body">
 
                             <ol>
-                                <li className='' style={{
-                                    listStyle: 'none',
-                                    // padding: '0px 13px',
-                                    margin: '0px 0px 10px',
-                                    fontSize: '13px',
-                                }}>
+                                <li className={styles.address}>
                                     <address>
                                         Quach Khanh
                                         <br />
@@ -70,7 +73,7 @@ const AccountOverview = () => {
                                         <br />
                                         Tel: 0938427896
                                     </address>
-                                    <Link href="#">Thay đổi địa chỉ giao hàng</Link>
+                                    <Link href="/account/address">Thay đổi địa chỉ giao hàng</Link>
                                 </li>
                             </ol>
                         </div>

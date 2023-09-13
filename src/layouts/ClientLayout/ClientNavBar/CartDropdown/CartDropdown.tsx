@@ -32,7 +32,7 @@ const CartDropdown = () => {
                     <div>
                         <ol className={styles.cartContent}>
                             <li className={styles.cartItem}>
-                                <Link className={styles.itemImg} href="/link-product" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
+                                <Link className={styles.itemImg} href="#" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
                                     <img
                                         src="https://cdn0.fahasa.com/media/catalog/product//9/7/9784065195154.jpg"
                                         alt="Sach 1"
@@ -42,7 +42,7 @@ const CartDropdown = () => {
                                 </Link>
                                 <div className={styles.itemDetail}>
                                     <p className={styles.itemName}>
-                                        <Link href={'/product-link'}>Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)</Link>
+                                        <Link href={'#'}>Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)</Link>
                                     </p>
                                     <div className='mt-1'>
                                         <span className={styles.itemPrice}>37.000 VND</span>
@@ -51,7 +51,7 @@ const CartDropdown = () => {
                                 </div>
                             </li>
                             <li className={styles.cartItem}>
-                                <Link className={styles.itemImg} href="/link-product" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
+                                <Link className={styles.itemImg} href="#" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
                                     <img
                                         src="https://cdn0.fahasa.com/media/catalog/product//9/7/9784065195154.jpg"
                                         alt="Sach 1"
@@ -61,7 +61,7 @@ const CartDropdown = () => {
                                 </Link>
                                 <div className={styles.itemDetail}>
                                     <p className={styles.itemName}>
-                                        <Link href={'/product-link'}>Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)</Link>
+                                        <Link href={'#'}>Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)</Link>
                                     </p>
                                     <div className='mt-1'>
                                         <span className={styles.itemPrice}>37.000 VND</span>
@@ -70,7 +70,7 @@ const CartDropdown = () => {
                                 </div>
                             </li>
                             <li className={styles.cartItem}>
-                                <Link className={styles.itemImg} href="/link-product" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
+                                <Link className={styles.itemImg} href="#" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
                                     <img
                                         src="https://cdn0.fahasa.com/media/catalog/product//9/7/9784065195154.jpg"
                                         alt="Sach 1"
@@ -80,64 +80,7 @@ const CartDropdown = () => {
                                 </Link>
                                 <div className={styles.itemDetail}>
                                     <p className={styles.itemName}>
-                                        <Link href={'/product-link'}>Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)</Link>
-                                    </p>
-                                    <div className='mt-1'>
-                                        <span className={styles.itemPrice}>37.000 VND</span>
-                                        <span className={styles.itemQty}>x1</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className={styles.cartItem}>
-                                <Link className={styles.itemImg} href="/link-product" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
-                                    <img
-                                        src="https://cdn0.fahasa.com/media/catalog/product//9/7/9784065195154.jpg"
-                                        alt="Sach 1"
-                                        width={68}
-                                        height={68}
-                                    />
-                                </Link>
-                                <div className={styles.itemDetail}>
-                                    <p className={styles.itemName}>
-                                        <Link href={'/product-link'}>Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)</Link>
-                                    </p>
-                                    <div className='mt-1'>
-                                        <span className={styles.itemPrice}>37.000 VND</span>
-                                        <span className={styles.itemQty}>x1</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className={styles.cartItem}>
-                                <Link className={styles.itemImg} href="/link-product" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
-                                    <img
-                                        src="https://cdn0.fahasa.com/media/catalog/product//9/7/9784065195154.jpg"
-                                        alt="Sach 1"
-                                        width={68}
-                                        height={68}
-                                    />
-                                </Link>
-                                <div className={styles.itemDetail}>
-                                    <p className={styles.itemName}>
-                                        <Link href={'/product-link'}>Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)</Link>
-                                    </p>
-                                    <div className='mt-1'>
-                                        <span className={styles.itemPrice}>37.000 VND</span>
-                                        <span className={styles.itemQty}>x1</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className={styles.cartItem}>
-                                <Link className={styles.itemImg} href="/link-product" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
-                                    <img
-                                        src="https://cdn0.fahasa.com/media/catalog/product//9/7/9784065195154.jpg"
-                                        alt="Sach 1"
-                                        width={68}
-                                        height={68}
-                                    />
-                                </Link>
-                                <div className={styles.itemDetail}>
-                                    <p className={styles.itemName}>
-                                        <Link href={'/product-link'}>Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)</Link>
+                                        <Link href={'#'}>Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)</Link>
                                     </p>
                                     <div className='mt-1'>
                                         <span className={styles.itemPrice}>37.000 VND</span>
