@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+import Head from 'next/head';
 
 const inter = Inter({ subsets: ['latin'] })
 
