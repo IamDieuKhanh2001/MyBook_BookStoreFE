@@ -1,57 +1,42 @@
 "use client"
 import React from 'react'
 import ProductList from '../ProductList/ProductList'
+import styles from './SortSideBar.module.scss'
+import Link from 'next/link'
 
 const SortSideBar = () => {
     return (
         <>
             <div>
                 <h6 className="p-1 border-bottom">Danh mục</h6>
-                <ul className='' style={{
-                    listStyle: 'none',
-                    padding: '5px',
-                }}>
+                <ul className={styles.categoryList}>
                     <li>
-                        <a href="#" style={{
-                            textDecoration: 'none',
-                        }}>
+                        <Link className={styles.categoryListItem} href="#">
                             item lv1
-                        </a>
-                        <ul className='' style={{
-                            listStyle: 'none',
-                            padding: '5px 10px'
-                        }}>
+                        </Link>
+                        <ul className={styles.subCategoryList}>
                             <li>
-                                <a href="#" style={{
-                                    textDecoration: 'none',
-                                }}>
+                                <Link className={styles.subCategoryListItem} href="#">
                                     item lv2 1
-                                </a>
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" style={{
-                                    textDecoration: 'none',
-                                }}>
+                                <Link className={styles.subCategoryListItem} href="#">
                                     item lv2 2
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#" style={{
-                            textDecoration: 'none',
-                        }}>
+                        <Link className={styles.categoryListItem} href="#">
                             item lv1
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>
             <div>
                 <h6 className="p-1 border-bottom">Giá</h6>
-                <div style={{
-                    padding: '5px',
-
-                }}>
+                <div className='p-1'>
                     <div className="form-check">
                         <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
                         <label className="form-check-label" htmlFor="flexCheckDefault">
@@ -72,7 +57,7 @@ const SortSideBar = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}>
-                    <a href="#" style={{
+                    <Link href="#" style={{
                         fontWeight: 'bold',
                         fontSize: '14px',
                         cursor: 'pointer',
@@ -80,8 +65,8 @@ const SortSideBar = () => {
                         display: 'none',
                     }}>
                         Show Less
-                    </a>
-                    <a href="#" style={{
+                    </Link>
+                    <Link href="#" style={{
                         fontWeight: 'bold',
                         fontSize: '14px',
                         cursor: 'pointer',
@@ -89,15 +74,12 @@ const SortSideBar = () => {
                         display: 'block',
                     }}>
                         Show More
-                    </a>
+                    </Link>
                 </div>
             </div>
             <div>
                 <h6 className="p-1 border-bottom">Nhà cung cấp</h6>
-                <div style={{
-                    padding: '5px',
-
-                }}>
+                <div className='p-1'>
                     <div className="form-check">
                         <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
                         <label className="form-check-label" htmlFor="flexCheckDefault">
