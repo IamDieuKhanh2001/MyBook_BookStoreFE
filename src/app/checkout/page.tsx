@@ -1,9 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import styles from './page.module.scss'
-import ClientLayout from '@/layouts/ClientLayout/ClientLayout'
-import ClientHeader from '@/components/ClientHeader/ClientHeader'
-import { url } from 'inspector'
 import Link from 'next/link'
 
 const CheckOutPage = () => {
@@ -20,8 +17,6 @@ const CheckOutPage = () => {
 
   return (
     <>
-      <ClientLayout>
-        <ClientHeader />
         <div className='container'>
           {/* dia chi  */}
           <div className="row">
@@ -212,18 +207,29 @@ const CheckOutPage = () => {
                 <span className="bg-white pe-3">Mã Khuyến mãi / Mã quà tặng</span>
               </h5>
               <div className="bg-light p-4">
-                <form className='mb-3' action="">
-                  <div className={styles.inputGroup}>
-                    <input
-                      type="text"
-                      className={`${styles.formControl} p-2`}
-                      placeholder="Coupon Code"
-                    />
-                    <div className='d-flex'>
-                      <button className="btn btn-primary">Apply Coupon</button>
+                <div className={styles.voucherInsertContent}>
+                  <form className='mb-3' action="">
+                    <div className={styles.inputGroup}>
+                      <input
+                        type="text"
+                        className={`${styles.formControl} p-2`}
+                        placeholder="Coupon Code"
+                      />
+                      <div className='d-flex'>
+                        <button className="btn btn-primary">Apply Coupon</button>
+                      </div>
+                    </div>
+                  </form>
+                  <div className={styles.voucherChoosenList}>
+                    <div className={`${styles.voucherChoosenItem} alert alert-warning alert-dismissible fade show`} role="alert">
+                      <span className="text-truncate" style={{ maxWidth: 300 }}>
+                        Nhập mã thành công - Mã giảm giá 10K TOÀN SÀN - Đơn hàng từ 150K
+                      </span>
+                      <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" />
                     </div>
                   </div>
-                </form>
+                </div>
+
               </div>
             </div>
           </div>
@@ -359,8 +365,6 @@ const CheckOutPage = () => {
             </div>
           </div>
         </div>
-
-      </ClientLayout >
     </>
   )
 }

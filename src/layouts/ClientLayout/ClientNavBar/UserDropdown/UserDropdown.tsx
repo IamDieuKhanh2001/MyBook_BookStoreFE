@@ -36,7 +36,7 @@ const UserDropdown = () => {
                 <div className={`${styles.dropdownMenu} dropdown-menu m-0`}>
                     <Link href="#" className="dropdown-item">
                         Profile
-                    </Link>
+                </Link>
                     <li><hr className="dropdown-divider" /></li>
                     <Link href="#" className="dropdown-item">
                         Logout

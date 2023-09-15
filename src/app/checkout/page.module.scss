@@ -42,23 +42,36 @@
 }
 
 //Ma qua tang 
-.inputGroup {
-	position: relative;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: stretch;
-	width: 100%;
-    input {
-        border: 1px solid rgba(0, 0, 0, 0.2);
+.voucherInsertContent {
+    max-width: 600px;
+
+    .inputGroup {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        width: 100%;
+
+        input {
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        >.formControl {
+            position: relative;
+            flex: 1 1 auto;
+            width: 1%;
+            min-width: 0;
+            margin-bottom: 0;
+        }
     }
-	>.formControl {
-		position: relative;
-		flex: 1 1 auto;
-		width: 1%;
-		min-width: 0;
-		margin-bottom: 0;
-	}
+
+    .voucherChoosenList {
+        .voucherChoosenItem {
+            border-radius: 8px;
+        }
+    }
 }
+
 
 //Kiem tra lai don hang
 .checkoutProductContent {
@@ -66,6 +79,7 @@
         border-top: none;
         padding: 4px 0 8px 0;
     }
+
     >.checkoutProductItem {
         border-top: 1px solid #ced4da;
         display: flex;
@@ -80,12 +94,14 @@
             flex-direction: row;
             justify-content: center;
             align-items: center;
+
             img {
                 max-height: 145px;
                 margin: auto;
                 max-width: 100%;
             }
         }
+
         >.checkoutProductItemDetail {
             width: calc(100% - 145px);
             font-size: 15px;
@@ -106,10 +122,12 @@
                 @include Responsive(M) {
                     width: 100%;
                 }
+
                 >div {
                     padding-bottom: 4px;
                 }
             }
+
             .checkoutProductItemPrice {
                 width: 100px;
                 padding-bottom: 4px;
@@ -122,7 +140,7 @@
                     display: flex;
                 }
 
-                .checkoutProductItemOriginalPrice{
+                .checkoutProductItemOriginalPrice {
                     color: #bfbfbf;
                     text-decoration: line-through;
                     font-size: 0.95em;
@@ -133,25 +151,31 @@
                     }
                 }
             }
+
             .checkoutProductItemQty {
                 width: 100px;
                 text-align: center;
                 padding-bottom: 4px;
+
                 span {
                     display: none;
                 }
+
                 @include Responsive(M) {
                     width: 100%;
                     text-align: left;
+
                     span {
                         display: inline-block;
                     }
                 }
             }
+
             .checkoutProductItemTotal {
                 width: 100px;
                 color: #F39801;
                 font-weight: 600;
+
                 @include Responsive(M) {
                     display: none;
                 }
