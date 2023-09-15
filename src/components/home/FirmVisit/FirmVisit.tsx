@@ -1,5 +1,6 @@
 
 import React from 'react'
+import styles from './FirmVisit.module.scss'
 
 const FirmVisit = () => {
     return (
