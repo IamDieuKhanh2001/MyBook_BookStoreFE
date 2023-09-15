@@ -1,0 +1,111 @@
+@import '../../../style/responsive';
+
+.checkoutProductContent {
+    >.checkoutProductItem:first-of-type {
+        border-top: none;
+        padding: 4px 0 8px 0;
+    }
+
+    >.checkoutProductItem {
+        border-top: 1px solid #ced4da;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 8px 0;
+
+        >.checkoutProductItemImg {
+            width: 145px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                max-height: 145px;
+                margin: auto;
+                max-width: 100%;
+            }
+        }
+
+        >.checkoutProductItemDetail {
+            width: calc(100% - 145px);
+            font-size: 15px;
+            padding: 0 4px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+
+            @include Responsive(M) {
+                width: calc(100% - 100px);
+                flex-direction: column;
+            }
+
+            .checkoutProductItemName {
+                width: calc(100% - 345px);
+
+                @include Responsive(M) {
+                    width: 100%;
+                }
+
+                >div {
+                    padding-bottom: 4px;
+                }
+            }
+
+            .checkoutProductItemPrice {
+                width: 100px;
+                padding-bottom: 4px;
+
+
+                @include Responsive(M) {
+                    width: 100%;
+                    color: #F39801;
+                    font-weight: 600;
+                    display: flex;
+                }
+
+                .checkoutProductItemOriginalPrice {
+                    color: #bfbfbf;
+                    text-decoration: line-through;
+                    font-size: 0.95em;
+
+                    @include Responsive(M) {
+                        margin-left: 5px;
+                        margin-top: 2px;
+                    }
+                }
+            }
+
+            .checkoutProductItemQty {
+                width: 100px;
+                text-align: center;
+                padding-bottom: 4px;
+
+                span {
+                    display: none;
+                }
+
+                @include Responsive(M) {
+                    width: 100%;
+                    text-align: left;
+
+                    span {
+                        display: inline-block;
+                    }
+                }
+            }
+
+            .checkoutProductItemTotal {
+                width: 100px;
+                color: #F39801;
+                font-weight: 600;
+
+                @include Responsive(M) {
+                    display: none;
+                }
+            }
+        }
+    }
+}
