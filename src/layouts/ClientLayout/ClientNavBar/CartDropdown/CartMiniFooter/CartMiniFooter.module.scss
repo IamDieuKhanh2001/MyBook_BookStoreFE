@@ -1,0 +1,32 @@
+@import '../../../../../style/variable';
+.cartFooter {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .cartFooterLeft {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .priceTotalTitle {
+            font-size: 13px;
+            color: $dark-color;
+        }
+
+        .priceTotal {
+            font-size: 15px;
+            font-weight: bold;
+            color: $secondary-color;
+        }
+    }
+
+    .btnRedirectToCart {
+        width: 186px;
+        border-radius: 5px;
+        color: $light-color;
+        background-color: $secondary-color;
+        border: 2px solid $secondary-color;
+    }
+}

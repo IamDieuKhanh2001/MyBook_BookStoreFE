@@ -21,24 +21,24 @@ const AddressForm = () => {
                 <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
             </div>
             <div className="input-group mb-3">
-                <select className="form-select" defaultValue={undefined} aria-label="Default select example">
-                    <option>Thành phố/Tỉnh</option>
+                <select className="form-select" defaultValue={0} aria-label="Default select example">
+                    <option disabled={true} value={0}>Thành phố/Tỉnh</option>
                     <option value={1}>One</option>
                     <option value={2}>Two</option>
                     <option value={3}>Three</option>
                 </select>
             </div>
             <div className="input-group mb-3">
-                <select className="form-select" defaultValue={undefined} aria-label="Default select example">
-                    <option>Quận/Huyện</option>
+                <select className="form-select" defaultValue={0} aria-label="Default select example">
+                    <option disabled={true} value={0}>Quận/Huyện</option>
                     <option value={1}>One</option>
                     <option value={2}>Two</option>
                     <option value={3}>Three</option>
                 </select>
             </div>
             <div className="input-group mb-3">
-                <select className="form-select" defaultValue={undefined} aria-label="Default select example">
-                    <option>Xã/Phường</option>
+                <select className="form-select" defaultValue={0} aria-label="Default select example">
+                    <option disabled={true} value={0}>Xã/Phường</option>
                     <option value={1}>One</option>
                     <option value={2}>Two</option>
                     <option value={3}>Three</option>
