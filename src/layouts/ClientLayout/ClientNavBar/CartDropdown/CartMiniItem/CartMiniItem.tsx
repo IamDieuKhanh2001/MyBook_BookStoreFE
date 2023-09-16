@@ -9,7 +9,7 @@ const CartMiniItem = () => {
             <li className={styles.cartItem}>
                 <Link className={styles.itemImg} href="#" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
                     <img
-                        src="https://cdn0.fahasa.com/media/catalog/product//9/7/9784065195154.jpg"
+                        src="/img/book/sach2.jpg"
                         alt="Sach 1"
                         width={68}
                         height={68}
