@@ -5,7 +5,7 @@ import styles from "./ProductItem.module.scss"
 const ProductItem = () => {
     return (
         // col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3
-        <div className="col-3 wow fadeInUp" data-wow-delay="0.3s">
+        <div className="col-xl-3 col-lg-3 col-md-3 col-4 wow fadeInUp" data-wow-delay="0.3s">
             <div className={styles.productItem}>
                 <div className="position-relative bg-light overflow-hidden">
                     <img className="img-fluid w-100" src="/img/book/sach2.jpg" alt="" />

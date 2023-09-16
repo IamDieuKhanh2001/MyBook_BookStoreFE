@@ -17,16 +17,13 @@ Full name (Required):
 Phone number:
 =================******************==================
 */
-import Carousel from '@/components/home/Carousel/Carousel'
 import FirmVisit from '@/components/home/FirmVisit/FirmVisit'
-import Product from '@/components/product/Product'
 import Testimonial from '@/components/home/Testimonial/Testimonial'
-import BtnBackToTop from '@/layouts/ClientLayout/BtnBackToTop/BtnBackToTop'
 import ClientLayout from '@/layouts/ClientLayout/ClientLayout'
 import { Metadata } from 'next'
 import React from 'react'
 import ProductList from '@/components/product/ProductList/ProductList'
-import TopBanner from '@/components/topBanner/TopBanner'
+import TopBanner from '@/components/home/TopBanner/TopBanner'
 
 export const metadata: Metadata = {
   // title: 'My App Title',
