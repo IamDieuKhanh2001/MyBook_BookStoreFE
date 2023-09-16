@@ -1,3 +1,4 @@
+@import '../../../../style/responsive';
 .flashSaleProductInfo {
     margin: 8px 0;
 
@@ -81,6 +82,16 @@
 
                     .flashSaleSoldNumber {}
                 }
+            }
+        }
+    }
+}
+
+@include Responsive(L) {
+    .flashSaleProductInfo {
+        .flashSaleProduct {
+            .flashSaleProductLast {
+                display: none;
             }
         }
     }

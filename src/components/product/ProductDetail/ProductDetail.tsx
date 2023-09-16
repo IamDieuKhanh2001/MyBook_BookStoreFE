@@ -3,6 +3,7 @@ import ProductImgSlider from '@/components/product/ProductDetail/ProductImgSlide
 import React, { useState } from 'react'
 import styles from './ProductDetail.module.scss'
 import ProductTab from './ProductTab/ProductTab'
+import FlashSaleCountDown from './FlashSaleCountDown/FlashSaleCountDown'
 
 const ProductDetail = () => {
     const [productImages, SetProductImages] = useState([
@@ -14,6 +15,8 @@ const ProductDetail = () => {
 
     ])
     const [quantity, setQuantity] = useState(1)
+    const initialHours = 5; // Số giờ ban đầu
+    const initialMinutes = 30; // Số phút ban đầu
 
     const handleIncreaseQuantity = () => {
         setQuantity((quantity) => (quantity + 1))
@@ -36,14 +39,14 @@ const ProductDetail = () => {
             <div className="container-xxl py-5">
                 <div className="container">
                     <div className="row g-5 align-items-center">
-                        <div className="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                            <div className="about-img position-relative overflow-hidden p-5 pe-0">
+                        <div className="col-lg-6 col-md-12 wow fadeIn" data-wow-delay="0.1s">
+                            <div className="about-img position-relative overflow-hidden p-lg-5 pe-0">
                                 <ProductImgSlider imgList={productImages} />
                             </div>
                         </div>
-                        <div className="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                        <div className="col-lg-6 col-md-12 wow fadeIn" data-wow-delay="0.5s">
                             <h1 className="display-5 mb-2">Dummy Book Tilte</h1>
-                            <div className="d-flex mb-3">
+                            <div className="d-flex mb-1">
                                 <div className="text-primary me-2">
                                     <small className="fas fa-star" />
                                     <small className="fas fa-star" />
@@ -53,6 +56,12 @@ const ProductDetail = () => {
                                 </div>
                                 <small className="pt-1">(99 Reviews)</small>
                             </div>
+                            <FlashSaleCountDown
+                                initialHours={initialHours}
+                                initialMinutes={initialMinutes}
+                                numProductSold={4}
+                                numProductTotal={10}
+                            />
                             <h2>
                                 <span className="text-body text-decoration-line-through me-2">30.000</span>
                                 <span className="text-primary me-1">15.000 VND</span>

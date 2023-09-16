@@ -7,7 +7,7 @@ const ProductTab = () => {
     return (
         <>
             <nav>
-                <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                <div className="nav nav-tabs pt-3" id="nav-tab" role="tablist">
                     <button
                         className="nav-link active"
                         id="nav-home-tab"
@@ -42,7 +42,7 @@ const ProductTab = () => {
                         aria-controls="nav-contact"
                         aria-selected="false"
                     >
-                        Đánh giá
+                        Xem Đánh giá
                     </button>
                 </div>
             </nav>
