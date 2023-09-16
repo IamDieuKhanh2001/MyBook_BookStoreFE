@@ -32,6 +32,7 @@
 	border: 10px solid $primary-color;
 	border-radius: 3rem;
 }
+
 @include Responsive(S) {
 	#header-carousel {
 		.carouselItem {

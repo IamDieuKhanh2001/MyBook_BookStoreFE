@@ -7,7 +7,7 @@ const ProductList = () => {
     return (
         <>
             <div className="tab-content">
-                <div className="row g-4">
+                <div className="row g-2">
                     <ProductItem />
                     <ProductItem />
                     <ProductItem />

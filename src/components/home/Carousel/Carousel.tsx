@@ -1,42 +1,23 @@
 
 import React from 'react'
 import styles from './Carousel.module.scss'
+import carouselItems from './CarouselItem'
 
 const Carousel = () => {
     return (
         <>
             {/* Carousel Start */}
-            <div className="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
-                <div id="header-carousel" className="carousel slide" data-bs-ride="carousel">
-                    <div className="carousel-inner">
-                        <div className={`${styles.carouselItem} carousel-item active`}>
-                            <img className="w-100" src="img/carousel/carousel-item1.jpg" alt="Image" />
-                            <div className={`${styles.carouselCaption} carousel-caption`}>
-                                <div className="container">
-                                    <div className="row justify-content-start">
-                                        <div className="col-lg-7">
-                                            <h1 className="display-2 mb-5 animated slideInDown">Organic Food Is Good For Health</h1>
-                                            <a href="" className="btn btn-primary rounded-pill py-sm-3 px-sm-5">Products</a>
-                                            <a href="" className="btn btn-secondary rounded-pill py-sm-3 px-sm-5 ms-3">Services</a>
-                                        </div>
-                                    </div>
-                                </div>
+            <div className="wow fadeIn h-100" data-wow-delay="0.1s">
+                <div id="header-carousel" className="carousel slide h-100" data-bs-ride="carousel">
+                    <div className="carousel-inner h-100">
+                        {carouselItems?.map((item, index) => (
+                            <div
+                                key={index}
+                                className={`${styles.carouselItem} h-100 carousel-item ${index === 0 ? ' active' : ''}`}
+                            >
+                                <img className="w-100 h-100" src={item.imgUrl} alt="Image" />
                             </div>
-                        </div>
-                        <div className={`${styles.carouselItem} carousel-item`}>
-                            <img className="w-100" src="img/carousel/carousel-item2.jpg" alt="Image" />
-                            <div className={`${styles.carouselCaption} carousel-caption`}>
-                                <div className="container">
-                                    <div className="row justify-content-start">
-                                        <div className="col-lg-7">
-                                            <h1 className="display-2 mb-5 animated slideInDown">Natural Food Is Always Healthy</h1>
-                                            <a href="" className="btn btn-primary rounded-pill py-sm-3 px-sm-5">Products</a>
-                                            <a href="" className="btn btn-secondary rounded-pill py-sm-3 px-sm-5 ms-3">Services</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                     <button className={`${styles.carouselControlPrev} carousel-control-prev`} type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
                         <span className={`${styles.carouselControlPrevIcon} carousel-control-prev-icon`} aria-hidden="true" />
