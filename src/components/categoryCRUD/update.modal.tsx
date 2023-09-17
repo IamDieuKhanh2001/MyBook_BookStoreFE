@@ -4,7 +4,6 @@ import { Field, Form, Formik } from 'formik';
 import React from 'react'
 import * as Yup from 'yup';
 import CustomTextField from '../forms/theme-elements/CustomTextField';
-import { APIGetAllCategory, APIUpdateCategory } from '@/lib/axios/api/categoryAPI';
 import { useSession } from 'next-auth/react';
 import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
 import { toast } from 'react-toastify';

@@ -20,7 +20,7 @@ export function useCustomSWR<Data = any>(url: string, params?: object, headers?:
   }, swrConfig);
 
   return {
-    data: data ?? null,
+    data: data ?? undefined,
     mutate,
     isLoading: !error && !data,
     isError: error,
