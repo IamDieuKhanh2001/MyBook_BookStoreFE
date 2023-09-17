@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import styles from './AddVoucher.module.scss'
-import SectionTitle from '@/components/shared/SectionTitle/SectionTitle'
+import SectionTitle from '@/components/shared/sectionTitle/SectionTitle'
 
 const AddVoucher = () => {
   return (
