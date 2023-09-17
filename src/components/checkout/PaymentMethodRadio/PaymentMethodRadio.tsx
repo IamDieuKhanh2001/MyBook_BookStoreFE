@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import styles from './PaymentMethodRadio.module.scss'
-import SectionTitle from '@/components/shared/sectionTitle/SectionTitle'
+import SectionTitle from '@/components/shared/SectionTitle/SectionTitle'
 
 const PaymentMethodRadio = () => {
     return (

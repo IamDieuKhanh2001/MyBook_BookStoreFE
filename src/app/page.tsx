@@ -24,6 +24,9 @@ import { Metadata } from 'next'
 import React from 'react'
 import ProductList from '@/components/product/ProductList/ProductList'
 import TopBanner from '@/components/home/TopBanner/TopBanner'
+import MainSectionTitle from '@/components/shared/MainSectionTitle/MainSectionTitle'
+import Link from 'next/link'
+import FlashSale from '@/components/home/FlashSale/FlashSale'
 
 export const metadata: Metadata = {
   // title: 'My App Title',
@@ -34,29 +37,37 @@ export default function Home() {
     <ClientLayout>
       {/* <Carousel /> */}
       <TopBanner />
-      <div className="container-xxl py-5">
+      <FlashSale />
+      <div className="container-xxl pt-5">
         <div className="container">
-          {/* Title start */}
-          <div className="row g-0 gx-5 align-items-end">
-            <div className="col-lg-6">
-              <div className="section-header text-start mb-5 wow fadeInUp" data-wow-delay="0.1s" style={{ maxWidth: 500 }}>
-                <h1 className="display-5 mb-3">Our Products</h1>
-                <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
-              </div>
-            </div>
-          </div>
-          <div className='row'>
+          <MainSectionTitle
+            title='Xu hướng mua sắm'
+            shortDescription='Các sản phẩm dưới đây có lượt doanh thu cao nhất'
+          />
+          <div className='row pb-4'>
             <ProductList />
           </div>
-          {/* Title End */}
+          <div className="col-12 text-center">
+            {/* Go to product list page  */}
+            <Link className="btn btn-primary rounded-pill py-3 px-5" href="">
+              Xem thêm
+            </Link>
+          </div>
+          <MainSectionTitle
+            title='Sách giáo khoa'
+          />
+          <div className='row pb-4'>
+            <ProductList />
+          </div>
+          <div className="col-12 text-center">
+            {/* Go to product list page  */}
+            <Link className="btn btn-primary rounded-pill py-3 px-5" href="">
+              Xem thêm
+            </Link>
+          </div>
         </div>
       </div>
-      <div className="col-12 text-center">
-        {/* Go to product list page  */}
-        <a className="btn btn-primary rounded-pill py-3 px-5" href="">
-          Browse More Products
-        </a>
-      </div>
+
       <FirmVisit />
       <Testimonial />
 

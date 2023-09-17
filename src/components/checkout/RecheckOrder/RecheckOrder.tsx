@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './RecheckOrder.module.scss'
-import SectionTitle from '@/components/shared/sectionTitle/SectionTitle'
+import SectionTitle from '@/components/shared/SectionTitle/SectionTitle'
 
 const RecheckOrder = () => {
     return (

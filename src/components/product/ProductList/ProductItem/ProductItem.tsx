@@ -9,8 +9,8 @@ const ProductItem = () => {
             <div className={styles.productItem}>
                 <div className="position-relative bg-light overflow-hidden">
                     <img className="img-fluid w-100" src="/img/book/sach2.jpg" alt="" />
-                    <div className="bg-secondary rounded text-white position-absolute start-0 top-0 m-2 px-3">
-                        16%
+                    <div className="bg-warning fw-bold rounded text-white position-absolute end-0 top-0 m-2 px-3">
+                        -16%
                     </div>
                 </div>
                 <div className="px-4 py-2">

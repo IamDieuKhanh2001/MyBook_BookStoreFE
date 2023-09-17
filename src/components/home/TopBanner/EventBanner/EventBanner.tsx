@@ -13,17 +13,17 @@ const EventBanner = () => {
                 </div>
                 <div className={`${styles.homeBannerItem} col-sm-3 col-md-3 col-xs-6`}>
                     <Link className={styles.homeBannerItemLink} href={'#'}>
-                        <img src="/img/banner/small_banner1.png" alt="banner event" />
+                        <img src="/img/banner/small_banner2.png" alt="banner event" />
                     </Link>
                 </div>
                 <div className={`${styles.homeBannerItem} col-sm-3 col-md-3 col-xs-6`}>
                     <Link className={styles.homeBannerItemLink} href={'#'}>
-                        <img src="/img/banner/small_banner1.png" alt="banner event" />
+                        <img src="/img/banner/small_banner3.png" alt="banner event" />
                     </Link>
                 </div>
                 <div className={`${styles.homeBannerItem} col-sm-3 col-md-3 col-xs-6`}>
                     <Link className={styles.homeBannerItemLink} href={'#'}>
-                        <img src="/img/banner/small_banner1.png" alt="banner event" />
+                        <img src="/img/banner/small_banner4.png" alt="banner event" />
                     </Link>
                 </div>
             </div>

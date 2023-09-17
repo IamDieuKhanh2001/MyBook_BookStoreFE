@@ -2,7 +2,7 @@
 import React from 'react'
 import styles from './AddressRadio.module.scss'
 import ModalAddAddress from './ModalAddAddress/ModalAddAddress';
-import SectionTitle from '@/components/shared/sectionTitle/SectionTitle';
+import SectionTitle from '@/components/shared/SectionTitle/SectionTitle';
 
 interface AddressRadioProps {
     selectedAddressId: number;
