@@ -3,7 +3,6 @@ import { useEffect, type ReactElement } from 'react';
 import { Button, Typography } from '@mui/material';
 import PageContainer from '@/components/container/PageContainer';
 import DashboardCard from '@/components/shared/DashboardCard';
-import { APIGetTestAdmin } from '@/lib/axios/api/testAPI';
 import { useSession } from 'next-auth/react';
 import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
 import { toast } from 'react-toastify';
