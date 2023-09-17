@@ -1,6 +1,8 @@
 'use client'
 import React from 'react'
 import styles from './AddressRadio.module.scss'
+import ModalAddAddress from './ModalAddAddress/ModalAddAddress';
+import SectionTitle from '@/components/shared/SectionTitle/SectionTitle';
 
 interface AddressRadioProps {
     selectedAddressId: number;
@@ -13,34 +15,11 @@ const AddressRadio = (props: AddressRadioProps) => {
         <div className="row">
             <div className="col-12">
                 {/* tach component title section  */}
-                <h5 className={`${styles.sectionTitle} position-relative text-uppercase my-3`}>
-                    <span className="bg-white pe-3">Địa chỉ giao hàng</span>
-                </h5>
+                <SectionTitle title="Địa chỉ giao hàng" />
                 <div className="bg-light p-4">
                     {/* tach component btn add address  */}
-                    <button type="button" className="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <i className="fas fa-plus me-2"></i>
-                        Thêm 1 địa chỉ khác
-                    </button>
-                    {/* Modal */}
-                    <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
-                                </div>
-                                <div className="modal-body">
-                                    ...
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" className="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* tach component radio dia chi  */}
+                    <ModalAddAddress />
+                    {/* address radio items  */}
                     <div className="form-check">
                         <input
                             className="form-check-input"
@@ -61,7 +40,6 @@ const AddressRadio = (props: AddressRadioProps) => {
                             </div>
                         </div>
                     </div>
-                    {/* tach component radio dia chi  */}
                     <div className="form-check">
                         <input
                             className="form-check-input"

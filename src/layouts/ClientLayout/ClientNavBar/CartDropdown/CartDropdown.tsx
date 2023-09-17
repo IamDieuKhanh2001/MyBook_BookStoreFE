@@ -3,6 +3,8 @@ import React from 'react'
 import styles from './CartDropdown.module.scss'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import CartMiniItem from './CartMiniItem/CartMiniItem'
+import CartMiniFooter from './CartMiniFooter/CartMiniFooter'
 
 const CartDropdown = () => {
     const router = useRouter();
@@ -31,74 +33,16 @@ const CartDropdown = () => {
                     </div>
                     <div>
                         <ol className={styles.cartContent}>
-                            <li className={styles.cartItem}>
-                                <Link className={styles.itemImg} href="#" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
-                                    <img
-                                        src="https://cdn0.fahasa.com/media/catalog/product//9/7/9784065195154.jpg"
-                                        alt="Sach 1"
-                                        width={68}
-                                        height={68}
-                                    />
-                                </Link>
-                                <div className={styles.itemDetail}>
-                                    <p className={styles.itemName}>
-                                        <Link href={'#'}>Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)</Link>
-                                    </p>
-                                    <div className='mt-1'>
-                                        <span className={styles.itemPrice}>37.000 VND</span>
-                                        <span className={styles.itemQty}>x1</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className={styles.cartItem}>
-                                <Link className={styles.itemImg} href="#" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
-                                    <img
-                                        src="https://cdn0.fahasa.com/media/catalog/product//9/7/9784065195154.jpg"
-                                        alt="Sach 1"
-                                        width={68}
-                                        height={68}
-                                    />
-                                </Link>
-                                <div className={styles.itemDetail}>
-                                    <p className={styles.itemName}>
-                                        <Link href={'#'}>Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)</Link>
-                                    </p>
-                                    <div className='mt-1'>
-                                        <span className={styles.itemPrice}>37.000 VND</span>
-                                        <span className={styles.itemQty}>x1</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className={styles.cartItem}>
-                                <Link className={styles.itemImg} href="#" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
-                                    <img
-                                        src="https://cdn0.fahasa.com/media/catalog/product//9/7/9784065195154.jpg"
-                                        alt="Sach 1"
-                                        width={68}
-                                        height={68}
-                                    />
-                                </Link>
-                                <div className={styles.itemDetail}>
-                                    <p className={styles.itemName}>
-                                        <Link href={'#'}>Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)</Link>
-                                    </p>
-                                    <div className='mt-1'>
-                                        <span className={styles.itemPrice}>37.000 VND</span>
-                                        <span className={styles.itemQty}>x1</span>
-                                    </div>
-                                </div>
-                            </li>
+                            <CartMiniItem />
+                            <CartMiniItem />
+                            <CartMiniItem />
+                            <CartMiniItem />
+                            <CartMiniItem />
+                            <CartMiniItem />
+                            <CartMiniItem />
                         </ol>
                     </div>
-                    <div className={styles.cartFooter}>
-                        <div className={styles.cartFooterLeft}>
-                            <div className={styles.priceTotalTitle}>Tổng cộng</div>
-                            <div>
-                                <span className={styles.priceTotal}>326.000 VND</span>
-                            </div>
-                        </div>
-                        <Link className={`btn ${styles.btnRedirectToCart}`} href={'/cart'}>Xem giỏ hàng</Link>
-                    </div>
+                    <CartMiniFooter />
                 </div>
             </div>
         </>

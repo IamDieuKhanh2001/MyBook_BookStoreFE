@@ -1,5 +1,5 @@
 import ClientHeader from '@/components/ClientHeader/ClientHeader'
-import ProductImgSlider from '@/components/ProductImgSlider/ProductImgSlider'
+import ProductImgSlider from '@/components/product/ProductDetail/ProductImgSlider/ProductImgSlider'
 import ProductDetail from '@/components/product/ProductDetail/ProductDetail'
 import ClientLayout from '@/layouts/ClientLayout/ClientLayout'
 import React, { useState } from 'react'

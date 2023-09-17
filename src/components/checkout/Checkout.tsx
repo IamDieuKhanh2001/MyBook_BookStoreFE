@@ -2,6 +2,10 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Checkout.module.scss'
 import AddressRadio from './AddressRadio/AddressRadio'
+import PaymentMethodRadio from './PaymentMethodRadio/PaymentMethodRadio'
+import AddVoucher from './AddVoucher/AddVoucher'
+import RecheckOrder from './RecheckOrder/RecheckOrder'
+import BottomSideBarCheckout from './BottomSideBarCheckout/BottomSideBarCheckout'
 
 const Checkout = () => {
     const [selectedAddressId, setSelectedAddressId] = useState(1)
@@ -21,6 +25,10 @@ const Checkout = () => {
                 selectedAddressId={selectedAddressId}
                 handleRadioChange={handleRadioChange}
             />
+            <PaymentMethodRadio />
+            <AddVoucher />
+            <RecheckOrder />
+            <BottomSideBarCheckout />
         </div>
     )
 }

@@ -1,0 +1,16 @@
+.categoryList {
+    list-style: none;
+    padding: 5px;
+
+    .categoryListItem {
+        text-decoration: none;
+    }
+    .subCategoryList {
+        list-style: none;
+        padding: 5px 10px;
+
+        .subCategoryListItem {
+            text-decoration: none;
+        }
+    }
+}

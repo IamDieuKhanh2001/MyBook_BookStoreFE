@@ -4,6 +4,7 @@ import React from "react";
 import ClientNavBar from "./ClientNavBar/ClientNavBar";
 import ClientFooter from "./ClientFooter/ClientFooter";
 import BtnBackToTop from "./BtnBackToTop/BtnBackToTop";
+import NavBarPlaceholder from "./NavBarPlaceholder/NavBarPlaceholder";
 
 //Layout for Normal user
 interface Props {
@@ -14,6 +15,7 @@ const ClientLayout: React.FC<Props> = ({ children }) => {
     return (
         <>
             <ClientNavBar />
+            <NavBarPlaceholder />
             {children}
             <ClientFooter />
             <BtnBackToTop />
