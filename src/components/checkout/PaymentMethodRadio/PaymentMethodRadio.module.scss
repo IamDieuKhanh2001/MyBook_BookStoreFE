@@ -1,0 +1,12 @@
+.paymentNameWithIconContainer {
+    display: flex;
+
+    .paymentIcon {
+        width: 40px;
+    }
+
+    .paymentName {
+        margin: 4px 0 0 10px;
+        flex: 1;
+    }
+}

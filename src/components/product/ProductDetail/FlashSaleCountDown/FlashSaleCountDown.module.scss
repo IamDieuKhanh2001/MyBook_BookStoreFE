@@ -1,0 +1,98 @@
+@import '../../../../style/responsive';
+.flashSaleProductInfo {
+    margin: 8px 0;
+
+    .flashSaleProduct {
+        height: 46px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 8px;
+        background: transparent linear-gradient(180deg, #FF6D6D 0%, #FF5247 100%) 0% 0% no-repeat padding-box;
+
+        .flashSaleProductBanner {
+            margin: 4px;
+            padding: 0 20px;
+            height: calc(100% - 8px);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 8px;
+
+            img {
+                max-width: 100%;
+                height: auto;
+                border: 0;
+                vertical-align: top;
+            }
+
+            .flashSaleCountdown {
+                padding-left: 16px;
+                white-space: nowrap;
+
+                .flashSaleCountdownSeparateNumber {
+                    color: #000;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+
+                .flashSaleCountdownNumber {
+                    padding: 6px;
+                    margin: 0 3px;
+                    background-color: #000;
+                    color: #fff;
+                    font-size: 14px;
+                    font-weight: bold;
+                    border-radius: 8px;
+                }
+            }
+
+        }
+
+        .flashSaleProductLast {
+            .flashSaleProgress {
+                position: relative;
+                width: 200px;
+                margin-right: 16px;
+                height: 16px;
+                border-radius: 49px;
+                background-color: #ffcfce;
+                overflow: hidden;
+
+                .flashSaleProgressBar {
+                    background-color: #fff;
+                    height: 100%;
+                }
+
+                .flashSaleProgressValue {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    color: #F63B2F;
+                    font-size: 12px;
+                    text-align: center;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    white-space: nowrap;
+
+                    .flashSaleSoldNumber {}
+                }
+            }
+        }
+    }
+}
+
+@include Responsive(L) {
+    .flashSaleProductInfo {
+        .flashSaleProduct {
+            .flashSaleProductLast {
+                display: none;
+            }
+        }
+    }
+}

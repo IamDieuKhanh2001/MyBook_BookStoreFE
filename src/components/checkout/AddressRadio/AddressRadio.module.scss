@@ -1,0 +1,17 @@
+@import '../../../style/variable';
+
+//address
+.editAddress {
+    padding: 4px 8px;
+    color: $primary-color;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.deleteAddress {
+    padding: 4px 8px;
+    color: $secondary-color;
+    font-weight: 600;
+    cursor: pointer;
+}
+

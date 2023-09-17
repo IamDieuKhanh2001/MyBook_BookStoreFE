@@ -1,0 +1,11 @@
+@import '../../../style/responsive';
+
+.navPlaceholder {
+    height: 120.238px;
+}
+
+@include Responsive(M) {
+    .navPlaceholder {
+        height: 45px;
+    }
+}

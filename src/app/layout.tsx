@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+import Head from 'next/head';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,7 +28,6 @@ export default function RootLayout({
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="keywords" />
         <meta content="" name="description" />
-        <link href="img/favicon.ico" rel="icon" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
