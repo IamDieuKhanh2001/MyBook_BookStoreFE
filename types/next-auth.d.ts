@@ -8,7 +8,7 @@ declare module "next-auth" {
         user: {
             jwtToken: string;
             refreshToken: string;
-            userInfo: User;
+            userInfo: UserInfo;
         };
     }
 }

@@ -14,17 +14,21 @@ const ProductItem = () => {
                     </div>
                 </div>
                 <div className="px-4 py-2">
-                    <a className="d-block h6 mb-2" href="">Sach 2</a>
-                    <span className="text-primary me-1">$19.00</span>
-                    <span className="text-body text-decoration-line-through">$29.00</span>
+                    <a className="d-block h6 mb-2" href="">Dummy book title tile 2</a>
+                    <div className='d-flex flex-column'>
+                        <span className="text-danger fw-bold me-1">$19.00</span>
+                        <span className="text-body text-decoration-line-through">$29.00</span>
+                    </div>
                 </div>
-                <div className="d-flex border-top">
-                    <small className="w-50 text-center border-end py-2">
-                        <a className="text-body" href=""><i className="fa fa-eye text-primary me-2" />Detail</a>
-                    </small>
-                    <small className="w-50 text-center py-2">
-                        <a className="text-body" href=""><i className="fa fa-shopping-bag text-primary me-2" />Add to cart</a>
-                    </small>
+                <div className={`${styles.ratingContainer} px-3 pb-2`}>
+                    <div className={styles.ratings}>
+                        <div className={styles.ratingBox}>
+                            <div className={styles.rating} style={{ width: '60%' }}></div>
+                        </div>
+                        <div className={styles.amount}>
+                            (0)
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

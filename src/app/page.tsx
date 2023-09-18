@@ -32,6 +32,7 @@ export const metadata: Metadata = {
   // title: 'My App Title',
 }
 
+
 export default function Home() {
   return (
     <ClientLayout>
