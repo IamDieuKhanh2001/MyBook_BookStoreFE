@@ -11,7 +11,11 @@ interface FormValues {
     password: string;
     retypePassword: string;
 }
-const RegisterForm = () => {
+interface RegisterFormProps {
+    setActiveTab: (value: string) => void;
+}
+const RegisterForm = (props: RegisterFormProps) => {
+    const { setActiveTab } = props
     const [isLoading, setIsLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
 
@@ -49,14 +53,15 @@ const RegisterForm = () => {
             toast.warning("Register with " + values.email + " " + values.password)
             setIsLoading(true)
             setTimeout(() => {
-                toast.success("Xin chào " + values.email)
+                toast.success("Đăng ký hoàn tất, vui lòng đăng nhập " + values.email)
                 // Đoạn mã bạn muốn thực thi sau 5 giây
                 setIsLoading(false)
+                setActiveTab('login')
             }, 5000); // 5000 milliseconds = 5 giây
         } catch (e) {
             console.log(e)
             setIsLoading(false)
-            toast.error("Can not Register with" + values.email)
+            toast.error("Can not Register with " + values.email)
         }
     };
 
