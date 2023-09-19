@@ -50,7 +50,7 @@
             align-items: center;
             justify-content: center;
 
-            .btnLogin {
+            .btnRegister {
                 background-color: $secondary-color;
                 color: white;
                 border: none;
@@ -69,6 +69,11 @@
                     background-color: #63636378;
                 }
             }
+        }
+        .msgFieldError {
+            color: red;
+            margin: 0;
+            margin-top: 3px;
         }
     }
 }

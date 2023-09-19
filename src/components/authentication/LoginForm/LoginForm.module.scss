@@ -76,6 +76,7 @@
                 border-radius: 8px;
                 padding: 8px 0;
                 margin: 8px 0;
+
                 &:disabled {
                     background-color: #63636378;
                 }
@@ -96,10 +97,17 @@
                 border-radius: 8px;
                 padding: 8px 0;
                 margin: 8px 0;
+
                 &:disabled {
                     background-color: #63636378;
                 }
             }
+        }
+
+        .msgFieldError {
+            color: red;
+            margin: 0;
+            margin-top: 3px;
         }
     }
 }
