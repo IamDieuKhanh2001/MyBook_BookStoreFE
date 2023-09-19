@@ -14,6 +14,7 @@ import {
   Checkbox,
   AlertTitle,
   Alert,
+  colors,
 } from "@mui/material";
 import Link from "next/link";
 import dynamic from 'next/dynamic'
@@ -40,10 +41,10 @@ interface loginProps {
 }
 
 const AuthLogin = ({ title, subtitle, subtext, isLoading, setIsLoading }: loginProps) => {
-  const theme = useTheme();
   const searchParams = useSearchParams();
   const isError = searchParams && searchParams.get('error') === "CredentialsSignin" ? true : false;
   const isSessionExpired = searchParams ? searchParams.get("isSessionExpired") === "true" : false;
+  const theme = useTheme()
   const initialValues: FormValues = {
     email: '',
     password: '',
@@ -109,6 +110,7 @@ const AuthLogin = ({ title, subtitle, subtext, isLoading, setIsLoading }: loginP
                   component="label"
                   htmlFor="email"
                   mb="5px"
+                  style={{color: theme.palette.grey[600]}}
                 >
                   Username
                 </Typography>
@@ -137,6 +139,7 @@ const AuthLogin = ({ title, subtitle, subtext, isLoading, setIsLoading }: loginP
                   component="label"
                   htmlFor="password"
                   mb="5px"
+                  style={{color: theme.palette.grey[600]}}
                 >
                   Password
                 </Typography>

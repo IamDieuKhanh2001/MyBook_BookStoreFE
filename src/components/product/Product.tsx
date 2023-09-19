@@ -9,10 +9,10 @@ const Product = () => {
     return (
         <>
             {/* Product Start */}
-            <div className="container-xxl py-5">
+            <div className="container-xxl py-4">
                 <div className="container">
                     {/* Title start */}
-                    <MainSectionTitle title='Tên Category' shortDescription='Short des cho category' />
+                    {/* <MainSectionTitle title='Tên Category' shortDescription='Short des cho category' /> */}
                     <div className='row'>
                         <div className='col-xl-3 col-sm-12 filterProduct'>
                             <SortSideBar />
