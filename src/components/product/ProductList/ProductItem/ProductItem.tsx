@@ -7,7 +7,7 @@ const ProductItem = () => {
         // col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3
         <div className="col-xl-3 col-lg-3 col-md-3 col-4 wow fadeInUp" data-wow-delay="0.3s">
             <div className={styles.productItem}>
-                <div className="position-relative bg-light overflow-hidden">
+                <div className="position-relative overflow-hidden">
                     <img className="img-fluid w-100" src="/img/book/sach2.jpg" alt="" />
                     <div className="bg-warning fw-bold rounded text-white position-absolute end-0 top-0 m-2 px-3">
                         -16%

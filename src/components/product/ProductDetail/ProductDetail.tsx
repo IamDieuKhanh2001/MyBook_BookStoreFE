@@ -36,7 +36,7 @@ const ProductDetail = () => {
     return (
         <>
             {/* About Start */}
-            <div className="container-xxl py-5">
+            <div className="container-xxl py-3 mt-2 section-container">
                 <div className="container">
                     <div className="row g-5 align-items-center">
                         <div className="col-lg-6 col-md-12 wow fadeIn" data-wow-delay="0.1s">
@@ -103,9 +103,9 @@ const ProductDetail = () => {
                         </div>
                     </div>
                 </div>
-                {/* Tab description   */}
+            </div>
+            <div className="container-xxl py-3 mt-2 section-container">
                 <ProductTab />
-                {/* Tab description end  */}
             </div>
             {/* About End */}
         </>

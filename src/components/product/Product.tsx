@@ -8,9 +8,8 @@ import FilterCurrentActive from './FilterCurrentActive/FilterCurrentActive'
 const Product = () => {
     return (
         <>
-            {/* Product Start */}
-            <div className="container-xxl py-4">
-                <div className="container">
+            <div className="container-xxl mt-2 section-container">
+                <div className="container py-4">
                     {/* Title start */}
                     {/* <MainSectionTitle title='Tên Category' shortDescription='Short des cho category' /> */}
                     <div className='row'>
@@ -25,7 +24,6 @@ const Product = () => {
                     {/* Title End */}
                 </div>
             </div>
-            {/* Product End */}
         </>
     )
 }

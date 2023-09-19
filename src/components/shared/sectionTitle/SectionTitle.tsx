@@ -8,7 +8,7 @@ const SectionTitle = ({title}: SectionTitleProps) => {
     return (
         <>
             <h5 className={`${styles.sectionTitle} position-relative text-uppercase my-3`}>
-                <span className="bg-white pe-3">{title}</span>
+                <span className="pe-3">{title}</span>
             </h5>
         </>
     )
