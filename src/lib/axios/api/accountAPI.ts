@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import defaultAxios from "../axiosAuth"
 
 export const APIUserLogin = async (email: string = "", password: string = ""): Promise<AxiosResponse<any, any>> => {
-    const url = "/api/Account/signIn";
+    const url = "/auth/login";
     const body = {
         email: email,
         password: password,

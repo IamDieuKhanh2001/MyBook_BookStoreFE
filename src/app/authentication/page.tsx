@@ -38,13 +38,13 @@ const TestPage = () => {
                         refresh: {session?.user.refreshToken}
                     </p>
                     <p>
-                        Username: {session?.user.userInfo?.userName}
+                        Email: {session?.user.userInfo?.email}
                     </p>
                     <p>
                         id: {session?.user.userInfo?.id}
                     </p>
                     <p>
-                        ROLE name: {session?.user.userInfo?.roles[0].roleName}
+                        ROLE name: {session?.user.userInfo?.userRole.name}
                     </p>
                 </>
             ) : (

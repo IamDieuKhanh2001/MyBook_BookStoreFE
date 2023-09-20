@@ -2,34 +2,28 @@ import React from 'react'
 import ProductList from './ProductList/ProductList'
 import SortSideBar from './SortSideBar/SortSideBar'
 import styles from "./Product.module.scss"
+import MainSectionTitle from '../shared/MainSectionTitle/MainSectionTitle'
+import FilterCurrentActive from './FilterCurrentActive/FilterCurrentActive'
 
 const Product = () => {
     return (
         <>
-            {/* Product Start */}
-            <div className="container-xxl py-5">
-                <div className="container">
+            <div className="container-xxl mt-2 section-container">
+                <div className="container py-4">
                     {/* Title start */}
-                    <div className="row g-0 gx-5 align-items-end">
-                        <div className="col-lg-6">
-                            <div className="section-header text-start mb-5 wow fadeInUp" data-wow-delay="0.1s" style={{ maxWidth: 500 }}>
-                                <h1 className="display-5 mb-3">Our Products</h1>
-                                <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
-                            </div>
-                        </div>
-                    </div>
+                    {/* <MainSectionTitle title='Tên Category' shortDescription='Short des cho category' /> */}
                     <div className='row'>
                         <div className='col-xl-3 col-sm-12 filterProduct'>
                             <SortSideBar />
                         </div>
                         <div className='col-xl-9 col-sm-12'>
+                            <FilterCurrentActive />
                             <ProductList />
                         </div>
                     </div>
                     {/* Title End */}
                 </div>
             </div>
-            {/* Product End */}
         </>
     )
 }

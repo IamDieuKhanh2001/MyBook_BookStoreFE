@@ -3,12 +3,13 @@ import ProductImgSlider from '@/components/product/ProductDetail/ProductImgSlide
 import ProductDetail from '@/components/product/ProductDetail/ProductDetail'
 import ClientLayout from '@/layouts/ClientLayout/ClientLayout'
 import React, { useState } from 'react'
+import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb'
 
 const ProductDetailPage = () => {
 
   return (
     <ClientLayout>
-      <ClientHeader />
+      <Breadcrumb />
       <ProductDetail />
     </ClientLayout>
   )

@@ -6,11 +6,11 @@ export default withAuth(
   function middleware(req) {
     console.log(">>>>>>>>>>token: ", req.nextauth.token); //req.nextauth.token same type as session user
 
-    if (req.nextUrl.pathname.startsWith("/admin") && (req.nextauth.token as any)?.userInfo.roles[0].roleName !== "Admin")
+    if (req.nextUrl.pathname.startsWith("/admin") && (req.nextauth.token as any)?.userInfo.userRole.name !== "Admin")
       return NextResponse.rewrite(
         new URL("/404", req.url) //Not admin redirect to 404
       );
-    if (req.nextUrl.pathname.startsWith("/user") && (req.nextauth.token as any)?.userInfo.roles[0].roleName !== "Member")
+    if (req.nextUrl.pathname.startsWith("/user") && (req.nextauth.token as any)?.userInfo.userRole.name !== "Customer")
       return NextResponse.rewrite(
         new URL("/404", req.url) //Not Member redirect to 404
       );

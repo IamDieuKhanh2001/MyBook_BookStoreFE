@@ -2,10 +2,14 @@
 import Link from 'next/link'
 import React from 'react'
 import styles from './UserDropdown.module.scss'
+import { useSession } from 'next-auth/react'
 
 const UserDropdown = () => {
+    const { data: session } = useSession();
+
     return (
         <>
+
             {/* <div className={`${styles.navItem} dropdown`}>
                 <Link data-bs-toggle="dropdown" className={`${styles.dropdownToggle} nav-link dropdown-toggle btn-sm-square ms-3`} href="">
                     <small className="fa fa-user text-body" />

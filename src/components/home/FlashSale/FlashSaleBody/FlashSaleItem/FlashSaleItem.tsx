@@ -1,12 +1,11 @@
-"use client"
+'use client'
 import React from 'react'
-import styles from "./ProductItem.module.scss"
+import styles from './FlashSaleItem.module.scss'
 
-const ProductItem = () => {
+const FlashSaleItem = () => {
     return (
-        // col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3
-        <div className="col-xl-3 col-lg-3 col-md-3 col-4 wow fadeInUp" data-wow-delay="0.3s">
-            <div className={styles.productItem}>
+        <>
+            <div className={styles.flashSaleItem}>
                 <div className="position-relative overflow-hidden">
                     <img className="img-fluid w-100" src="/img/book/sach2.jpg" alt="" />
                     <div className="bg-warning fw-bold rounded text-white position-absolute end-0 top-0 m-2 px-3">
@@ -19,20 +18,22 @@ const ProductItem = () => {
                         <span className="text-danger fw-bold me-1">$19.00</span>
                         <span className="text-body text-decoration-line-through">$29.00</span>
                     </div>
-                </div>
-                <div className={`${styles.ratingContainer} px-3 pb-2`}>
-                    <div className={styles.ratings}>
-                        <div className={styles.ratingBox}>
-                            <div className={styles.rating} style={{ width: '60%' }}></div>
-                        </div>
-                        <div className={styles.amount}>
-                            (0)
-                        </div>
+                    <div className={styles.progress}>
+                        <span className={styles.progressValue}>Đã bán 100</span>
+                        <div
+                            role='progressbar'
+                            aria-valuemin={0}
+                            aria-valuemax={100}
+                            aria-valuenow={72}
+                            className={styles.progressBar} style={{
+                                width: '72%',
+                            }}
+                        ></div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
-export default ProductItem
+export default FlashSaleItem

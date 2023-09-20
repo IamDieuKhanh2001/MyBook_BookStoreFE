@@ -53,7 +53,7 @@ const ProductTab = () => {
                     role="tabpanel"
                     aria-labelledby="nav-home-tab"
                 >
-                    <h4 className="my-3">Mô tả tiêu đề</h4>
+                    <h4 className="my-3">Mô tả</h4>
                     <p>
                         Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea.
                     </p>
@@ -64,10 +64,63 @@ const ProductTab = () => {
                     role="tabpanel"
                     aria-labelledby="nav-profile-tab"
                 >
-                    <h4 className="my-3">Thông tin tiêu đề</h4>
-                    <p>
-                        Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea.
-                    </p>
+                    <div className={styles.productInfo}>
+                        <h4 className='my-3'>Thông tin sản phẩm</h4>
+                        <div className={styles.productInfoContent}>
+                            <table className={styles.productInfoTable}>
+                                <tbody>
+                                    <tr>
+                                        <th className={styles.tableLabel}>
+                                            Mã hàng
+                                        </th>
+                                        <td className={styles.dataValue}>
+                                            9780241375235
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th className={styles.tableLabel}>
+                                            Age
+                                        </th>
+                                        <td className={styles.dataValue}>
+                                            12 - 17
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th className={styles.tableLabel}>
+                                            Nha cung cap
+                                        </th>
+                                        <td className={styles.dataValue}>
+                                            Ten nha cc
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th className={styles.tableLabel}>
+                                            Nha xuat ban
+                                        </th>
+                                        <td className={styles.dataValue}>
+                                            Ten nha xb
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th className={styles.tableLabel}>
+                                            Năm xuất bản
+                                        </th>
+                                        <td className={styles.dataValue}>
+                                            2023
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th className={styles.tableLabel}>
+                                            So trang
+                                        </th>
+                                        <td className={styles.dataValue}>
+                                            100
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <div
                     className="tab-pane fade"

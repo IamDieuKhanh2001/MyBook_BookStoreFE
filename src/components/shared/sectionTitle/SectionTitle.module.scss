@@ -1,3 +1,6 @@
+.sectionTitle span{
+    background-color: #F0F0F0;
+}
 .sectionTitle::after {
     position: absolute;
     content: "";
@@ -7,4 +10,5 @@
     left: 0;
     border-top: 1px dashed #bec5cb;
     z-index: -1;
+
 }
