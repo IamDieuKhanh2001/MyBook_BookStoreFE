@@ -22,7 +22,7 @@ const FlashSaleHeader = (props: FlashSaleHeaderProps) => {
                             height: '25px',
                             marginLeft: '10px',
                         }}
-                        src="https://cdn0.fahasa.com/media/wysiwyg/icon-menu/ico_flashsale@3x.png"
+                        src="/img/flashSale/ico_flashsale.png"
                         alt="FSIcon"
                     />
                     <span className={styles.flashSaleHeaderTitle}>FLASH SALE</span>

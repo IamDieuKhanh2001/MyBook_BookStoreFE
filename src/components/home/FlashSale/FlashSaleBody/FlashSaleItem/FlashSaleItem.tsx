@@ -7,7 +7,16 @@ const FlashSaleItem = () => {
         <>
             <div className={styles.flashSaleItem}>
                 <div className="position-relative overflow-hidden">
-                    <img className="img-fluid w-100" src="/img/book/sach2.jpg" alt="" />
+                    <div className={styles.imgContainer}>
+                        <img className="img-fluid w-100" src="/img/book/sach2.jpg" alt="" />
+                        <div className={styles.outStockContainer}>
+                            <img
+                                className={styles.flashSaleImgChayHang}
+                                src="/img/flashSale/img-chay-hang.svg"
+                                alt='img chay hang'
+                            />
+                        </div>
+                    </div>
                     <div className="bg-warning fw-bold rounded text-white position-absolute end-0 top-0 m-2 px-3">
                         -16%
                     </div>
@@ -15,7 +24,7 @@ const FlashSaleItem = () => {
                 <div className="px-4 py-2">
                     <a className="d-block h6 mb-2" href="">Dummy book title tile 2</a>
                     <div className='d-flex flex-column'>
-                        <span className="text-danger fw-bold me-1">$19.00</span>
+                        <span className="text-warning fw-bold me-1">$19.00</span>
                         <span className="text-body text-decoration-line-through">$29.00</span>
                     </div>
                     <div className={styles.progress}>
