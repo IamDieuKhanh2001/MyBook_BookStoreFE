@@ -74,6 +74,22 @@ const EditInfoAccountPage = () => {
               </div>
             </div>
             <div className={styles.inputBox}>
+              <label htmlFor='phone'>Email</label>
+              <div className={styles.inputItem}>
+                <div className={styles.inputGroup}>
+                  <input
+                    type="text"
+                    className={styles.textBox}
+                    placeholder='Chưa có số điện thoại'
+                    id='phone'
+                  />
+                </div>
+                <div className={styles.inputAlert}>
+                  Hãy thêm mới Email ngay
+                </div>
+              </div>
+            </div>
+            <div className={styles.inputBox}>
               <label htmlFor='firstName'>Giới tính</label>
               <div className={styles.inputItem}>
                 <div className={styles.inputGroup}>
@@ -107,6 +123,22 @@ const EditInfoAccountPage = () => {
                       </label>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.inputBox}>
+              <label htmlFor='birthDate'>Ngày sinh</label>
+              <div className={styles.inputItem}>
+                <div className={styles.inputGroup}>
+                  <input
+                    type="date"
+                    className={styles.textBox}
+                    placeholder='Chưa có email'
+                    id='birthDate'
+                  />
+                </div>
+                <div className={styles.inputAlert}>
+                  Hãy thêm mới Email ngay
                 </div>
               </div>
             </div>
