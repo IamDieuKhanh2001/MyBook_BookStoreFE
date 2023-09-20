@@ -79,7 +79,7 @@ const RegisterForm = (props: RegisterFormProps) => {
                                 <label>Email</label>
                                 <div className={styles.inputGroup}>
                                     <Field
-                                        id={"email"}
+                                        id={"emailRegister"}
                                         name={"email"}
                                         type="text"
                                         className={styles.textBox}
@@ -97,7 +97,7 @@ const RegisterForm = (props: RegisterFormProps) => {
                                 <label>Mật khẩu</label>
                                 <div className={styles.inputGroup}>
                                     <Field
-                                        id={"password"}
+                                        id={"passwordRegister"}
                                         name={"password"}
                                         type={showPassword === false ? 'password' : 'text'}
                                         className={styles.textBox}

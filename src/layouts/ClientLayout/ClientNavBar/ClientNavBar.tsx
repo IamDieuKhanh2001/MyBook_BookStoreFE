@@ -70,6 +70,9 @@ function ClientNavBar() {
                                     <Link href="/cart" className='dropdown-item'>
                                         cart
                                     </Link>
+                                    <Link href="/checkout" className='dropdown-item'>
+                                        checkout
+                                    </Link>
                                     <Link href="/404" className='dropdown-item'>
                                         404 Page
                                     </Link>

@@ -11,9 +11,8 @@ interface AccountManagementLayoutProps {
   
     return (
       <ClientLayout>
-        <ClientHeader />
             <section style={{ backgroundColor: '#eee' }}>
-                <div className="container py-5">
+                <div className="container-xxl py-5">
                     <div className="row">
                         <div className="col-lg-3">
                             <AccountSideBar />

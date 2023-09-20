@@ -80,7 +80,7 @@ const LoginForm = () => {
                             <label>Email</label>
                             <div className={styles.inputGroup}>
                                 <Field
-                                    id={"email"}
+                                    id={"emailLogin"}
                                     name={"email"}
                                     type="text"
                                     className={styles.textBox}
@@ -98,7 +98,7 @@ const LoginForm = () => {
                             <label>Mật khẩu</label>
                             <div className={styles.inputGroup}>
                                 <Field
-                                    id={"password"}
+                                    id={"passwordLogin"}
                                     name={"password"}
                                     type={showPassword === false ? 'password' : 'text'}
                                     className={styles.textBox}
