@@ -1,4 +1,3 @@
-import ClientHeader from '@/components/ClientHeader/ClientHeader'
 import Product from '@/components/product/Product'
 import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb'
 import ClientLayout from '@/layouts/ClientLayout/ClientLayout'

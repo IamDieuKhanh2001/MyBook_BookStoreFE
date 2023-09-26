@@ -8,7 +8,7 @@ const RecheckOrder = () => {
             <div className='row'>
                 <div className="col-12">
                     <SectionTitle title='Kiểm tra lại đơn hàng' />
-                    <div className="bg-light p-4">
+                    <div className="section-container p-4">
                         <div className={styles.checkoutProductContent}>
                             <div className={styles.checkoutProductItem}>
                                 <div className={styles.checkoutProductItemImg}>

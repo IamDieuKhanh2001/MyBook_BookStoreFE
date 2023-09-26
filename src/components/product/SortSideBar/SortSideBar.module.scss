@@ -4,6 +4,8 @@
 
     .categoryListItem {
         text-decoration: none;
+        color: black;
+        font-weight: 600;
     }
     .subCategoryList {
         list-style: none;
@@ -11,6 +13,7 @@
 
         .subCategoryListItem {
             text-decoration: none;
+            color: black;
         }
     }
 }

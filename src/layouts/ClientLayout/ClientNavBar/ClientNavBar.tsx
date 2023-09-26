@@ -9,6 +9,7 @@ import {
 import TopBar from './TopBar/TopBar';
 import CartDropdown from './CartDropdown/CartDropdown';
 import UserDropdown from './UserDropdown/UserDropdown';
+import SearchBarInput from './SearchBarInput/SearchBarInput';
 
 function ClientNavBar() {
 
@@ -73,26 +74,12 @@ function ClientNavBar() {
                                     <Link href="/checkout" className='dropdown-item'>
                                         checkout
                                     </Link>
-                                    <Link href="/404" className='dropdown-item'>
+                                    <Link href="/404-error" className='dropdown-item'>
                                         404 Page
                                     </Link>
                                 </div>
                             </div>
-                            {/* search  */}
-                            <div className={`d-flex  ${styles.searchField}`}>
-                                <input
-                                    name={"searchField"}
-                                    className={`${styles.searchBarInput}`}
-                                    id="inputEmailAddress"
-                                    type="text"
-                                    placeholder={"search"}
-                                />
-                                <button
-                                    className={`${styles.buttonSearch}`}
-                                >
-                                    <small className="fa fa-search text-body" />
-                                </button>
-                            </div>
+                            <SearchBarInput />
                             <CartDropdown />
                             <UserDropdown />
                         </div>
