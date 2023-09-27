@@ -5,7 +5,7 @@ interface CheckoutLayoutProps {
     children: ReactNode;
 }
 
-const CheckoutLayout: React.FC<CheckoutLayoutProps> = ({ children }) => {
+const CartLayout: React.FC<CheckoutLayoutProps> = ({ children }) => {
 
     return (
         <ClientLayout>
@@ -14,4 +14,4 @@ const CheckoutLayout: React.FC<CheckoutLayoutProps> = ({ children }) => {
     );
 };
 
-export default CheckoutLayout
+export default CartLayout

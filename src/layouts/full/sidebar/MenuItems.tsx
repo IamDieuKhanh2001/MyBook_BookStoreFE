@@ -1,6 +1,13 @@
 import {
-  IconAperture, IconCopy, IconLayoutDashboard, IconLogin, IconMoodHappy, IconTypography, IconUserPlus,
+  IconAperture,
+  IconCopy,
+  IconLayoutDashboard,
+  IconLogin,
+  IconMoodHappy,
+  IconTypography,
+  IconUserPlus,
   IconCategory,
+  IconPackage,
 } from '@tabler/icons-react';
 
 import { uniqueId } from 'lodash';
@@ -9,19 +16,19 @@ import { uniqueId } from 'lodash';
 const Menuitems = [
   {
     navlabel: true,
-    subheader: 'CRUD Operations demo',
+    subheader: 'Quản lý',
   },
   {
     id: uniqueId(),
-    title: 'Categories CRUD',
+    title: 'Danh mục',
     icon: IconCategory,
-    href: '/admin/categories-crud',
+    href: '/admin/manage/categories',
   },
   {
     id: uniqueId(),
-    title: 'Product CRUD',
-    icon: IconCategory,
-    href: '/admin/product-crud',
+    title: 'Sản phẩm',
+    icon: IconPackage,
+    href: '/admin/manage/products',
   },
   {
     navlabel: true,
@@ -90,6 +97,18 @@ const Menuitems = [
     title: 'Sample Page',
     icon: IconAperture,
     href: '/admin/sample-page',
+  },
+  {
+    id: uniqueId(),
+    title: 'Categories CRUD',
+    icon: IconCategory,
+    href: '/admin/categories-crud',
+  },
+  {
+    id: uniqueId(),
+    title: 'Product CRUD',
+    icon: IconCategory,
+    href: '/admin/product-crud',
   },
 ];
 
