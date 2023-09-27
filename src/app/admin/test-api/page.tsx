@@ -13,7 +13,7 @@ const TestPage = () => {
 
     const LoadGetTestAPIAdmin = async () => {
         try {
-            const response = await axiosAuth.get(`/api/Test/Admin`);
+            const response = await axiosAuth.get(`/test`);
             console.log(response)
         } catch (error) {
             console.log(">>>>>>", error);
@@ -27,16 +27,16 @@ const TestPage = () => {
                     <Typography>Test API admin</Typography>
                     {session?.user ? (
                         <><Typography variant="h5" sx={{ color: (theme) => theme.palette.success.main }}>
-                            xin chào {session?.user.userInfo?.userName}
+                            xin chào {session?.user.userInfo?.email}
                         </Typography>
                             <Typography variant="body1" sx={{ color: (theme) => theme.palette.success.main }}>
-                                Tên tk:{session?.user.userInfo?.userName}
+                                Tên tk:{session?.user.userInfo?.email}
                             </Typography>
                             <Typography variant="body1" sx={{ color: (theme) => theme.palette.success.main }}>
                                 {session?.user.jwtToken}
                             </Typography>
                             <Typography variant="body1" sx={{ color: (theme) => theme.palette.success.main }}>
-                                ROLE name: {session?.user.userInfo?.roles[0].roleName}
+                                ROLE name: {session?.user.userInfo?.userRole.name}
                             </Typography></>
                     ) : (
                         <><Typography variant="h5" sx={{ color: (theme) => theme.palette.warning.main }}>

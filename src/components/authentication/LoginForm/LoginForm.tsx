@@ -36,18 +36,14 @@ const LoginForm = () => {
         try {
             // Xử lý logic khi form được submit
             toast.warning("Login with " + values.email + " " + values.password)
-            // const result = await signIn("credentials", {
-            //     email: values?.email,
-            //     password: values?.password,
-            //     redirect: true,
-            //     callbackUrl: "/",
-            // });
             setIsLoading(true)
-            setTimeout(() => {
-                toast.success("Xin chào " + values.email)
-                // Đoạn mã bạn muốn thực thi sau 5 giây
-                setIsLoading(false)
-            }, 5000); // 5000 milliseconds = 5 giây
+            const result = await signIn("credentials", {
+                email: values?.email,
+                password: values?.password,
+                redirect: true,
+                callbackUrl: "/",
+            });
+            setIsLoading(false)
         } catch (e) {
             console.log(e)
             setIsLoading(false)
