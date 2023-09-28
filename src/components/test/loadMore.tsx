@@ -39,6 +39,7 @@ export function LoadMore() {
             loadMoreBeers()
         }
     }, [inView]);
+    console.log(data)
     return (
         <>
             <Beers beers={beers} />

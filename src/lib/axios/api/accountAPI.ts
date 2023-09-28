@@ -31,7 +31,7 @@ export const APIRefreshJwtToken = async (jwtToken: string = "", refreshToken: st
 
     //All BE res message if success: true
     //{ success: true, message: "Renew token success"} status code 200
-    const url = "/api/Account/RenewToken";
+    const url = "/auth/refresh_token";
     const body = {
         jwtToken: jwtToken,
         refreshToken: refreshToken,

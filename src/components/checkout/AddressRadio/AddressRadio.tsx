@@ -16,7 +16,7 @@ const AddressRadio = (props: AddressRadioProps) => {
             <div className="col-12">
                 {/* tach component title section  */}
                 <SectionTitle title="Địa chỉ giao hàng" />
-                <div className="bg-light p-4">
+                <div className="p-4 section-container">
                     {/* tach component btn add address  */}
                     <ModalAddAddress />
                     {/* address radio items  */}

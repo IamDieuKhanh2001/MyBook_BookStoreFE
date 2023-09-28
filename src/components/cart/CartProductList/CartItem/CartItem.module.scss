@@ -1,0 +1,183 @@
+@import '../../../../style/variable';
+@import '../../../../style/responsive';
+
+>.itemProductCart:first-of-type {
+    border-top: none;
+}
+
+.itemProductCart {
+    display: flex;
+    padding: 1.6em 0;
+    border-top: 1px solid #ced4da;
+
+    .checkedProductCart {
+        display: flex;
+        flex-basis: 8%;
+        justify-content: center;
+        align-items: center;
+
+        .checkboxAddCart {
+            height: 20px;
+            width: 20px;
+            border-radius: 4px;
+            outline: none;
+            transition-duration: 0.1s;
+            cursor: pointer;
+
+            &:checked {
+                border: 0px solid #545759;
+                content: '\2714\fe0e';
+                justify-content: center;
+                align-items: center;
+                display: flex;
+            }
+        }
+    }
+
+    .imgProductCart {
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-basis: 16%;
+
+        .productImage {
+            width: auto;
+            max-height: 119px;
+            object-fit: contain;
+            max-width: 100%;
+            border: 0;
+            vertical-align: top;
+        }
+    }
+
+    .groupProductInfo {
+        flex-basis: 68%;
+        display: flex;
+
+        .infoProductCart {
+            flex-basis: 60%;
+            padding: 0 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            h2 {
+                width: 100%;
+                margin: 0;
+                font-weight: normal;
+                line-height: 18px;
+                display: inline-block;
+                font-size: 18px;
+            }
+
+            .itemOptions {
+
+                dd {
+                    padding-left: 10px;
+                    margin: 0 0 6px;
+                    padding-right: 20px;
+                    line-height: 1.428571429;
+                }
+            }
+
+            .priceOriginal {
+                padding: 0px;
+
+                .cartPrice {
+                    display: flex;
+                    align-items: flex-end;
+
+                    .price {
+                        font-weight: 600;
+                        font-size: 16px;
+                        line-height: 1;
+                    }
+
+                    .priceOld {
+                        margin-left: 8px;
+
+                        .price {
+                            font-size: 13px;
+                            line-height: 1;
+                            color: #7A7E7F !important;
+                            text-decoration: line-through;
+                            font-weight: normal !important;
+                        }
+                    }
+                }
+            }
+        }
+
+        .numberProductCart {
+            flex-basis: 40%;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            display: flex;
+
+            .cartPriceTotal {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                flex: 3;
+
+                .cartPrice {
+                    .price {
+                        color: $secondary-color;
+                        font-weight: bold;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+
+    .btnRemoveCart {
+        flex-basis: 8%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .btnRemoveDestopCart {
+            text-decoration: none;
+            background: transparent;
+        }
+    }
+}
+
+@include Responsive(M) {
+    .itemProductCart {
+        .checkedProductCart {
+            flex-basis: 8%;
+            justify-content: flex-end;
+        }
+        .imgProductCart {
+            flex-basis: 28%;
+            padding: 6px 10px;
+        }
+        .groupProductInfo {
+            flex-direction: column;
+            flex-basis: 55%;
+            .numberProductCart {
+                .cartPriceTotal {
+                    display: none;
+                }
+            }
+
+            .infoProductCart {
+                .priceOriginal {
+                    .cartPrice {
+                        .price {
+                            color: $secondary-color;
+                        }
+                    }
+                }
+            }
+        }
+        .btnRemoveCart {
+            flex-basis: 9%;
+            align-items: flex-end;
+        }
+    }
+}

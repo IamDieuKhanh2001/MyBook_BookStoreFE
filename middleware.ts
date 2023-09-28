@@ -25,5 +25,8 @@ export default withAuth(
 
 //Allow access /admin/** path required login
 export const config = {
-  matcher: ["/admin/:path*", "/user/:path*"],
+  matcher: [
+    "/admin/:path*", //Uncommnent khi hoan tat UI admin
+    "/user/:path*",
+  ],
 };

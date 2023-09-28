@@ -10,7 +10,7 @@ const FirmVisit = () => {
                 <div className="container">
                     <div className="row g-5 align-items-center">
                         <div className="col-md-7 wow fadeIn" data-wow-delay="0.1s">
-                            <h1 className="display-5 text-white mb-3">Visit Our Firm</h1>
+                            <h1 className="display-5 text-white mb-3">Xem thêm thông tin chúng tôi</h1>
                             <p className="text-white mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos.</p>
                         </div>
                         <div className="col-md-5 text-md-end wow fadeIn" data-wow-delay="0.5s">

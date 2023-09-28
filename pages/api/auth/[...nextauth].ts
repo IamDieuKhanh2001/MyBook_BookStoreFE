@@ -1,9 +1,6 @@
 import { APIUserLogin } from "@/lib/axios/api/accountAPI";
-import { Password } from "@mui/icons-material";
 import NextAuth, { AuthOptions } from "next-auth";
-import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
-import Email from "next-auth/providers/email";
 
 export const authOptions: AuthOptions = {
     // Configure one or more authentication providers

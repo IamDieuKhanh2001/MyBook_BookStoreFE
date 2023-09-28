@@ -5,7 +5,7 @@ import styles from './AccountSideBar.module.scss'
 
 const AccountSideBar = () => {
   return (
-    <div className="card mb-4 mb-md-0">
+    <div className="card mb-md-2">
       <div className="card-body">
         <p className="mb-4">
           <span className="text-primary text-uppercase font-italic me-1">Tài khoản</span>

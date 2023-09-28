@@ -9,7 +9,7 @@ const PaymentMethodRadio = () => {
             <div className="row">
                 <div className="col-12">
                     <SectionTitle title="Phương thức thanh toán" />
-                    <div className="bg-light p-4">
+                    <div className="section-container p-4">
                         <div className="form-check py-1">
                             <input
                                 className="form-check-input"

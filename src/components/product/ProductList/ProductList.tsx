@@ -13,18 +13,18 @@ const ProductList = () => {
     //     Authorization: `Bearer ` + session?.user.jwtToken
     // }
     // const {data,isError,isLoading,mutate} = useCustomSWR('/address/province',undefined,headersCategoryAPI)
-    const fetch = async () => {
-        try {
-            const res = await axiosAuth.get('/address/province');
-            console.log(res)
-        }
-        catch (e) {
-            console.log('error')
-        }
-    }
-    useEffect(() => {
-        fetch()
-    }, [])
+    // const fetch = async () => {
+    //     try {
+    //         const res = await axiosAuth.get('/address/province');
+    //         console.log(res)
+    //     }
+    //     catch (e) {
+    //         console.log('error')
+    //     }
+    // }
+    // useEffect(() => {
+    //     fetch()
+    // }, [])
     return (
         <>
             <div className="tab-content">

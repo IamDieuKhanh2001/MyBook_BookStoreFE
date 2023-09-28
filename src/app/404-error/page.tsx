@@ -1,11 +1,9 @@
-import ClientHeader from '@/components/ClientHeader/ClientHeader'
 import ClientLayout from '@/layouts/ClientLayout/ClientLayout'
 import React from 'react'
 
 const PageNotFound = () => {
     return (
         <ClientLayout>
-            <ClientHeader />
             {/* Spinner Start */}
             {/* <div
                 id="spinner"
@@ -26,7 +24,7 @@ const PageNotFound = () => {
                                 We’re sorry, the page you have looked for does not exist in our
                                 website! Maybe go to our home page or try to use a search?
                             </p>
-                            <a className="btn btn-primary rounded-pill py-3 px-5" href="">
+                            <a className="btn btn-primary rounded-pill py-3 px-5" href="/">
                                 Go Back To Home
                             </a>
                         </div>
@@ -35,7 +33,6 @@ const PageNotFound = () => {
             </div>
             {/* 404 End */}
         </ClientLayout>
-
     )
 }
 

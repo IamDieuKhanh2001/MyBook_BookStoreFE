@@ -1,0 +1,118 @@
+@import '../../../style/responsive';
+@import '../../../style/variable';
+
+.myAccount {
+    padding: 20px 15px;
+    margin-top: 0 !important;
+
+    .pageTitle {
+        margin-bottom: 20px;
+        h1 {
+            font-size: 25px;
+            font-weight: 600;
+        }
+    }
+
+    .formAccountInfo {
+        display: inline;
+
+        .inputBox {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 8px 0;
+            clear: both;
+
+            label {
+                width: 150px;
+                padding: 4px;
+                font-weight: normal;
+                color: #555555;
+                display: inline-block;
+                margin-bottom: 5px;
+            }
+
+            .inputItem {
+                width: calc(100% - 300px);
+                display: inline-block;
+            }
+
+            .inputGroup {
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .textBox {
+                    height: 30px;
+                    font-weight: 600;
+                    font-size: 16px;
+                    padding: 20px 30px;
+                    width: 100%;
+                    border: 1px solid black;
+                    line-height: 1.5;
+                    color: #495057;
+                    border-radius: 3px;
+
+                }
+
+                .textBoxAlert {
+                    background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_fail.png) no-repeat center center;
+                    background-size: cover;
+                    height: 20px;
+                    width: 20px;
+                    display: inline-block;
+                    cursor: pointer;
+                    user-select: none;
+                    position: absolute;
+                    right: 12px;
+                }
+
+                .textBoxEmailChange {
+                    display: block;
+                    position: absolute;
+                    right: 12px;
+                    color: #2489F4;
+                    cursor: pointer;
+                    user-select: none;
+                }
+            }
+
+            .inputAlert {
+                display: block;
+                margin-top: 8px;
+                color: #dc3545;
+            }
+        }
+
+        .btnGroup {
+            text-align: center;
+            padding: 20px 0 10px 0;
+            .btnSave {
+                background-color: $primary-color;
+                height: 40px;
+                width: 200px;
+                color: $light-color;
+                font-size: 16px;
+                border: none;
+                font-weight: 700;
+                border-radius: 8px;
+            }
+        }
+    }
+}
+
+@include Responsive(M) {
+    .myAccount {
+        .formAccountInfo {
+            .inputBox {
+                flex-direction: column;
+
+                .inputItem {
+                    width: 100%;
+                    display: block;
+                }
+            }
+        }
+    }
+}

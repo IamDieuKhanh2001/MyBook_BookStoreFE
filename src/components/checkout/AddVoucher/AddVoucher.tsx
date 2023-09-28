@@ -9,7 +9,7 @@ const AddVoucher = () => {
       <div className='row'>
             <div className="col-12">
               <SectionTitle title='Mã Khuyến mãi / Mã quà tặng'/>
-              <div className="bg-light p-4">
+              <div className="section-container p-4">
                 <div className={styles.voucherInsertContent}>
                   <form className='mb-3' action="">
                     <div className={styles.inputGroup}>

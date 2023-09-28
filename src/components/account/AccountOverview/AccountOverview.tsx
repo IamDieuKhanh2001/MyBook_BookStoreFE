@@ -6,7 +6,18 @@ import styles from './AccountOverview.module.scss'
 const AccountOverview = () => {
     return (
         <>
-            <div className="card mb-4">
+            <div className='col-12'>
+                <div className={`${styles.accountConfirmNotification} card mb-2`}>
+                    <i className="fa fa-exclamation-triangle"></i>
+                    <span>
+                        <span>
+                            Bạn vui lòng cập nhật thông tin tài khoản:
+                        </span>
+                        <Link href={'/account/edit'}>Cập nhật thông tin ngay</Link>
+                    </span>
+                </div>
+            </div>
+            <div className="card mb-2">
                 <div className="card-body text-center">
                     <img
                         src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
@@ -23,7 +34,7 @@ const AccountOverview = () => {
                     </div>
                 </div>
             </div>
-            <div className="card mb-4">
+            <div className="card mb-2">
                 <div className="card-body">
                     <div className="row">
                         <div className="col-sm-3">

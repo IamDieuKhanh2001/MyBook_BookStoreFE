@@ -11,41 +11,71 @@ const SortSideBar = () => {
                 <ul className={styles.categoryList}>
                     <li>
                         <Link className={styles.categoryListItem} href="#">
-                            item lv1
+                            Văn học
                         </Link>
                         <ul className={styles.subCategoryList}>
                             <li>
                                 <Link className={styles.subCategoryListItem} href="#">
-                                    item lv2 1
+                                    Truyện ngắn
                                 </Link>
                             </li>
                             <li>
                                 <Link className={styles.subCategoryListItem} href="#">
-                                    item lv2 2
+                                    Ngôn tình
                                 </Link>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <Link className={styles.categoryListItem} href="#">
-                            item lv1
-                        </Link>
                     </li>
                 </ul>
 
                 <div>
                     <h5 className="px-3 py-2 border-bottom">Giá</h5>
                     <div className='py-2 px-3'>
+                        <div className="form-check mb-1">
+                            <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
+                            <label className="form-check-label" htmlFor="flexCheckDefault">
+                                0 - 150.000VND
+                            </label>
+                        </div>
+                        <div className="form-check mb-1">
+                            <input className="form-check-input" type="checkbox" id="flexCheckChecked" defaultChecked />
+                            <label className="form-check-label" htmlFor="flexCheckChecked">
+                                150.000 - 300.000VND
+                            </label>
+                        </div>
+                        <div className="form-check mb-1">
+                            <input className="form-check-input" type="checkbox" id="flexCheckChecked" defaultChecked />
+                            <label className="form-check-label" htmlFor="flexCheckChecked">
+                                300.000 - 500.000VND
+                            </label>
+                        </div>
+                        <div className="form-check mb-1">
+                            <input className="form-check-input" type="checkbox" id="flexCheckChecked" defaultChecked />
+                            <label className="form-check-label" htmlFor="flexCheckChecked">
+                                500.000 - 700.000VND
+                            </label>
+                        </div>
+                        <div className="form-check mb-1">
+                            <input className="form-check-input" type="checkbox" id="flexCheckChecked" defaultChecked />
+                            <label className="form-check-label" htmlFor="flexCheckChecked">
+                                700.000 - trở lên
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h5 className="px-3 py-2 border-bottom">Nhà cung cấp</h5>
+                    <div className='py-2 px-3'>
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
                             <label className="form-check-label" htmlFor="flexCheckDefault">
-                                0 - 100.000VND
+                                nhà cc 1
                             </label>
                         </div>
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" id="flexCheckChecked" defaultChecked />
                             <label className="form-check-label" htmlFor="flexCheckChecked">
-                                200.000 - 500.000VND
+                                nhà cc 2
                             </label>
                         </div>
                     </div>
@@ -74,23 +104,6 @@ const SortSideBar = () => {
                         }}>
                             Show More
                         </Link>
-                    </div>
-                </div>
-                <div>
-                    <h5 className="px-3 py-2 border-bottom">Nhà cung cấp</h5>
-                    <div className='py-2 px-3'>
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
-                            <label className="form-check-label" htmlFor="flexCheckDefault">
-                                nhà cc 1
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" id="flexCheckChecked" defaultChecked />
-                            <label className="form-check-label" htmlFor="flexCheckChecked">
-                                nhà cc 2
-                            </label>
-                        </div>
                     </div>
                 </div>
             </div>
