@@ -21,7 +21,7 @@
         .pageTitleContainer {
             display: flex;
             margin: 16px 0 6px;
-            align-items: flex-end;
+            align-items: center;
 
             .cartTitle {
                 margin: 0px 0 0;
@@ -112,9 +112,14 @@
             background-color: #ffffff;
             border-radius: 8px;
 
+            >.itemProductCart:first-of-type {
+                border-top: none;
+            }
+
             .itemProductCart {
                 display: flex;
                 padding: 1.6em 0;
+                border-top: 1px solid #ced4da;
 
                 .checkedProductCart {
                     display: flex;
@@ -275,10 +280,11 @@
                             font-weight: 600;
                             font-size: 20px;
                         }
+
                         .finalPrice {
                             .price {
                                 color: $secondary-color;
-                                font-size: 20px!important;
+                                font-size: 20px !important;
                                 font-weight: 600;
                             }
                         }

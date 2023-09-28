@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import React from 'react'
 import styles from './UserDropdown.module.scss'
-import { signIn, useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 
 const UserDropdown = () => {
     const { data: session } = useSession();
@@ -27,7 +27,7 @@ const UserDropdown = () => {
                                 Profile
                             </Link>
                             <li><hr className="dropdown-divider" /></li>
-                            <Link href="#" className="dropdown-item">
+                            <Link href="" onClick={() => signOut()} className="dropdown-item">
                                 Logout
                             </Link>
                         </div>
@@ -42,10 +42,6 @@ const UserDropdown = () => {
                         <div className={`${styles.dropdownMenu} dropdown-menu m-0`}>
                             <Link href="/authentication/login" className="dropdown-item">
                                 Login
-                            </Link>
-                            <li><hr className="dropdown-divider" /></li>
-                            <Link href={""} onClick={() => signIn()} className="dropdown-item">
-                                Logout
                             </Link>
                         </div>
                     </div>

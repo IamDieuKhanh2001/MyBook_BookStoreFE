@@ -1,13 +1,52 @@
+@import '../../style/variable';
+@import '../../style/responsive';
 
+.cart {
+  overflow: visible;
+  padding: 0 !important;
+  box-shadow: none;
+  border: 0;
+  background: transparent !important;
+  display: block;
 
-.sectionTitle::after {
-    position: absolute;
-    content: "";
+  .pageTitle {
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: 0;
+    margin: 0 0 12px;
+    text-align: right;
     width: 100%;
-    height: 0;
-    top: 50%;
-    left: 0;
-    border-top: 1px dashed #bec5cb;
-    z-index: -1;
+    overflow: hidden;
+
+    .pageTitleContainer {
+      display: flex;
+      margin: 16px 0 6px;
+      align-items: center;
+
+      .cartTitle {
+        margin: 0px 0 0;
+        font-weight: 600;
+        color: #333333 !important;
+        line-height: 20px;
+        text-transform: uppercase;
+        display: inline-block;
+        width: auto;
+        font-size: 20px;
+      }
+
+      .cartTitleNumItems {
+        margin-left: 5px;
+        font-weight: 600;
+        font-size: 16px;
+      }
+    }
   }
-  
+
+  .cartUIContent {
+    display: flex;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+
+  }
+}
