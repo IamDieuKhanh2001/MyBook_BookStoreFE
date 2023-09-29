@@ -21,7 +21,7 @@ import { useCustomSWR } from '@/lib/swr/useCustomSWR';
 import { toast } from 'react-toastify';
 import CreateModal from '@/components/admin/categoryCRUD/create.modal';
 import { useConfirm } from 'material-ui-confirm';
-import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
+import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth';
 
 const CategoriesCrudPage = () => {
     const [categorySelected, setCategorySelected] = useState<ICategory | null>(null);

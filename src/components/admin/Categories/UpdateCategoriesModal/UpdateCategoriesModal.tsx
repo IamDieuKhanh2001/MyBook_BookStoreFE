@@ -10,13 +10,15 @@ import {
     Typography,
     useTheme
 } from '@mui/material';
-import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
+import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth';
+import { toast } from 'react-toastify';
+import useAPIGetParentCategories from '@/lib/hooks/api/useAPIGetParentCategories';
 
 interface FormValues {
-    id: string;
+    id: number;
     name: string;
 }
 interface IProps {
@@ -29,6 +31,7 @@ const UpdateCategoriesModal = (props: IProps) => {
     const { showModalUpdate, setShowModalUpdate, categorySelected, setCategorySelected } = props;
     const axiosAuth = useAxiosAuth();
     const theme = useTheme();
+    const { mutate } = useAPIGetParentCategories()
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -43,10 +46,8 @@ const UpdateCategoriesModal = (props: IProps) => {
     };
     //Formik init
     const initialValues: FormValues = {
-        id: categorySelected?.id || "",
+        id: categorySelected?.id || 0,
         name: categorySelected?.name || "",
-        // maLoai: "",
-        // tenLoai: "",
     };
     const validationSchema = Yup.object({
         id: Yup.string()
@@ -63,9 +64,27 @@ const UpdateCategoriesModal = (props: IProps) => {
         setShowModalUpdate(false);
     }
 
-    const handleSubmit = async (values: FormValues) => {
-
+    const updateCategoryById = async (id: number, nameUpdate: string) => {
+        try {
+            const url = "/parent_controller/"
+            const body = {
+                pcategory_id: id,
+                name: nameUpdate,
+            };
+            const response = await axiosAuth.put(url, body)
+            handleCloseModal()
+            mutate()
+            toast.success("update category complete id: " + id)
+        }
+        catch (e) {
+            toast.error("Something when wrong, please try again")
+        }
     }
+
+    const handleSubmit = async (values: FormValues) => {
+        updateCategoryById(values.id, values.name)
+    }
+    
     return (
         <>
             <Modal
@@ -128,8 +147,8 @@ const UpdateCategoriesModal = (props: IProps) => {
                                         </Typography>
                                         <Field
                                             as={CustomTextField}
-                                            id={"tenLoai"}
-                                            name="tenLoai"
+                                            id={"name"}
+                                            name="name"
                                             onChange={handleChange}
                                             variant="outlined"
                                             fullWidth

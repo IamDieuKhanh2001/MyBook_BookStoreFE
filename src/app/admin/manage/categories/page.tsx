@@ -1,17 +1,17 @@
 'use client'
-
 import PageContainer from '@/components/admin/container/PageContainer'
 import AdminSearchBar from '@/components/shared/AdminSearchBar/AdminSearchBar'
 import DashboardCard from '@/components/shared/DashboardCard'
 import { Box, Button, Grid, } from '@mui/material'
 import { IconPlus, } from '@tabler/icons-react'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useConfirm } from 'material-ui-confirm'
-import useAxiosAuth from '@/lib/hooks/useAxiosAuth'
 import CreateCategoriesModal from '@/components/admin/Categories/CreateCategoriesModal/CreateCategoriesModal'
 import UpdateCategoriesModal from '@/components/admin/Categories/UpdateCategoriesModal/UpdateCategoriesModal'
 import { toast } from 'react-toastify';
 import CategoriesTableData from '@/components/admin/Categories/CategoriesTableData/CategoriesTableData'
+import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth'
+import useAPIGetParentCategories from '@/lib/hooks/api/useAPIGetParentCategories'
 
 const categoriesManagementPage = () => {
   const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
@@ -20,21 +20,35 @@ const categoriesManagementPage = () => {
   const confirm = useConfirm();
   const axiosAuth = useAxiosAuth();
 
+  const { data, mutate, isLoading, isError } = useAPIGetParentCategories()
+
+  const deleteCategoryById = async (id: number) => {
+    try {
+      const url = '/parent_controller/'
+      let data = JSON.stringify({
+        "pcategory_id": id
+      });
+      let config = {
+        method: 'delete',
+        maxBodyLength: Infinity,
+        url: url,
+        data: data
+      };
+      const response = await axiosAuth.request(config)
+      mutate()
+      toast.success("Delete category complete id: " + id)
+    }
+    catch (e) {
+      toast.error("Something when wrong, please try again")
+    }
+  }
   const handleDeleteData = async (id: number) => {
     confirm({
       title: `Đồng ý xóa ${id} ?`,
       description: 'Bạn có chắc chắn muốn thực hiện hành động này?',
     })
       .then(async () => {
-        // Thực hiện hành động xóa api ở đây
-        try {
-
-          toast.success(`delete loai id: ${id}`)
-        } catch (e) {
-          console.log("Something when wrong, Please try again!")
-          console.log("fetch fail")
-          toast.error("Something when wrong, Please try again!")
-        }
+        deleteCategoryById(id)
       })
   }
 
@@ -61,8 +75,10 @@ const categoriesManagementPage = () => {
                 Add new
               </Button>
               <CategoriesTableData
+                categoryList={data}
                 setShowModalUpdate={setShowModalUpdate}
                 handleDeleteData={handleDeleteData}
+                setCategorySelected={setCategorySelected}
               />
             </Box>
           </DashboardCard>

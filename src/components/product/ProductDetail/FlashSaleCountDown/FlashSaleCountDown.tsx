@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import styles from './FlashSaleCountDown.module.scss'
-import useCountdown from '@/lib/hooks/useCountDown';
+import useCountdown from '@/lib/hooks/utils/useCountDown';
 
 interface FlashSaleCountDownProps {
     initialHours?: number

@@ -2,7 +2,7 @@
 import React from 'react'
 import styles from './FlashSaleHeader.module.scss'
 import Link from 'next/link'
-import useCountdown from '@/lib/hooks/useCountDown'
+import useCountdown from '@/lib/hooks/utils/useCountDown'
 
 interface FlashSaleHeaderProps {
     initialHours?: number

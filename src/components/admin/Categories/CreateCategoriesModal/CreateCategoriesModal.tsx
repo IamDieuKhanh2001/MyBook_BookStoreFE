@@ -1,5 +1,6 @@
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
-import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
+import useAPIGetParentCategories from '@/lib/hooks/api/useAPIGetParentCategories';
+import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth';
 import { Box, CircularProgress, Modal, Typography, useTheme, Stack, Button } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { useSession } from 'next-auth/react';
@@ -19,6 +20,7 @@ const CreateCategoriesModal = (props: ICreateCategoriesModalProps) => {
   const theme = useTheme();
   const { data: session } = useSession();
   const axiosAuth = useAxiosAuth();
+  const { mutate } = useAPIGetParentCategories()
 
   const style = {
     position: 'absolute' as 'absolute',
@@ -43,18 +45,29 @@ const CreateCategoriesModal = (props: ICreateCategoriesModalProps) => {
   });
 
   const handleCloseModal = () => {
-    //cate selected clear
     setShowModalCreate(false);
   }
-  const handleSubmit = async (values: FormValues) => {
+
+  const createNewCategory = async (createName: string) => {
     try {
-      toast.success("Add loai complete name: " + values?.name)
-    } catch (e) {
-      console.log("Something when wrong, Please try again!")
-      console.log("fetch fail")
-      toast.error("Something when wrong, Please try again!")
+      const url = '/parent_controller/'
+      const body = {
+        name: createName,
+      };
+      const response = await axiosAuth.post(url, body)
+      handleCloseModal()
+      mutate()
+      toast.success("Create category complete with name: " + createName)
     }
+    catch (e) {
+      toast.error("Something when wrong, please try again")
+    }
+  }
+
+  const handleSubmit = async (values: FormValues) => {
+    createNewCategory(values.name)
   };
+
   return (
     <>
       <Modal

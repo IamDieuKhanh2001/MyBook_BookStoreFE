@@ -1,9 +1,9 @@
 "use client";
-import { axiosAuth } from "../axios/axiosAuth";
+import { axiosAuth } from "../../axios/axiosAuth";
 import { getSession, signIn, signOut, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { AxiosError } from "axios";
-import { APIRefreshJwtToken } from "../axios/api/accountAPI";
+import { APIRefreshJwtToken } from "../../axios/api/accountAPI";
 
 const useAxiosAuth = () => {
     //================================

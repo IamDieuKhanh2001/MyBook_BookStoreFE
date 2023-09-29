@@ -2,15 +2,16 @@
 import React from 'react'
 import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react'
-import { categories as categoriesSample } from '@/SampleData/categories'
 
 interface ICategoriesTableDataProps {
+    categoryList: IParentCategory[]
     setShowModalUpdate: (value: boolean) => void;
     handleDeleteData: (id: number) => void;
+    setCategorySelected: (value: IParentCategory | null) => void
 }
 const CategoriesTableData = (props: ICategoriesTableDataProps) => {
-    const { setShowModalUpdate, handleDeleteData } = props
-    
+    const { categoryList , setShowModalUpdate, handleDeleteData, setCategorySelected } = props
+
     return (
         <>
             <Table
@@ -50,9 +51,9 @@ const CategoriesTableData = (props: ICategoriesTableDataProps) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {categoriesSample.length > 0 ? (
-                        (categoriesSample.map((category: any) => (
-                            <TableRow key={category.name}>
+                    {categoryList.length > 0 ? (
+                        (categoryList.map((category: IParentCategory) => (
+                            <TableRow key={category.id}>
                                 <TableCell>
                                     <Typography
                                         sx={{
@@ -78,7 +79,7 @@ const CategoriesTableData = (props: ICategoriesTableDataProps) => {
                                         color='info'
                                         size="small"
                                         onClick={() => {
-                                            // setCategorySelected(category);
+                                            setCategorySelected(category);
                                             setShowModalUpdate(true);
                                         }}
                                     >
