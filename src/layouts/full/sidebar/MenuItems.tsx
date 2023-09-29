@@ -2,10 +2,8 @@ import {
   IconAperture,
   IconCopy,
   IconLayoutDashboard,
-  IconLogin,
   IconMoodHappy,
   IconTypography,
-  IconUserPlus,
   IconCategory,
   IconPackage,
 } from '@tabler/icons-react';
@@ -42,22 +40,6 @@ const Menuitems = [
   },
   {
     navlabel: true,
-    subheader: 'Auth',
-  },
-  {
-    id: uniqueId(),
-    title: 'Login',
-    icon: IconLogin,
-    href: '/authentication/login',
-  },
-  {
-    id: uniqueId(),
-    title: 'Register',
-    icon: IconUserPlus,
-    href: '/authentication/register',
-  },
-  {
-    navlabel: true,
     subheader: 'Test page',
   },
   {
@@ -68,7 +50,7 @@ const Menuitems = [
   },
   {
     navlabel: true,
-    subheader: 'Tiện ích cho dev',
+    subheader: 'Utils',
   },
   {
     id: uniqueId(),
@@ -90,7 +72,7 @@ const Menuitems = [
   },
   {
     navlabel: true,
-    subheader: 'Cấu trúc mẫu',
+    subheader: 'Test Page',
   },
   {
     id: uniqueId(),
@@ -103,12 +85,6 @@ const Menuitems = [
     title: 'Categories CRUD',
     icon: IconCategory,
     href: '/admin/categories-crud',
-  },
-  {
-    id: uniqueId(),
-    title: 'Product CRUD',
-    icon: IconCategory,
-    href: '/admin/product-crud',
   },
 ];
 

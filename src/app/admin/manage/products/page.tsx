@@ -1,5 +1,5 @@
 'use client'
-import PageContainer from '@/components/container/PageContainer'
+import PageContainer from '@/components/admin/container/PageContainer'
 import DashboardCard from '@/components/shared/DashboardCard'
 import { Box, Button, Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography,} from '@mui/material'
 import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react'

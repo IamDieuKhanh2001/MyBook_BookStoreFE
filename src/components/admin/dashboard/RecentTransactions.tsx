@@ -1,6 +1,6 @@
 "use client"
 import React from 'react';
-import DashboardCard from '../../../src/components/shared/DashboardCard';
+import DashboardCard from '../../shared/DashboardCard';
 import {
   Timeline,
   TimelineItem,

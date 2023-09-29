@@ -3,21 +3,24 @@ import { Box, Button, CircularProgress, FormControlLabel, FormGroup, Modal, Stac
 import { Field, Form, Formik } from 'formik';
 import React from 'react'
 import * as Yup from 'yup';
-import CustomTextField from '../forms/theme-elements/CustomTextField';
+import CustomTextField from '../../forms/theme-elements/CustomTextField';
 import { useSession } from 'next-auth/react';
 import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
 import { toast } from 'react-toastify';
 import { useCustomSWR } from '@/lib/swr/useCustomSWR';
 
 interface FormValues {
+    maLoai: string;
     tenLoai: string;
 }
 interface IProps {
-    showModalCreate: boolean;
-    setShowModalCreate: (value: boolean) => void;
+    showModalUpdate: boolean;
+    setShowModalUpdate: (value: boolean) => void;
+    categorySelected: ICategory | null;
+    setCategorySelected: (value: ICategory | null) => void;
 }
-const CreateModal = (props: IProps) => {
-    const { showModalCreate, setShowModalCreate } = props;
+const UpdateModal = (props: IProps) => {
+    const { showModalUpdate, setShowModalUpdate, categorySelected, setCategorySelected } = props;
     const theme = useTheme();
     const { data: session } = useSession();
     const { mutate } = useCustomSWR(`/api/Loai`);
@@ -36,30 +39,36 @@ const CreateModal = (props: IProps) => {
     };
     //Formik init
     const initialValues: FormValues = {
-        tenLoai: "",
+        maLoai: categorySelected?.maLoai || "",
+        tenLoai: categorySelected?.tenLoai || "",
+        // maLoai: "",
+        // tenLoai: "",
     };
     const validationSchema = Yup.object({
+        maLoai: Yup.string()
+            .max(50, "ma loai must be <= 50 characters")
+            .required("ma loai not be empty"),
         tenLoai: Yup.string()
             .max(50, "ten loai must be <= 50 characters")
             .required("ten loai not be empty"),
     });
     const handleCloseModal = () => {
         //cate selected clear
-        setShowModalCreate(false);
+        setCategorySelected(null)
+        setShowModalUpdate(false);
     }
     const handleSubmit = async (values: FormValues) => {
         try {
-            toast.success("Add loai complete")
-
-            const url = `/api/Loai`;
+            const url = `/api/Loai/${values?.maLoai}`;
             const body = {
+                maLoai: values?.maLoai,
                 tenLoai: values?.tenLoai,
             };
-            const res = await axiosAuth.post(url, body);
+            const res = await axiosAuth.put(url, body);
             console.log(res)
             mutate()
             handleCloseModal()
-            toast.success("Add loai complete name: " + values?.tenLoai)
+            toast.success("update loai complete id: " + values?.maLoai)
         } catch (e) {
             console.log("Something when wrong, Please try again!")
             console.log("fetch fail")
@@ -68,7 +77,7 @@ const CreateModal = (props: IProps) => {
     };
     return (
         <Modal
-            open={showModalCreate}
+            open={showModalUpdate}
             onClose={() => handleCloseModal()}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
@@ -77,7 +86,7 @@ const CreateModal = (props: IProps) => {
                 <Typography id="modal-modal-title" variant="h6" component="h2"
                     style={{ color: theme.palette.text.primary }}
                 >
-                    Create category
+                    Edit category
                 </Typography>
                 <Formik
                     initialValues={initialValues}
@@ -88,6 +97,33 @@ const CreateModal = (props: IProps) => {
                         <Form>
                             <Stack>
                                 <Box>
+                                    <Typography
+                                        style={{ color: theme.palette.text.primary }}
+                                        variant="subtitle1"
+                                        fontWeight={600}
+                                        component="label"
+                                        htmlFor="maLoai"
+                                        mb="5px"
+                                    >
+                                        Ma loai
+                                    </Typography>
+                                    <Field
+                                        as={CustomTextField}
+                                        id={"maLoai"}
+                                        name={"maLoai"}
+                                        variant="outlined"
+                                        onChange={handleChange}
+                                        disabled={true}
+                                        fullWidth
+                                    />
+                                    {/* <ErrorMessage name="username" component="div" /> */}
+                                    {errors.maLoai && touched.maLoai && (
+                                        <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
+                                            {errors.maLoai}
+                                        </Typography>
+                                    )}
+                                </Box>
+                                <Box mt="25px">
                                     <Typography
                                         variant="subtitle1"
                                         fontWeight={600}
@@ -147,4 +183,4 @@ const CreateModal = (props: IProps) => {
     )
 }
 
-export default CreateModal
+export default UpdateModal
