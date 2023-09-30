@@ -3,8 +3,6 @@ import {
     Box,
     Button,
     CircularProgress,
-    FormControlLabel,
-    FormGroup,
     Modal,
     Stack,
     Typography,
@@ -13,9 +11,9 @@ import {
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
-import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth';
 import { toast } from 'react-toastify';
 import useAPIGetParentCategories from '@/lib/hooks/api/useAPIGetParentCategories';
+import useAPIUpdateCategory from '@/lib/hooks/api/useAPIUpdateCategory';
 
 interface FormValues {
     id: number;
@@ -29,9 +27,9 @@ interface IProps {
 }
 const UpdateCategoriesModal = (props: IProps) => {
     const { showModalUpdate, setShowModalUpdate, categorySelected, setCategorySelected } = props;
-    const axiosAuth = useAxiosAuth();
     const theme = useTheme();
     const { mutate } = useAPIGetParentCategories()
+    const { updateCategoryById } = useAPIUpdateCategory()
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -64,27 +62,19 @@ const UpdateCategoriesModal = (props: IProps) => {
         setShowModalUpdate(false);
     }
 
-    const updateCategoryById = async (id: number, nameUpdate: string) => {
+    const handleSubmit = async (values: FormValues) => {
+        updateCategoryById(values.id, values.name)
         try {
-            const url = "/parent_controller/"
-            const body = {
-                pcategory_id: id,
-                name: nameUpdate,
-            };
-            const response = await axiosAuth.put(url, body)
+            await updateCategoryById(values.id, values.name)
             handleCloseModal()
             mutate()
-            toast.success("update category complete id: " + id)
+            toast.success("update category complete id: " + values.id)
         }
         catch (e) {
             toast.error("Something when wrong, please try again")
         }
     }
 
-    const handleSubmit = async (values: FormValues) => {
-        updateCategoryById(values.id, values.name)
-    }
-    
     return (
         <>
             <Modal

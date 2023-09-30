@@ -1,4 +1,5 @@
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
+import useAPICreateCategory from '@/lib/hooks/api/useAPICreateCategory';
 import useAPIGetParentCategories from '@/lib/hooks/api/useAPIGetParentCategories';
 import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth';
 import { Box, CircularProgress, Modal, Typography, useTheme, Stack, Button } from '@mui/material';
@@ -21,6 +22,7 @@ const CreateCategoriesModal = (props: ICreateCategoriesModalProps) => {
   const { data: session } = useSession();
   const axiosAuth = useAxiosAuth();
   const { mutate } = useAPIGetParentCategories()
+  const { createNewCategory } = useAPICreateCategory()
 
   const style = {
     position: 'absolute' as 'absolute',
@@ -48,24 +50,16 @@ const CreateCategoriesModal = (props: ICreateCategoriesModalProps) => {
     setShowModalCreate(false);
   }
 
-  const createNewCategory = async (createName: string) => {
+  const handleSubmit = async (values: FormValues) => {
     try {
-      const url = '/parent_controller/'
-      const body = {
-        name: createName,
-      };
-      const response = await axiosAuth.post(url, body)
+      await createNewCategory(values.name)
       handleCloseModal()
       mutate()
-      toast.success("Create category complete with name: " + createName)
+      toast.success("Create category complete with name: " + values.name)
     }
     catch (e) {
       toast.error("Something when wrong, please try again")
     }
-  }
-
-  const handleSubmit = async (values: FormValues) => {
-    createNewCategory(values.name)
   };
 
   return (
