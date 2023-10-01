@@ -4,14 +4,12 @@ import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } 
 import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react'
 import { useRouter } from 'next/navigation'
 
-interface ICategoriesTableDataProps {
-    categoryList: IParentCategory[]
-    setShowModalUpdate: (value: boolean) => void;
-    handleDeleteData: (id: number) => void;
-    setCategorySelected: (value: IParentCategory | null) => void
+interface IChildCategoriesTableDataProps {
+    childCategoryList: IChildCategory[]
+
 }
-const CategoriesTableData = (props: ICategoriesTableDataProps) => {
-    const { categoryList, setShowModalUpdate, handleDeleteData, setCategorySelected } = props
+const ChildCategoriesTableData = (props: IChildCategoriesTableDataProps) => {
+    const {childCategoryList} = props
     const router = useRouter()
 
     return (
@@ -32,12 +30,12 @@ const CategoriesTableData = (props: ICategoriesTableDataProps) => {
                         </TableCell>
                         <TableCell>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                Tên danh mục
+                                Tên danh mục con
                             </Typography>
                         </TableCell>
-                        <TableCell align='right'>
+                        <TableCell>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                Xem chi tiết
+                                Ngày tạo
                             </Typography>
                         </TableCell>
                         <TableCell align='right'>
@@ -53,9 +51,9 @@ const CategoriesTableData = (props: ICategoriesTableDataProps) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {categoryList.length > 0 ? (
-                        (categoryList.map((category: IParentCategory) => (
-                            <TableRow key={category.id}>
+                    {childCategoryList.length > 0 ? (
+                        (childCategoryList.map((childCategory: IParentCategory) => (
+                            <TableRow key={childCategory.id}>
                                 <TableCell>
                                     <Typography
                                         sx={{
@@ -63,29 +61,24 @@ const CategoriesTableData = (props: ICategoriesTableDataProps) => {
                                             fontWeight: "500",
                                         }}
                                     >
-                                        {category.id}
+                                        {childCategory.id}
                                     </Typography>
                                 </TableCell>
                                 <TableCell>
                                     <Typography variant="subtitle2" fontWeight={500}>
-                                        {category.name}
+                                        {childCategory.name}
                                     </Typography>
                                 </TableCell>
-                                <TableCell align="right">
-                                    <Button color='success' size="small"
-                                        onClick={() => {
-                                            router.push(`/admin/manage/categories/detail/${category.id}`)
-                                        }}>
-                                        <IconEye />
-                                    </Button>
+                                <TableCell>
+                                    <Typography variant="subtitle2" fontWeight={500}>
+                                        {childCategory.created_at}
+                                    </Typography>
                                 </TableCell>
                                 <TableCell align="right">
                                     <Button
                                         color='info'
                                         size="small"
                                         onClick={() => {
-                                            setCategorySelected(category);
-                                            setShowModalUpdate(true);
                                         }}
                                     >
                                         <IconEdit />
@@ -95,7 +88,7 @@ const CategoriesTableData = (props: ICategoriesTableDataProps) => {
                                     <Button
                                         color='error'
                                         size="small"
-                                        onClick={() => handleDeleteData(category.id)}
+                                        // onClick={() => handleDeleteData(category.id)}
                                     >
                                         <IconTrash />
                                     </Button>
@@ -117,4 +110,4 @@ const CategoriesTableData = (props: ICategoriesTableDataProps) => {
     )
 }
 
-export default CategoriesTableData
+export default ChildCategoriesTableData

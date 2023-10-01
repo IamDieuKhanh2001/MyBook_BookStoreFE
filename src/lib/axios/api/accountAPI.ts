@@ -17,6 +17,10 @@ export const APIUserLogin = async (email: string = "", password: string = ""): P
     }
 };
 
+export const APIUserRegister = async () => {
+
+}
+
 export const APIRefreshJwtToken = async (jwtToken: string = "", refreshToken: string = ""): Promise<AxiosResponse<any, any>> => {
     //{ success: false, message: 1 of 8 bellow} status code 200
     //All BE res message if success: false will be

@@ -12,8 +12,7 @@ import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import { toast } from 'react-toastify';
-import useAPIGetParentCategories from '@/lib/hooks/api/useAPIGetParentCategories';
-import useAPIUpdateCategory from '@/lib/hooks/api/useAPIUpdateCategory';
+import useAPIParentCategory from '@/lib/hooks/api/useAPIParentCategory';
 
 interface FormValues {
     id: number;
@@ -28,8 +27,8 @@ interface IProps {
 const UpdateCategoriesModal = (props: IProps) => {
     const { showModalUpdate, setShowModalUpdate, categorySelected, setCategorySelected } = props;
     const theme = useTheme();
-    const { mutate } = useAPIGetParentCategories()
-    const { updateCategoryById } = useAPIUpdateCategory()
+    const { updateCategoryById, getParentCategoryList } = useAPIParentCategory()
+    const { mutate } = getParentCategoryList()
 
     const style = {
         position: 'absolute' as 'absolute',

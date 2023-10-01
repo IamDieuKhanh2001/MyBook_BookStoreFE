@@ -1,6 +1,5 @@
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
-import useAPICreateCategory from '@/lib/hooks/api/useAPICreateCategory';
-import useAPIGetParentCategories from '@/lib/hooks/api/useAPIGetParentCategories';
+import useAPIParentCategory from '@/lib/hooks/api/useAPIParentCategory';
 import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth';
 import { Box, CircularProgress, Modal, Typography, useTheme, Stack, Button } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
@@ -21,8 +20,8 @@ const CreateCategoriesModal = (props: ICreateCategoriesModalProps) => {
   const theme = useTheme();
   const { data: session } = useSession();
   const axiosAuth = useAxiosAuth();
-  const { mutate } = useAPIGetParentCategories()
-  const { createNewCategory } = useAPICreateCategory()
+  const { createNewCategory, getParentCategoryList } = useAPIParentCategory()
+  const { mutate } = getParentCategoryList()
 
   const style = {
     position: 'absolute' as 'absolute',

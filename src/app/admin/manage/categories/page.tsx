@@ -11,7 +11,7 @@ import UpdateCategoriesModal from '@/components/admin/Categories/UpdateCategorie
 import { toast } from 'react-toastify';
 import CategoriesTableData from '@/components/admin/Categories/CategoriesTableData/CategoriesTableData'
 import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth'
-import useAPIGetParentCategories from '@/lib/hooks/api/useAPIGetParentCategories'
+import useAPIParentCategory from '@/lib/hooks/api/useAPIParentCategory'
 
 const categoriesManagementPage = () => {
   const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
@@ -20,35 +20,23 @@ const categoriesManagementPage = () => {
   const confirm = useConfirm();
   const axiosAuth = useAxiosAuth();
 
-  const { data, mutate, isLoading, isError } = useAPIGetParentCategories()
+  const { getParentCategoryList, deleteCategoryById } = useAPIParentCategory()
+  const { data, mutate, isLoading, error } = getParentCategoryList()
 
-  const deleteCategoryById = async (id: number) => {
-    try {
-      const url = '/parent_controller/'
-      let data = JSON.stringify({
-        "pcategory_id": id
-      });
-      let config = {
-        method: 'delete',
-        maxBodyLength: Infinity,
-        url: url,
-        data: data
-      };
-      const response = await axiosAuth.request(config)
-      mutate()
-      toast.success("Delete category complete id: " + id)
-    }
-    catch (e) {
-      toast.error("Something when wrong, please try again")
-    }
-  }
   const handleDeleteData = async (id: number) => {
     confirm({
       title: `Đồng ý xóa ${id} ?`,
       description: 'Bạn có chắc chắn muốn thực hiện hành động này?',
     })
       .then(async () => {
-        deleteCategoryById(id)
+        try {
+          const response = await deleteCategoryById(id)
+          mutate()
+          toast.success("Delete category complete id: " + id)
+        }
+        catch (e) {
+          toast.error("Something when wrong, please try again")
+        }
       })
   }
 
