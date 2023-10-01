@@ -1,18 +1,45 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
-import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react'
-import { useRouter } from 'next/navigation'
+import { IconEdit, IconTrash } from '@tabler/icons-react'
 import { IconPlus } from '@tabler/icons-react'
+import { toast } from 'react-toastify'
+import { useConfirm } from 'material-ui-confirm'
+import CreateChildCategoryModal from '../CreateChildCategoryModal/CreateChildCategoryModal'
+import UpdateChildCategoryModal from '../UpdateChildCategoryModal/UpdateChildCategoryModal'
+import useAPIChildCategory from '@/lib/hooks/api/useAPIChildCategory'
+import useAPIParentCategory from '@/lib/hooks/api/useAPIParentCategory'
 
 interface IChildCategoriesTableDataProps {
     childCategoryList: IChildCategory[] | undefined
-
+    parentCategoryId: number
 }
 const ChildCategoriesTableData = (props: IChildCategoriesTableDataProps) => {
-    const { childCategoryList } = props
-    const router = useRouter()
+    const { childCategoryList, parentCategoryId } = props
+    const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
+    const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
+    const [childCategorySelected, setChildCategorySelected] = useState<IChildCategory | null>(null);
+    const confirm = useConfirm();
+    const { getParentCategoryDetail } = useAPIParentCategory()
+    const { mutate } = getParentCategoryDetail(parentCategoryId)
+    const { deleteChildCategoryById } = useAPIChildCategory()
 
+    const handleDeleteData = async (id: number) => {
+        confirm({
+            title: `Đồng ý xóa ${id} ?`,
+            description: 'Bạn có chắc chắn muốn thực hiện hành động này?',
+        })
+            .then(async () => {
+                try {
+                    await deleteChildCategoryById(id)
+                    mutate()
+                    toast.success("Delete child category complete id: " + id)
+                }
+                catch (e) {
+                    toast.error("Something when wrong, please try again")
+                }
+            })
+    }
     return (
         <>
             <Button
@@ -22,10 +49,10 @@ const ChildCategoriesTableData = (props: IChildCategoriesTableDataProps) => {
                 size='small'
                 disableElevation
                 variant="contained"
-                // onClick={() => {
-                //     setShowModalCreate(true);
-                // }}
-                >
+                onClick={() => {
+                    setShowModalCreate(true);
+                }}
+            >
                 Add new
             </Button>
             <Table
@@ -66,7 +93,7 @@ const ChildCategoriesTableData = (props: IChildCategoriesTableDataProps) => {
                 </TableHead>
                 <TableBody>
                     {childCategoryList && childCategoryList.length > 0 ? (
-                        (childCategoryList.map((childCategory: IParentCategory) => (
+                        (childCategoryList.map((childCategory: IChildCategory) => (
                             <TableRow key={childCategory.id}>
                                 <TableCell>
                                     <Typography
@@ -93,6 +120,8 @@ const ChildCategoriesTableData = (props: IChildCategoriesTableDataProps) => {
                                         color='info'
                                         size="small"
                                         onClick={() => {
+                                            setChildCategorySelected(childCategory)
+                                            setShowModalUpdate(true)
                                         }}
                                     >
                                         <IconEdit />
@@ -102,7 +131,7 @@ const ChildCategoriesTableData = (props: IChildCategoriesTableDataProps) => {
                                     <Button
                                         color='error'
                                         size="small"
-                                    // onClick={() => handleDeleteData(category.id)}
+                                        onClick={() => handleDeleteData(childCategory.id)}
                                     >
                                         <IconTrash />
                                     </Button>
@@ -113,13 +142,25 @@ const ChildCategoriesTableData = (props: IChildCategoriesTableDataProps) => {
                         <TableRow>
                             <TableCell colSpan={5}>
                                 <Typography align="center" variant="h4" mt={2}>
-                                    Danh mục con chưa được thêm
+                                    Chưa thêm danh mục con nào ...
                                 </Typography>
                             </TableCell>
                         </TableRow>
                     )}
                 </TableBody>
             </Table>
+            <CreateChildCategoryModal
+                setShowModalCreate={setShowModalCreate}
+                showModalCreate={showModalCreate}
+                parentCategoryId={parentCategoryId}
+            />
+            <UpdateChildCategoryModal
+                showModalUpdate={showModalUpdate}
+                setShowModalUpdate={setShowModalUpdate}
+                childCategorySelected={childCategorySelected}
+                setChildCategorySelected={setChildCategorySelected}
+                parentCategoryId={parentCategoryId}
+            />
         </>
     )
 }

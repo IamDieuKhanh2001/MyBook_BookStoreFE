@@ -12,23 +12,26 @@ import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import { toast } from 'react-toastify';
+import useAPIChildCategory from '@/lib/hooks/api/useAPIChildCategory';
 import useAPIParentCategory from '@/lib/hooks/api/useAPIParentCategory';
 
 interface FormValues {
     id: number;
     name: string;
 }
-interface IProps {
+interface IUpdateChildCategoryModalProps {
     showModalUpdate: boolean;
     setShowModalUpdate: (value: boolean) => void;
-    categorySelected: IParentCategory | null;
-    setCategorySelected: (value: IParentCategory | null) => void;
+    childCategorySelected: IChildCategory | null;
+    setChildCategorySelected: (value: IChildCategory | null) => void;
+    parentCategoryId: number;
 }
-const UpdateCategoriesModal = (props: IProps) => {
-    const { showModalUpdate, setShowModalUpdate, categorySelected, setCategorySelected } = props;
+const UpdateChildCategoryModal = (props: IUpdateChildCategoryModalProps) => {
+    const { showModalUpdate, setShowModalUpdate, childCategorySelected, setChildCategorySelected, parentCategoryId } = props;
     const theme = useTheme();
-    const { updateCategoryById, getParentCategoryList } = useAPIParentCategory()
-    const { mutate } = getParentCategoryList()
+    const { updateChildCategoryById } = useAPIChildCategory()
+    const { getParentCategoryDetail } = useAPIParentCategory()
+    const { mutate } = getParentCategoryDetail(parentCategoryId)
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -43,8 +46,8 @@ const UpdateCategoriesModal = (props: IProps) => {
     };
     //Formik init
     const initialValues: FormValues = {
-        id: categorySelected?.id || 0,
-        name: categorySelected?.name || "",
+        id: childCategorySelected?.id || 0,
+        name: childCategorySelected?.name || "",
     };
     const validationSchema = Yup.object({
         id: Yup.string()
@@ -57,15 +60,15 @@ const UpdateCategoriesModal = (props: IProps) => {
 
     const handleCloseModal = () => {
         //cate selected clear
-        setCategorySelected(null)
+        setChildCategorySelected(null)
         setShowModalUpdate(false);
     }
 
     const handleSubmit = async (values: FormValues) => {
         try {
-            await updateCategoryById(values.id, values.name)
-            handleCloseModal()
+            await updateChildCategoryById(values.id, values.name)
             mutate()
+            handleCloseModal()
             toast.success("update category complete id: " + values.id)
         }
         catch (e) {
@@ -85,7 +88,7 @@ const UpdateCategoriesModal = (props: IProps) => {
                     <Typography id="modal-modal-title" variant="h6" component="h2"
                         style={{ color: theme.palette.text.primary }}
                     >
-                        Edit category
+                        Edit child category
                     </Typography>
                     <Formik
                         initialValues={initialValues}
@@ -183,4 +186,4 @@ const UpdateCategoriesModal = (props: IProps) => {
     )
 }
 
-export default UpdateCategoriesModal
+export default UpdateChildCategoryModal

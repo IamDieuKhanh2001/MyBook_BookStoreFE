@@ -2,7 +2,7 @@
 import PageContainer from '@/components/admin/container/PageContainer'
 import AdminSearchBar from '@/components/shared/AdminSearchBar/AdminSearchBar'
 import DashboardCard from '@/components/shared/DashboardCard'
-import { Box, Button, Grid, } from '@mui/material'
+import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
 import { IconPlus, } from '@tabler/icons-react'
 import React, { useState, useEffect } from 'react'
 import { useConfirm } from 'material-ui-confirm'
@@ -18,7 +18,6 @@ const categoriesManagementPage = () => {
   const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
   const [categorySelected, setCategorySelected] = useState<IParentCategory | null>(null);
   const confirm = useConfirm();
-  const axiosAuth = useAxiosAuth();
 
   const { getParentCategoryList, deleteCategoryById } = useAPIParentCategory()
   const { data, mutate, isLoading, error } = getParentCategoryList()
@@ -49,6 +48,12 @@ const categoriesManagementPage = () => {
             subtitle='Manage parent categories list'
           >
             <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
+              {error && (
+                <Alert sx={{ mb: 2 }} severity="error">
+                  <AlertTitle>Error</AlertTitle>
+                  Something when wrong — <strong>check your connection and reload page!</strong>
+                </Alert>
+              )}
               <AdminSearchBar />
               <Button
                 sx={{ mt: 2 }}

@@ -1,0 +1,57 @@
+import React from 'react'
+import useAxiosAuth from '../utils/useAxiosAuth'
+
+const useAPIChildCategory = () => {
+  const axiosAuth = useAxiosAuth()
+
+  //API create new child category
+  const createNewChildCategory = async (parentCategoryId: number, nameCreate: string) => {
+    try {
+      const url = "/child_controller/"
+      const body = {
+        pcategory_id: parentCategoryId,
+        name: nameCreate,
+      };
+      const response = await axiosAuth.post(url, body)
+      return response.data
+    }
+    catch (e: any) {
+      throw new Error("Error create child category: " + e.message);
+    }
+  }
+
+  //api update by id
+  const updateChildCategoryById = async (id: number, nameUpdate: string) => {
+    try {
+      const url = "/child_controller/"
+      const body = {
+        ccategory_id: id,
+        name: nameUpdate,
+      };
+      const response = await axiosAuth.put(url, body)
+      return response.data;
+    } catch (error: any) {
+      throw new Error("Error updating category: " + error.message);
+    }
+  };
+
+  //API delete by id
+  const deleteChildCategoryById = async (id: number) => {
+    try {
+      const url = `/child_controller/${id}`
+      const response = await axiosAuth.delete(url)
+      return response
+    }
+    catch (error: any) {
+      throw new Error("Error deleting child category: " + error.message);
+    }
+  }
+
+  return {
+    createNewChildCategory,
+    updateChildCategoryById,
+    deleteChildCategoryById,
+  }
+}
+
+export default useAPIChildCategory

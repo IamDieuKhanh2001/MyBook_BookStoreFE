@@ -1,7 +1,7 @@
 'use client'
 import PageContainer from '@/components/admin/container/PageContainer';
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Grid, Typography, ListItem, ListItemText } from '@mui/material'
+import { Box, Button, Grid, Typography, ListItem, ListItemText, Alert, AlertTitle } from '@mui/material'
 import DashboardCard from '@/components/shared/DashboardCard'
 import { IconArrowBackUp } from '@tabler/icons-react';
 import ChildCategoriesTableData from '@/components/admin/Categories/ChildCategoriesTableData/ChildCategoriesTableData';
@@ -16,32 +16,16 @@ interface CategoryDetailPageProps {
 }
 const CategoryDetailPage = (props: CategoryDetailPageProps) => {
     const { params } = props
-    const { getParentCategoryDetail } = useAPIParentCategory()
-    const [parentCategoryDetail, setParentCategoryDetail] = useState<IParentCategoryDetail | undefined>(undefined)
-    const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
-
-    const fetchParentCategory = async () => {
-        try {
-            setIsLoading(true)
-            const res = await getParentCategoryDetail(params.id)
-            setParentCategoryDetail(res.data)
-            setIsLoading(false)
-        }
-        catch (e) {
-            toast.error("Something when wrong, data not found")
-        }
-    }
-    useEffect(() => {
-        fetchParentCategory()
-    }, [])
+    const { getParentCategoryDetail } = useAPIParentCategory()
+    const { data, isLoading, error, mutate } = getParentCategoryDetail(params.id)
 
     return (
         <>
             <PageContainer title='Category name: ' description='Category detail'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title={`Danh mục: ${parentCategoryDetail?.name}`}
+                        title={`Danh mục: ${data?.name}`}
                         subtitle={`Mã số danh mục: ${params.id}`}
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
@@ -56,18 +40,27 @@ const CategoryDetailPage = (props: CategoryDetailPageProps) => {
                             >
                                 Trở về
                             </Button>
-                            {!isLoading ? (
+                            {error && (
+                                <Alert sx={{ mb: 2 }} severity="error">
+                                    <AlertTitle>Error</AlertTitle>
+                                    Something when wrong — <strong>check your connection and reload page!</strong>
+                                </Alert>
+                            )}
+                            {!isLoading && !error ? (
                                 <>
                                     <Typography fontSize={20} paragraph>
-                                        Ngày tạo: {parentCategoryDetail?.created_at}
+                                        Ngày tạo: {data?.created_at}
                                     </Typography>
                                     <Typography fontSize={20} paragraph>
-                                        Ngày chỉnh sửa: {parentCategoryDetail?.updated_at}
+                                        Ngày chỉnh sửa: {data?.updated_at}
                                     </Typography>
                                     <Typography variant="h3" gutterBottom>
-                                        Danh sách danh mục con của "{parentCategoryDetail?.name}"
-                                    </Typography>   
-                                    <ChildCategoriesTableData childCategoryList={parentCategoryDetail?.childrenCategory} />
+                                        Danh sách danh mục con của "{data?.name}"
+                                    </Typography>
+                                    <ChildCategoriesTableData
+                                        childCategoryList={data?.childrenCategory}
+                                        parentCategoryId={data?.id}
+                                    />
                                 </>
                             ) : (
                                 <>
@@ -76,7 +69,6 @@ const CategoryDetailPage = (props: CategoryDetailPageProps) => {
                                     </Typography>
                                 </>
                             )}
-
                         </Box>
                     </DashboardCard>
                 </Grid>

@@ -1,9 +1,7 @@
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import useAPIParentCategory from '@/lib/hooks/api/useAPIParentCategory';
-import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth';
 import { Box, CircularProgress, Modal, Typography, useTheme, Stack, Button } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
-import { useSession } from 'next-auth/react';
 import React from 'react'
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
@@ -18,8 +16,6 @@ interface ICreateCategoriesModalProps {
 const CreateCategoriesModal = (props: ICreateCategoriesModalProps) => {
   const { showModalCreate, setShowModalCreate } = props;
   const theme = useTheme();
-  const { data: session } = useSession();
-  const axiosAuth = useAxiosAuth();
   const { createNewCategory, getParentCategoryList } = useAPIParentCategory()
   const { mutate } = getParentCategoryList()
 

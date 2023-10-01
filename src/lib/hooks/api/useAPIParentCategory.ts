@@ -33,15 +33,32 @@ const useAPIParentCategory = () => {
             error: error,
         }
     }
-    //API get detail
-    const getParentCategoryDetail = async (id: number) => {
-        try {
-            const url = `/parent_controller/${id}`
-            const response = await axiosAuth.get(url)
-            return response
+
+    //closures function API get detail
+    const getParentCategoryDetail = (id: number) => {
+        const fetcher = async (url: string) => {
+            try {
+                const response = await axiosAuth.get(url);
+                return response.data;
+            } catch (error) {
+                console.error('Lỗi khi fetch:', error);
+                return Promise.reject(error); // Trả về một Promise bị từ chối
+            }
         }
-        catch (e: any) {
-            throw new Error("Error get detail parent category: " + e.message);
+
+        const { data, mutate, isLoading, error } = useSWR(
+            `/parent_controller/${id}`,
+            fetcher,
+            {
+                revalidateOnReconnect: false,
+            }
+        )
+
+        return {
+            data: data ?? {},
+            mutate: mutate,
+            isLoading: !error && !data,
+            error: error,
         }
     }
 
@@ -78,17 +95,8 @@ const useAPIParentCategory = () => {
     //API delete by id
     const deleteCategoryById = async (id: number) => {
         try {
-            const url = '/parent_controller/'
-            let data = JSON.stringify({
-                "pcategory_id": id
-            });
-            let config = {
-                method: 'delete',
-                maxBodyLength: Infinity,
-                url: url,
-                data: data
-            };
-            const response = await axiosAuth.request(config)
+            const url = `/parent_controller/${id}`
+            const response = await axiosAuth.delete(url)
             return response
         }
         catch (error: any) {

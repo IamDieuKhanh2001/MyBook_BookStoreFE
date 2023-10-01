@@ -1,34 +1,26 @@
 import React from 'react'
-import {
-    Box,
-    Button,
-    CircularProgress,
-    Modal,
-    Stack,
-    Typography,
-    useTheme
-} from '@mui/material';
-import { Field, Form, Formik } from 'formik';
-import * as Yup from 'yup';
-import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import { toast } from 'react-toastify';
+import * as Yup from 'yup';
+import { Field, Form, Formik } from 'formik';
+import { Box, CircularProgress, Modal, Typography, useTheme, Stack, Button } from '@mui/material';
+import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
+import useAPIChildCategory from '@/lib/hooks/api/useAPIChildCategory';
 import useAPIParentCategory from '@/lib/hooks/api/useAPIParentCategory';
 
 interface FormValues {
-    id: number;
     name: string;
 }
-interface IProps {
-    showModalUpdate: boolean;
-    setShowModalUpdate: (value: boolean) => void;
-    categorySelected: IParentCategory | null;
-    setCategorySelected: (value: IParentCategory | null) => void;
+interface ICreateChildCategoryModalProps {
+    showModalCreate: boolean;
+    setShowModalCreate: (value: boolean) => void;
+    parentCategoryId: number
 }
-const UpdateCategoriesModal = (props: IProps) => {
-    const { showModalUpdate, setShowModalUpdate, categorySelected, setCategorySelected } = props;
+const CreateChildCategoryModal = (props: ICreateChildCategoryModalProps) => {
+    const { showModalCreate, setShowModalCreate, parentCategoryId } = props;
     const theme = useTheme();
-    const { updateCategoryById, getParentCategoryList } = useAPIParentCategory()
-    const { mutate } = getParentCategoryList()
+    const { createNewChildCategory } = useAPIChildCategory()
+    const { getParentCategoryDetail } = useAPIParentCategory()
+    const { mutate } = getParentCategoryDetail(parentCategoryId)
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -41,42 +33,38 @@ const UpdateCategoriesModal = (props: IProps) => {
         boxShadow: 24,
         p: 4,
     };
+
     //Formik init
     const initialValues: FormValues = {
-        id: categorySelected?.id || 0,
-        name: categorySelected?.name || "",
+        name: "",
     };
+
     const validationSchema = Yup.object({
-        id: Yup.string()
-            .max(50, "ma loai must be <= 50 characters")
-            .required("ma loai not be empty"),
         name: Yup.string()
-            .max(50, "name must be <= 50 characters")
-            .required("name not be empty"),
+            .max(50, "Name must be <= 50 characters")
+            .required("Name not be empty"),
     });
 
     const handleCloseModal = () => {
-        //cate selected clear
-        setCategorySelected(null)
-        setShowModalUpdate(false);
+        setShowModalCreate(false);
     }
 
     const handleSubmit = async (values: FormValues) => {
         try {
-            await updateCategoryById(values.id, values.name)
+            await createNewChildCategory(parentCategoryId, values.name)
             handleCloseModal()
             mutate()
-            toast.success("update category complete id: " + values.id)
+            toast.success("Create category complete with name: " + values.name)
         }
         catch (e) {
             toast.error("Something when wrong, please try again")
         }
-    }
+    };
 
     return (
         <>
             <Modal
-                open={showModalUpdate}
+                open={showModalCreate}
                 onClose={() => handleCloseModal()}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
@@ -85,7 +73,7 @@ const UpdateCategoriesModal = (props: IProps) => {
                     <Typography id="modal-modal-title" variant="h6" component="h2"
                         style={{ color: theme.palette.text.primary }}
                     >
-                        Edit category
+                        Create child category
                     </Typography>
                     <Formik
                         initialValues={initialValues}
@@ -96,33 +84,6 @@ const UpdateCategoriesModal = (props: IProps) => {
                             <Form>
                                 <Stack>
                                     <Box>
-                                        <Typography
-                                            style={{ color: theme.palette.text.primary }}
-                                            variant="subtitle1"
-                                            fontWeight={600}
-                                            component="label"
-                                            htmlFor="maLoai"
-                                            mb="5px"
-                                        >
-                                            Ma loai
-                                        </Typography>
-                                        <Field
-                                            as={CustomTextField}
-                                            id={"id"}
-                                            name={"id"}
-                                            variant="outlined"
-                                            onChange={handleChange}
-                                            disabled={true}
-                                            fullWidth
-                                        />
-                                        {/* <ErrorMessage name="username" component="div" /> */}
-                                        {errors.id && touched.id && (
-                                            <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
-                                                {errors.id}
-                                            </Typography>
-                                        )}
-                                    </Box>
-                                    <Box mt="25px">
                                         <Typography
                                             variant="subtitle1"
                                             fontWeight={600}
@@ -137,7 +98,7 @@ const UpdateCategoriesModal = (props: IProps) => {
                                             as={CustomTextField}
                                             id={"name"}
                                             name="name"
-                                            onChange={handleChange}
+                                            // onChange={handleChange}
                                             variant="outlined"
                                             fullWidth
                                         />
@@ -155,7 +116,7 @@ const UpdateCategoriesModal = (props: IProps) => {
                                         size="large"
                                         fullWidth
                                         type="submit"
-                                        disabled={isSubmitting}
+                                        disabled={false}
                                     >
                                         {
                                             isSubmitting ?
@@ -183,4 +144,4 @@ const UpdateCategoriesModal = (props: IProps) => {
     )
 }
 
-export default UpdateCategoriesModal
+export default CreateChildCategoryModal
