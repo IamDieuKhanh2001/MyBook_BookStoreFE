@@ -3,17 +3,31 @@ import React from 'react'
 import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react'
 import { useRouter } from 'next/navigation'
+import { IconPlus } from '@tabler/icons-react'
 
 interface IChildCategoriesTableDataProps {
-    childCategoryList: IChildCategory[]
+    childCategoryList: IChildCategory[] | undefined
 
 }
 const ChildCategoriesTableData = (props: IChildCategoriesTableDataProps) => {
-    const {childCategoryList} = props
+    const { childCategoryList } = props
     const router = useRouter()
 
     return (
         <>
+            <Button
+                sx={{ mt: 2 }}
+                startIcon={<IconPlus />}
+                color="success"
+                size='small'
+                disableElevation
+                variant="contained"
+                // onClick={() => {
+                //     setShowModalCreate(true);
+                // }}
+                >
+                Add new
+            </Button>
             <Table
                 aria-label="simple table"
                 sx={{
@@ -51,7 +65,7 @@ const ChildCategoriesTableData = (props: IChildCategoriesTableDataProps) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {childCategoryList.length > 0 ? (
+                    {childCategoryList && childCategoryList.length > 0 ? (
                         (childCategoryList.map((childCategory: IParentCategory) => (
                             <TableRow key={childCategory.id}>
                                 <TableCell>
@@ -88,7 +102,7 @@ const ChildCategoriesTableData = (props: IChildCategoriesTableDataProps) => {
                                     <Button
                                         color='error'
                                         size="small"
-                                        // onClick={() => handleDeleteData(category.id)}
+                                    // onClick={() => handleDeleteData(category.id)}
                                     >
                                         <IconTrash />
                                     </Button>
@@ -99,7 +113,7 @@ const ChildCategoriesTableData = (props: IChildCategoriesTableDataProps) => {
                         <TableRow>
                             <TableCell colSpan={5}>
                                 <Typography align="center" variant="h4" mt={2}>
-                                    Empty data list
+                                    Danh mục con chưa được thêm
                                 </Typography>
                             </TableCell>
                         </TableRow>

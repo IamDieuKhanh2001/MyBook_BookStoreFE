@@ -36,43 +36,5 @@ axiosRetry(axiosAuth, {
         return error.response?.status !== 401;
     },
 });
-// Thêm interceptor để gọi API với access token và xử lý refresh token
-// axiosClient.interceptors.request.use(requestInterceptor, requestErrorInterceptor);
-// axiosClient.interceptors.request.use(
-//     async (config) => {
-//         const session = await getSession();
-//         if (session) { //Thêm header xử lí api nếu có session tồn tại
-//             config.headers["Authorization"] = `Bearer ${session.user.jwtToken}`;
-//         }
-//         return config;
-//     },
-//     (error) => {
-//         return Promise.reject(error);
-//     }
-// );
-// Thêm interceptor để xử lý lỗi 401 và refresh token
-// axiosClient.interceptors.response.use(responseInterceptor, responseErrorInterceptor);
-
-// axiosClient.interceptors.response.use(
-//     (response) => response,
-//     async (error) => {
-//         console.log(error.response)
-//         const session = await getSession();
-//         if (error.response && error.response.status === 401) {
-//             console.log(">>>>>>401")
-//             if (session) {
-//                 console.log("call refresh api")
-//                 //if api catch error will redirect to login
-//             } else {
-//                 console.log("redirect back to login")
-//                 // redirectTo('/authentication');
-//                 window.location.href = '/authentication'; // Đổi đường dẫn thành đúng trang đăng nhập của bạn
-//             }
-
-//         }
-//         console.log(">>>>>>other error")
-//         return Promise.reject(error); //reject other error 5xx
-//     }
-// );
 
 

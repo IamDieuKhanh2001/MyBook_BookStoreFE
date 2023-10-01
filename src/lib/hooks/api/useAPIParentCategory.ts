@@ -33,6 +33,17 @@ const useAPIParentCategory = () => {
             error: error,
         }
     }
+    //API get detail
+    const getParentCategoryDetail = async (id: number) => {
+        try {
+            const url = `/parent_controller/${id}`
+            const response = await axiosAuth.get(url)
+            return response
+        }
+        catch (e: any) {
+            throw new Error("Error get detail parent category: " + e.message);
+        }
+    }
 
     //API create new 
     const createNewCategory = async (nameCreate: string) => {
@@ -67,7 +78,7 @@ const useAPIParentCategory = () => {
     //API delete by id
     const deleteCategoryById = async (id: number) => {
         try {
-            const url = '/parent_controllerr/'
+            const url = '/parent_controller/'
             let data = JSON.stringify({
                 "pcategory_id": id
             });
@@ -87,6 +98,7 @@ const useAPIParentCategory = () => {
 
     return {
         getParentCategoryList,
+        getParentCategoryDetail,
         createNewCategory,
         updateCategoryById,
         deleteCategoryById,
