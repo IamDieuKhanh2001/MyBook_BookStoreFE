@@ -1,6 +1,7 @@
 import React from 'react'
 import useAxiosAuth from '../utils/useAxiosAuth'
 
+//custom hook for calling APIS for child category
 const useAPIChildCategory = () => {
   const axiosAuth = useAxiosAuth()
 

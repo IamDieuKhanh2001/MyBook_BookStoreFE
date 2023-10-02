@@ -3,7 +3,7 @@
 //====================================
 //Note: Only allow one enviroment, comment 1 of these your enviroment you are not using
 // Developer environment:
-const BASE_URL = "http://localhost:3333"; // https://localhost:7140;
+const BASE_URL = "http://127.0.0.1:3333"; // https://localhost:7140;
 
 // Production environment:
 // const BASE_URL = "http://YourDomain.app.com";

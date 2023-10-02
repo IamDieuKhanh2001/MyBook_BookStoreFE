@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import styles from './LoginForm.module.scss'
-import { Alert, AlertTitle, Typography } from '@mui/material'
+import { Alert, AlertTitle } from '@mui/material'
 import { useSearchParams } from 'next/navigation'
 import * as Yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';

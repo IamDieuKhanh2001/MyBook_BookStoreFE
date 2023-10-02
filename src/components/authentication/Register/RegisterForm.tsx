@@ -4,7 +4,9 @@ import styles from './RegisterForm.module.scss'
 import * as Yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { toast } from "react-toastify";
-import { Typography } from '@mui/material';
+import { Alert, AlertTitle } from '@mui/material'
+import { APIUserLogin, APIUserRegister } from '@/lib/axios/api/accountAPI';
+import { signIn, useSession } from 'next-auth/react';
 
 interface FormValues {
     email: string;
@@ -18,6 +20,7 @@ const RegisterForm = (props: RegisterFormProps) => {
     const { setActiveTab } = props
     const [isLoading, setIsLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
+    const [errorList, setErrorList] = useState<IRegisterError[]>([])
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword)
@@ -36,11 +39,11 @@ const RegisterForm = (props: RegisterFormProps) => {
             .required("email not be empty"),
         password: Yup.string()
             .required("Password not be empty")
-            .min(5, "Password must have at least 5 characters")
-            // different error messages for different requirements
-            .matches(/[0-9]/, getCharacterValidationError("digit"))
-            .matches(/[a-z]/, getCharacterValidationError("lowercase"))
-            .matches(/[A-Z]/, getCharacterValidationError("uppercase")),
+            // .matches(/[0-9]/, getCharacterValidationError("digit"))
+            // .matches(/[a-z]/, getCharacterValidationError("lowercase"))
+            // .matches(/[A-Z]/, getCharacterValidationError("uppercase"))
+            .min(5, "Password must have at least 5 characters"),
+        // different error messages for different requirements
         retypePassword: Yup.string()
             .oneOf([Yup.ref("password")], "Passwords does not match")
             .required("Retype password not be empty"),
@@ -52,15 +55,21 @@ const RegisterForm = (props: RegisterFormProps) => {
             console.log(values)
             toast.warning("Register with " + values.email + " " + values.password)
             setIsLoading(true)
-            setTimeout(() => {
-                toast.success("Đăng ký hoàn tất, vui lòng đăng nhập " + values.email)
-                // Đoạn mã bạn muốn thực thi sau 5 giây
-                setIsLoading(false)
-                setActiveTab('login')
-            }, 5000); // 5000 milliseconds = 5 giây
-        } catch (e) {
+            const resRegister = await APIUserRegister(values.email, values.password, values.retypePassword)
+            console.log(resRegister)
+            toast.success("Đăng ký hoàn tất, Tự động đăng nhập" + values.email)
+            const result = await signIn("credentials", {
+                email: values?.email,
+                password: values?.password,
+                redirect: true,
+                callbackUrl: "/",
+            });
+            // Đoạn mã bạn muốn thực thi sau 5 giây
+            setIsLoading(false)
+        } catch (e: any) {
             console.log(e)
             setIsLoading(false)
+            setErrorList(e.response.data.errors)
             toast.error("Can not Register with " + values.email)
         }
     };
@@ -68,6 +77,12 @@ const RegisterForm = (props: RegisterFormProps) => {
     return (
         <>
             <div className={styles.loginFormContainer}>
+                {errorList.map((error, index) => (
+                    <Alert key={index} className='mb-1' severity="error" >
+                        <AlertTitle>{error.rule}</AlertTitle>
+                        {error.message} <strong>Please try again!</strong>
+                    </Alert>
+                ))}
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}

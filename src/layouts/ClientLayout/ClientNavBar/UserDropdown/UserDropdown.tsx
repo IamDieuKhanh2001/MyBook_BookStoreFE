@@ -23,7 +23,7 @@ const UserDropdown = () => {
                             />
                         </Link>
                         <div className={`${styles.dropdownMenu} dropdown-menu m-0`}>
-                            <Link href="#" className="dropdown-item">
+                            <Link href="/account" className="dropdown-item">
                                 Profile
                             </Link>
                             <li><hr className="dropdown-divider" /></li>

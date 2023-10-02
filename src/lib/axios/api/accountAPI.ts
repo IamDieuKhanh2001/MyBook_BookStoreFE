@@ -17,8 +17,21 @@ export const APIUserLogin = async (email: string = "", password: string = ""): P
     }
 };
 
-export const APIUserRegister = async () => {
+export const APIUserRegister = async (email: string = "", password: string = "", passwordConfirm: string = ""): Promise<AxiosResponse<any, any>>  => {
+    const url = "/auth/register";
+    const body = {
+        email: email,
+        password: password,
+        password_confirmation: passwordConfirm,
+    };
 
+    try {
+        const response = await defaultAxios.post(url, body);
+        return response;
+    } catch (error) {
+        console.log("Can't call API after 1 retries", error);
+        throw error; // Rethrow the error so it can be caught by the caller if needed
+    }
 }
 
 export const APIRefreshJwtToken = async (jwtToken: string = "", refreshToken: string = ""): Promise<AxiosResponse<any, any>> => {
