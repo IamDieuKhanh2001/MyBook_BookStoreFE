@@ -3,14 +3,13 @@ import PageContainer from '@/components/admin/container/PageContainer'
 import AdminSearchBar from '@/components/shared/AdminSearchBar/AdminSearchBar'
 import DashboardCard from '@/components/shared/DashboardCard'
 import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
-import { IconPlus, } from '@tabler/icons-react'
-import React, { useState, useEffect } from 'react'
+import { IconPlus, IconTrash, } from '@tabler/icons-react'
+import React, { useState } from 'react'
 import { useConfirm } from 'material-ui-confirm'
 import CreateCategoriesModal from '@/components/admin/Categories/CreateCategoriesModal/CreateCategoriesModal'
 import UpdateCategoriesModal from '@/components/admin/Categories/UpdateCategoriesModal/UpdateCategoriesModal'
 import { toast } from 'react-toastify';
 import CategoriesTableData from '@/components/admin/Categories/CategoriesTableData/CategoriesTableData'
-import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth'
 import useAPIParentCategory from '@/lib/hooks/api/useAPIParentCategory'
 
 const categoriesManagementPage = () => {
@@ -66,6 +65,17 @@ const categoriesManagementPage = () => {
                   setShowModalCreate(true);
                 }}>
                 Add new
+              </Button>
+              <Button
+                sx={{ mt: 2, ml: 2 }}
+                startIcon={<IconTrash />}
+                color="error"
+                size='small'
+                disableElevation
+                variant="contained"
+                href='/admin/manage/categories/recycle-bin'
+              >
+                Recycle bin
               </Button>
               <CategoriesTableData
                 categoryList={data}

@@ -8,7 +8,7 @@ const useAPIChildCategory = () => {
   //API create new child category
   const createNewChildCategory = async (parentCategoryId: number, nameCreate: string) => {
     try {
-      const url = "/child_controller/"
+      const url = "/admin/child_category"
       const body = {
         pcategory_id: parentCategoryId,
         name: nameCreate,
@@ -24,7 +24,7 @@ const useAPIChildCategory = () => {
   //api update by id
   const updateChildCategoryById = async (id: number, nameUpdate: string) => {
     try {
-      const url = "/child_controller/"
+      const url = "/admin/child_category"
       const body = {
         ccategory_id: id,
         name: nameUpdate,
@@ -39,7 +39,7 @@ const useAPIChildCategory = () => {
   //API delete by id
   const deleteChildCategoryById = async (id: number) => {
     try {
-      const url = `/child_controller/${id}`
+      const url = `/admin/child_category/delete/${id}`
       const response = await axiosAuth.delete(url)
       return response
     }

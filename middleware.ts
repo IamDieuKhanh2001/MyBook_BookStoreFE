@@ -26,7 +26,7 @@ export default withAuth(
 //Access /admin/** and /account/** path required login
 export const config = {
   matcher: [
-    "/admin/:path*", //Uncommnent khi hoan tat UI admin
+    // "/admin/:path*", //Uncommnent khi hoan tat UI admin
     "/user/:path*",
     "/account/:path*",
   ],
