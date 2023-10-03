@@ -1,12 +1,12 @@
 import React from 'react'
 import { Grid, Box } from '@mui/material';
-import PageContainer from '@/components/container/PageContainer'
-import SalesOverview from '@/components/dashboard/SalesOverview';
-import YearlyBreakup from '@/components/dashboard/YearlyBreakup';
-import MonthlyEarnings from '@/components/dashboard/MonthlyEarnings';
-import RecentTransactions from '@/components/dashboard/RecentTransactions';
-import ProductPerformance from '@/components/dashboard/ProductPerformance';
-import Blog from '@/components/dashboard/Blog';
+import PageContainer from '@/components/admin/container/PageContainer'
+import SalesOverview from '@/components/admin/dashboard/SalesOverview';
+import YearlyBreakup from '@/components/admin/dashboard/YearlyBreakup';
+import MonthlyEarnings from '@/components/admin/dashboard/MonthlyEarnings';
+import RecentTransactions from '@/components/admin/dashboard/RecentTransactions';
+import ProductPerformance from '@/components/admin/dashboard/ProductPerformance';
+import Blog from '@/components/admin/dashboard/Blog';
 const AdminHomePage = () => {
     return (
         <PageContainer title="Dashboard" description="this is Dashboard"

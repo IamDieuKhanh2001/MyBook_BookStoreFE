@@ -1,11 +1,11 @@
 "use client"
 import { useEffect, type ReactElement } from 'react';
 import { Button, Typography } from '@mui/material';
-import PageContainer from '@/components/container/PageContainer';
+import PageContainer from '@/components/admin/container/PageContainer';
 import DashboardCard from '@/components/shared/DashboardCard';
 import { useSession } from 'next-auth/react';
-import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
 import { toast } from 'react-toastify';
+import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth';
 
 const TestPage = () => {
     const { data: session } = useSession();

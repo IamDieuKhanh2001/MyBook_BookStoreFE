@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import { Typography } from '@mui/material';
-import PageContainer from '@/components/container/PageContainer';
+import PageContainer from '@/components/admin/container/PageContainer';
 import DashboardCard from '@/components/shared/DashboardCard';
 
 const SamplePage = () => {

@@ -11,17 +11,17 @@ import {
     Grid,
 } from '@mui/material';
 import { IconEye, IconEdit, IconTrash, IconPlus } from '@tabler/icons-react';
-import PageContainer from '@/components/container/PageContainer';
+import PageContainer from '@/components/admin/container/PageContainer';
 import DashboardCard from '@/components/shared/DashboardCard';
 import { categories as categoriesSample } from '../../../SampleData/categories'
 import Link from "next/link";
 import { APIUserLogin } from '@/lib/axios/api/accountAPI';
-import UpdateModal from '@/components/categoryCRUD/update.modal';
+import UpdateModal from '@/components/admin/categoryCRUD/update.modal';
 import { useCustomSWR } from '@/lib/swr/useCustomSWR';
 import { toast } from 'react-toastify';
-import CreateModal from '@/components/categoryCRUD/create.modal';
+import CreateModal from '@/components/admin/categoryCRUD/create.modal';
 import { useConfirm } from 'material-ui-confirm';
-import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
+import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth';
 
 const CategoriesCrudPage = () => {
     const [categorySelected, setCategorySelected] = useState<ICategory | null>(null);

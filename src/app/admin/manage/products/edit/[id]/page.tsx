@@ -1,10 +1,10 @@
 import React from 'react'
 
 interface ProductManagementEditPageProps {
-    params: {
-      id: number;
-    };
-  }
+  params: {
+    id: number;
+  };
+}
 const ProductManagementEditPage = ({ params }: ProductManagementEditPageProps) => {
   return (
     <div>

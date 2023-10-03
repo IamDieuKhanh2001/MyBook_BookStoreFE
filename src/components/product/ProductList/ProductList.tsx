@@ -3,8 +3,8 @@ import React, { useEffect } from 'react'
 import ProductItem from './ProductItem/ProductItem'
 import styles from "./ProductList.module.scss"
 import { useCustomSWR } from '@/lib/swr/useCustomSWR'
-import useAxiosAuth from '@/lib/hooks/useAxiosAuth'
 import { useSession } from 'next-auth/react'
+import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth'
 
 const ProductList = () => {
     const { data: session } = useSession();

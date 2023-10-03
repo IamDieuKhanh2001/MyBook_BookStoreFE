@@ -7,7 +7,7 @@ import { useTheme } from '@mui/material/styles';
 // components
 import Profile from './Profile';
 import { IconBellRinging, IconMenu, IconSettings, IconMail } from '@tabler/icons-react';
-import DarkModeToggle from '@/components/DarkModeToggle/DarkModeToggle';
+import DarkModeToggle from '@/layouts/full/header/DarkModeToggle/DarkModeToggle';
 
 interface ItemType {
   toggleMobileSidebar: (event: React.MouseEvent<HTMLElement>) => void;

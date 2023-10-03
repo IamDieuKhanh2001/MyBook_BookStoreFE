@@ -3,11 +3,11 @@ import { Box, Button, CircularProgress, FormControlLabel, FormGroup, Modal, Stac
 import { Field, Form, Formik } from 'formik';
 import React from 'react'
 import * as Yup from 'yup';
-import CustomTextField from '../forms/theme-elements/CustomTextField';
+import CustomTextField from '../../forms/theme-elements/CustomTextField';
 import { useSession } from 'next-auth/react';
-import useAxiosAuth from '@/lib/hooks/useAxiosAuth';
 import { toast } from 'react-toastify';
 import { useCustomSWR } from '@/lib/swr/useCustomSWR';
+import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth';
 
 interface FormValues {
     tenLoai: string;
