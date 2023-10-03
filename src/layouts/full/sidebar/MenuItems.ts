@@ -6,12 +6,15 @@ import {
   IconTypography,
   IconCategory,
   IconPackage,
+  IconAlphabetLatin,
+  IconHistory,
 } from '@tabler/icons-react';
 
 import { uniqueId } from 'lodash';
 
 //Nơi chứa hiển thị thông tin của side bar các items
 const Menuitems = [
+  //Manage group
   {
     navlabel: true,
     subheader: 'Quản lý',
@@ -29,6 +32,13 @@ const Menuitems = [
     href: '/admin/manage/products',
   },
   {
+    id: uniqueId(),
+    title: 'Ngôn ngữ sách',
+    icon: IconAlphabetLatin,
+    href: '/admin/manage/book-lang',
+  },
+  //Home group
+  {
     navlabel: true,
     subheader: 'Home',
   },
@@ -38,6 +48,24 @@ const Menuitems = [
     icon: IconLayoutDashboard,
     href: '/admin',
   },
+  //recover data
+  {
+    navlabel: true,
+    subheader: 'Khôi phục dữ liệu',
+  },
+  {
+    id: uniqueId(),
+    title: 'Danh mục cha',
+    icon: IconHistory,
+    href: '/admin/manage/categories/recycle-bin',
+  },
+  {
+    id: uniqueId(),
+    title: 'Ngôn ngữ sách',
+    icon: IconHistory,
+    href: '/admin/manage/book-lang/recycle-bin',
+  },
+  //Test group (remove in future)
   {
     navlabel: true,
     subheader: 'Test page',
