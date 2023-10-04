@@ -1,21 +1,34 @@
 'use client'
+import React from 'react'
+import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
+import { toast } from 'react-toastify';
 import { useConfirm } from 'material-ui-confirm';
 import { useRouter } from 'next/navigation';
-import React from 'react'
-import { toast } from 'react-toastify';
-import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
+import { IconArrowBackUp } from '@tabler/icons-react';
 import PageContainer from '@/components/admin/container/PageContainer'
 import DashboardCard from '@/components/shared/DashboardCard'
-import { IconArrowBackUp } from '@tabler/icons-react';
-import RecycleBinLanguageTableData from '@/components/admin/BookLanguage/RecycleBinLanguageTableData/RecycleBinLanguageTableData';
-import useAPIBookLanguage from '@/lib/hooks/api/useAPIBookLanguage';
+import RecycleBinAuthorTableData from '@/components/admin/Author/RecycleBinAuthorTableData/RecycleBinAuthorTableData';
 
-const bookLanguageRecycleBinPage = () => {
+const authorRecycleBinPage = () => {
     const router = useRouter()
     const confirm = useConfirm();
-    const { getBookLanguageTrashList, destroyBookLanguageById, restoreBookLanguageById } = useAPIBookLanguage()
-    const { data, isLoading, error, mutate } = getBookLanguageTrashList()
 
+    const list = [
+        {
+            id: 8,
+            name: "Nguyem Van 1",
+            created_at: "2023-10-03T11:40:29.000+07:00",
+            updated_at: "2023-10-03T11:40:29.000+07:00",
+            deleted_at: null
+        },
+        {
+            id: 7,
+            name: "Van 2",
+            created_at: "2023-10-03T11:40:29.000+07:00",
+            updated_at: "2023-10-03T11:40:29.000+07:00",
+            deleted_at: null
+        },
+    ]
     const handleDestroyData = async (id: number) => {
         confirm({
             title: `Đồng ý xóa ${id} ?`,
@@ -23,9 +36,8 @@ const bookLanguageRecycleBinPage = () => {
         })
             .then(async () => {
                 try {
-                    const res = await destroyBookLanguageById(id)
-                    mutate()
-                    toast.success("Delete language complete id: " + id)
+
+                    toast.success("Delete author complete id: " + id)
                 }
                 catch (e) {
                     toast.error("Something when wrong, please try again")
@@ -40,23 +52,21 @@ const bookLanguageRecycleBinPage = () => {
         })
             .then(async () => {
                 try {
-                    const res = await restoreBookLanguageById(id)
-                    mutate()
-                    toast.success("Restore language complete id: " + id)
+
+                    toast.success("Restore author complete id: " + id)
                 }
                 catch (e) {
                     toast.error("Something when wrong, please try again")
                 }
             })
     }
-
     return (
         <>
             <PageContainer title='recycle bin' description='recycle bin'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Recycle bin book language List'
-                        subtitle='Manage recycle bin book language List'
+                        title='Recycle bin author List'
+                        subtitle='Manage recycle bin author List'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                             <Button
@@ -70,16 +80,16 @@ const bookLanguageRecycleBinPage = () => {
                             >
                                 Trở về
                             </Button>
-                            {error && (
+                            {/* {error && (
                                 <Alert sx={{ mb: 2 }} severity="error">
                                     <AlertTitle>Error</AlertTitle>
                                     Something when wrong — <strong>check your connection and reload page!</strong>
                                 </Alert>
-                            )}
-                            <RecycleBinLanguageTableData
-                                recycleBinList={data}
+                            )} */}
+                            <RecycleBinAuthorTableData
                                 handleDestroyData={handleDestroyData}
                                 handleRestoreData={handleRestoreData}
+                                recycleBinList={list}
                             />
                         </Box>
                     </DashboardCard>
@@ -89,4 +99,4 @@ const bookLanguageRecycleBinPage = () => {
     )
 }
 
-export default bookLanguageRecycleBinPage
+export default authorRecycleBinPage

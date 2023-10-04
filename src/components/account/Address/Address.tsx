@@ -23,7 +23,7 @@ const AddressEdit = () => {
                                         <br />
                                         12/6/8 Hoang Hoa Tham
                                         <br />
-                                        Phường 07, Quận Bình Thạnh,  Hồ Chí Minh,  Việt Nam
+                                        Phường 07, Quận Bình Thạnh,  Hồ Chí Minh
                                         <br />
                                         Tel: 0938427896
                                     </address>
@@ -56,7 +56,7 @@ const AddressEdit = () => {
                                         <br />
                                         12/6/8 Hoang Hoa Tham
                                         <br />
-                                        Phường 07, Quận Bình Thạnh,  Hồ Chí Minh,  Việt Nam
+                                        Phường 07, Quận Bình Thạnh,  Hồ Chí Minh
                                         <br />
                                         Tel: 0938427896
                                     </address>
@@ -82,7 +82,7 @@ const AddressEdit = () => {
                                         <br />
                                         12/6/8 Hoang Hoa Tham
                                         <br />
-                                        Phường 07, Quận Bình Thạnh,  Hồ Chí Minh,  Việt Nam
+                                        Phường 07, Quận Bình Thạnh,  Hồ Chí Minh
                                         <br />
                                         Tel: 0938427896
                                     </address>

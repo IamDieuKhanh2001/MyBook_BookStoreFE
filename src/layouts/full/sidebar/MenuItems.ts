@@ -8,6 +8,8 @@ import {
   IconPackage,
   IconAlphabetLatin,
   IconHistory,
+  IconBallpen,
+  IconBoxModel2,
 } from '@tabler/icons-react';
 
 import { uniqueId } from 'lodash';
@@ -37,6 +39,18 @@ const Menuitems = [
     icon: IconAlphabetLatin,
     href: '/admin/manage/book-lang',
   },
+  {
+    id: uniqueId(),
+    title: 'Tác giả',
+    icon: IconBallpen,
+    href: '/admin/manage/author',
+  },
+  {
+    id: uniqueId(),
+    title: 'Hình thức sách',
+    icon: IconBoxModel2,
+    href: '/admin/manage/book-form',
+  },
   //Home group
   {
     navlabel: true,
@@ -64,6 +78,18 @@ const Menuitems = [
     title: 'Ngôn ngữ sách',
     icon: IconHistory,
     href: '/admin/manage/book-lang/recycle-bin',
+  },
+  {
+    id: uniqueId(),
+    title: 'Tác giả',
+    icon: IconHistory,
+    href: '/admin/manage/author/recycle-bin',
+  },
+  {
+    id: uniqueId(),
+    title: 'Hình thức sách',
+    icon: IconHistory,
+    href: '/admin/manage/book-form/recycle-bin',
   },
   //Test group (remove in future)
   {

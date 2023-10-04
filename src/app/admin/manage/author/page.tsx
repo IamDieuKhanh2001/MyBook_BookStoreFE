@@ -1,26 +1,38 @@
 'use client'
-import PageContainer from '@/components/admin/container/PageContainer'
-import DashboardCard from '@/components/shared/DashboardCard'
-import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { useConfirm } from 'material-ui-confirm'
+import PageContainer from '@/components/admin/container/PageContainer';
+import { useConfirm } from 'material-ui-confirm';
+import React, { useState } from 'react'
 import { toast } from 'react-toastify';
-import { IconPlus, IconTrash } from '@tabler/icons-react'
-import { IBookLanguage } from '../../../../../types/IBookLanguage'
-import LanguageTableData from '@/components/admin/BookLanguage/LanguageTableData/LanguageTableData'
-import CreateLanguageModal from '@/components/admin/BookLanguage/CreateLanguageModal/CreateLanguageModal'
-import UpdateLanguageModal from '@/components/admin/BookLanguage/UpdateLanguageModal/UpdateLanguageModal'
-import useAPIBookLanguage from '@/lib/hooks/api/useAPIBookLanguage'
+import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
+import DashboardCard from '@/components/shared/DashboardCard';
+import { IconPlus } from '@tabler/icons-react';
+import { IconTrash } from '@tabler/icons-react';
+import AuthorTableData from '@/components/admin/Author/AuthorTableData/AuthorTableData';
+import CreateAuthorModal from '@/components/admin/Author/CreateAuthorModal/CreateAuthorModal';
+import UpdateAuthorModal from '@/components/admin/Author/UpdateAuthorModal/UpdateAuthorModal';
 
-const bookLanguagePage = () => {
+const authorPage = () => {
     const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
     const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
-    const [languageSelected, setLanguageSelected] = useState<IBookLanguage | null>(null);
+    const [authorSelected, setAuthorSelected] = useState<IAuthor | null>(null);
     const confirm = useConfirm();
 
-    const { getLanguageList, deleteLanguageById} = useAPIBookLanguage()
-    const { data, mutate, isLoading, error } = getLanguageList()
-
+    const list = [
+        {
+            id: 8,
+            name: "Nguyem Van 1",
+            created_at: "2023-10-03T11:40:29.000+07:00",
+            updated_at: "2023-10-03T11:40:29.000+07:00",
+            deleted_at: null
+        },
+        {
+            id: 7,
+            name: "Van 2",
+            created_at: "2023-10-03T11:40:29.000+07:00",
+            updated_at: "2023-10-03T11:40:29.000+07:00",
+            deleted_at: null
+        },
+    ]
     const handleDeleteData = async (id: number) => {
         confirm({
             title: `Đồng ý xóa ${id} ?`,
@@ -28,9 +40,8 @@ const bookLanguagePage = () => {
         })
             .then(async () => {
                 try {
-                    await deleteLanguageById(id)
-                    mutate()
-                    toast.success("Delete Language complete id: " + id)
+
+                    toast.success("Delete author complete id: " + id)
                 }
                 catch (e) {
                     toast.error("Something when wrong, please try again")
@@ -40,19 +51,23 @@ const bookLanguagePage = () => {
 
     return (
         <>
-            <PageContainer title='language CRUD' description='CRUD Operation for language'>
+            <PageContainer title='Author CRUD' description='CRUD Operation for author'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Language List'
-                        subtitle='Manage language list'
+                        title='Author List'
+                        subtitle='Manage author list'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
-                            {error && (
+                            {/* {error && (
                                 <Alert sx={{ mb: 2 }} severity="error">
                                     <AlertTitle>Error</AlertTitle>
                                     Something when wrong — <strong>check your connection and reload page!</strong>
                                 </Alert>
-                            )}
+                            )} */}
+                            <Alert sx={{ mb: 2 }} severity="error">
+                                <AlertTitle>Error</AlertTitle>
+                                Something when wrong — <strong>check your connection and reload page!</strong>
+                            </Alert>
                             <Button
                                 sx={{ mt: 2 }}
                                 startIcon={<IconPlus />}
@@ -72,32 +87,32 @@ const bookLanguagePage = () => {
                                 size='small'
                                 disableElevation
                                 variant="contained"
-                                href='/admin/manage/book-lang/recycle-bin'
+                                href='/admin/manage/author/recycle-bin'
                             >
                                 Recycle bin
                             </Button>
-                            <LanguageTableData
-                                languageList={data}
-                                setShowModalUpdate={setShowModalUpdate}
-                                setLanguageSelected={setLanguageSelected}
+                            <AuthorTableData
+                                authorList={list}
                                 handleDeleteData={handleDeleteData}
+                                setAuthorSelected={setAuthorSelected}
+                                setShowModalUpdate={setShowModalUpdate}
                             />
                         </Box>
                     </DashboardCard>
                 </Grid>
-                <CreateLanguageModal
-                    setShowModalCreate={setShowModalCreate}
+                <CreateAuthorModal
                     showModalCreate={showModalCreate}
+                    setShowModalCreate={setShowModalCreate}
                 />
-                <UpdateLanguageModal
-                    showModalUpdate={showModalUpdate}
+                <UpdateAuthorModal
+                    authorSelected={authorSelected}
+                    setAuthorSelected={setAuthorSelected}
                     setShowModalUpdate={setShowModalUpdate}
-                    languageSelected={languageSelected}
-                    setLanguageSelected={setLanguageSelected}
+                    showModalUpdate={showModalUpdate}
                 />
             </PageContainer>
         </>
     )
 }
 
-export default bookLanguagePage
+export default authorPage

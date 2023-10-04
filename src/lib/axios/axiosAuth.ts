@@ -19,7 +19,9 @@ export default axios.create({
 export const axiosAuth = axios.create({ //axios instance create
     //Stater config for axios calling
     baseURL: BASE_URL,
-    headers: { "Content-Type": "application/json" },
+    headers: { 
+        "Content-Type": "application/json" ,
+    },
 });
 const retryDelay = (retryNumber = 0) => {
     const seconds = Math.pow(2, retryNumber) * 1000;
