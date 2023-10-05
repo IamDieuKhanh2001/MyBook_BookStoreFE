@@ -1,23 +1,32 @@
 import React from 'react'
-import { Box, CircularProgress, Modal, Typography, useTheme, Stack, Button } from '@mui/material';
+import {
+    Box,
+    Button,
+    CircularProgress,
+    Modal,
+    Stack,
+    Typography,
+    useTheme
+} from '@mui/material';
 import { Field, Form, Formik } from 'formik';
-import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
-import useAPIBookForm from '@/lib/hooks/api/useAPIBookForm';
+import { toast } from 'react-toastify';
 
 interface FormValues {
+    id: number;
     name: string;
 }
-interface ICreateBookFormModalProps {
-    showModalCreate: boolean;
-    setShowModalCreate: (value: boolean) => void;
+interface IProps {
+    showModalUpdate: boolean;
+    setShowModalUpdate: (value: boolean) => void;
+    publisherSelected: IPublisher | null;
+    setPublisherSelected: (value: IPublisher | null) => void;
 }
-const CreateBookFormModal = (props: ICreateBookFormModalProps) => {
-    const { showModalCreate, setShowModalCreate } = props;
+const UpdatePublisherModal = (props: IProps) => {
+    const { showModalUpdate, setShowModalUpdate, publisherSelected, setPublisherSelected } = props;
     const theme = useTheme();
-    const { getBookFormList, createNewBookForm } = useAPIBookForm()
-    const { mutate } = getBookFormList()
+
     const style = {
         position: 'absolute' as 'absolute',
         top: '50%',
@@ -29,37 +38,40 @@ const CreateBookFormModal = (props: ICreateBookFormModalProps) => {
         boxShadow: 24,
         p: 4,
     };
-
     //Formik init
     const initialValues: FormValues = {
-        name: "",
+        id: publisherSelected?.id || 0,
+        name: publisherSelected?.name || "",
     };
+
     const validationSchema = Yup.object({
+        id: Yup.string()
+            .max(50, "ID must be <= 50 characters")
+            .required("ID not be empty"),
         name: Yup.string()
-            .max(50, "Name must be <= 50 characters")
-            .required("Name not be empty"),
+            .max(50, "name must be <= 50 characters")
+            .required("name not be empty"),
     });
 
     const handleCloseModal = () => {
-        setShowModalCreate(false);
+        //cate selected clear
+        setPublisherSelected(null)
+        setShowModalUpdate(false);
     }
 
     const handleSubmit = async (values: FormValues) => {
         try {
-            await createNewBookForm(values.name)
             handleCloseModal()
-            mutate()
-            toast.success("Create form complete with name: " + values.name)
+            toast.success("update publisher complete id: " + values.id)
         }
         catch (e) {
             toast.error("Something when wrong, please try again")
         }
-    };
-
+    }
     return (
         <>
             <Modal
-                open={showModalCreate}
+                open={showModalUpdate}
                 onClose={() => handleCloseModal()}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
@@ -68,7 +80,7 @@ const CreateBookFormModal = (props: ICreateBookFormModalProps) => {
                     <Typography id="modal-modal-title" variant="h6" component="h2"
                         style={{ color: theme.palette.text.primary }}
                     >
-                        Create new book form
+                        Edit Publisher
                     </Typography>
                     <Formik
                         initialValues={initialValues}
@@ -80,6 +92,33 @@ const CreateBookFormModal = (props: ICreateBookFormModalProps) => {
                                 <Stack>
                                     <Box>
                                         <Typography
+                                            style={{ color: theme.palette.text.primary }}
+                                            variant="subtitle1"
+                                            fontWeight={600}
+                                            component="label"
+                                            htmlFor="maLoai"
+                                            mb="5px"
+                                        >
+                                            Mã số
+                                        </Typography>
+                                        <Field
+                                            as={CustomTextField}
+                                            id={"id"}
+                                            name={"id"}
+                                            variant="outlined"
+                                            onChange={handleChange}
+                                            disabled={true}
+                                            fullWidth
+                                        />
+                                        {/* <ErrorMessage name="username" component="div" /> */}
+                                        {errors.id && touched.id && (
+                                            <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
+                                                {errors.id}
+                                            </Typography>
+                                        )}
+                                    </Box>
+                                    <Box mt="25px">
+                                        <Typography
                                             variant="subtitle1"
                                             fontWeight={600}
                                             component="label"
@@ -87,7 +126,7 @@ const CreateBookFormModal = (props: ICreateBookFormModalProps) => {
                                             mb="5px"
                                             style={{ color: theme.palette.text.primary }}
                                         >
-                                            Tên hình thức
+                                            Tên nhà xuất bản
                                         </Typography>
                                         <Field
                                             as={CustomTextField}
@@ -111,7 +150,7 @@ const CreateBookFormModal = (props: ICreateBookFormModalProps) => {
                                         size="large"
                                         fullWidth
                                         type="submit"
-                                        disabled={false}
+                                        disabled={isSubmitting}
                                     >
                                         {
                                             isSubmitting ?
@@ -139,4 +178,4 @@ const CreateBookFormModal = (props: ICreateBookFormModalProps) => {
     )
 }
 
-export default CreateBookFormModal
+export default UpdatePublisherModal

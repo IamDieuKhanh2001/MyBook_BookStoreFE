@@ -89,7 +89,7 @@ const CreateAuthorModal = (props: ICreateAuthorModalProps) => {
                                             as={CustomTextField}
                                             id={"name"}
                                             name="name"
-                                            // onChange={handleChange}
+                                            onChange={handleChange}
                                             variant="outlined"
                                             fullWidth
                                         />

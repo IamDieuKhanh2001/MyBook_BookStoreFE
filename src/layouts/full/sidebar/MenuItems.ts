@@ -10,6 +10,7 @@ import {
   IconHistory,
   IconBallpen,
   IconBoxModel2,
+  IconBuildingFactory2,
 } from '@tabler/icons-react';
 
 import { uniqueId } from 'lodash';
@@ -51,6 +52,12 @@ const Menuitems = [
     icon: IconBoxModel2,
     href: '/admin/manage/book-form',
   },
+  {
+    id: uniqueId(),
+    title: 'Nhà xuất bản',
+    icon: IconBuildingFactory2,
+    href: '/admin/manage/publisher',
+  },
   //Home group
   {
     navlabel: true,
@@ -91,10 +98,16 @@ const Menuitems = [
     icon: IconHistory,
     href: '/admin/manage/book-form/recycle-bin',
   },
+  {
+    id: uniqueId(),
+    title: 'Nhà xuất bản',
+    icon: IconHistory,
+    href: '/admin/manage/publisher/recycle-bin',
+  },
   //Test group (remove in future)
   {
     navlabel: true,
-    subheader: 'Test page',
+    subheader: 'Test Page (Remove)',
   },
   {
     id: uniqueId(),
@@ -104,7 +117,7 @@ const Menuitems = [
   },
   {
     navlabel: true,
-    subheader: 'Utils',
+    subheader: 'Utils (remove)',
   },
   {
     id: uniqueId(),
@@ -126,19 +139,13 @@ const Menuitems = [
   },
   {
     navlabel: true,
-    subheader: 'Test Page',
+    subheader: 'Test Page (Remove)',
   },
   {
     id: uniqueId(),
     title: 'Sample Page',
     icon: IconAperture,
     href: '/admin/sample-page',
-  },
-  {
-    id: uniqueId(),
-    title: 'Categories CRUD',
-    icon: IconCategory,
-    href: '/admin/categories-crud',
   },
 ];
 

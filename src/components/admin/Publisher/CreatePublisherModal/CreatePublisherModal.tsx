@@ -4,20 +4,18 @@ import { Field, Form, Formik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
-import useAPIBookForm from '@/lib/hooks/api/useAPIBookForm';
 
 interface FormValues {
     name: string;
 }
-interface ICreateBookFormModalProps {
+interface ICreatePublisherModalProps {
     showModalCreate: boolean;
     setShowModalCreate: (value: boolean) => void;
 }
-const CreateBookFormModal = (props: ICreateBookFormModalProps) => {
+const CreatePublisherModal = (props: ICreatePublisherModalProps) => {
     const { showModalCreate, setShowModalCreate } = props;
     const theme = useTheme();
-    const { getBookFormList, createNewBookForm } = useAPIBookForm()
-    const { mutate } = getBookFormList()
+
     const style = {
         position: 'absolute' as 'absolute',
         top: '50%',
@@ -46,10 +44,8 @@ const CreateBookFormModal = (props: ICreateBookFormModalProps) => {
 
     const handleSubmit = async (values: FormValues) => {
         try {
-            await createNewBookForm(values.name)
             handleCloseModal()
-            mutate()
-            toast.success("Create form complete with name: " + values.name)
+            toast.success("Create publisher complete with name: " + values.name)
         }
         catch (e) {
             toast.error("Something when wrong, please try again")
@@ -68,7 +64,7 @@ const CreateBookFormModal = (props: ICreateBookFormModalProps) => {
                     <Typography id="modal-modal-title" variant="h6" component="h2"
                         style={{ color: theme.palette.text.primary }}
                     >
-                        Create new book form
+                        Create publisher
                     </Typography>
                     <Formik
                         initialValues={initialValues}
@@ -87,7 +83,7 @@ const CreateBookFormModal = (props: ICreateBookFormModalProps) => {
                                             mb="5px"
                                             style={{ color: theme.palette.text.primary }}
                                         >
-                                            Tên hình thức
+                                            Tên nhà xuất bản
                                         </Typography>
                                         <Field
                                             as={CustomTextField}
@@ -139,4 +135,4 @@ const CreateBookFormModal = (props: ICreateBookFormModalProps) => {
     )
 }
 
-export default CreateBookFormModal
+export default CreatePublisherModal
