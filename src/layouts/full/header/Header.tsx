@@ -8,6 +8,7 @@ import { useTheme } from '@mui/material/styles';
 import Profile from './Profile';
 import { IconBellRinging, IconMenu, IconSettings, IconMail } from '@tabler/icons-react';
 import DarkModeToggle from '@/layouts/full/header/DarkModeToggle/DarkModeToggle';
+import { useSession } from 'next-auth/react';
 
 interface ItemType {
   toggleMobileSidebar: (event: React.MouseEvent<HTMLElement>) => void;
@@ -15,6 +16,7 @@ interface ItemType {
 
 const Header = ({ toggleMobileSidebar }: ItemType) => {
   const theme = useTheme();
+  const { data: session } = useSession()
 
   // const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   // const lgDown = useMediaQuery((theme) => theme.breakpoints.down('lg'));
@@ -102,7 +104,7 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
             Chức năng 3
           </Button>
           <DarkModeToggle />
-          <Profile />
+          {session?.user && <Profile />}
         </Stack>
       </ToolbarStyled>
     </AppBarStyled>

@@ -12,6 +12,7 @@ import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import { toast } from 'react-toastify';
+import useAPIBookForm from '@/lib/hooks/api/useAPIBookForm';
 
 interface FormValues {
     id: number;
@@ -26,6 +27,8 @@ interface IProps {
 const UpdateBookFormModal = (props: IProps) => {
     const { showModalUpdate, setShowModalUpdate, bookFormSelected, setBookFormSelected } = props;
     const theme = useTheme();
+    const { getBookFormList, updateBookFormById } = useAPIBookForm()
+    const { mutate } = getBookFormList()
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -61,7 +64,9 @@ const UpdateBookFormModal = (props: IProps) => {
 
     const handleSubmit = async (values: FormValues) => {
         try {
+            await updateBookFormById(values.id, values.name)
             handleCloseModal()
+            mutate()
             toast.success("update author complete id: " + values.id)
         }
         catch (e) {

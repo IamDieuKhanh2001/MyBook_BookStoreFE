@@ -2,8 +2,11 @@
 import Link from 'next/link'
 import React from 'react'
 import styles from './AccountOverview.module.scss'
+import { useSession } from 'next-auth/react'
 
 const AccountOverview = () => {
+    const { data: session } = useSession();
+
     return (
         <>
             <div className='col-12'>
@@ -20,12 +23,12 @@ const AccountOverview = () => {
             <div className="card mb-2">
                 <div className="card-body text-center">
                     <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                        src="/img/avatar/default.png"
                         alt="avatar"
                         className={`${styles.avatar} rounded-circle img-fluid`}
                     />
-                    <h5 className="my-3">Quach Khanh</h5>
-                    <p className="text-muted mb-4">Thành viên</p>
+                    <h5 className="my-3">{session?.user.userInfo.fullname}</h5>
+                    <p className="text-muted mb-4">Cấp bậc: {session?.user.userInfo.userLevel.level_name}</p>
                     <div className="d-flex justify-content-center mb-2">
                         <button type="button" className="btn btn-primary">Thay đổi avatar</button>
                         <Link href={'/account/edit'} type="button" className="btn btn-outline-primary ms-1">
@@ -41,7 +44,7 @@ const AccountOverview = () => {
                             <p className="mb-0">Full Name</p>
                         </div>
                         <div className="col-sm-9">
-                            <p className="text-muted mb-0">Johnatan Smith</p>
+                            <p className="text-muted mb-0">{session?.user.userInfo.fullname}</p>
                         </div>
                     </div>
                     <hr />
@@ -50,7 +53,7 @@ const AccountOverview = () => {
                             <p className="mb-0">Email</p>
                         </div>
                         <div className="col-sm-9">
-                            <p className="text-muted mb-0">example@example.com</p>
+                            <p className="text-muted mb-0">{session?.user.userInfo.email}</p>
                         </div>
                     </div>
                     <hr />
@@ -59,7 +62,16 @@ const AccountOverview = () => {
                             <p className="mb-0">Phone</p>
                         </div>
                         <div className="col-sm-9">
-                            <p className="text-muted mb-0">(097) 234-5678</p>
+                            <p className="text-muted mb-0">{session?.user.userInfo.phone_number}</p>
+                        </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                        <div className="col-sm-3">
+                            <p className="mb-0">Credit</p>
+                        </div>
+                        <div className="col-sm-9">
+                            <p className="text-muted mb-0">{session?.user.userInfo.money} VND</p>
                         </div>
                     </div>
                 </div>

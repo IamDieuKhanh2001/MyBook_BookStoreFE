@@ -7,29 +7,15 @@ import { useRouter } from 'next/navigation';
 import { IconArrowBackUp } from '@tabler/icons-react';
 import PageContainer from '@/components/admin/container/PageContainer'
 import DashboardCard from '@/components/shared/DashboardCard'
-import RecycleBinAuthorTableData from '@/components/admin/Author/RecycleBinAuthorTableData/RecycleBinAuthorTableData';
 import RecycleBinBookFormTableData from '@/components/admin/BookForm/RecycleBinBookFormTableData/RecycleBinBookFormTableData';
+import useAPIBookForm from '@/lib/hooks/api/useAPIBookForm';
 
 const bookFormRecycleBinPage = () => {
     const router = useRouter()
     const confirm = useConfirm();
+    const { getBookFormTrashList, restoreBookFormById, destroyBookFormById } = useAPIBookForm()
+    const { data, error, isLoading, mutate } = getBookFormTrashList()
 
-    const list = [
-        {
-            id: 8,
-            name: "aa1",
-            created_at: "2023-10-03T11:40:29.000+07:00",
-            updated_at: "2023-10-03T11:40:29.000+07:00",
-            deleted_at: null
-        },
-        {
-            id: 7,
-            name: "aa2",
-            created_at: "2023-10-03T11:40:29.000+07:00",
-            updated_at: "2023-10-03T11:40:29.000+07:00",
-            deleted_at: null
-        },
-    ]
     const handleDestroyData = async (id: number) => {
         confirm({
             title: `Đồng ý xóa ${id} ?`,
@@ -37,7 +23,8 @@ const bookFormRecycleBinPage = () => {
         })
             .then(async () => {
                 try {
-
+                    await destroyBookFormById(id)
+                    mutate()
                     toast.success("Delete form complete id: " + id)
                 }
                 catch (e) {
@@ -53,7 +40,8 @@ const bookFormRecycleBinPage = () => {
         })
             .then(async () => {
                 try {
-
+                    await restoreBookFormById(id)
+                    mutate()
                     toast.success("Restore form complete id: " + id)
                 }
                 catch (e) {
@@ -88,7 +76,7 @@ const bookFormRecycleBinPage = () => {
                                 </Alert>
                             )} */}
                             <RecycleBinBookFormTableData
-                                recycleBinList={list}
+                                recycleBinList={data}
                                 handleDestroyData={handleDestroyData}
                                 handleRestoreData={handleRestoreData}
                             />

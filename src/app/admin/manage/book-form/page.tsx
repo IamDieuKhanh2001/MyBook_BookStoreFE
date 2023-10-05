@@ -10,29 +10,16 @@ import { IconTrash } from '@tabler/icons-react';
 import BookFormTableData from '@/components/admin/BookForm/BookFormTableData/BookFormTableData';
 import CreateBookFormModal from '@/components/admin/BookForm/CreateBookFormModal/CreateBookFormModal';
 import UpdateBookFormModal from '@/components/admin/BookForm/UpdateBookFormModal/UpdateBookFormModal';
+import useAPIBookForm from '@/lib/hooks/api/useAPIBookForm';
 
 const bookFormPage = () => {
     const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
     const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
     const [bookFormSelected, setBookFormSelected] = useState<IBookForm | null>(null);
     const confirm = useConfirm();
+    const { getBookFormList, deleteBookFormById } = useAPIBookForm()
+    const { data, error, isLoading, mutate } = getBookFormList()
 
-    const list = [
-        {
-            id: 8,
-            name: "Form 1",
-            created_at: "2023-10-03T11:40:29.000+07:00",
-            updated_at: "2023-10-03T11:40:29.000+07:00",
-            deleted_at: null
-        },
-        {
-            id: 7,
-            name: "Form 2",
-            created_at: "2023-10-03T11:40:29.000+07:00",
-            updated_at: "2023-10-03T11:40:29.000+07:00",
-            deleted_at: null
-        },
-    ]
     const handleDeleteData = async (id: number) => {
         confirm({
             title: `Đồng ý xóa ${id} ?`,
@@ -40,7 +27,8 @@ const bookFormPage = () => {
         })
             .then(async () => {
                 try {
-
+                    await deleteBookFormById(id)
+                    mutate()
                     toast.success("Delete form complete id: " + id)
                 }
                 catch (e) {
@@ -58,16 +46,12 @@ const bookFormPage = () => {
                         subtitle='Manage Book Form list'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
-                            {/* {error && (
+                            {error && (
                                 <Alert sx={{ mb: 2 }} severity="error">
                                     <AlertTitle>Error</AlertTitle>
                                     Something when wrong — <strong>check your connection and reload page!</strong>
                                 </Alert>
-                            )} */}
-                            <Alert sx={{ mb: 2 }} severity="error">
-                                <AlertTitle>Error</AlertTitle>
-                                Something when wrong — <strong>check your connection and reload page!</strong>
-                            </Alert>
+                            )}
                             <Button
                                 sx={{ mt: 2 }}
                                 startIcon={<IconPlus />}
@@ -92,7 +76,7 @@ const bookFormPage = () => {
                                 Recycle bin
                             </Button>
                             <BookFormTableData
-                                bookFormList={list}
+                                bookFormList={data}
                                 handleDeleteData={handleDeleteData}
                                 setBookFormSelected={setBookFormSelected}
                                 setShowModalUpdate={setShowModalUpdate}
