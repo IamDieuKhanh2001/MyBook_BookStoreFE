@@ -1,57 +1,216 @@
 "use client"
-import React from 'react'
+import useAPIAddress from '@/lib/hooks/api/useAPIAddress'
+import React, { useEffect, useState, useCallback } from 'react'
+import { toast } from 'react-toastify'
+import { Formik, Form, Field, ErrorMessage, } from 'formik';
+import * as Yup from 'yup';
 
+interface FormValues {
+    recipientName: string;
+    recipientPhone: string;
+    street: string;
+    provinceId: number,
+    districtId: number;
+    wardId: number;
+    addressDefault: boolean;
+}
 const AddressForm = () => {
+    const [selectedProvinceId, setSelectedProvinceId] = useState(0);
+    const [selectedDistricId, setSelectedDistricId] = useState(0);
+    const { getProvinceList, getDistrictList, getWardList } = useAPIAddress()
+    const { data: provinceList, isLoading: isLoadingProvince } = getProvinceList()
+    const { data: districtList, isLoading: isLoadingDistrict } = getDistrictList(selectedProvinceId)
+    const { data: wardList, isLoading: isLoadingWard } = getWardList(selectedDistricId)
+
+    const initialValues: FormValues = {
+        recipientName: '',
+        recipientPhone: '',
+        street: '',
+        provinceId: 0,
+        districtId: 0,
+        wardId: 0,
+        addressDefault: false,
+    };
+
+    const validationSchema = Yup.object().shape({
+        recipientName: Yup.string()
+            .max(50, "*tên không quá 50 ký tự")
+            .required("*Tên không được để trống"),
+        recipientPhone: Yup.string()
+            .max(11, "*số điện thoại không quá 11 số")
+            .matches(/^[0-9]+$/, '*Số điện thoại chỉ được chứa các số')
+            .required("Số điện thoại không được để trống"),
+        street: Yup.string()
+            .max(50, "*Số nhà & tên đường không quá 50 số")
+            .required("*Số nhà & tên đường không được để trống"),
+        provinceId: Yup.number()
+            .notOneOf([0], '*Vui lòng chọn thành phố/Tỉnh') // Không cho phép giá trị bằng 0
+            .required('*Vui lòng chọn thành phố/Tỉnh'),
+        districtId: Yup.number()
+            .notOneOf([0], '*Vui lòng chọn quận/huyện') // Không cho phép giá trị bằng 0
+            .required('*Vui lòng chọn quận/huyện'),
+        wardId: Yup.number()
+            .notOneOf([0], '*Vui lòng chọn phường/xã') // Không cho phép giá trị bằng 0
+            .required('*Vui lòng chọn phường/xã'),
+    });
+
+    const handleSubmit = async (values: FormValues) => {
+        toast.success("Đã thêm thành công địa chỉ mới!")
+        console.log(values)
+    }
+
+    const handleChangeProvince = (e: any, setFieldValue: any) => {
+        const selectedValue = e.target.value;
+        setFieldValue('provinceId', selectedValue);
+        setFieldValue('districtId', 0) //Reset
+        setFieldValue('wardId', 0)
+        setSelectedProvinceId(selectedValue); //Reset
+        setSelectedDistricId(0); //Reset
+    }
+
+    const handleChangeDistrict = (e: any, setFieldValue: any) => {
+        const selectedValue = e.target.value;
+        setFieldValue('districtId', selectedValue);
+        setFieldValue('wardId', 0)
+        setSelectedDistricId(selectedValue);
+    }
+
+    useEffect(() => {
+        console.log('Giá trị province đã chọn:', selectedProvinceId);
+        console.log('Giá trị district đã chọn:', selectedDistricId);
+        // Tại đây, bạn có thể làm bất kỳ điều gì với giá trị đã chọn
+    }, [selectedProvinceId, selectedDistricId]);
+
     return (
         <>
-            <div className="input-group mb-3">
-                <span className="input-group-text" id="inputGroup-sizing-default">Tên</span>
-                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-            </div>
-            <div className="input-group mb-3">
-                <span className="input-group-text" id="inputGroup-sizing-default">Họ</span>
-                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-            </div>
-            <div className="input-group mb-3">
-                <span className="input-group-text" id="inputGroup-sizing-default">Số điện thọai</span>
-                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-            </div>
-            <div className="input-group mb-3">
-                <span className="input-group-text" id="inputGroup-sizing-default">Địa chỉ</span>
-                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-            </div>
-            <div className="input-group mb-3">
-                <select className="form-select" defaultValue={0} aria-label="Default select example">
-                    <option disabled={true} value={0}>Thành phố/Tỉnh</option>
-                    <option value={1}>One</option>
-                    <option value={2}>Two</option>
-                    <option value={3}>Three</option>
-                </select>
-            </div>
-            <div className="input-group mb-3">
-                <select className="form-select" defaultValue={0} aria-label="Default select example">
-                    <option disabled={true} value={0}>Quận/Huyện</option>
-                    <option value={1}>One</option>
-                    <option value={2}>Two</option>
-                    <option value={3}>Three</option>
-                </select>
-            </div>
-            <div className="input-group mb-3">
-                <select className="form-select" defaultValue={0} aria-label="Default select example">
-                    <option disabled={true} value={0}>Xã/Phường</option>
-                    <option value={1}>One</option>
-                    <option value={2}>Two</option>
-                    <option value={3}>Three</option>
-                </select>
-            </div>
-            <div>
-                <div className="form-check">
-                    <input className="form-check-input" type="checkbox" id="defaultAddress" />
-                    <label className="form-check-label" htmlFor="defaultAddress">
-                        Sử dụng làm địa chỉ mặc định
-                    </label>
-                </div>
-            </div>
+            <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+            >
+                {({ values, setFieldValue, isValid, handleChange, errors, touched, isSubmitting }) => (
+                    <Form>
+                        <div className="input-group">
+                            <span className="input-group-text">Họ & tên</span>
+                            <Field
+                                id='recipientName'
+                                name="recipientName"
+                                type='text'
+                                value={values.recipientName}
+                                className="form-control"
+                            />
+                        </div>
+                        <ErrorMessage name="recipientName" component="p" className="text-danger" />
+                        <div className="input-group mt-3">
+                            <span className="input-group-text">Số điện thọai</span>
+                            <Field
+                                id='recipientPhone'
+                                name="recipientPhone"
+                                type='text'
+                                value={values.recipientPhone}
+                                className="form-control"
+                            />
+                        </div>
+                        <ErrorMessage name="recipientPhone" component="p" className="text-danger" />
+                        <div className="input-group mt-3">
+                            <span className="input-group-text">Số nhà & đường</span>
+                            <Field
+                                id='street'
+                                name="street"
+                                value={values.street}
+                                type='text'
+                                className="form-control"
+                            />
+                        </div>
+                        <ErrorMessage name="street" component="p" className="text-danger" />
+                        <div className="input-group mt-3">
+                            <Field
+                                disabled={isLoadingProvince}
+                                name="provinceId"
+                                id="provinceId"
+                                as='select'
+                                value={values.provinceId}
+                                className="form-select"
+                                onChange={(e: any) => handleChangeProvince(e, setFieldValue)}
+                            >
+                                <option disabled={true} value={0}>Thành phố/Tỉnh</option>
+                                {provinceList.map((province: IProvince) => (
+                                    <option
+                                        key={province.province_id}
+                                        value={province.province_id}
+                                    >
+                                        {province.name}
+                                    </option>
+                                ))}
+                            </Field>
+                        </div>
+                        <ErrorMessage name="provinceId" component="p" className="text-danger" />
+                        <div className="input-group mt-3">
+                            <Field
+                                disabled={isLoadingDistrict}
+                                name="districtId"
+                                id="districtId"
+                                as='select'
+                                value={values.districtId}
+                                className="form-select"
+                                onChange={(e: any) => handleChangeDistrict(e, setFieldValue)}
+                            >
+                                <option disabled={true} value={0}>Quận/huyện</option>
+                                {districtList?.map((district: any) => (
+                                    <option
+                                        key={district.district_id}
+                                        value={district.district_id}
+                                    >
+                                        {district.name}
+                                    </option>
+                                ))}
+                            </Field>
+                        </div>
+                        <ErrorMessage name="districtId" component="p" className="text-danger" />
+                        <div className="input-group mt-3">
+                            <Field
+                                disabled={isLoadingWard}
+                                name="wardId"
+                                id="wardId"
+                                as='select'
+                                value={values.wardId}
+                                className="form-select"
+                                onChange={handleChange}
+                            >
+                                <option disabled={true} value={0}>Phường/Xã</option>
+                                {wardList?.map((ward: any) => (
+                                    <option
+                                        key={ward.wards_id}
+                                        value={ward.wards_id}
+                                    >
+                                        {ward.name}
+                                    </option>
+                                ))}
+                            </Field>
+                        </div>
+                        <ErrorMessage name="wardId" component="p" className="text-danger" />
+                        <div className='mt-3'>
+                            <div className="form-check">
+                                <Field
+                                    type="checkbox"
+                                    id='addressDefault'
+                                    name="addressDefault"
+                                    className="form-check-input"
+                                    checked={values.addressDefault}
+                                    onChange={handleChange}
+                                />
+                                <label className="form-check-label" htmlFor="addressDefault">
+                                    Sử dụng làm địa chỉ mặc định
+                                </label>
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" className="btn btn-primary">Save changes</button>
+                        </div>
+                    </Form>
+                )}
+            </Formik>
         </>
     )
 }

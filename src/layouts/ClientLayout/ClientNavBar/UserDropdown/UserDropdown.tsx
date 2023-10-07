@@ -7,7 +7,6 @@ import { signOut, useSession } from 'next-auth/react'
 const UserDropdown = () => {
     const { data: session } = useSession();
 
-    console.log(session)
     return (
         <>
             {session?.user ? (
@@ -15,7 +14,7 @@ const UserDropdown = () => {
                     <div className={`${styles.navItem} dropdown`}>
                         <Link data-bs-toggle="dropdown" className={`${styles.dropdownToggle} nav-link dropdown-toggle`} href="">
                             <img
-                                src="/img/avatar/testimonial-2.jpg"
+                                src="/img/avatar/default.png"
                                 alt="avatar"
                                 width={25}
                                 height={25}

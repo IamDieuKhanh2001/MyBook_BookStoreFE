@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import { IconArrowBackUp } from '@tabler/icons-react';
 import PageContainer from '@/components/admin/container/PageContainer'
 import DashboardCard from '@/components/shared/DashboardCard'
-import RecycleBinAuthorTableData from '@/components/admin/Author/RecycleBinAuthorTableData/RecycleBinAuthorTableData';
 import RecycleBinPublisherTableData from '@/components/admin/Publisher/RecycleBinPublisherTableData/RecycleBinPublisherTableData';
 import useAPIBookPublisher from '@/lib/hooks/api/useAPIBookPublisher';
 

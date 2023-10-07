@@ -27,7 +27,7 @@ const AccountOverview = () => {
                         alt="avatar"
                         className={`${styles.avatar} rounded-circle img-fluid`}
                     />
-                    <h5 className="my-3">{session?.user.userInfo.fullname}</h5>
+                    <h5 className="my-3">{session?.user.userInfo.email}</h5>
                     <p className="text-muted mb-4">Cấp bậc: {session?.user.userInfo.userLevel.level_name}</p>
                     <div className="d-flex justify-content-center mb-2">
                         <button type="button" className="btn btn-primary">Thay đổi avatar</button>

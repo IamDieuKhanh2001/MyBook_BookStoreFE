@@ -107,7 +107,7 @@ const Menuitems = [
   //Test group (remove in future)
   {
     navlabel: true,
-    subheader: 'Test Page (Remove)',
+    subheader: 'Test Page 2 (Remove)',
   },
   {
     id: uniqueId(),
@@ -139,7 +139,7 @@ const Menuitems = [
   },
   {
     navlabel: true,
-    subheader: 'Test Page (Remove)',
+    subheader: 'Test Page 1 (Remove)',
   },
   {
     id: uniqueId(),
