@@ -10,29 +10,16 @@ import { IconTrash } from '@tabler/icons-react';
 import PublisherTableData from '@/components/admin/Publisher/PublisherTableData/PublisherTableData';
 import CreatePublisherModal from '@/components/admin/Publisher/CreatePublisherModal/CreatePublisherModal';
 import UpdatePublisherModal from '@/components/admin/Publisher/UpdatePublisherModal/UpdatePublisherModal';
+import useAPIBookPublisher from '@/lib/hooks/api/useAPIBookPublisher';
 
 const publisherPage = () => {
     const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
     const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
     const [publisherSelected, setPublisherSelected] = useState<IPublisher | null>(null);
     const confirm = useConfirm();
+    const { getPublisherList, deletePublisherById } = useAPIBookPublisher()
+    const { data, error, isLoading, mutate } = getPublisherList()
 
-    const list = [
-        {
-            id: 8,
-            name: "Nguyem Van 1",
-            created_at: "2023-10-03T11:40:29.000+07:00",
-            updated_at: "2023-10-03T11:40:29.000+07:00",
-            deleted_at: null
-        },
-        {
-            id: 7,
-            name: "Van 2",
-            created_at: "2023-10-03T11:40:29.000+07:00",
-            updated_at: "2023-10-03T11:40:29.000+07:00",
-            deleted_at: null
-        },
-    ]
     const handleDeleteData = async (id: number) => {
         confirm({
             title: `Đồng ý xóa ${id} ?`,
@@ -40,8 +27,9 @@ const publisherPage = () => {
         })
             .then(async () => {
                 try {
-
-                    toast.success("Delete author complete id: " + id)
+                    await deletePublisherById(id)
+                    mutate()
+                    toast.success("Delete publisher complete id: " + id)
                 }
                 catch (e) {
                     toast.error("Something when wrong, please try again")
@@ -58,16 +46,12 @@ const publisherPage = () => {
                         subtitle='Manage publisher list'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
-                            {/* {error && (
+                            {error && (
                                 <Alert sx={{ mb: 2 }} severity="error">
                                     <AlertTitle>Error</AlertTitle>
                                     Something when wrong — <strong>check your connection and reload page!</strong>
                                 </Alert>
-                            )} */}
-                            <Alert sx={{ mb: 2 }} severity="error">
-                                <AlertTitle>Error</AlertTitle>
-                                Something when wrong — <strong>check your connection and reload page!</strong>
-                            </Alert>
+                            )}
                             <Button
                                 sx={{ mt: 2 }}
                                 startIcon={<IconPlus />}
@@ -92,7 +76,7 @@ const publisherPage = () => {
                                 Recycle bin
                             </Button>
                             <PublisherTableData
-                                publisherList={list}
+                                publisherList={data}
                                 handleDeleteData={handleDeleteData}
                                 setPublisherSelected={setPublisherSelected}
                                 setShowModalUpdate={setShowModalUpdate}

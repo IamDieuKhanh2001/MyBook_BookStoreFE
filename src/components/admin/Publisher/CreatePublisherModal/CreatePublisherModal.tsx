@@ -4,6 +4,7 @@ import { Field, Form, Formik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
+import useAPIBookPublisher from '@/lib/hooks/api/useAPIBookPublisher';
 
 interface FormValues {
     name: string;
@@ -15,6 +16,8 @@ interface ICreatePublisherModalProps {
 const CreatePublisherModal = (props: ICreatePublisherModalProps) => {
     const { showModalCreate, setShowModalCreate } = props;
     const theme = useTheme();
+    const { getPublisherList, createNewPublisher } = useAPIBookPublisher()
+    const { mutate } = getPublisherList()
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -44,7 +47,9 @@ const CreatePublisherModal = (props: ICreatePublisherModalProps) => {
 
     const handleSubmit = async (values: FormValues) => {
         try {
+            await createNewPublisher(values.name)
             handleCloseModal()
+            mutate()
             toast.success("Create publisher complete with name: " + values.name)
         }
         catch (e) {
