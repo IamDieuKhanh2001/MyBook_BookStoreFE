@@ -87,10 +87,24 @@ const useAPIAddress = () => {
         }
     }
 
+    const getDefaultAddress = async () => {
+        try {
+            const session = await getSession();
+            const url = `/user/info/address/default`
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
+            const response = await axiosAuth.get(url, { headers })
+            return response;
+        } catch (error: any) {
+            throw new Error("Error get default address: " + error.message);
+        }
+    };
     return {
         getProvinceList,
         getDistrictList,
         getWardList,
+        getDefaultAddress,
     }
 }
 

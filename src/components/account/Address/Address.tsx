@@ -1,10 +1,13 @@
 "use client"
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Address.module.scss'
 import AddNewAddress from './AddNewAddress/AddNewAddress'
 
 const AddressEdit = () => {
+    const [defaultAddress, setDefaultAddress] = useState({})
+
+    
     return (
         <>
             <div className="row mb-3">

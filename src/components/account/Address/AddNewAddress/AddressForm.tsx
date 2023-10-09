@@ -165,7 +165,7 @@ const AddressForm = (props: IAddressFormProps) => {
                                 <option disabled={true} value={0}>
                                     Quận/huyện
                                 </option>
-                                {districtList?.map((district: any) => (
+                                {districtList?.map((district: IDistrict) => (
                                     <option
                                         key={district.district_id}
                                         value={district.district_id}
@@ -187,7 +187,7 @@ const AddressForm = (props: IAddressFormProps) => {
                                 onChange={handleChange}
                             >
                                 <option disabled={true} value={0}>Phường/Xã</option>
-                                {wardList?.map((ward: any) => (
+                                {wardList?.map((ward: IWard) => (
                                     <option
                                         key={ward.wards_id}
                                         value={ward.wards_id}
