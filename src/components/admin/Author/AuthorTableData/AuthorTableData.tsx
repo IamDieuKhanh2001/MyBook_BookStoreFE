@@ -52,7 +52,7 @@ const AuthorTableData = (props: IAuthorTableDataProps) => {
         </TableHead>
         <TableBody>
           {authorList.length > 0 ? (
-            (authorList.map((author: IParentCategory) => (
+            (authorList.map((author: IAuthor) => (
               <TableRow key={author.id}>
                 <TableCell>
                   <Typography
@@ -66,7 +66,7 @@ const AuthorTableData = (props: IAuthorTableDataProps) => {
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={500}>
-                    {author.name}
+                    {author.author_name}
                   </Typography>
                 </TableCell>
                 <TableCell>

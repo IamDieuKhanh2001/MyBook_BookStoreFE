@@ -8,27 +8,14 @@ import { IconArrowBackUp } from '@tabler/icons-react';
 import PageContainer from '@/components/admin/container/PageContainer'
 import DashboardCard from '@/components/shared/DashboardCard'
 import RecycleBinAuthorTableData from '@/components/admin/Author/RecycleBinAuthorTableData/RecycleBinAuthorTableData';
+import useAPIAuthor from '@/lib/hooks/api/useAPIAuthor';
 
 const authorRecycleBinPage = () => {
     const router = useRouter()
     const confirm = useConfirm();
+    const { getAuthorTrashList, destroyAuthorById, restoreAuthorById } = useAPIAuthor()
+    const { data, error, isLoading, mutate } = getAuthorTrashList()
 
-    const list = [
-        {
-            id: 8,
-            name: "Nguyem Van 1",
-            created_at: "2023-10-03T11:40:29.000+07:00",
-            updated_at: "2023-10-03T11:40:29.000+07:00",
-            deleted_at: null
-        },
-        {
-            id: 7,
-            name: "Van 2",
-            created_at: "2023-10-03T11:40:29.000+07:00",
-            updated_at: "2023-10-03T11:40:29.000+07:00",
-            deleted_at: null
-        },
-    ]
     const handleDestroyData = async (id: number) => {
         confirm({
             title: `Đồng ý xóa ${id} ?`,
@@ -36,7 +23,8 @@ const authorRecycleBinPage = () => {
         })
             .then(async () => {
                 try {
-
+                    await destroyAuthorById(id)
+                    mutate()
                     toast.success("Delete author complete id: " + id)
                 }
                 catch (e) {
@@ -52,7 +40,8 @@ const authorRecycleBinPage = () => {
         })
             .then(async () => {
                 try {
-
+                    await restoreAuthorById(id)
+                    mutate()
                     toast.success("Restore author complete id: " + id)
                 }
                 catch (e) {
@@ -80,16 +69,16 @@ const authorRecycleBinPage = () => {
                             >
                                 Trở về
                             </Button>
-                            {/* {error && (
+                            {error && (
                                 <Alert sx={{ mb: 2 }} severity="error">
                                     <AlertTitle>Error</AlertTitle>
                                     Something when wrong — <strong>check your connection and reload page!</strong>
                                 </Alert>
-                            )} */}
+                            )}
                             <RecycleBinAuthorTableData
                                 handleDestroyData={handleDestroyData}
                                 handleRestoreData={handleRestoreData}
-                                recycleBinList={list}
+                                recycleBinList={data}
                             />
                         </Box>
                     </DashboardCard>

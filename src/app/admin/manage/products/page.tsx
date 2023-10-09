@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation'
 import AdminSearchBar from '@/components/shared/AdminSearchBar/AdminSearchBar'
 
 const ProductManagementPage = () => {
+    const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
+    const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
     const router = useRouter()
     const [searchKeyword, setSearchKeyword] = useState("")
 

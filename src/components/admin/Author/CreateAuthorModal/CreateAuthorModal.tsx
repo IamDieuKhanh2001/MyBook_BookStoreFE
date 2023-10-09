@@ -4,6 +4,7 @@ import { Field, Form, Formik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
+import useAPIAuthor from '@/lib/hooks/api/useAPIAuthor';
 
 interface FormValues {
     name: string;
@@ -15,6 +16,8 @@ interface ICreateAuthorModalProps {
 const CreateAuthorModal = (props: ICreateAuthorModalProps) => {
     const { showModalCreate, setShowModalCreate } = props;
     const theme = useTheme();
+    const { createNewAuthor, getAuthorList } = useAPIAuthor()
+    const { mutate } = getAuthorList()
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -44,7 +47,9 @@ const CreateAuthorModal = (props: ICreateAuthorModalProps) => {
 
     const handleSubmit = async (values: FormValues) => {
         try {
+            await createNewAuthor(values.name)
             handleCloseModal()
+            mutate()
             toast.success("Create author complete with name: " + values.name)
         }
         catch (e) {

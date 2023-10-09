@@ -10,29 +10,16 @@ import { IconTrash } from '@tabler/icons-react';
 import AuthorTableData from '@/components/admin/Author/AuthorTableData/AuthorTableData';
 import CreateAuthorModal from '@/components/admin/Author/CreateAuthorModal/CreateAuthorModal';
 import UpdateAuthorModal from '@/components/admin/Author/UpdateAuthorModal/UpdateAuthorModal';
+import useAPIAuthor from '@/lib/hooks/api/useAPIAuthor';
 
 const authorPage = () => {
     const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
     const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
     const [authorSelected, setAuthorSelected] = useState<IAuthor | null>(null);
     const confirm = useConfirm();
+    const { getAuthorList, deleteAuthorById } = useAPIAuthor()
+    const { data, isLoading, mutate, error } = getAuthorList()
 
-    const list = [
-        {
-            id: 8,
-            name: "Nguyem Van 1",
-            created_at: "2023-10-03T11:40:29.000+07:00",
-            updated_at: "2023-10-03T11:40:29.000+07:00",
-            deleted_at: null
-        },
-        {
-            id: 7,
-            name: "Van 2",
-            created_at: "2023-10-03T11:40:29.000+07:00",
-            updated_at: "2023-10-03T11:40:29.000+07:00",
-            deleted_at: null
-        },
-    ]
     const handleDeleteData = async (id: number) => {
         confirm({
             title: `Đồng ý xóa ${id} ?`,
@@ -40,7 +27,8 @@ const authorPage = () => {
         })
             .then(async () => {
                 try {
-
+                    await deleteAuthorById(id)
+                    mutate()
                     toast.success("Delete author complete id: " + id)
                 }
                 catch (e) {
@@ -58,16 +46,12 @@ const authorPage = () => {
                         subtitle='Manage author list'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
-                            {/* {error && (
+                            {error && (
                                 <Alert sx={{ mb: 2 }} severity="error">
                                     <AlertTitle>Error</AlertTitle>
                                     Something when wrong — <strong>check your connection and reload page!</strong>
                                 </Alert>
-                            )} */}
-                            <Alert sx={{ mb: 2 }} severity="error">
-                                <AlertTitle>Error</AlertTitle>
-                                Something when wrong — <strong>check your connection and reload page!</strong>
-                            </Alert>
+                            )}
                             <Button
                                 sx={{ mt: 2 }}
                                 startIcon={<IconPlus />}
@@ -92,7 +76,7 @@ const authorPage = () => {
                                 Recycle bin
                             </Button>
                             <AuthorTableData
-                                authorList={list}
+                                authorList={data}
                                 handleDeleteData={handleDeleteData}
                                 setAuthorSelected={setAuthorSelected}
                                 setShowModalUpdate={setShowModalUpdate}

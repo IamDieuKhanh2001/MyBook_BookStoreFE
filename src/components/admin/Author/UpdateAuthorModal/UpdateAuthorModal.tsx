@@ -12,6 +12,7 @@ import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import { toast } from 'react-toastify';
+import useAPIAuthor from '@/lib/hooks/api/useAPIAuthor';
 
 interface FormValues {
     id: number;
@@ -26,6 +27,8 @@ interface IProps {
 const UpdateAuthorModal = (props: IProps) => {
     const { showModalUpdate, setShowModalUpdate, authorSelected, setAuthorSelected } = props;
     const theme = useTheme();
+    const { updateAuthorById, getAuthorList } = useAPIAuthor()
+    const { mutate } = getAuthorList()
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -41,7 +44,7 @@ const UpdateAuthorModal = (props: IProps) => {
     //Formik init
     const initialValues: FormValues = {
         id: authorSelected?.id || 0,
-        name: authorSelected?.name || "",
+        name: authorSelected?.author_name || "",
     };
 
     const validationSchema = Yup.object({
@@ -61,7 +64,9 @@ const UpdateAuthorModal = (props: IProps) => {
 
     const handleSubmit = async (values: FormValues) => {
         try {
+            await updateAuthorById(values.id, values.name)
             handleCloseModal()
+            mutate()
             toast.success("update author complete id: " + values.id)
         }
         catch (e) {

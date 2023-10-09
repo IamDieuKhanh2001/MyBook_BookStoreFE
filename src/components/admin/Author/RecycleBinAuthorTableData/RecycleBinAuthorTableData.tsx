@@ -65,7 +65,7 @@ const RecycleBinAuthorTableData = (props: IProps) => {
                                 </TableCell>
                                 <TableCell>
                                     <Typography variant="subtitle2" fontWeight={500}>
-                                        {author.name}
+                                        {author.author_name}
                                     </Typography>
                                 </TableCell>
                                 <TableCell>
