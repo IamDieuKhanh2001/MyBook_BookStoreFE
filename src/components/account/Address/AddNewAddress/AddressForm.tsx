@@ -138,7 +138,9 @@ const AddressForm = (props: IAddressFormProps) => {
                                 className="form-select"
                                 onChange={(e: any) => handleChangeProvince(e, setFieldValue)}
                             >
-                                <option disabled={true} value={0}>Thành phố/Tỉnh</option>
+                                <option disabled={true} value={0}>
+                                    Thành phố/Tỉnh {isLoadingProvince && '(Đang tải ...)'}
+                                </option>
                                 {provinceList.map((province: IProvince) => (
                                     <option
                                         key={province.province_id}
@@ -160,7 +162,9 @@ const AddressForm = (props: IAddressFormProps) => {
                                 className="form-select"
                                 onChange={(e: any) => handleChangeDistrict(e, setFieldValue)}
                             >
-                                <option disabled={true} value={0}>Quận/huyện</option>
+                                <option disabled={true} value={0}>
+                                    Quận/huyện
+                                </option>
                                 {districtList?.map((district: any) => (
                                     <option
                                         key={district.district_id}

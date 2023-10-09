@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import styles from './AccountOverview.module.scss'
 import { useSession } from 'next-auth/react'
+import ChangeAvatarModal from './ChangeAvatarModal/ChangeAvatarModal'
 
 const AccountOverview = () => {
     const { data: session } = useSession();
@@ -21,24 +22,23 @@ const AccountOverview = () => {
                 </div>
             </div>
             <div className="card mb-2">
-                <div className="card-body text-center">
-                    <img
-                        src="/img/avatar/default.png"
-                        alt="avatar"
-                        className={`${styles.avatar} rounded-circle img-fluid`}
-                    />
-                    {/* <div className={styles.triggerChangeAvatar}>
-                        <p>
-                            Change avatar
-                        </p>
-                    </div> */}
-                    <h5 className="my-3">{session?.user.userInfo.email}</h5>
-                    <p className="text-muted mb-4">Cấp bậc: {session?.user.userInfo.userLevel.level_name}</p>
-                    <div className="d-flex justify-content-center mb-2">
-                        <button type="button" className="btn btn-primary">Thay đổi avatar</button>
-                        <Link href={'/account/edit'} type="button" className="btn btn-outline-primary ms-1">
-                            Thay đổi thông tin cá nhân
-                        </Link>
+                <div className="card-body d-flex flex-column align-items-center">
+                    <div className={styles.avatar}>
+                        <img
+                            src="/img/avatar/default.png"
+                            alt="avatar"
+                            className={`rounded-circle img-fluid`}
+                        />
+                    </div>
+                    <div className='d-flex flex-column align-items-center'>
+                        <h5 className="my-3">{session?.user.userInfo.email}</h5>
+                        <p className="text-muted mb-4">Cấp bậc: {session?.user.userInfo.userLevel.level_name}</p>
+                        <div className="d-flex justify-content-center mb-2">
+                            <ChangeAvatarModal />
+                            <Link href={'/account/edit'} type="button" className="btn btn-outline-primary ms-1">
+                                Thay đổi thông tin cá nhân
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
