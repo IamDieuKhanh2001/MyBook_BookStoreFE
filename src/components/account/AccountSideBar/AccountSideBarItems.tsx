@@ -24,7 +24,7 @@ const accountSideBarItems = [
         id: uniqueId(),
         title: 'Ví Voucher',
         icon: <i className="fas fa-ticket-alt fa-lg" style={{ color: '#333333' }} />,
-        href: '/',
+        href: '/account/voucher',
     },
     {
         id: uniqueId(),

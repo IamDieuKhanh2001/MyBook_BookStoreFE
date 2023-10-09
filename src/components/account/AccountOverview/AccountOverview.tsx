@@ -27,6 +27,11 @@ const AccountOverview = () => {
                         alt="avatar"
                         className={`${styles.avatar} rounded-circle img-fluid`}
                     />
+                    {/* <div className={styles.triggerChangeAvatar}>
+                        <p>
+                            Change avatar
+                        </p>
+                    </div> */}
                     <h5 className="my-3">{session?.user.userInfo.email}</h5>
                     <p className="text-muted mb-4">Cấp bậc: {session?.user.userInfo.userLevel.level_name}</p>
                     <div className="d-flex justify-content-center mb-2">

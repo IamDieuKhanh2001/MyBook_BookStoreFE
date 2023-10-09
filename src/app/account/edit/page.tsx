@@ -151,12 +151,12 @@ const EditInfoAccountPage = () => {
                       className="form-check-input"
                       type="checkbox"
                       defaultChecked={false}
-                      id="flexCheckDefault"
+                      id="openChangePass"
                       onChange={() => {
                         setOpenChangePassword(!openChangePassword)
                       }}
                     />
-                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                    <label className="form-check-label" htmlFor="openChangePass">
                       Đổi mật khẩu
                     </label>
                   </div>

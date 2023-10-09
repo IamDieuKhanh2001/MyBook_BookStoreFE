@@ -14,7 +14,11 @@ interface FormValues {
     wardId: number;
     addressDefault: boolean;
 }
-const AddressForm = () => {
+interface IAddressFormProps {
+    handleHideModal: () => void;
+}
+const AddressForm = (props: IAddressFormProps) => {
+    const { handleHideModal } = props
     const [selectedProvinceId, setSelectedProvinceId] = useState(0);
     const [selectedDistricId, setSelectedDistricId] = useState(0);
     const { getProvinceList, getDistrictList, getWardList } = useAPIAddress()
@@ -57,6 +61,7 @@ const AddressForm = () => {
     const handleSubmit = async (values: FormValues) => {
         toast.success("Đã thêm thành công địa chỉ mới!")
         console.log(values)
+        handleHideModal()
     }
 
     const handleChangeProvince = (e: any, setFieldValue: any) => {
@@ -205,8 +210,8 @@ const AddressForm = () => {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" className="btn btn-primary">Save changes</button>
+                            <button type="button" className="btn btn-secondary" onClick={handleHideModal}>Đóng</button>
+                            <button type="submit" className="btn btn-primary">Thêm địa chỉ</button>
                         </div>
                     </Form>
                 )}

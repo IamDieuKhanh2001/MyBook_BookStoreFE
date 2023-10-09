@@ -23,7 +23,7 @@ const UserDropdown = () => {
                         </Link>
                         <div className={`${styles.dropdownMenu} dropdown-menu m-0`}>
                             <Link href="/account" className="dropdown-item">
-                                Profile
+                                Account
                             </Link>
                             <li><hr className="dropdown-divider" /></li>
                             <Link href="" onClick={() => signOut()} className="dropdown-item">
