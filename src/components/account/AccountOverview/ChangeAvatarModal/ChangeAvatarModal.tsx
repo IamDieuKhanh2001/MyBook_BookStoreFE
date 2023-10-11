@@ -1,6 +1,9 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import Avatar from 'react-avatar-edit';
+import dynamic from 'next/dynamic';
+const AvatarEditor = dynamic(() => import('react-avatar-edit'), {
+  ssr: false, // Đảm bảo rằng thư viện không được render trên server-side
+});
 
 const ChangeAvatarModal = () => {
     // const [uploadFile, setUploadFile] = useState<File | undefined>(undefined)
@@ -69,7 +72,7 @@ const ChangeAvatarModal = () => {
                                     type="file"
                                     onChange={handleAvatarChange}
                                 /> */}
-                                <Avatar
+                                <AvatarEditor
                                     width={300}
                                     height={300}
                                     onCrop={onCrop}

@@ -18,7 +18,7 @@ const accountSideBarItems = [
         id: uniqueId(),
         title: 'Đơn hàng của tôi',
         icon: <i className="fas fa-clipboard-list fa-lg" style={{ color: '#333333' }} />,
-        href: '/',
+        href: '/account/order/history',
     },
     {
         id: uniqueId(),

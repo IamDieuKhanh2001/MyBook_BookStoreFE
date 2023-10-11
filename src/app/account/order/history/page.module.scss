@@ -26,14 +26,10 @@
 
     .headerNameItem {
         justify-content: flex-start;
-        flex-basis: 71%;
+        flex-basis: 60%;
     }
 
-    .headerQty {
-        flex-basis: 13%;
-    }
-
-    .HeaderTotalTitle {
+    .datePurchasedHeader {
         flex-basis: 23%;
     }
 }
@@ -50,7 +46,7 @@
 
         .itemId {
             display: flex;
-            flex-basis: 8%;
+            flex-basis: 17%;
             justify-content: center;
             align-items: center;
         }
@@ -78,7 +74,6 @@
 
             .infoProduct {
                 flex-basis: 100%;
-                padding: 0 10px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -104,43 +99,24 @@
                             font-size: 16px;
                             line-height: 1;
                         }
-
-                        .priceOld {
-                            margin-left: 8px;
-
-                            .price {
-                                font-size: 13px;
-                                line-height: 1;
-                                color: #7A7E7F !important;
-                                text-decoration: line-through;
-                                font-weight: normal !important;
-                            }
-                        }
+                    }
+                }
+                .productQty {
+                    font-weight: 600;
+                    .qty {
+                        font-size: 13px;
+                        line-height: 1;
+                        color: #7A7E7F !important;
+                        font-weight: normal !important;
                     }
                 }
             }
-
-            .numberProductCart {
+            .datePurchased {
                 flex-basis: 40%;
                 justify-content: center;
                 align-items: center;
                 margin: auto;
                 display: flex;
-
-                .cartPriceTotal {
-                    text-align: center;
-                    display: flex;
-                    flex-direction: column;
-                    flex: 3;
-
-                    .cartPrice {
-                        .price {
-                            color: $secondary-color;
-                            font-weight: bold;
-                            font-size: 16px;
-                        }
-                    }
-                }
             }
         }
     }

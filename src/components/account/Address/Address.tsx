@@ -3,11 +3,28 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import styles from './Address.module.scss'
 import AddNewAddress from './AddNewAddress/AddNewAddress'
+import { useConfirm } from 'material-ui-confirm'
+import { toast } from 'react-toastify'
 
 const AddressEdit = () => {
     const [defaultAddress, setDefaultAddress] = useState({})
+    const confirm = useConfirm();
 
-    
+    const handleSetDefaultAddress = (id: number) => {
+        confirm({
+            title: `Đồng ý set địa chỉ mặc định?`,
+            description: 'Bạn có chắc chắn muốn đưa địa chỉ làm mặc định?',
+        })
+            .then(async () => {
+                try {
+                    
+                    toast.success("Đặt địa chỉ mặc định: " + id)
+                }
+                catch (e) {
+                    toast.error("Something when wrong, please try again")
+                }
+            })
+    }
     return (
         <>
             <div className="row mb-3">
@@ -66,6 +83,7 @@ const AddressEdit = () => {
                                     <p className=''>
                                         <Link href="#"
                                             className='fw-bold border border-1 border-dark border-top-0 border-bottom-0 border-start-0 pe-1'
+                                            onClick={() => handleSetDefaultAddress(1)}
                                         >
                                             đặt mặc định
                                         </Link>

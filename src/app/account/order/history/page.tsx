@@ -14,16 +14,11 @@ const OrderPage = () => {
                             Tên sản phẩm
                         </span>
                     </div>
-                    <div className={styles.headerQty}>
-                        Số lượng
-                    </div>
-                    <div className={styles.HeaderTotalTitle}>
-                        Thành tiền
+                    <div className={styles.datePurchasedHeader}>
+                        Ngày thanh toán
                     </div>
                 </div>
                 <div className={styles.listContent}>
-
-
                     <div className={styles.listItem}>
                         <div className={styles.itemId}>
                             01
@@ -45,23 +40,52 @@ const OrderPage = () => {
                                                 240.000 VND
                                             </span>
                                         </div>
-                                        <div className={styles.priceOld}>
+                                    </div>
+                                </div>
+                                <div className={styles.productQty}>
+                                    Số lượng: &nbsp;
+                                    <span className={styles.qty}>
+                                        x1
+                                    </span>
+                                </div>
+                            </div>
+                            <div className={styles.datePurchased}>
+                                2023-10-10T10:27:06.000+07:00
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styles.listItem}>
+                        <div className={styles.itemId}>
+                            01
+                        </div>
+                        <div className={styles.itemImgContainer}>
+                            <img className={styles.productImage} src="https://cdn0.fahasa.com/media/catalog/product//z/4/z4586028434491_71647a43468b2e70cdaa5b0b34a740b7.jpg" alt="img product" />
+                        </div>
+                        <div className={styles.groupProductInfo}>
+                            <div className={styles.infoProduct}>
+                                <div>
+                                    <h2>
+                                        Không Diệt Không Sinh Đừng Sợ Hãi (Độc Quyền Tại Fahasa)
+                                    </h2>
+                                </div>
+                                <div className={styles.priceOriginal}>
+                                    <div className={styles.cartPrice}>
+                                        <div>
                                             <span className={styles.price}>
-                                                290.000 VND
+                                                240.000 VND
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className={styles.numberProductCart}>
-                                x1
-                                <div className={styles.cartPriceTotal}>
-                                    <span className={styles.cartPrice}>
-                                        <span className={styles.price}>
-                                            240.000
-                                        </span>
+                                <div className={styles.productQty}>
+                                    Số lượng: &nbsp;
+                                    <span className={styles.qty}>
+                                        x1
                                     </span>
                                 </div>
+                            </div>
+                            <div className={styles.datePurchased}>
+                                2023-10-10T10:27:06.000+07:00
                             </div>
                         </div>
                     </div>

@@ -1,19 +1,19 @@
 /* 
 =================Project Infomation==================
-Project name:
+Project name: Book store
 version: 0.1.0
-Create day:
+Create day: 25/07/2023
 Production release day:
-Company's name (or University school):
-Company's address (or University school):
-Manager Name (or Lecturer's name):
+Company's name (or University school): Su Pham Ki Thuat University
+Company's address (or University school): 1 Vo Van Ngan Linh Chieu Thu Duc City
+Manager Name (or Lecturer's name): Hoang Cong Trinh
 =======================Team Member====================
-Member id: 1
-Full name (Required):
+Member id: 19110226
+Full name (Required): Quach Dieu Khanh
 Phone number:
 
-Member id: 2
-Full name (Required):
+Member id: 19110304
+Full name (Required):  Nguyen Thanh Trung
 Phone number:
 =================******************==================
 */

@@ -1,10 +1,98 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import styles from './page.module.scss'
-import EditEmailModal from '@/components/account/Edit/EditEmailModal/EditEmailModal'
+import { Field, Form, Formik } from 'formik';
+import { toast } from 'react-toastify';
+import * as Yup from 'yup';
+import InfoFormEdit from '@/components/account/Edit/InfoFormEdit/InfoFormEdit';
+import PasswordFormEdit from '@/components/account/Edit/PasswordFormEdit/PasswordFormEdit';
 
+interface FormEditInfoValues {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  gender: string;
+  birthDate: string;
+}
+interface FormChangePasswordValues {
+  currentPassword: string;
+  newPassword: string;
+  retypePassword: string;
+}
 const EditInfoAccountPage = () => {
   const [openChangePassword, setOpenChangePassword] = useState(false)
+
+  const formInfoRef = useRef<any>();
+  const formChangePasswordRef = useRef<any>();
+  const [isFormInfoValid, setIsFormInfoValid] = useState(false);
+  const [isFormChangePasswordValid, setIsFormChangePasswordValid] = useState(false);
+
+  const initialInfoValues: FormEditInfoValues = {
+    firstName: "",
+    lastName: '',
+    phone: '',
+    email: '',
+    gender: 'male',
+    birthDate: '',
+  };
+  const validationInfoSchema = Yup.object({
+    firstName: Yup.string()
+      .max(50, "First name must be <= 50 characters")
+      .required("First name not be empty"),
+    lastName: Yup.string()
+      .max(50, "Last name must be <= 50 characters")
+      .required("Last name not be empty"),
+    phone: Yup.string()
+      .max(11, "*Phone must be >= 11 number")
+      .matches(/^[0-9]+$/, '*Allow number only')
+      .required("Please enter your phone"),
+    birthDate: Yup.string()
+      .required("Choose your birth date"),
+  });
+
+  const handleEditInfoSubmit = async (values: FormEditInfoValues) => {
+    try {
+      console.log(values)
+      toast.success("Sửa thông tin thành công ")
+    }
+    catch (e) {
+      toast.error("Something when wrong, please try again")
+    }
+  };
+
+  const initialChangePasswordValues: FormChangePasswordValues = {
+    currentPassword: '',
+    newPassword: '',
+    retypePassword: '',
+  };
+  const getCharacterValidationError = (str: string) => {
+    return `Your password must have at least 1 ${str} character`;
+  };
+  const validationChangePasswordSchema = Yup.object({
+    currentPassword: Yup.string()
+      .required("current password not be empty"),
+    newPassword: Yup.string()
+      .required("new password not be empty")
+      .matches(/[0-9]/, getCharacterValidationError("digit"))
+      .matches(/[a-z]/, getCharacterValidationError("lowercase"))
+      .matches(/[A-Z]/, getCharacterValidationError("uppercase"))
+      .min(5, "Password must have at least 5 characters"),
+    // different error messages for different requirements
+    retypePassword: Yup.string()
+      .oneOf([Yup.ref("newPassword")], "Passwords does not match")
+      .required("Retype password not be empty"),
+  });
+
+  const handleChangePasswordSubmit = async (values: FormChangePasswordValues) => {
+    try {
+      console.log(values)
+      toast.success("Sửa mật khẩu thành công ")
+    }
+    catch (e) {
+      toast.error("Something when wrong, please try again")
+    }
+  };
 
   return (
     <>
@@ -14,134 +102,11 @@ const EditInfoAccountPage = () => {
             <h1>Thông tin tài khoản</h1>
           </div>
           <div className={styles.formAccountInfo}>
-            <div className={styles.inputBox}>
-              <label htmlFor='firstName'>Họ*</label>
-              <div className={styles.inputItem}>
-                <div className={styles.inputGroup}>
-                  <input
-                    type="text"
-                    className={styles.textBox}
-                    placeholder='Nhập họ'
-                    id='firstName'
-                  />
-                  <span className={styles.textBoxAlert}></span>
-                </div>
-                <div className={styles.inputAlert}>
-                  Thông tin này không thể để trống
-                </div>
-              </div>
-            </div>
-            <div className={styles.inputBox}>
-              <label htmlFor='lastName'>Tên*</label>
-              <div className={styles.inputItem}>
-                <div className={styles.inputGroup}>
-                  <input
-                    type="text"
-                    className={styles.textBox}
-                    placeholder='Nhập Tên'
-                    id='lastName'
-                  />
-                  <span className={styles.textBoxAlert}></span>
-                </div>
-                <div className={styles.inputAlert}>
-                  Thông tin này không thể để trống
-                </div>
-              </div>
-            </div>
-            <div className={styles.inputBox}>
-              <label htmlFor='email'>Email</label>
-              <div className={styles.inputItem}>
-                <div className={styles.inputGroup}>
-                  <input
-                    type="text"
-                    className={styles.textBox}
-                    placeholder='Chưa có email'
-                    id='email'
-                    disabled={true}
-                  />
-                  <span
-                    className={styles.textBoxEmailChange}
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    Nhấn để thêm
-                  </span>
-                  <EditEmailModal />
-                </div>
-                <div className={styles.inputAlert}>
-                  Hãy thêm mới Email ngay
-                </div>
-              </div>
-            </div>
-            <div className={styles.inputBox}>
-              <label htmlFor='phone'>Email</label>
-              <div className={styles.inputItem}>
-                <div className={styles.inputGroup}>
-                  <input
-                    type="text"
-                    className={styles.textBox}
-                    placeholder='Chưa có số điện thoại'
-                    id='phone'
-                  />
-                </div>
-                <div className={styles.inputAlert}>
-                  Hãy thêm mới Email ngay
-                </div>
-              </div>
-            </div>
-            <div className={styles.inputBox}>
-              <label htmlFor='firstName'>Giới tính</label>
-              <div className={styles.inputItem}>
-                <div className={styles.inputGroup}>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      id="radioGenderMale"
-                      value={'male'}
-                      defaultChecked={true}
-                      name='radioGender'
-                    />
-                    <div className='d-flex justify-content-between'>
-                      <label className="form-check-label" htmlFor="radioGenderMale">
-                        Nam
-                      </label>
-                    </div>
-                  </div>
-                  <div className="form-check">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      id="radioGenderFeMale"
-                      value={'female'}
-                      defaultChecked={false}
-                      name='radioGender'
-                    />
-                    <div className='d-flex justify-content-between'>
-                      <label className="form-check-label" htmlFor="radioGenderFeMale">
-                        Nữ
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={styles.inputBox}>
-              <label htmlFor='birthDate'>Ngày sinh</label>
-              <div className={styles.inputItem}>
-                <div className={styles.inputGroup}>
-                  <input
-                    type="date"
-                    className={styles.textBox}
-                    placeholder='Chưa có email'
-                    id='birthDate'
-                  />
-                </div>
-                <div className={styles.inputAlert}>
-                  Hãy thêm mới Email ngay
-                </div>
-              </div>
-            </div>
+            <InfoFormEdit
+              initialInfoValues={initialInfoValues}
+              validationInfoSchema={validationInfoSchema}
+              handleEditInfoSubmit={handleEditInfoSubmit}
+            />
             <div className={styles.inputBox}>
               <label htmlFor='changePassCheckBox'></label>
               <div className={styles.inputItem}>
@@ -151,7 +116,6 @@ const EditInfoAccountPage = () => {
                       className="form-check-input"
                       type="checkbox"
                       defaultChecked={false}
-                      id="openChangePass"
                       onChange={() => {
                         setOpenChangePassword(!openChangePassword)
                       }}
@@ -167,62 +131,13 @@ const EditInfoAccountPage = () => {
               <></>
             ) : (
               <>
-                <div className={styles.inputBox}>
-                  <label htmlFor='currentPass'>Mật khẩu hiện tại</label>
-                  <div className={styles.inputItem}>
-                    <div className={styles.inputGroup}>
-                      <input
-                        type="password"
-                        className={styles.textBox}
-                        placeholder='Nhập MK hiện tại'
-                        id='currentPass'
-                      />
-                      <span className={styles.textBoxAlert}></span>
-                    </div>
-                    <div className={styles.inputAlert}>
-                      Thông tin này không thể để trống
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.inputBox}>
-                  <label htmlFor='newPass'>Mật khẩu mới</label>
-                  <div className={styles.inputItem}>
-                    <div className={styles.inputGroup}>
-                      <input
-                        type="password"
-                        className={styles.textBox}
-                        placeholder='Nhập MK mới'
-                        id='newPass'
-                      />
-                      <span className={styles.textBoxAlert}></span>
-                    </div>
-                    <div className={styles.inputAlert}>
-                      Thông tin này không thể để trống
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.inputBox}>
-                  <label htmlFor='newRetypePass'>Nhập lại mật khẩu mới</label>
-                  <div className={styles.inputItem}>
-                    <div className={styles.inputGroup}>
-                      <input
-                        type="password"
-                        className={styles.textBox}
-                        placeholder='Nhập lại MK mới'
-                        id='newRetypePass'
-                      />
-                      <span className={styles.textBoxAlert}></span>
-                    </div>
-                    <div className={styles.inputAlert}>
-                      Thông tin này không thể để trống
-                    </div>
-                  </div>
-                </div>
+                <PasswordFormEdit
+                  initialChangePasswordValues={initialChangePasswordValues}
+                  validationChangePasswordSchema={validationChangePasswordSchema}
+                  handleChangePasswordSubmit={handleChangePasswordSubmit}
+                />
               </>
             )}
-            <div className={styles.btnGroup}>
-              <button type="button" className={styles.btnSave}>Lưu thay đổi</button>
-            </div>
           </div>
         </div>
       </div>
