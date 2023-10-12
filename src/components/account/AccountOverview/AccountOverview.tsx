@@ -8,6 +8,7 @@ import ChangeAvatarModal from './ChangeAvatarModal/ChangeAvatarModal'
 const AccountOverview = () => {
     const { data: session } = useSession();
 
+    console.log(session)
     return (
         <>
             <div className='col-12'>
@@ -49,7 +50,11 @@ const AccountOverview = () => {
                             <p className="mb-0">Full Name</p>
                         </div>
                         <div className="col-sm-9">
-                            <p className="text-muted mb-0">{session?.user.userInfo.fullname}</p>
+                            <p className="text-muted mb-0">
+                                {session?.user.userInfo.profile?.firstname}
+                                &nbsp;
+                                {session?.user.userInfo.profile?.lastname}
+                            </p>
                         </div>
                     </div>
                     <hr />
@@ -67,7 +72,7 @@ const AccountOverview = () => {
                             <p className="mb-0">Phone</p>
                         </div>
                         <div className="col-sm-9">
-                            <p className="text-muted mb-0">{session?.user.userInfo.phone_number}</p>
+                            <p className="text-muted mb-0">{session?.user.userInfo.profile?.phone_number}</p>
                         </div>
                     </div>
                     <hr />
