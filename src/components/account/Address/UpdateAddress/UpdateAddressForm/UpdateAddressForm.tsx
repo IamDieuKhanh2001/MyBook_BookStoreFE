@@ -1,9 +1,9 @@
-"use client"
-import useAPIAddress from '@/lib/hooks/api/useAPIAddress'
-import React, { useState, } from 'react'
+'use client'
 import { toast } from 'react-toastify'
 import { Formik, Form, Field, ErrorMessage, } from 'formik';
 import * as Yup from 'yup';
+import React, { useState, useCallback, useEffect } from 'react'
+import useAPIAddress from '@/lib/hooks/api/useAPIAddress'
 import useAPIUserAddress from '@/lib/hooks/api/useAPIUserAddress';
 
 interface FormValues {
@@ -16,28 +16,33 @@ interface FormValues {
     addressDefault: boolean;
 }
 interface IAddressFormProps {
+    selectedAddressUpdate: IUserAddress | null;
     handleHideModal: () => void;
 }
-const AddressForm = (props: IAddressFormProps) => {
-    const { handleHideModal } = props
-    const [selectedProvinceId, setSelectedProvinceId] = useState(0);
-    const [selectedDistricId, setSelectedDistricId] = useState(0);
+const UpdateAddressForm = (props: IAddressFormProps) => {
+    const { handleHideModal, selectedAddressUpdate } = props
+    const [selectedProvinceId, setSelectedProvinceId] = useState<number>(
+        selectedAddressUpdate?.wards.district.province.province_id || 0
+    );
+    const [selectedDistricId, setSelectedDistricId] = useState<number>(
+        selectedAddressUpdate?.wards.district.district_id || 0
+    );
     const { getProvinceList, getDistrictList, getWardList } = useAPIAddress()
     const { data: provinceList, isLoading: isLoadingProvince } = getProvinceList()
     const { data: districtList, isLoading: isLoadingDistrict } = getDistrictList(selectedProvinceId)
     const { data: wardList, isLoading: isLoadingWard } = getWardList(selectedDistricId)
-    const { addNewAddress, getDefaultAddress, getNonDefaultAddress } = useAPIUserAddress()
+    const { updateAddress, getDefaultAddress, getNonDefaultAddress } = useAPIUserAddress()
     const { mutateAddressDefault } = getDefaultAddress()
     const { mutateAddressNotDefault } = getNonDefaultAddress()
 
     const initialValues: FormValues = {
-        recipientName: '',
-        recipientPhone: '',
-        street: '',
-        provinceId: 0,
-        districtId: 0,
-        wardId: 0,
-        addressDefault: false,
+        recipientName: selectedAddressUpdate?.recipient_name || '',
+        recipientPhone: selectedAddressUpdate?.recipient_phone || '',
+        street: selectedAddressUpdate?.street || '',
+        provinceId: selectedAddressUpdate?.wards.district.province.province_id || 0,
+        districtId: selectedAddressUpdate?.wards.district.district_id || 0,
+        wardId: selectedAddressUpdate?.wards.wards_id || 0,
+        addressDefault: Boolean(selectedAddressUpdate?.is_default),
     };
 
     const validationSchema = Yup.object().shape({
@@ -63,13 +68,21 @@ const AddressForm = (props: IAddressFormProps) => {
     });
 
     const handleSubmit = async (values: FormValues) => {
+        const userId = selectedAddressUpdate?.id
+        if (userId === undefined) {
+            toast.error("Có lỗi xảy ra, xin vui lòng thử lại sau!!")
+            return
+        }
         try {
             const { recipientName, recipientPhone, street, wardId, addressDefault } = values
-            const res = await addNewAddress(recipientName, recipientPhone, street, wardId, addressDefault)
-            toast.success("Đã thêm thành công địa chỉ mới cho người nhận: " + res.data.recipient_name)
+            const res = await updateAddress(userId, recipientName, recipientPhone, street, wardId, addressDefault)
+            console.log(res)
+            console.log(values)
+            toast.success("Đã sửa thành công địa chỉ")
             mutateAddressDefault()
             mutateAddressNotDefault()
             handleHideModal()
+            console.log(values)
         }
         catch (e) {
             toast.error("Có lỗi xảy ra, xin vui lòng thử lại sau!!")
@@ -91,6 +104,7 @@ const AddressForm = (props: IAddressFormProps) => {
         setFieldValue('wardId', 0)
         setSelectedDistricId(selectedValue);
     }
+
 
     return (
         <>
@@ -211,6 +225,8 @@ const AddressForm = (props: IAddressFormProps) => {
                                     id='addressDefault'
                                     name="addressDefault"
                                     className="form-check-input"
+                                    disabled={Boolean(selectedAddressUpdate?.is_default)}
+                                    value={values.addressDefault}
                                     checked={values.addressDefault}
                                     onChange={handleChange}
                                 />
@@ -221,7 +237,7 @@ const AddressForm = (props: IAddressFormProps) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" onClick={handleHideModal}>Đóng</button>
-                            <button type="submit" className="btn btn-primary">Thêm địa chỉ</button>
+                            <button type="submit" className="btn btn-primary">Lưu thông tin</button>
                         </div>
                     </Form>
                 )}
@@ -230,4 +246,4 @@ const AddressForm = (props: IAddressFormProps) => {
     )
 }
 
-export default AddressForm
+export default UpdateAddressForm
