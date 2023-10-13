@@ -76,13 +76,10 @@ const UpdateAddressForm = (props: IAddressFormProps) => {
         try {
             const { recipientName, recipientPhone, street, wardId, addressDefault } = values
             const res = await updateAddress(userId, recipientName, recipientPhone, street, wardId, addressDefault)
-            console.log(res)
-            console.log(values)
             toast.success("Đã sửa thành công địa chỉ")
             mutateAddressDefault()
             mutateAddressNotDefault()
             handleHideModal()
-            console.log(values)
         }
         catch (e) {
             toast.error("Có lỗi xảy ra, xin vui lòng thử lại sau!!")

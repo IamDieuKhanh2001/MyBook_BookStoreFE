@@ -153,12 +153,27 @@ const useAPIUserAddress = () => {
         }
     };
 
+    const deleteAddressById = async (id: number) => {
+        try {
+            const session = await getSession();
+            const url = `${URL_PREFIX}/destroy/${id}`
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
+            const response = await axiosAuth.delete(url, { headers })
+            return response;
+        } catch (error: any) {
+            throw new Error("Error delete address: " + error.message);
+        }
+    };
+
     return {
         getNonDefaultAddress,
         getDefaultAddress,
         setAddressDefaultById,
         addNewAddress,
         updateAddress,
+        deleteAddressById,
     }
 }
 

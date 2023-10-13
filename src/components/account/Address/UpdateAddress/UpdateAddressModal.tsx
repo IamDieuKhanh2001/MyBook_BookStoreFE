@@ -10,11 +10,6 @@ interface IProps {
 }
 const UpdateAddressModal = (props: IProps) => {
     const { selectedAddressUpdate, setSelectedAddressUpdate, setShowModalUpdate, showModalUpdate } = props
-    console.log(selectedAddressUpdate)
-
-    const handleShowModal = () => {
-        setShowModalUpdate(true);
-    };
 
     const handleHideModal = () => {
         setSelectedAddressUpdate(null)

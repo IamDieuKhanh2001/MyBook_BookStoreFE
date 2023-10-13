@@ -8,9 +8,9 @@ import { toast } from 'react-toastify'
 import useAPIUserAddress from '@/lib/hooks/api/useAPIUserAddress'
 import UpdateAddressModal from './UpdateAddress/UpdateAddressModal'
 
-const AddressEdit = () => {
+const Address = () => {
     const confirm = useConfirm();
-    const { getNonDefaultAddress, getDefaultAddress, setAddressDefaultById } = useAPIUserAddress()
+    const { getNonDefaultAddress, getDefaultAddress, setAddressDefaultById, deleteAddressById } = useAPIUserAddress()
     const { addressNotDefaultList, addressNotDefaultError, isLoadingNotDefaultList, mutateAddressNotDefault } = getNonDefaultAddress()
     const { addressDefault, isLoadingDefaultAddress, addressDefaultError, mutateAddressDefault } = getDefaultAddress()
     const [selectedAddressUpdate, setSelectedAddressUpdate] = useState<IUserAddress | null>(null)
@@ -18,7 +18,7 @@ const AddressEdit = () => {
 
     const handleSetDefaultAddress = (id: number) => {
         confirm({
-            title: `Đồng ý set địa chỉ mặc định?`,
+            title: `Đồng ý đưa địa chỉ này thành mặc định?`,
             description: 'Bạn có chắc chắn muốn đưa địa chỉ làm mặc định?',
         })
             .then(async () => {
@@ -33,6 +33,25 @@ const AddressEdit = () => {
                 }
             })
     }
+
+    const handleDeleteAddress = (id: number) => {
+        confirm({
+            title: `Đồng ý xóa địa chỉ?`,
+            description: 'Bạn có chắc chắn muốn xóa địa chỉ này',
+        })
+            .then(async () => {
+                try {
+                    const res = await deleteAddressById(id)
+                    mutateAddressDefault()
+                    mutateAddressNotDefault()
+                    toast.success(res.data.message)
+                }
+                catch (e) {
+                    toast.error("Có lỗi xảy ra, vui lòng thử lại")
+                }
+            })
+    }
+
     const handleClickUpdate = (e: React.MouseEvent<HTMLElement>, addressUpdate: IUserAddress) => {
         setSelectedAddressUpdate(addressUpdate)
         setShowModalUpdate(true)
@@ -126,7 +145,13 @@ const AddressEdit = () => {
                                                 >
                                                     Sửa địa chỉ
                                                 </Link>
-                                                <Link href="#" className='fw-bold text-danger ps-1'>Xóa địa chỉ</Link>
+                                                <Link
+                                                    href="#"
+                                                    className='fw-bold text-danger ps-1'
+                                                    onClick={() => handleDeleteAddress(addressItem.id)}
+                                                >
+                                                    Xóa địa chỉ
+                                                </Link>
                                             </p>
                                         </li>
                                     </ol>
@@ -158,4 +183,4 @@ const AddressEdit = () => {
     )
 }
 
-export default AddressEdit
+export default Address
