@@ -1,85 +1,44 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './ProductReview.module.scss'
+import ReviewItem from './ReviewItem/ReviewItem';
 
 const ProductReview = () => {
+
+    const [rating, setRating] = useState(1);
+
+    const handleStarHover = (starValue: number) => {
+        // Xử lý khi người dùng hover vào sao
+        setRating(starValue); // Gửi giá trị sao đã chọn
+    };
+
+    const handleStarClick = (starValue: number) => {
+        // Xử lý khi người dùng nhấp vào sao
+        setRating(starValue); // Lưu số sao mà người dùng đã chọn
+    };
+
     return (
-        <>
+        <> 
             <div className="row">
                 <div className="col-md-6">
                     <h4 className="my-3">1 review for "Dummy Book Tilte"</h4>
-                    <div className={`${styles.media} mb-1`}>
-                        <img
-                            src="/img/testimonial-2.jpg"
-                            alt="Image"
-                            className="img-fluid mr-3 mt-1 rounded-circle"
-                            style={{ width: 45 }}
-                        />
-                        <div className={`${styles.mediaBody}`}>
-                            <h6>
-                                John Doe
-                                <small>
-                                    {" "}
-                                    - <i>01 Jan 2045</i>
-                                </small>
-                            </h6>
-                            <div className="text-primary mb-2">
-                                <i className="fas fa-star" />
-                                <i className="fas fa-star" />
-                                <i className="fas fa-star" />
-                                <i className="fas fa-star-half-alt" />
-                                <i className="far fa-star" />
-                            </div>
-                            <p>
-                                Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam
-                                ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod
-                                ipsum.
-                            </p>
-                        </div>
-                    </div>
-                    <div className={`${styles.media} mb-1`}>
-                        <img
-                            src="/img/testimonial-2.jpg"
-                            alt="Image"
-                            className="img-fluid mr-3 mt-1 rounded-circle"
-                            style={{ width: 45 }}
-                        />
-                        <div className={`${styles.mediaBody}`}>
-                            <h6>
-                                John Doe
-                                <small>
-                                    {" "}
-                                    - <i>01 Jan 2045</i>
-                                </small>
-                            </h6>
-                            <div className="text-primary mb-2">
-                                <i className="fas fa-star" />
-                                <i className="fas fa-star" />
-                                <i className="fas fa-star" />
-                                <i className="fas fa-star-half-alt" />
-                                <i className="far fa-star" />
-                            </div>
-                            <p>
-                                Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam
-                                ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod
-                                ipsum.
-                            </p>
-                        </div>
-                    </div>
+                    <ReviewItem />
+                    <ReviewItem />
                 </div>
                 <div className="col-md-6">
                     <h4 className="my-3">Leave a review</h4>
-                    <small>
-                        Your email address will not be published. Required fields are marked *
-                    </small>
                     <div className="d-flex my-3">
-                        <p className="mb-0 me-2">Your Rating * :</p>
+                        <p className="mb-0 me-2">Your Rating ({rating}) :</p>
                         <div className="text-primary">
-                            <i className="far fa-star" />
-                            <i className="far fa-star" />
-                            <i className="far fa-star" />
-                            <i className="far fa-star" />
-                            <i className="far fa-star" />
+                            {[1, 2, 3, 4, 5].map((starValue) => (
+                                <i
+                                    key={starValue}
+                                    onMouseEnter={() => handleStarHover(starValue)}
+                                    onMouseLeave={() => handleStarHover(rating)}
+                                    onClick={() => handleStarClick(starValue)}
+                                    className={`fa-star ${starValue <= rating ? 'fas' : 'far'}`}
+                                />
+                            ))}
                         </div>
                     </div>
                     <form>

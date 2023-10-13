@@ -66,19 +66,19 @@ const useAxiosAuth = () => {
     }
     useEffect(() => {
         //Request interceptor & handle error occur
-        const requestIntercept = axiosAuth.interceptors.request.use(
-            async (config: any) => {
-                const session = await getSession();
-                if (session) {
-                    config.headers = config.headers || {}; // allow header for request if have session user available
-                    config.headers['Authorization'] = `Bearer ${session.user.jwtToken}`;
-                }
-                return config;
-            },
-            async (error: AxiosError) => {
-                return Promise.reject(error);
-            }
-        );
+        // const requestIntercept = axiosAuth.interceptors.request.use(
+        //     async (config: any) => {
+        //         const session = await getSession();
+        //         if (session) {
+        //             config.headers = config.headers || {}; // allow header for request if have session user available
+        //             config.headers['Authorization'] = `Bearer ${session.user.jwtToken}`;
+        //         }
+        //         return config;
+        //     },
+        //     async (error: AxiosError) => {
+        //         return Promise.reject(error);
+        //     }
+        // );
 
         //Response interceptor & handle error occur
         const responseIntercept = axiosAuth.interceptors.response.use(
@@ -95,7 +95,7 @@ const useAxiosAuth = () => {
         );
 
         return () => { //clean up hook
-            axiosAuth.interceptors.request.eject(requestIntercept);
+            // axiosAuth.interceptors.request.eject(requestIntercept);
             axiosAuth.interceptors.response.eject(responseIntercept);
         };
     }, [session]);

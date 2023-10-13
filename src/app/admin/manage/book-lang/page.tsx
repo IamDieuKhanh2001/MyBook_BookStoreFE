@@ -2,7 +2,7 @@
 import PageContainer from '@/components/admin/container/PageContainer'
 import DashboardCard from '@/components/shared/DashboardCard'
 import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useConfirm } from 'material-ui-confirm'
 import { toast } from 'react-toastify';
 import { IconPlus, IconTrash } from '@tabler/icons-react'
@@ -18,7 +18,7 @@ const bookLanguagePage = () => {
     const [languageSelected, setLanguageSelected] = useState<IBookLanguage | null>(null);
     const confirm = useConfirm();
 
-    const { getLanguageList, deleteLanguageById } = useAPIBookLanguage()
+    const { getLanguageList, deleteLanguageById} = useAPIBookLanguage()
     const { data, mutate, isLoading, error } = getLanguageList()
 
     const handleDeleteData = async (id: number) => {

@@ -18,13 +18,13 @@ const accountSideBarItems = [
         id: uniqueId(),
         title: 'Đơn hàng của tôi',
         icon: <i className="fas fa-clipboard-list fa-lg" style={{ color: '#333333' }} />,
-        href: '/',
+        href: '/account/order/history',
     },
     {
         id: uniqueId(),
         title: 'Ví Voucher',
         icon: <i className="fas fa-ticket-alt fa-lg" style={{ color: '#333333' }} />,
-        href: '/',
+        href: '/account/voucher',
     },
     {
         id: uniqueId(),

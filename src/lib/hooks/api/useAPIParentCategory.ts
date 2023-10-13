@@ -4,6 +4,7 @@ import useSWR from 'swr'
 
 //custom hook for calling APIS for parent category
 const useAPIParentCategory = () => {
+    const URL_PREFIX = '/admin/category/parent'
     const axiosAuth = useAxiosAuth()
 
     //closures function get API 
@@ -19,7 +20,7 @@ const useAPIParentCategory = () => {
         }
 
         const { data, mutate, isLoading, error } = useSWR(
-            `/admin/parent_category`,
+            URL_PREFIX,
             fetcher,
             {
                 revalidateOnReconnect: false,
@@ -47,7 +48,7 @@ const useAPIParentCategory = () => {
         }
 
         const { data, mutate, isLoading, error } = useSWR(
-            `/admin/parent_category/${id}`,
+            `${URL_PREFIX}/${id}`,
             fetcher,
             {
                 revalidateOnReconnect: false,
@@ -65,7 +66,7 @@ const useAPIParentCategory = () => {
     //API create new 
     const createNewCategory = async (nameCreate: string) => {
         try {
-            const url = "/admin/parent_category"
+            const url = URL_PREFIX
             const body = {
                 name: nameCreate,
             };
@@ -80,7 +81,7 @@ const useAPIParentCategory = () => {
     //api update by id
     const updateCategoryById = async (id: number, nameUpdate: string) => {
         try {
-            const url = "/admin/parent_category"
+            const url = URL_PREFIX
             const body = {
                 pcategory_id: id,
                 name: nameUpdate,
@@ -95,7 +96,7 @@ const useAPIParentCategory = () => {
     //API delete by id
     const deleteCategoryById = async (id: number) => {
         try {
-            const url = `/admin/parent_category/delete/${id}`
+            const url = `${URL_PREFIX}/delete/${id}`
             const response = await axiosAuth.delete(url)
             return response
         }
@@ -117,7 +118,7 @@ const useAPIParentCategory = () => {
         }
 
         const { data, mutate, isLoading, error } = useSWR(
-            `/admin/parent_category/trashed`,
+            `${URL_PREFIX}/trashed`,
             fetcher,
             {
                 revalidateOnReconnect: false,
@@ -135,7 +136,7 @@ const useAPIParentCategory = () => {
     //API delete by id
     const destroyCategoryById = async (id: number) => {
         try {
-            const url = `/admin/parent_category/destroy/${id}`
+            const url = `${URL_PREFIX}/destroy/${id}`
             const response = await axiosAuth.delete(url)
             return response
         }
@@ -146,7 +147,7 @@ const useAPIParentCategory = () => {
     //API restore by id
     const restoreCategoryById = async (id: number) => {
         try {
-            const url = `/admin/parent_category/restore/${id}`
+            const url = `${URL_PREFIX}/restore/${id}`
             const response = await axiosAuth.patch(url)
             return response
         }

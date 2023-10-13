@@ -3,12 +3,13 @@ import useAxiosAuth from '../utils/useAxiosAuth'
 
 //custom hook for calling APIS for child category
 const useAPIChildCategory = () => {
+  const URL_PREFIX = '/admin/category/child'
   const axiosAuth = useAxiosAuth()
 
   //API create new child category
   const createNewChildCategory = async (parentCategoryId: number, nameCreate: string) => {
     try {
-      const url = "/admin/child_category"
+      const url = URL_PREFIX
       const body = {
         pcategory_id: parentCategoryId,
         name: nameCreate,
@@ -24,7 +25,7 @@ const useAPIChildCategory = () => {
   //api update by id
   const updateChildCategoryById = async (id: number, nameUpdate: string) => {
     try {
-      const url = "/admin/child_category"
+      const url = URL_PREFIX
       const body = {
         ccategory_id: id,
         name: nameUpdate,
@@ -39,7 +40,7 @@ const useAPIChildCategory = () => {
   //API delete by id
   const deleteChildCategoryById = async (id: number) => {
     try {
-      const url = `/admin/child_category/delete/${id}`
+      const url = `${URL_PREFIX}/delete/${id}`
       const response = await axiosAuth.delete(url)
       return response
     }

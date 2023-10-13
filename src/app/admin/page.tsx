@@ -6,7 +6,6 @@ import YearlyBreakup from '@/components/admin/dashboard/YearlyBreakup';
 import MonthlyEarnings from '@/components/admin/dashboard/MonthlyEarnings';
 import RecentTransactions from '@/components/admin/dashboard/RecentTransactions';
 import ProductPerformance from '@/components/admin/dashboard/ProductPerformance';
-import Blog from '@/components/admin/dashboard/Blog';
 const AdminHomePage = () => {
     return (
         <PageContainer title="Dashboard" description="this is Dashboard"
@@ -40,9 +39,6 @@ const AdminHomePage = () => {
                     </Grid>
                     <Grid item xs={12} lg={8}>
                         <ProductPerformance />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Blog />
                     </Grid>
                 </Grid>
             </Box>
