@@ -1,9 +1,10 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './PasswordFormEdit.module.scss'
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
+import useAPIUserProfile from '@/lib/hooks/api/useAPIUserProfile';
 
 interface FormChangePasswordValues {
     currentPassword: string;
@@ -11,6 +12,8 @@ interface FormChangePasswordValues {
     retypePassword: string;
 }
 const PasswordFormEdit = () => {
+    const { changeAccountPassword } = useAPIUserProfile()
+    const [isLoading, setIsLoading] = useState(false)
 
     const initialChangePasswordValues: FormChangePasswordValues = {
         currentPassword: '',
@@ -34,13 +37,27 @@ const PasswordFormEdit = () => {
             .required("Retype password not be empty"),
     });
 
-    const handleChangePasswordSubmit = async (values: FormChangePasswordValues) => {
+    const handleChangePasswordSubmit = async (values: FormChangePasswordValues, formikHelpers: FormikHelpers<FormChangePasswordValues>) => {
         try {
             console.log(values)
-            toast.success("Sửa mật khẩu thành công ")
+            setIsLoading(true)
+            const { currentPassword, newPassword, retypePassword } = values
+            const res = await changeAccountPassword(currentPassword, newPassword, retypePassword)
+            console.log(res)
+            setIsLoading(false)
+            formikHelpers.resetForm()
+            toast.success("Đổi mật khẩu thành công ")
         }
-        catch (e) {
-            toast.error("Something when wrong, please try again")
+        catch (error: any) {
+            setIsLoading(false)
+            const { status, data } = error.response;
+            if (data.errors) {
+                data.errors.forEach((errorItem: IError) => {
+                    const message = errorItem.message;
+                    toast.error(message);
+                });
+            }
+            toast.error("Có lỗi xảy ra, vui lòng thử lại")
         }
     };
 
@@ -51,7 +68,7 @@ const PasswordFormEdit = () => {
                 validationSchema={validationChangePasswordSchema}
                 onSubmit={handleChangePasswordSubmit}
             >
-                {({ isValid ,setFieldValue, handleChange, errors, touched, isSubmitting, values }) => (
+                {({ isValid, setFieldValue, handleChange, errors, touched, isSubmitting, values }) => (
                     <Form>
                         <div className={styles.inputBox}>
                             <label htmlFor='currentPass'>Mật khẩu hiện tại</label>
@@ -122,8 +139,12 @@ const PasswordFormEdit = () => {
                         <div className={styles.btnGroup}>
                             <button
                                 type="submit"
+                                disabled={!isValid || isLoading}
                                 className={styles.btnSave}
                             >
+                                {isLoading && (
+                                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                )}
                                 Thay đổi mật khẩu
                             </button>
                         </div>
