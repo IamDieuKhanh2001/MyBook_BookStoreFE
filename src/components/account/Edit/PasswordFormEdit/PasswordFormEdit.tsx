@@ -2,19 +2,47 @@
 import React from 'react'
 import styles from './PasswordFormEdit.module.scss'
 import { Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 
 interface FormChangePasswordValues {
     currentPassword: string;
     newPassword: string;
     retypePassword: string;
 }
-interface IProps {
-    initialChangePasswordValues: FormChangePasswordValues,
-    validationChangePasswordSchema: any,
-    handleChangePasswordSubmit: (values: FormChangePasswordValues) => Promise<void>
-}
-const PasswordFormEdit = ({ initialChangePasswordValues, validationChangePasswordSchema, handleChangePasswordSubmit, }: IProps) => {
+const PasswordFormEdit = () => {
 
+    const initialChangePasswordValues: FormChangePasswordValues = {
+        currentPassword: '',
+        newPassword: '',
+        retypePassword: '',
+    };
+    const getCharacterValidationError = (str: string) => {
+        return `Your password must have at least 1 ${str} character`;
+    };
+    const validationChangePasswordSchema = Yup.object({
+        currentPassword: Yup.string()
+            .required("current password not be empty"),
+        newPassword: Yup.string()
+            .required("new password not be empty")
+            // .matches(/[0-9]/, getCharacterValidationError("digit"))
+            // .matches(/[a-z]/, getCharacterValidationError("lowercase"))
+            // .matches(/[A-Z]/, getCharacterValidationError("uppercase"))
+            .min(5, "Password must have at least 5 characters"),
+        retypePassword: Yup.string()
+            .oneOf([Yup.ref("newPassword")], "Passwords does not match")
+            .required("Retype password not be empty"),
+    });
+
+    const handleChangePasswordSubmit = async (values: FormChangePasswordValues) => {
+        try {
+            console.log(values)
+            toast.success("Sửa mật khẩu thành công ")
+        }
+        catch (e) {
+            toast.error("Something when wrong, please try again")
+        }
+    };
 
     return (
         <>
@@ -23,7 +51,7 @@ const PasswordFormEdit = ({ initialChangePasswordValues, validationChangePasswor
                 validationSchema={validationChangePasswordSchema}
                 onSubmit={handleChangePasswordSubmit}
             >
-                {({ setFieldValue, handleChange, errors, touched, isSubmitting, values }) => (
+                {({ isValid ,setFieldValue, handleChange, errors, touched, isSubmitting, values }) => (
                     <Form>
                         <div className={styles.inputBox}>
                             <label htmlFor='currentPass'>Mật khẩu hiện tại</label>
@@ -36,7 +64,9 @@ const PasswordFormEdit = ({ initialChangePasswordValues, validationChangePasswor
                                         id='currentPassword'
                                         name='currentPassword'
                                     />
-                                    <span className={styles.textBoxAlert}></span>
+                                    {errors.currentPassword && touched.currentPassword && (
+                                        <span className={styles.textBoxAlert}></span>
+                                    )}
                                 </div>
                                 {errors.currentPassword && touched.currentPassword && (
                                     <div className={styles.inputAlert}>
@@ -56,7 +86,9 @@ const PasswordFormEdit = ({ initialChangePasswordValues, validationChangePasswor
                                         id='newPassword'
                                         name="newPassword"
                                     />
-                                    <span className={styles.textBoxAlert}></span>
+                                    {errors.newPassword && touched.newPassword && (
+                                        <span className={styles.textBoxAlert}></span>
+                                    )}
                                 </div>
                                 {errors.newPassword && touched.newPassword && (
                                     <div className={styles.inputAlert}>
@@ -76,7 +108,9 @@ const PasswordFormEdit = ({ initialChangePasswordValues, validationChangePasswor
                                         id='retypePassword'
                                         name="retypePassword"
                                     />
-                                    <span className={styles.textBoxAlert}></span>
+                                    {errors.retypePassword && touched.retypePassword && (
+                                        <span className={styles.textBoxAlert}></span>
+                                    )}
                                 </div>
                                 {errors.retypePassword && touched.retypePassword && (
                                     <div className={styles.inputAlert}>

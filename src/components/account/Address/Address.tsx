@@ -72,6 +72,7 @@ const Address = () => {
                                     <ol>
                                         <li className={styles.address}>
                                             <address className='mb-1'>
+                                                <span className="badge rounded-pill bg-success me-1">Mặc định</span>
                                                 {addressDefault?.recipient_name}
                                                 <br />
                                                 {addressDefault?.street}
@@ -165,7 +166,7 @@ const Address = () => {
                                     </div>
                                 ) : (
                                     <div className="alert alert-warning" role="alert">
-                                        Bạn chưa có địa chỉ, hãy thêm ngay!
+                                        Bạn chưa có địa chỉ khác để thay thế, hãy thêm ngay!
                                     </div>
                                 )
                             )}

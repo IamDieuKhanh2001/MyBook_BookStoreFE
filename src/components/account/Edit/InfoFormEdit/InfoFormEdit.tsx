@@ -1,8 +1,11 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Field, Form, Formik } from 'formik';
 import styles from './InfoFormEdit.module.scss'
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
+import useAPIUserProfile from '@/lib/hooks/api/useAPIUserProfile';
+import { useSession } from 'next-auth/react';
 
 interface FormEditInfoValues {
     firstName: string;
@@ -10,24 +13,71 @@ interface FormEditInfoValues {
     phone: string;
     email: string;
     gender: string;
-    birthDate: string;
+    // birthDate: string;
 }
-interface IProps {
-    initialInfoValues: FormEditInfoValues,
-    validationInfoSchema: any,
-    handleEditInfoSubmit: (values: FormEditInfoValues) => Promise<void>
-}
+const InfoFormEdit = () => {
+    const { data: session, update } = useSession();
+    const { updateUserProfile } = useAPIUserProfile()
+    const [isLoading, setIsLoading] = useState(false)
 
-const InfoFormEdit = ({ initialInfoValues, validationInfoSchema, handleEditInfoSubmit, }: IProps) => {
+    const initValue: FormEditInfoValues = {
+        firstName: session?.user.userInfo.profile?.firstname || '',
+        lastName: session?.user.userInfo.profile?.lastname || '',
+        phone: session?.user.userInfo.profile?.phone_number || '',
+        email: session?.user.userInfo?.email || '',
+        // gender: 'male',
+        gender: session?.user.userInfo.profile?.gender || 'male',
+    };
+
+    const validationInfoSchema = Yup.object({
+        firstName: Yup.string()
+            .max(50, "First name must be <= 50 characters")
+            .required("First name not be empty"),
+        lastName: Yup.string()
+            .max(50, "Last name must be <= 50 characters")
+            .required("Last name not be empty"),
+        phone: Yup.string()
+            .max(11, "*Phone must be >= 11 number")
+            .matches(/^[0-9]+$/, '*Allow number only')
+            .required("Please enter your phone"),
+        // birthDate: Yup.string()
+        //     .required("Choose your birth date"),
+    });
+
+    const handleEditInfoSubmit = async (values: FormEditInfoValues) => {
+        try {
+            const { firstName, lastName, gender, phone } = values
+            setIsLoading(true)
+            const res = await updateUserProfile(firstName, lastName, phone, gender)
+            const newProfile = res.data.updated_profile
+            await update({
+                ...session,
+                user: {
+                    ...session?.user,
+                    userInfo: {
+                        ...session?.user?.userInfo,
+                        profile: newProfile
+                    }
+                }
+            });
+            setIsLoading(false)
+            toast.success("Sửa thông tin thành công ")
+        }
+        catch (e) {
+            setIsLoading(false)
+            toast.error("Có lỗi xảy ra, vui lòng thử lại")
+        }
+    };
 
     return (
         <>
             <Formik
-                initialValues={initialInfoValues}
+                enableReinitialize={true}
+                initialValues={initValue}
                 validationSchema={validationInfoSchema}
                 onSubmit={handleEditInfoSubmit}
             >
-                {({ setFieldValue, handleChange, errors, touched, isSubmitting, values }) => (
+                {({ isValid, setFieldValue, handleChange, errors, touched, isSubmitting, values }) => (
                     <Form>
                         <div className={styles.inputBox}>
                             <label htmlFor='firstName'>Họ*</label>
@@ -38,8 +88,9 @@ const InfoFormEdit = ({ initialInfoValues, validationInfoSchema, handleEditInfoS
                                         name='firstName'
                                         type="text"
                                         className={styles.textBox}
-                                        placeholder='Nhập họ'
+                                        placeholder='Chưa cung cấp họ'
                                         value={values.firstName}
+                                        onChange={handleChange}
                                     />
                                     {errors.firstName && touched.firstName && (
                                         <span className={styles.textBoxAlert}></span>
@@ -59,7 +110,7 @@ const InfoFormEdit = ({ initialInfoValues, validationInfoSchema, handleEditInfoS
                                     <Field
                                         type="text"
                                         className={styles.textBox}
-                                        placeholder='Nhập Tên'
+                                        placeholder='Chưa cung cấp Tên'
                                         id='lastName'
                                         name='lastName'
                                         value={values.lastName}
@@ -98,7 +149,7 @@ const InfoFormEdit = ({ initialInfoValues, validationInfoSchema, handleEditInfoS
                                     <Field
                                         type="text"
                                         className={styles.textBox}
-                                        placeholder='Chưa có số điện thoại'
+                                        placeholder='Chưa cung cấp số điện thoại'
                                         id='phone'
                                         name='phone'
                                         value={values.phone}
@@ -125,6 +176,9 @@ const InfoFormEdit = ({ initialInfoValues, validationInfoSchema, handleEditInfoS
                                             id="radioGenderMale"
                                             value={'male'}
                                             name='gender'
+                                            onChange={() => {
+                                                setFieldValue("gender", 'male');
+                                            }}
                                         />
                                         <div className='d-flex justify-content-between'>
                                             <label className="form-check-label" htmlFor="radioGenderMale">
@@ -139,6 +193,9 @@ const InfoFormEdit = ({ initialInfoValues, validationInfoSchema, handleEditInfoS
                                             id="radioGenderFeMale"
                                             value={'female'}
                                             name='gender'
+                                            onChange={() => {
+                                                setFieldValue("gender", 'female');
+                                            }}
                                         />
                                         <div className='d-flex justify-content-between'>
                                             <label className="form-check-label" htmlFor="radioGenderFeMale">
@@ -149,7 +206,7 @@ const InfoFormEdit = ({ initialInfoValues, validationInfoSchema, handleEditInfoS
                                 </div>
                             </div>
                         </div>
-                        <div className={styles.inputBox}>
+                        {/* <div className={styles.inputBox}>
                             <label htmlFor='birthDate'>Ngày sinh</label>
                             <div className={styles.inputItem}>
                                 <div className={styles.inputGroup}>
@@ -168,10 +225,11 @@ const InfoFormEdit = ({ initialInfoValues, validationInfoSchema, handleEditInfoS
                                     </div>
                                 )}
                             </div>
-                        </div>
+                        </div> */}
                         <div className={styles.btnGroup}>
                             <button
                                 type="submit"
+                                disabled={isLoading || !isValid}
                                 className={styles.btnSave}
                             >
                                 Lưu thông tin thay đổi

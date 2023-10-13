@@ -4,24 +4,16 @@ import React from 'react'
 import styles from './AccountOverview.module.scss'
 import { useSession } from 'next-auth/react'
 import ChangeAvatarModal from './ChangeAvatarModal/ChangeAvatarModal'
+import useAPIUserAddress from '@/lib/hooks/api/useAPIUserAddress'
 
 const AccountOverview = () => {
     const { data: session } = useSession();
+    const { getDefaultAddress } = useAPIUserAddress()
+    const { addressDefault, isLoadingDefaultAddress } = getDefaultAddress()
 
-    console.log(session)
+
     return (
         <>
-            <div className='col-12'>
-                <div className={`${styles.accountConfirmNotification} card mb-2`}>
-                    <i className="fa fa-exclamation-triangle"></i>
-                    <span>
-                        <span>
-                            Bạn vui lòng cập nhật thông tin tài khoản:
-                        </span>
-                        <Link href={'/account/edit'}>Cập nhật thông tin ngay</Link>
-                    </span>
-                </div>
-            </div>
             <div className="card mb-2">
                 <div className="card-body d-flex flex-column align-items-center">
                     <div className={styles.avatar}>
@@ -47,7 +39,7 @@ const AccountOverview = () => {
                 <div className="card-body">
                     <div className="row">
                         <div className="col-sm-3">
-                            <p className="mb-0">Full Name</p>
+                            <p className="mb-0">Họ Tên</p>
                         </div>
                         <div className="col-sm-9">
                             <p className="text-muted mb-0">
@@ -60,25 +52,27 @@ const AccountOverview = () => {
                     <hr />
                     <div className="row">
                         <div className="col-sm-3">
+                            <p className="mb-0">Số điện thoại</p>
+                        </div>
+                        <div className="col-sm-9">
+                            <p className="text-muted mb-0">
+                                {session?.user.userInfo.profile?.phone_number}
+                            </p>
+                        </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                        <div className="col-sm-3">
                             <p className="mb-0">Email</p>
                         </div>
                         <div className="col-sm-9">
                             <p className="text-muted mb-0">{session?.user.userInfo.email}</p>
                         </div>
                     </div>
-                    <hr />
+                    <hr /> 
                     <div className="row">
                         <div className="col-sm-3">
-                            <p className="mb-0">Phone</p>
-                        </div>
-                        <div className="col-sm-9">
-                            <p className="text-muted mb-0">{session?.user.userInfo.profile?.phone_number}</p>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className="row">
-                        <div className="col-sm-3">
-                            <p className="mb-0">Credit</p>
+                            <p className="mb-0">Số credit</p>
                         </div>
                         <div className="col-sm-9">
                             <p className="text-muted mb-0">{session?.user.userInfo.money} VND</p>
@@ -90,29 +84,43 @@ const AccountOverview = () => {
                 <div className="col-md-6">
                     <div className="card mb-4 mb-md-0">
                         <div className="card-header">
-                            <p className=""><span className="text-primary font-italic">Mặc định</span> Địa chỉ thanh toán
+                            <p className="">
+                                <span className="text-primary font-italic">Mặc định</span> Địa chỉ thanh toán
                             </p>
                         </div>
                         <div className="card-body">
-
-                            <ol>
-                                <li className={styles.address}>
-                                    <address>
-                                        Quach Khanh
-                                        <br />
-                                        12/6/8 Hoang Hoa Tham
-                                        <br />
-                                        Phường 07, Quận Bình Thạnh,  Hồ Chí Minh,  Việt Nam
-                                        <br />
-                                        Tel: 0938427896
-                                    </address>
-                                    <Link href="/account/address">Thay đổi địa chỉ giao hàng</Link>
-                                </li>
-                            </ol>
+                            {!isLoadingDefaultAddress ? (
+                                addressDefault ? (
+                                    <ol>
+                                        <li className={styles.address}>
+                                            <address>
+                                                {addressDefault?.recipient_name}
+                                                <br />
+                                                {addressDefault?.street}
+                                                <br />
+                                                {addressDefault?.wards?.name},{addressDefault?.wards.district?.name},{addressDefault?.wards.district.province?.name}
+                                                <br />
+                                                Tel: {addressDefault?.recipient_phone}
+                                            </address>
+                                            <Link href="/account/address">Thay đổi địa chỉ giao hàng</Link>
+                                        </li>
+                                    </ol>
+                                ) : (
+                                    <div className="alert alert-warning" role="alert">
+                                        Bạn chưa có địa chỉ mặc định, hãy thêm ngay!
+                                    </div>
+                                )
+                            ) : (
+                                <div className="text-center">
+                                    <div className="spinner-border" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </div >
+                </div >
+            </div >
         </>
     )
 }
