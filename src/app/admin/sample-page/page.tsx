@@ -55,6 +55,7 @@ const SamplePage = () => {
                         subtitle='Manage author list'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
+                          
                             {/* {error && (
                                 <Alert sx={{ mb: 2 }} severity="error">
                                     <AlertTitle>Error</AlertTitle>

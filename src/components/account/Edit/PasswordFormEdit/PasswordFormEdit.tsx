@@ -52,7 +52,7 @@ const PasswordFormEdit = () => {
             setIsLoading(false)
             const { status, data } = error.response;
             if (data.errors) {
-                data.errors.forEach((errorItem: IError) => {
+                data.errors.forEach((errorItem: IErrorValidate) => {
                     const message = errorItem.message;
                     toast.error(message);
                 });
