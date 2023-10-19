@@ -1,5 +1,5 @@
 import React from 'react'
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
@@ -28,10 +28,12 @@ interface FormValues {
     bookFormId: number,
 }
 interface IAddInfoProductProps {
-    displayTab?: boolean
+    displayTab?: boolean,
+    formRef: React.RefObject<FormikProps<any>>,
+    infoFormSubmited?: boolean,
 }
 const AddInfoProduct = (props: IAddInfoProductProps) => {
-    const { displayTab = false } = props
+    const { displayTab = false, formRef, infoFormSubmited = false } = props
     const theme = useTheme();
 
     const initialValues: FormValues = {
@@ -93,43 +95,14 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
     });
 
     const handleSubmit = async (values: FormValues) => {
-        try {
-
-            toast.success("Thêm thông tin sách thành công!!")
-        }
-        catch (e) {
-            toast.error("Có lỗi xảy ra, xin vui lòng thử lại sau!!")
-        }
+        toast.success("Thêm thông tin sách thành công!!")
     }
 
-    // const CustomSelect = styled(Select)(({ theme }) => ({
-    //     ".MuiSelect-select": {
-    //         color: 'black',
-    //         background: theme.palette.grey[400],
-    //         '&:focus': {
-    //             background: theme.palette.grey[200],
-    //         },
-    //     },
-    // }));
-
-    // const CustomMenuItem = styled(MenuItem)(({ theme }) => ({
-    //     color: 'black', // Thay đổi màu sắc tại đây
-    //     '&:focus': {
-    //         backgroundColor: `${theme.palette.secondary.main} !important`, // Màu nền khi hover
-    //         color: 'white', // Màu sắc khi hover
-    //     },
-    //     '&:hover': {
-    //         backgroundColor: `${theme.palette.secondary.main} !important`, // Màu nền khi hover
-    //         color: 'white', // Màu sắc khi hover
-    //     },
-    //     '&;disabled': {
-    //         color: theme.palette.text.secondary, // Màu sắc khi hover
-    //     }
-    // }));
     return (
         <>
             <Stack style={{ display: displayTab ? 'block' : 'none' }}>
                 <Formik
+                    innerRef={formRef}
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
@@ -154,6 +127,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
+                                    disabled={infoFormSubmited}
                                 />
                                 {errors.name && touched.name && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -179,6 +153,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
+                                    disabled={infoFormSubmited}
                                 />
                                 {errors.price && touched.price && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -204,6 +179,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
+                                    disabled={infoFormSubmited}
                                 />
                                 {errors.quantity && touched.quantity && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -229,6 +205,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
+                                    disabled={infoFormSubmited}
                                 />
                                 {errors.desc && touched.desc && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -254,6 +231,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
+                                    disabled={infoFormSubmited}
                                 />
                                 {errors.weight && touched.weight && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -279,6 +257,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
+                                    disabled={infoFormSubmited}
                                 />
                                 {errors.numberOfPages && touched.numberOfPages && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -304,6 +283,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
+                                    disabled={infoFormSubmited}
                                 />
                                 {errors.publishingYear && touched.publishingYear && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -311,22 +291,6 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     </Typography>
                                 )}
                             </Box>
-                            {/* <FormControl variant="filled" sx={{ mt: 3, minWidth: 120, width: '50%' }}>
-                                <CustomSelect
-                                    labelId="categoryId"
-                                    id="categoryId"
-                                    value={values.categoryId}
-                                    name='categoryId'
-                                    onChange={handleChange}
-                                >
-                                    <CustomMenuItem value={0} disabled={true}>
-                                        <em>Hãy chọn thể loại</em>
-                                    </CustomMenuItem>
-                                    <CustomMenuItem value={10}>Khoa học</CustomMenuItem>
-                                    <CustomMenuItem value={20}>Giáo khoa</CustomMenuItem>
-                                    <CustomMenuItem value={30}>Manga</CustomMenuItem>
-                                </CustomSelect>
-                            </FormControl> */}
                             <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
                                     labelId="categoryId"
@@ -334,6 +298,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     value={values.categoryId}
                                     name='categoryId'
                                     onChange={handleChange}
+                                    disabled={infoFormSubmited}
                                 >
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn thể loại</em>
@@ -355,6 +320,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     value={values.authorId}
                                     name='authorId'
                                     onChange={handleChange}
+                                    disabled={infoFormSubmited}
                                 >
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn tác giả</em>
@@ -376,6 +342,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     value={values.publisherId}
                                     name='publisherId'
                                     onChange={handleChange}
+                                    disabled={infoFormSubmited}
                                 >
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn nhà xuất bản</em>
@@ -397,6 +364,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     value={values.languageId}
                                     name='languageId'
                                     onChange={handleChange}
+                                    disabled={infoFormSubmited}
                                 >
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn ngôn ngữ sách</em>
@@ -419,6 +387,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     value={values.bookFormId}
                                     name='bookFormId'
                                     onChange={handleChange}
+                                    disabled={infoFormSubmited}
                                 >
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn hình thức sách</em>
@@ -433,7 +402,6 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     </Typography>
                                 )}
                             </Box>
-                            <button type="submit" className="btn btn-primary">save</button>
                         </Form>
                     )}
                 </Formik>

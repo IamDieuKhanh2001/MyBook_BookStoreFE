@@ -11,7 +11,6 @@ import { styled } from '@mui/system';
 
 interface ILinearStepperProps {
     activeStep: number,
-    setActiveStep: React.Dispatch<React.SetStateAction<number>>
     completed: {
         [k: number]: boolean;
     }
@@ -22,7 +21,7 @@ export default function LinearStepper(props: ILinearStepperProps) {
     // const [completed, setCompleted] = React.useState<{
     //     [k: number]: boolean;
     // }>({});
-    const { activeStep, setActiveStep, completed, steps } = props
+    const { activeStep, completed, steps } = props
 
     const CustomStep = styled(Step)(({ theme }) => ({
         ".MuiButtonBase-root": {
@@ -44,16 +43,12 @@ export default function LinearStepper(props: ILinearStepperProps) {
         },
     }));
 
-    const handleStep = (step: number) => () => {
-        setActiveStep(step);
-    };
-
     return (
         <Box sx={{ width: '100%' }}>
             <Stepper nonLinear activeStep={activeStep}>
                 {steps.map((label, index) => (
                     <CustomStep key={label} completed={completed[index]}>
-                        <StepButton onClick={handleStep(index)}>
+                        <StepButton>
                             {label}
                         </StepButton>
                     </CustomStep>

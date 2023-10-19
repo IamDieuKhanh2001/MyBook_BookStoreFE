@@ -14,7 +14,7 @@ const CustomSelectBox = (
             color: 'black',
             background: theme.palette.grey[400],
             '&:focus': {
-                background: theme.palette.grey[200],
+                background: theme.palette.grey[100],
             },
         },
     }));

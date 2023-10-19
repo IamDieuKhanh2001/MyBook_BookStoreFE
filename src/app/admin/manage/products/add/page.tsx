@@ -10,13 +10,13 @@ import {
     Button,
     Grid,
     styled,
-    useTheme,
 } from '@mui/material'
-import React from 'react'
+import React, { useRef } from 'react'
 import Typography from '@mui/material/Typography';
 import { toast } from 'react-toastify';
 import AddInfoProduct from '@/components/admin/Product/AddProduct/AddInfoProduct/AddInfoProduct'
 import AddProductImg from '@/components/admin/Product/AddProduct/AddProductImg/AddProductImg'
+import { FormikProps } from 'formik';
 
 const AddProductPage = () => {
     const steps = ['Thêm thông tin sách', 'Thêm ảnh', 'Kiểm tra'];
@@ -24,7 +24,9 @@ const AddProductPage = () => {
     const [completed, setCompleted] = React.useState<{
         [k: number]: boolean;
     }>({});
-    const theme = useTheme();
+    const [infoFormSubmited, setInfoFormSubmited] = React.useState(false);
+    const formRef = useRef<FormikProps<any>>(null);
+
     const CustomButton = styled(Button)(({ theme }) => ({
         '&:disabled': {
             backgroundColor: '#757575',
@@ -61,11 +63,40 @@ const AddProductPage = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleComplete = () => {
+    const setCurrentStepCompleted = () => {
         const newCompleted = completed;
         newCompleted[activeStep] = true;
         setCompleted(newCompleted);
         handleNext();
+    }
+    const handleComplete = async () => {
+        switch (activeStep) {
+            case 0: { //Step 1:
+                try {
+                    await formRef.current?.submitForm();
+                    if (!formRef.current?.errors || Object.keys(formRef.current.errors).length === 0) {
+                        // Kiểm tra xem có lỗi nào không
+                        setCurrentStepCompleted();
+                        setInfoFormSubmited(true)
+                    } else {
+                        toast.error(`Thông tin không đúng yêu cầu, hãy kiểm tra lại!.`);
+                    }
+                } catch (error) {
+                    // Xử lý lỗi nếu submitForm thất bại
+                    toast.error(`Lỗi xảy ra khi gửi biểu mẫu của bước 1.`);
+                }
+                console.log('step 1 success');
+                break;
+            }
+            case 1: //Step 2:
+                console.log('step 2 success');
+                break;
+            case 2: //Step 3:
+                console.log('step 3 success');
+                break;
+            default:
+                console.log('Default');
+        }
     };
 
     return (
@@ -85,7 +116,6 @@ const AddProductPage = () => {
                             )} */}
                             <LinearStepper
                                 activeStep={activeStep}
-                                setActiveStep={setActiveStep}
                                 completed={completed}
                                 steps={steps}
                             />
@@ -95,6 +125,8 @@ const AddProductPage = () => {
                             {/* step 1: Add Product info */}
                             <AddInfoProduct
                                 displayTab={activeStep === 0 ? true : false}
+                                formRef={formRef}
+                                infoFormSubmited={infoFormSubmited}
                             />
                             {/* step 2: Add Img product */}
                             <AddProductImg
@@ -121,7 +153,12 @@ const AddProductPage = () => {
                                                 Trở về
                                             </CustomButton>
                                             <Box sx={{ flex: '1 1 auto' }} />
-                                            <CustomButton variant="contained" color="secondary" onClick={handleNext} sx={{ mr: 1 }}>
+                                            <CustomButton
+                                                disabled={!completed[activeStep]}
+                                                variant="contained"
+                                                color="secondary"
+                                                onClick={handleNext}
+                                                sx={{ mr: 1 }}>
                                                 Tiếp theo
                                             </CustomButton>
                                             {activeStep !== steps.length &&
@@ -133,7 +170,7 @@ const AddProductPage = () => {
                                                     <CustomButton variant="contained" color="secondary" onClick={handleComplete}>
                                                         {completedSteps() === totalSteps() - 1
                                                             ? 'Kết thúc'
-                                                            : 'Hoàn tất'}
+                                                            : 'Hoàn tất và tiếp tục'}
                                                     </CustomButton>
                                                 ))}
                                         </Box>
