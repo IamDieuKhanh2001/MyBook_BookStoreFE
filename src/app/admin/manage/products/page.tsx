@@ -1,12 +1,13 @@
 'use client'
 import PageContainer from '@/components/admin/container/PageContainer'
 import DashboardCard from '@/components/shared/DashboardCard'
-import { Box, Button, Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography,} from '@mui/material'
+import { Box, Button, Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography, } from '@mui/material'
 import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react'
 import React, { useState } from 'react'
 import { categories as categoriesSample } from '@/SampleData/categories'
 import { useRouter } from 'next/navigation'
 import AdminSearchBar from '@/components/shared/AdminSearchBar/AdminSearchBar'
+import { IconPlus } from '@tabler/icons-react'
 
 const ProductManagementPage = () => {
     const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
@@ -23,7 +24,17 @@ const ProductManagementPage = () => {
                         subtitle='Manage product'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
-                            <AdminSearchBar/>
+                            <AdminSearchBar />
+                            <Button
+                                sx={{ mt: 2 }}
+                                startIcon={<IconPlus />}
+                                color="success"
+                                size='small'
+                                disableElevation
+                                variant="contained"
+                                href='/admin/manage/products/add'>
+                                Thêm sản phẩm mới
+                            </Button>
                             <Table
                                 aria-label="simple table"
                                 sx={{

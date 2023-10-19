@@ -1,5 +1,6 @@
 import React from 'react'
 import useAxiosAuth from '../utils/useAxiosAuth'
+import { getSession } from 'next-auth/react'
 
 //custom hook for calling APIS for child category
 const useAPIChildCategory = () => {
@@ -9,12 +10,16 @@ const useAPIChildCategory = () => {
   //API create new child category
   const createNewChildCategory = async (parentCategoryId: number, nameCreate: string) => {
     try {
+      const session = await getSession();
+      const headers = {
+        Authorization: `Bearer ${session?.user.jwtToken}`,
+      }
       const url = URL_PREFIX
       const body = {
         pcategory_id: parentCategoryId,
         name: nameCreate,
       };
-      const response = await axiosAuth.post(url, body)
+      const response = await axiosAuth.post(url, body, { headers })
       return response.data
     }
     catch (e: any) {
@@ -25,12 +30,16 @@ const useAPIChildCategory = () => {
   //api update by id
   const updateChildCategoryById = async (id: number, nameUpdate: string) => {
     try {
+      const session = await getSession();
+      const headers = {
+        Authorization: `Bearer ${session?.user.jwtToken}`,
+      }
       const url = URL_PREFIX
       const body = {
         ccategory_id: id,
         name: nameUpdate,
       };
-      const response = await axiosAuth.put(url, body)
+      const response = await axiosAuth.put(url, body, { headers })
       return response.data;
     } catch (error: any) {
       throw new Error("Error updating category: " + error.message);
@@ -40,8 +49,12 @@ const useAPIChildCategory = () => {
   //API delete by id
   const deleteChildCategoryById = async (id: number) => {
     try {
+      const session = await getSession();
+      const headers = {
+        Authorization: `Bearer ${session?.user.jwtToken}`,
+      }
       const url = `${URL_PREFIX}/delete/${id}`
-      const response = await axiosAuth.delete(url)
+      const response = await axiosAuth.delete(url, { headers })
       return response
     }
     catch (error: any) {
