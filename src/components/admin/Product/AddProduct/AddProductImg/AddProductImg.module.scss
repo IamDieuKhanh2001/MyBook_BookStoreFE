@@ -25,6 +25,9 @@
         border-radius: 8px;
         color: white;
         border: none;
+        &:disabled {
+            background-color: gray;
+        }
     }
     .fileOriginName {
         font-size: 8px;

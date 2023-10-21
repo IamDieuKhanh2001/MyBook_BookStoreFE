@@ -54,50 +54,6 @@ export default function LinearStepper(props: ILinearStepperProps) {
                     </CustomStep>
                 ))}
             </Stepper>
-            {/* <div>
-                {allStepsCompleted() ? (
-                    <React.Fragment>
-                        <Typography sx={{ mt: 2, mb: 1 }}>
-                            All steps completed - you&apos;re finished
-                        </Typography>
-                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                            <Box sx={{ flex: '1 1 auto' }} />
-                            <Button onClick={handleReset}>Reset</Button>
-                        </Box>
-                    </React.Fragment>
-                ) : (
-                    <React.Fragment>
-                        <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
-                            Step {activeStep + 1}
-                        </Typography>
-                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                            <CustomButton
-                                color="secondary"
-                                disabled={activeStep === 0}
-                                onClick={handleBack}
-                                size='small' disableElevation variant="contained" href="">
-                                Trở về
-                            </CustomButton>
-                            <Box sx={{ flex: '1 1 auto' }} />
-                            <CustomButton variant="contained" color="secondary" onClick={handleNext} sx={{ mr: 1 }}>
-                                Next
-                            </CustomButton>
-                            {activeStep !== steps.length &&
-                                (completed[activeStep] ? (
-                                    <Typography variant="caption" sx={{ display: 'inline-block' }}>
-                                        Step {activeStep + 1} already completed
-                                    </Typography>
-                                ) : (
-                                    <CustomButton variant="contained" color="secondary" onClick={handleComplete}>
-                                        {completedSteps() === totalSteps() - 1
-                                            ? 'Finish'
-                                            : 'Complete Step'}
-                                    </CustomButton>
-                                ))}
-                        </Box>
-                    </React.Fragment>
-                )}
-            </div> */}
         </Box>
     );
 }

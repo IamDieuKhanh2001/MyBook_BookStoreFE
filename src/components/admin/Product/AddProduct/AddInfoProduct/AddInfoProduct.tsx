@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import { Field, Form, Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
@@ -8,9 +9,11 @@ import {
     Stack,
     useTheme,
     Typography,
+    CircularProgress,
 } from '@mui/material'
 import CustomSelectBox from '@/components/forms/theme-elements/CustomSelectBox';
 import CustomMenuItem from '@/components/forms/theme-elements/CustomMenuItem';
+import CustomButton from '@/components/forms/theme-elements/CustomButton';
 
 interface FormValues {
     categoryId: number,
@@ -29,19 +32,20 @@ interface FormValues {
 }
 interface IAddInfoProductProps {
     displayTab?: boolean,
-    formRef: React.RefObject<FormikProps<any>>,
-    infoFormSubmited?: boolean,
+    setCurrentStepCompleted: () => void,
+    stepCompleted?: boolean,
 }
 const AddInfoProduct = (props: IAddInfoProductProps) => {
-    const { displayTab = false, formRef, infoFormSubmited = false } = props
+    const { displayTab = false, setCurrentStepCompleted, stepCompleted = false } = props
     const theme = useTheme();
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const initialValues: FormValues = {
         categoryId: 0,
-        name: '',
+        name: 'no name 1',
         price: 0,
         quantity: 0,
-        desc: '',
+        desc: 'aaa',
         weight: 0,
         numberOfPages: 0,
         publishingYear: new Date().getFullYear(), // current year
@@ -51,9 +55,9 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
         bookFormId: 0,
     }
     const validationSchema = Yup.object().shape({
-        categoryId: Yup.number()
-            .notOneOf([0], '*Vui lòng chọn thể loại') // Không cho phép giá trị bằng 0
-            .required('*Vui lòng chọn thể loại'),
+        // categoryId: Yup.number()
+        //     .notOneOf([0], '*Vui lòng chọn thể loại') // Không cho phép giá trị bằng 0
+        //     .required('*Vui lòng chọn thể loại'),
         name: Yup.string()
             .max(50, "*tên không quá 50 ký tự")
             .required("*Tên không được để trống"),
@@ -80,29 +84,39 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
             .typeError('*Năm phát hành phải là số, không chứa chữ cái A-Z, a-z, các kí hiệu đặc biệt')
             .min(0, '*Năm phát hành không được âm')
             .required('*Năm phát hành không được để trống'),
-        authorId: Yup.number()
-            .notOneOf([0], '*Vui lòng chọn tác giả') // Không cho phép giá trị bằng 0
-            .required('*Vui lòng chọn tác giả'),
-        publisherId: Yup.number()
-            .notOneOf([0], '*Vui lòng chọn nhà xuất bản') // Không cho phép giá trị bằng 0
-            .required('*Vui lòng chọn nhà xuất bản'),
-        languageId: Yup.number()
-            .notOneOf([0], '*Vui lòng chọn ngôn ngữ sách') // Không cho phép giá trị bằng 0
-            .required('*Vui lòng chọn ngôn ngữ sách'),
-        bookFormId: Yup.number()
-            .notOneOf([0], '*Vui lòng chọn hình thức sách') // Không cho phép giá trị bằng 0
-            .required('*Vui lòng chọn hình thức sách'),
+        // authorId: Yup.number()
+        //     .notOneOf([0], '*Vui lòng chọn tác giả') // Không cho phép giá trị bằng 0
+        //     .required('*Vui lòng chọn tác giả'),
+        // publisherId: Yup.number()
+        //     .notOneOf([0], '*Vui lòng chọn nhà xuất bản') // Không cho phép giá trị bằng 0
+        //     .required('*Vui lòng chọn nhà xuất bản'),
+        // languageId: Yup.number()
+        //     .notOneOf([0], '*Vui lòng chọn ngôn ngữ sách') // Không cho phép giá trị bằng 0
+        //     .required('*Vui lòng chọn ngôn ngữ sách'),
+        // bookFormId: Yup.number()
+        //     .notOneOf([0], '*Vui lòng chọn hình thức sách') // Không cho phép giá trị bằng 0
+        //     .required('*Vui lòng chọn hình thức sách'),
     });
 
     const handleSubmit = async (values: FormValues) => {
-        toast.success("Thêm thông tin sách thành công!!")
+        try {
+            setIsLoading(true)
+            const timerID = setTimeout(() => {
+                toast.success("Thêm thông tin sách thành công!!")
+                console.log(values)
+                setIsLoading(false)
+                setCurrentStepCompleted()
+            }, 1000);
+        } catch (e) {
+            setIsLoading(false)
+            toast.error("Thêm thông tin sách thất bại!!")
+        }
     }
 
     return (
         <>
             <Stack style={{ display: displayTab ? 'block' : 'none' }}>
                 <Formik
-                    innerRef={formRef}
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
@@ -127,7 +141,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
-                                    disabled={infoFormSubmited}
+                                    disabled={stepCompleted}
                                 />
                                 {errors.name && touched.name && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -153,7 +167,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
-                                    disabled={infoFormSubmited}
+                                    disabled={stepCompleted}
                                 />
                                 {errors.price && touched.price && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -179,7 +193,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
-                                    disabled={infoFormSubmited}
+                                    disabled={stepCompleted}
                                 />
                                 {errors.quantity && touched.quantity && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -205,7 +219,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
-                                    disabled={infoFormSubmited}
+                                    disabled={stepCompleted}
                                 />
                                 {errors.desc && touched.desc && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -231,7 +245,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
-                                    disabled={infoFormSubmited}
+                                    disabled={stepCompleted}
                                 />
                                 {errors.weight && touched.weight && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -257,7 +271,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
-                                    disabled={infoFormSubmited}
+                                    disabled={stepCompleted}
                                 />
                                 {errors.numberOfPages && touched.numberOfPages && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -283,7 +297,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
-                                    disabled={infoFormSubmited}
+                                    disabled={stepCompleted}
                                 />
                                 {errors.publishingYear && touched.publishingYear && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -293,12 +307,12 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                             </Box>
                             <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
+                                    disabled={stepCompleted}
                                     labelId="categoryId"
                                     id="categoryId"
                                     value={values.categoryId}
                                     name='categoryId'
                                     onChange={handleChange}
-                                    disabled={infoFormSubmited}
                                 >
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn thể loại</em>
@@ -315,12 +329,12 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                             </Box>
                             <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
+                                    disabled={stepCompleted}
                                     labelId="authorId"
                                     id="authorId"
                                     value={values.authorId}
                                     name='authorId'
                                     onChange={handleChange}
-                                    disabled={infoFormSubmited}
                                 >
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn tác giả</em>
@@ -337,12 +351,12 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                             </Box>
                             <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
+                                    disabled={stepCompleted}
                                     labelId="publisherId"
                                     id="publisherId"
                                     value={values.publisherId}
                                     name='publisherId'
                                     onChange={handleChange}
-                                    disabled={infoFormSubmited}
                                 >
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn nhà xuất bản</em>
@@ -359,12 +373,12 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                             </Box>
                             <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
+                                    disabled={stepCompleted}
                                     labelId="languageId"
                                     id="languageId"
                                     value={values.languageId}
                                     name='languageId'
                                     onChange={handleChange}
-                                    disabled={infoFormSubmited}
                                 >
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn ngôn ngữ sách</em>
@@ -382,12 +396,12 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                             </Box>
                             <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
+                                    disabled={stepCompleted}
                                     labelId="bookFormId"
                                     id="bookFormId"
                                     value={values.bookFormId}
                                     name='bookFormId'
                                     onChange={handleChange}
-                                    disabled={infoFormSubmited}
                                 >
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn hình thức sách</em>
@@ -399,6 +413,25 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                 {errors.bookFormId && touched.bookFormId && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
                                         {errors.bookFormId}
+                                    </Typography>
+                                )}
+                            </Box>
+                            <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
+                                {!stepCompleted ? (
+                                    <CustomButton
+                                        type='submit'
+                                        variant="contained"
+                                        color="secondary"
+                                        disabled={isLoading}
+                                    >
+                                        {isLoading &&
+                                            (<CircularProgress color="inherit" size={25} />)
+                                        }
+                                        Lưu và tiếp tục
+                                    </CustomButton>
+                                ) : (
+                                    <Typography variant="caption" sx={{ display: 'inline-block' }}>
+                                        Bước 1 đã hoàn thành
                                     </Typography>
                                 )}
                             </Box>
