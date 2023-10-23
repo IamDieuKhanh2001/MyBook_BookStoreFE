@@ -2,12 +2,12 @@ import useAxiosAuth from '../utils/useAxiosAuth'
 import useSWR from 'swr'
 import { getSession } from 'next-auth/react'
 
-const useAPIBookForm = () => {
-    const URL_PREFIX = '/admin/book/form'
+const useAPIBookProvider = () => {
+    const URL_PREFIX = '/admin/book/provider'
     const axiosAuth = useAxiosAuth()
 
     //closures function get API 
-    const getBookFormList = () => {
+    const getProviderList = () => {
         const fetcher = async (url: string) => {
             try {
                 const session = await getSession();
@@ -38,11 +38,11 @@ const useAPIBookForm = () => {
         }
     }
 
-    const createNewBookForm = async (nameCreate: string) => {
+    const createNewProvider = async (nameCreate: string) => {
         try {
             const session = await getSession();
             const body = {
-                form_name: nameCreate,
+                provider_name: nameCreate,
             };
             const headers = {
                 Authorization: `Bearer ${session?.user.jwtToken}`,
@@ -51,16 +51,16 @@ const useAPIBookForm = () => {
             return response.data
         }
         catch (e: any) {
-            throw new Error("Error create form: " + e.message);
+            throw e;
         }
     }
 
-    const updateBookFormById = async (id: number, nameUpdate: string) => {
+    const updateProviderById = async (id: number, nameUpdate: string) => {
         try {
             const session = await getSession();
             const body = {
-                book_form_id: id,
-                form_name: nameUpdate,
+                book_provider_id: id,
+                provider_name: nameUpdate,
             };
             const headers = {
                 Authorization: `Bearer ${session?.user.jwtToken}`,
@@ -68,12 +68,11 @@ const useAPIBookForm = () => {
             const response = await axiosAuth.put(URL_PREFIX, body, { headers })
             return response.data;
         } catch (error: any) {
-            throw new Error("Error updating form: " + error.message);
+            throw error;
         }
     };
 
-    //api delete by id
-    const deleteBookFormById = async (id: number) => {
+    const deleteProviderById = async (id: number) => {
         try {
             const session = await getSession();
             const url = `${URL_PREFIX}/delete/${id}`
@@ -83,12 +82,12 @@ const useAPIBookForm = () => {
             const response = await axiosAuth.delete(url, { headers })
             return response;
         } catch (error: any) {
-            throw new Error("Error delete form: " + error.message);
+            throw new Error("Error delete provider: " + error.message);
         }
     };
 
     //API get all soft delete item
-    const getBookFormTrashList = () => {
+    const getProviderTrashList = () => {
         const fetcher = async (url: string) => {
             const session = await getSession();
             const config = {
@@ -122,7 +121,7 @@ const useAPIBookForm = () => {
     }
 
     //API delete by id
-    const destroyBookFormById = async (id: number) => {
+    const destroyProviderById = async (id: number) => {
         try {
             const session = await getSession();
             const config = {
@@ -135,12 +134,12 @@ const useAPIBookForm = () => {
             return response
         }
         catch (error: any) {
-            throw new Error("Error deleting form: " + error.message);
+            throw new Error("Error deleting provider: " + error.message);
         }
     }
 
     //API restore by id
-    const restoreBookFormById = async (id: number) => {
+    const restoreProviderById = async (id: number) => {
         try {
             const session = await getSession();
             const url = `${URL_PREFIX}/restore/${id}`
@@ -153,19 +152,19 @@ const useAPIBookForm = () => {
             return response
         }
         catch (error: any) {
-            throw new Error("Error restore form: " + error.message);
+            throw new Error("Error restore provider: " + error.message);
         }
     }
-
+    
     return {
-        getBookFormList,
-        createNewBookForm,
-        updateBookFormById,
-        deleteBookFormById,
-        getBookFormTrashList,
-        restoreBookFormById,
-        destroyBookFormById,
+        getProviderList,
+        createNewProvider,
+        updateProviderById,
+        deleteProviderById,
+        getProviderTrashList,
+        restoreProviderById,
+        destroyProviderById,
     }
 }
 
-export default useAPIBookForm
+export default useAPIBookProvider

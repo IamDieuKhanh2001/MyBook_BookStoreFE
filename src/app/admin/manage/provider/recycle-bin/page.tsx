@@ -7,14 +7,14 @@ import { useRouter } from 'next/navigation';
 import { IconArrowBackUp } from '@tabler/icons-react';
 import PageContainer from '@/components/admin/container/PageContainer'
 import DashboardCard from '@/components/shared/DashboardCard'
-import RecycleBinBookFormTableData from '@/components/admin/BookForm/RecycleBinBookFormTableData/RecycleBinBookFormTableData';
-import useAPIBookForm from '@/lib/hooks/api/useAPIBookForm';
+import RecycleBinProviderTableData from '@/components/admin/Provider/RecycleBinProviderTableData/RecycleBinProviderTableData';
+import useAPIBookProvider from '@/lib/hooks/api/useAPIBookProvider';
 
-const bookFormRecycleBinPage = () => {
+const bookProviderRecycleBinPage = () => {
     const router = useRouter()
     const confirm = useConfirm();
-    const { getBookFormTrashList, restoreBookFormById, destroyBookFormById } = useAPIBookForm()
-    const { data, error, isLoading, mutate } = getBookFormTrashList()
+    const { getProviderTrashList, restoreProviderById, destroyProviderById } = useAPIBookProvider()
+    const { data, error, isLoading, mutate } = getProviderTrashList()
 
     const handleDestroyData = async (id: number) => {
         confirm({
@@ -23,9 +23,9 @@ const bookFormRecycleBinPage = () => {
         })
             .then(async () => {
                 try {
-                    await destroyBookFormById(id)
+                    await destroyProviderById(id)
                     mutate()
-                    toast.success("Delete form complete id: " + id)
+                    toast.success("Delete provider complete id: " + id)
                 }
                 catch (e) {
                     toast.error("Something when wrong, please try again")
@@ -40,9 +40,9 @@ const bookFormRecycleBinPage = () => {
         })
             .then(async () => {
                 try {
-                    await restoreBookFormById(id)
+                    await restoreProviderById(id)
                     mutate()
-                    toast.success("Restore form complete id: " + id)
+                    toast.success("Restore provider complete id: " + id)
                 }
                 catch (e) {
                     toast.error("Something when wrong, please try again")
@@ -54,8 +54,8 @@ const bookFormRecycleBinPage = () => {
             <PageContainer title='recycle bin' description='recycle bin'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Recycle bin book form List'
-                        subtitle='Manage recycle bin book form List'
+                        title='Recycle bin provider List'
+                        subtitle='Manage recycle bin provider List'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                             <Button
@@ -69,13 +69,13 @@ const bookFormRecycleBinPage = () => {
                             >
                                 Trở về
                             </Button>
-                            {error && (
+                            {/* {error && (
                                 <Alert sx={{ mb: 2 }} severity="error">
                                     <AlertTitle>Error</AlertTitle>
                                     Something when wrong — <strong>check your connection and reload page!</strong>
                                 </Alert>
-                            )}
-                            <RecycleBinBookFormTableData
+                            )} */}
+                            <RecycleBinProviderTableData
                                 recycleBinList={data}
                                 handleDestroyData={handleDestroyData}
                                 handleRestoreData={handleRestoreData}
@@ -88,4 +88,4 @@ const bookFormRecycleBinPage = () => {
     )
 }
 
-export default bookFormRecycleBinPage
+export default bookProviderRecycleBinPage

@@ -1,34 +1,24 @@
 import React from 'react'
-import {
-    Box,
-    Button,
-    CircularProgress,
-    Modal,
-    Stack,
-    Typography,
-    useTheme
-} from '@mui/material';
+import { Box, CircularProgress, Modal, Typography, useTheme, Stack, Button } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
-import { toast } from 'react-toastify';
-import useAPIBookForm from '@/lib/hooks/api/useAPIBookForm';
+import useAPIBookProvider from '@/lib/hooks/api/useAPIBookProvider';
+import { errorHandler } from '@/lib/utils/ErrorHandler';
 
 interface FormValues {
-    id: number;
     name: string;
 }
-interface IProps {
-    showModalUpdate: boolean;
-    setShowModalUpdate: (value: boolean) => void;
-    bookFormSelected: IBookForm | null;
-    setBookFormSelected: (value: IBookForm | null) => void;
+interface ICreateProviderModalProps {
+    showModalCreate: boolean;
+    setShowModalCreate: (value: boolean) => void;
 }
-const UpdateBookFormModal = (props: IProps) => {
-    const { showModalUpdate, setShowModalUpdate, bookFormSelected, setBookFormSelected } = props;
+const CreateProviderModal = (props: ICreateProviderModalProps) => {
+    const { showModalCreate, setShowModalCreate } = props;
     const theme = useTheme();
-    const { getBookFormList, updateBookFormById } = useAPIBookForm()
-    const { mutate } = getBookFormList()
+    const { createNewProvider, getProviderList } = useAPIBookProvider()
+    const { mutate } = getProviderList()
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -41,42 +31,38 @@ const UpdateBookFormModal = (props: IProps) => {
         boxShadow: 24,
         p: 4,
     };
+
     //Formik init
     const initialValues: FormValues = {
-        id: bookFormSelected?.id || 0,
-        name: bookFormSelected?.name || "",
+        name: "",
     };
-
     const validationSchema = Yup.object({
-        id: Yup.string()
-            .max(50, "ma tac gia must be <= 50 characters")
-            .required("ma tac gia not be empty"),
         name: Yup.string()
-            .max(50, "name must be <= 50 characters")
-            .required("name not be empty"),
+            .max(50, "Name must be <= 50 characters")
+            .required("Name not be empty"),
     });
 
     const handleCloseModal = () => {
-        //cate selected clear
-        setBookFormSelected(null)
-        setShowModalUpdate(false);
+        setShowModalCreate(false);
     }
 
     const handleSubmit = async (values: FormValues) => {
         try {
-            await updateBookFormById(values.id, values.name)
+            const { name } = values
+            await createNewProvider(name)
             handleCloseModal()
             mutate()
-            toast.success("update bookform complete id: " + values.id)
+            toast.success("Create provider complete with name: " + values.name)
         }
-        catch (e) {
-            toast.error("Something when wrong, please try again")
+        catch (e: any) {
+            errorHandler(e)
         }
-    }
+    };
+
     return (
         <>
             <Modal
-                open={showModalUpdate}
+                open={showModalCreate}
                 onClose={() => handleCloseModal()}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
@@ -85,7 +71,7 @@ const UpdateBookFormModal = (props: IProps) => {
                     <Typography id="modal-modal-title" variant="h6" component="h2"
                         style={{ color: theme.palette.text.primary }}
                     >
-                        Edit book form
+                        Create new provider
                     </Typography>
                     <Formik
                         initialValues={initialValues}
@@ -97,33 +83,6 @@ const UpdateBookFormModal = (props: IProps) => {
                                 <Stack>
                                     <Box>
                                         <Typography
-                                            style={{ color: theme.palette.text.primary }}
-                                            variant="subtitle1"
-                                            fontWeight={600}
-                                            component="label"
-                                            htmlFor="maLoai"
-                                            mb="5px"
-                                        >
-                                            Mã số
-                                        </Typography>
-                                        <Field
-                                            as={CustomTextField}
-                                            id={"id"}
-                                            name={"id"}
-                                            variant="outlined"
-                                            onChange={handleChange}
-                                            disabled={true}
-                                            fullWidth
-                                        />
-                                        {/* <ErrorMessage name="username" component="div" /> */}
-                                        {errors.id && touched.id && (
-                                            <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
-                                                {errors.id}
-                                            </Typography>
-                                        )}
-                                    </Box>
-                                    <Box mt="25px">
-                                        <Typography
                                             variant="subtitle1"
                                             fontWeight={600}
                                             component="label"
@@ -131,7 +90,7 @@ const UpdateBookFormModal = (props: IProps) => {
                                             mb="5px"
                                             style={{ color: theme.palette.text.primary }}
                                         >
-                                            Tên hình thức
+                                            Tên nhà cung cấp
                                         </Typography>
                                         <Field
                                             as={CustomTextField}
@@ -155,7 +114,7 @@ const UpdateBookFormModal = (props: IProps) => {
                                         size="large"
                                         fullWidth
                                         type="submit"
-                                        disabled={isSubmitting}
+                                        disabled={false}
                                     >
                                         {
                                             isSubmitting ?
@@ -183,4 +142,4 @@ const UpdateBookFormModal = (props: IProps) => {
     )
 }
 
-export default UpdateBookFormModal
+export default CreateProviderModal

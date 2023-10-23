@@ -12,7 +12,8 @@ import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import { toast } from 'react-toastify';
-import useAPIBookForm from '@/lib/hooks/api/useAPIBookForm';
+import useAPIBookProvider from '@/lib/hooks/api/useAPIBookProvider';
+import { errorHandler } from '@/lib/utils/ErrorHandler';
 
 interface FormValues {
     id: number;
@@ -21,14 +22,14 @@ interface FormValues {
 interface IProps {
     showModalUpdate: boolean;
     setShowModalUpdate: (value: boolean) => void;
-    bookFormSelected: IBookForm | null;
-    setBookFormSelected: (value: IBookForm | null) => void;
+    providerSelected: IProvider | null;
+    setProviderSelected: (value: IProvider | null) => void;
 }
-const UpdateBookFormModal = (props: IProps) => {
-    const { showModalUpdate, setShowModalUpdate, bookFormSelected, setBookFormSelected } = props;
+const UpdateProviderModal = (props: IProps) => {
+    const { showModalUpdate, setShowModalUpdate, providerSelected, setProviderSelected } = props;
     const theme = useTheme();
-    const { getBookFormList, updateBookFormById } = useAPIBookForm()
-    const { mutate } = getBookFormList()
+    const { getProviderList, updateProviderById } = useAPIBookProvider()
+    const { mutate } = getProviderList()
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -43,14 +44,14 @@ const UpdateBookFormModal = (props: IProps) => {
     };
     //Formik init
     const initialValues: FormValues = {
-        id: bookFormSelected?.id || 0,
-        name: bookFormSelected?.name || "",
+        id: providerSelected?.id || 0,
+        name: providerSelected?.name || "",
     };
 
     const validationSchema = Yup.object({
         id: Yup.string()
-            .max(50, "ma tac gia must be <= 50 characters")
-            .required("ma tac gia not be empty"),
+            .max(50, "id must be <= 50 characters")
+            .required("id not be empty"),
         name: Yup.string()
             .max(50, "name must be <= 50 characters")
             .required("name not be empty"),
@@ -58,19 +59,20 @@ const UpdateBookFormModal = (props: IProps) => {
 
     const handleCloseModal = () => {
         //cate selected clear
-        setBookFormSelected(null)
+        setProviderSelected(null)
         setShowModalUpdate(false);
     }
 
     const handleSubmit = async (values: FormValues) => {
         try {
-            await updateBookFormById(values.id, values.name)
-            handleCloseModal()
+            const { id, name } = values
+            await updateProviderById(id, name)
             mutate()
-            toast.success("update bookform complete id: " + values.id)
+            handleCloseModal()
+            toast.success("update provider complete id: " + values.id)
         }
         catch (e) {
-            toast.error("Something when wrong, please try again")
+            errorHandler(e)
         }
     }
     return (
@@ -85,7 +87,7 @@ const UpdateBookFormModal = (props: IProps) => {
                     <Typography id="modal-modal-title" variant="h6" component="h2"
                         style={{ color: theme.palette.text.primary }}
                     >
-                        Edit book form
+                        Edit provider
                     </Typography>
                     <Formik
                         initialValues={initialValues}
@@ -131,7 +133,7 @@ const UpdateBookFormModal = (props: IProps) => {
                                             mb="5px"
                                             style={{ color: theme.palette.text.primary }}
                                         >
-                                            Tên hình thức
+                                            Tên nhà cung cấp
                                         </Typography>
                                         <Field
                                             as={CustomTextField}
@@ -183,4 +185,4 @@ const UpdateBookFormModal = (props: IProps) => {
     )
 }
 
-export default UpdateBookFormModal
+export default UpdateProviderModal
