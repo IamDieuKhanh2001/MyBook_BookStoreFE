@@ -57,7 +57,7 @@ const useAPIParentCategory = () => {
 
         const { data, mutate, isLoading, error } = useSWR(
             `${URL_PREFIX}/${id}`,
-            fetcher,
+            id !== 0 ? fetcher : null,
             {
                 revalidateOnReconnect: false,
             }

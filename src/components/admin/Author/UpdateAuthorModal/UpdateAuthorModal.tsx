@@ -28,7 +28,7 @@ const UpdateAuthorModal = (props: IProps) => {
     const { showModalUpdate, setShowModalUpdate, authorSelected, setAuthorSelected } = props;
     const theme = useTheme();
     const { updateAuthorById, getAuthorList } = useAPIAuthor()
-    const { mutate } = getAuthorList()
+    const { mutate } = getAuthorList(1, 9999)
 
     const style = {
         position: 'absolute' as 'absolute',

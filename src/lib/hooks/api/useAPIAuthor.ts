@@ -7,14 +7,19 @@ const useAPIAuthor = () => {
     const URL_PREFIX = '/admin/book/author'
     const axiosAuth = useAxiosAuth()
 
-    const getAuthorList = () => {
+    const getAuthorList = (page: number = 1, limit: number = 10) => {
         const fetcher = async (url: string) => {
             try {
                 const session = await getSession();
                 const headers = {
                     Authorization: `Bearer ${session?.user.jwtToken}`,
                 }
-                const response = await axiosAuth.get(url, { headers });
+                const params = {
+                    page,
+                    limit,
+                }
+                console.log(params)
+                const response = await axiosAuth.get(url, { headers, params });
                 return response.data;
             } catch (error) {
                 console.error('Lỗi khi fetch:', error);
@@ -27,11 +32,21 @@ const useAPIAuthor = () => {
             fetcher,
             {
                 revalidateOnReconnect: false,
+                onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+                    // Never retry on 404.
+                    if (error.status === 404) return
+
+                    // Only retry up to 2 times.
+                    if (retryCount >= 2) return
+
+                    // Retry after 5 seconds.
+                    setTimeout(() => revalidate({ retryCount }), 5000)
+                }
             }
         )
 
         return {
-            data: data ?? [], // nếu data = undefined sẽ là mảng rỗng
+            data: data?.data ?? [], // nếu data = undefined sẽ là mảng rỗng
             mutate: mutate,
             isLoading: !error && !data,
             error: error,

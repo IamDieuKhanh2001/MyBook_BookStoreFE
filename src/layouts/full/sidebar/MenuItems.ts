@@ -89,6 +89,12 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
+    title: 'Sách',
+    icon: IconHistory,
+    href: '/admin/manage/products/recycle-bin',
+  },
+  {
+    id: uniqueId(),
     title: 'Ngôn ngữ sách',
     icon: IconHistory,
     href: '/admin/manage/book-lang/recycle-bin',

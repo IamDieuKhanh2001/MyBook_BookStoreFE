@@ -14,10 +14,21 @@ import {
 import CustomSelectBox from '@/components/forms/theme-elements/CustomSelectBox';
 import CustomMenuItem from '@/components/forms/theme-elements/CustomMenuItem';
 import CustomButton from '@/components/forms/theme-elements/CustomButton';
+import useAPIBookLanguage from '@/lib/hooks/api/useAPIBookLanguage';
+import useAPIAuthor from '@/lib/hooks/api/useAPIAuthor';
+import useAPIBookProvider from '@/lib/hooks/api/useAPIBookProvider';
+import useAPIBookPublisher from '@/lib/hooks/api/useAPIBookPublisher';
+import useAPIBookForm from '@/lib/hooks/api/useAPIBookForm';
+import useAPIParentCategory from '@/lib/hooks/api/useAPIParentCategory';
+import { IBookLanguage } from '../../../../../../types/IBookLanguage';
+import useAPIBook from '@/lib/hooks/api/useAPIBook';
+import { errorHandler } from '@/lib/utils/ErrorHandler';
 
 interface FormValues {
-    categoryId: number,
+    pcategoryId: number,
+    ccategoryId: number,
     name: string,
+    isbnCode: string,
     price: number,
     quantity: number,
     desc: string,
@@ -26,6 +37,7 @@ interface FormValues {
     publishingYear: number,
     //Other props bellow not require value (Allow null)
     authorId: number,
+    providerId: number,
     publisherId: number,
     languageId: number,
     bookFormId: number,
@@ -38,29 +50,60 @@ interface IAddInfoProductProps {
 const AddInfoProduct = (props: IAddInfoProductProps) => {
     const { displayTab = false, setCurrentStepCompleted, stepCompleted = false } = props
     const theme = useTheme();
+    const [selectedPCategoryId, setSelectedPCategoryId] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const { getLanguageList } = useAPIBookLanguage()
+    const { getProviderList } = useAPIBookProvider()
+    const { getPublisherList } = useAPIBookPublisher()
+    const { getBookFormList } = useAPIBookForm()
+    const { getAuthorList } = useAPIAuthor()
+    const { getParentCategoryList, getParentCategoryDetail } = useAPIParentCategory()
+    const { createNewBook } = useAPIBook()
+    const { data: authorList } = getAuthorList(1,9999)
+    const { data: languageList } = getLanguageList()
+    const { data: providerList } = getProviderList(1, 9999)
+    const { data: publisherList } = getPublisherList()
+    const { data: bookFormList } = getBookFormList()
+    const { data: pCatgoryList } = getParentCategoryList()
+    const { data: pCategoryDetail } = getParentCategoryDetail(selectedPCategoryId)
 
     const initialValues: FormValues = {
-        categoryId: 0,
-        name: 'no name 1',
+        pcategoryId: 0,
+        ccategoryId: 0,
+        name: '',
+        isbnCode: '',
         price: 0,
-        quantity: 0,
+        quantity: 1,
         desc: 'aaa',
         weight: 0,
         numberOfPages: 0,
         publishingYear: new Date().getFullYear(), // current year
         authorId: 0,
+        providerId: 0,
         publisherId: 0,
         languageId: 0,
         bookFormId: 0,
     }
     const validationSchema = Yup.object().shape({
-        // categoryId: Yup.number()
-        //     .notOneOf([0], '*Vui lòng chọn thể loại') // Không cho phép giá trị bằng 0
-        //     .required('*Vui lòng chọn thể loại'),
+        pcategoryId: Yup.number()
+            .notOneOf([0], '*Vui lòng chọn loại sách') // Không cho phép giá trị bằng 0
+            .required('*Vui lòng chọn loại sách'),
+        ccategoryId: Yup.number()
+            .notOneOf([0], '*Vui lòng chọn thể loại') // Không cho phép giá trị bằng 0
+            .required('*Vui lòng chọn thể loại'),
         name: Yup.string()
             .max(50, "*tên không quá 50 ký tự")
             .required("*Tên không được để trống"),
+        isbnCode: Yup.string()
+            .matches(/^[0-9]+$/, '*Chỉ được chứa các số')
+            .test(
+                'isbnCode', 
+                '*Phải là mã số dài 10 kí tự (Quy chuẩn cũ), hoặc 13 kí tự (Quy chuẩn mới)', 
+            (value: string | undefined) => {
+                if (!value) return false;
+                return value.length === 10 || value.length === 13
+            })
+            .required("*Mã định danh sách không được để trống"),
         price: Yup.number()
             .typeError('*Giá tiền phải là số, không chứa chữ cái A-Z, a-z, các kí hiệu đặc biệt')
             .min(0, '*Giá tiền không được âm')
@@ -84,30 +127,72 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
             .typeError('*Năm phát hành phải là số, không chứa chữ cái A-Z, a-z, các kí hiệu đặc biệt')
             .min(0, '*Năm phát hành không được âm')
             .required('*Năm phát hành không được để trống'),
-        // authorId: Yup.number()
-        //     .notOneOf([0], '*Vui lòng chọn tác giả') // Không cho phép giá trị bằng 0
-        //     .required('*Vui lòng chọn tác giả'),
-        // publisherId: Yup.number()
-        //     .notOneOf([0], '*Vui lòng chọn nhà xuất bản') // Không cho phép giá trị bằng 0
-        //     .required('*Vui lòng chọn nhà xuất bản'),
-        // languageId: Yup.number()
-        //     .notOneOf([0], '*Vui lòng chọn ngôn ngữ sách') // Không cho phép giá trị bằng 0
-        //     .required('*Vui lòng chọn ngôn ngữ sách'),
-        // bookFormId: Yup.number()
-        //     .notOneOf([0], '*Vui lòng chọn hình thức sách') // Không cho phép giá trị bằng 0
-        //     .required('*Vui lòng chọn hình thức sách'),
+        authorId: Yup.number()
+            .notOneOf([0], '*Vui lòng chọn tác giả') // Không cho phép giá trị bằng 0
+            .required('*Vui lòng chọn tác giả'),
+        publisherId: Yup.number()
+            .notOneOf([0], '*Vui lòng chọn nhà xuất bản') // Không cho phép giá trị bằng 0
+            .required('*Vui lòng chọn nhà xuất bản'),
+        providerId: Yup.number()
+            .notOneOf([0], '*Vui lòng chọn nhà cung cấp') // Không cho phép giá trị bằng 0
+            .required('*Vui lòng chọn nhà cung cấp'),
+        languageId: Yup.number()
+            .notOneOf([0], '*Vui lòng chọn ngôn ngữ sách') // Không cho phép giá trị bằng 0
+            .required('*Vui lòng chọn ngôn ngữ sách'),
+        bookFormId: Yup.number()
+            .notOneOf([0], '*Vui lòng chọn hình thức sách') // Không cho phép giá trị bằng 0
+            .required('*Vui lòng chọn hình thức sách'),
     });
+
+    const handleChangeParentCategory = (e: any, setFieldValue: any) => {
+        const selectedValue = e.target.value;
+        setFieldValue('pcategoryId', selectedValue);
+        setFieldValue('ccategoryId', 0);
+        setSelectedPCategoryId(selectedValue);
+    }
 
     const handleSubmit = async (values: FormValues) => {
         try {
             setIsLoading(true)
-            const timerID = setTimeout(() => {
-                toast.success("Thêm thông tin sách thành công!!")
-                console.log(values)
-                setIsLoading(false)
-                setCurrentStepCompleted()
-            }, 1000);
-        } catch (e) {
+            const {
+                pcategoryId,
+                ccategoryId,
+                name,
+                isbnCode,
+                price,
+                quantity,
+                desc,
+                weight,
+                numberOfPages,
+                publishingYear,
+                authorId,
+                providerId,
+                publisherId,
+                languageId,
+                bookFormId
+            } = values
+            setIsLoading(true)
+            await createNewBook(
+                ccategoryId,
+                isbnCode,
+                name,
+                price,
+                quantity,
+                desc,
+                weight,
+                numberOfPages,
+                publishingYear,
+                authorId,
+                providerId,
+                publisherId,
+                languageId,
+                bookFormId
+            )
+            toast.success("Thêm thông tin sách thành công!!")
+            setCurrentStepCompleted()
+            setIsLoading(false)
+        } catch (e: any) {
+            errorHandler(e)
             setIsLoading(false)
             toast.error("Thêm thông tin sách thất bại!!")
         }
@@ -141,11 +226,39 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
+                                    value={values.name}
                                     disabled={stepCompleted}
                                 />
                                 {errors.name && touched.name && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
                                         {errors.name}
+                                    </Typography>
+                                )}
+                            </Box>
+                            <Box sx={{ mt: 2 }}>
+                                <Typography
+                                    variant="subtitle1"
+                                    fontWeight={600}
+                                    component="label"
+                                    htmlFor="isbnCode"
+                                    mb="5px"
+                                    style={{ color: theme.palette.text.primary }}
+                                >
+                                    Mã số định danh quốc tế
+                                </Typography>
+                                <Field
+                                    as={CustomTextField}
+                                    id={"isbnCode"}
+                                    name="isbnCode"
+                                    onChange={handleChange}
+                                    variant="outlined"
+                                    fullWidth
+                                    value={values.isbnCode}
+                                    disabled={stepCompleted}
+                                />
+                                {errors.isbnCode && touched.isbnCode && (
+                                    <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
+                                        {errors.isbnCode}
                                     </Typography>
                                 )}
                             </Box>
@@ -308,22 +421,46 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                             <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
                                     disabled={stepCompleted}
-                                    labelId="categoryId"
-                                    id="categoryId"
-                                    value={values.categoryId}
-                                    name='categoryId'
+                                    labelId="pcategoryId"
+                                    id="pcategoryId"
+                                    value={values.pcategoryId}
+                                    name='pcategoryId'
+                                    onChange={
+                                        (e: any) => handleChangeParentCategory(e, setFieldValue)
+                                    }
+                                >
+                                    <CustomMenuItem value={0} disabled={true}>
+                                        <em>Hãy chọn phân loại sách</em>
+                                    </CustomMenuItem>
+                                    {pCatgoryList?.map((pcategoryItem: IParentCategory) => (
+                                        <CustomMenuItem key={pcategoryItem.id} value={pcategoryItem.id}>{pcategoryItem.name}</CustomMenuItem>
+                                    ))}
+                                </CustomSelectBox>
+                                {errors.pcategoryId && touched.pcategoryId && (
+                                    <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
+                                        {errors.pcategoryId}
+                                    </Typography>
+                                )}
+                            </Box>
+                            <Box sx={{ mt: 2 }}>
+                                <CustomSelectBox
+                                    disabled={stepCompleted}
+                                    labelId="ccategoryId"
+                                    id="ccategoryId"
+                                    value={values.ccategoryId}
+                                    name='ccategoryId'
                                     onChange={handleChange}
                                 >
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn thể loại</em>
                                     </CustomMenuItem>
-                                    <CustomMenuItem value={10}>Khoa học</CustomMenuItem>
-                                    <CustomMenuItem value={20}>Giáo khoa</CustomMenuItem>
-                                    <CustomMenuItem value={30}>Manga</CustomMenuItem>
+                                    {pCategoryDetail.childrenCategory?.map((ccategoryItem: IParentCategory) => (
+                                        <CustomMenuItem key={ccategoryItem.id} value={ccategoryItem.id}>{ccategoryItem.name}</CustomMenuItem>
+                                    ))}
                                 </CustomSelectBox>
-                                {errors.categoryId && touched.categoryId && (
+                                {errors.ccategoryId && touched.ccategoryId && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
-                                        {errors.categoryId}
+                                        {errors.ccategoryId}
                                     </Typography>
                                 )}
                             </Box>
@@ -339,9 +476,9 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn tác giả</em>
                                     </CustomMenuItem>
-                                    <CustomMenuItem value={10}>tg1</CustomMenuItem>
-                                    <CustomMenuItem value={20}>tg2</CustomMenuItem>
-                                    <CustomMenuItem value={30}>tg3</CustomMenuItem>
+                                    {authorList.map((item: IAuthor) => (
+                                        <CustomMenuItem key={item.id} value={item.id}>{item.author_name}</CustomMenuItem>
+                                    ))}
                                 </CustomSelectBox>
                                 {errors.authorId && touched.authorId && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -361,13 +498,35 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn nhà xuất bản</em>
                                     </CustomMenuItem>
-                                    <CustomMenuItem value={10}>xb1</CustomMenuItem>
-                                    <CustomMenuItem value={20}>xb3</CustomMenuItem>
-                                    <CustomMenuItem value={30}>xb2</CustomMenuItem>
+                                    {publisherList?.map((item: IPublisher) => (
+                                        <CustomMenuItem key={item.id} value={item.id}>{item.name}</CustomMenuItem>
+                                    ))}
                                 </CustomSelectBox>
                                 {errors.publisherId && touched.publisherId && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
                                         {errors.publisherId}
+                                    </Typography>
+                                )}
+                            </Box>
+                            <Box sx={{ mt: 2 }}>
+                                <CustomSelectBox
+                                    disabled={stepCompleted}
+                                    labelId="providerId"
+                                    id="providerId"
+                                    value={values.providerId}
+                                    name='providerId'
+                                    onChange={handleChange}
+                                >
+                                    <CustomMenuItem value={0} disabled={true}>
+                                        <em>Hãy chọn nhà cung cấp</em>
+                                    </CustomMenuItem>
+                                    {providerList?.map((item: IProvider) => (
+                                        <CustomMenuItem key={item.id} value={item.id}>{item.name}</CustomMenuItem>
+                                    ))}
+                                </CustomSelectBox>
+                                {errors.providerId && touched.providerId && (
+                                    <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
+                                        {errors.providerId}
                                     </Typography>
                                 )}
                             </Box>
@@ -383,10 +542,9 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn ngôn ngữ sách</em>
                                     </CustomMenuItem>
-                                    <CustomMenuItem value={10}>Tiếng anh</CustomMenuItem>
-                                    <CustomMenuItem value={20}>Tiếng nhật</CustomMenuItem>
-                                    <CustomMenuItem value={30}>Tiếng việt</CustomMenuItem>
-                                    <CustomMenuItem value={30}>Tiếng việt</CustomMenuItem>
+                                    {languageList?.map((item: IBookLanguage) => (
+                                        <CustomMenuItem key={item.id} value={item.id}>{item.language_name}</CustomMenuItem>
+                                    ))}
                                 </CustomSelectBox>
                                 {errors.languageId && touched.languageId && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -406,9 +564,9 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     <CustomMenuItem value={0} disabled={true}>
                                         <em>Hãy chọn hình thức sách</em>
                                     </CustomMenuItem>
-                                    <CustomMenuItem value={10}>Bộ hộp</CustomMenuItem>
-                                    <CustomMenuItem value={20}>Bìa mềm</CustomMenuItem>
-                                    <CustomMenuItem value={30}>Bìa cứng</CustomMenuItem>
+                                    {bookFormList?.map((item: IBookForm) => (
+                                        <CustomMenuItem key={item.id} value={item.id}>{item.name}</CustomMenuItem>
+                                    ))}
                                 </CustomSelectBox>
                                 {errors.bookFormId && touched.bookFormId && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>

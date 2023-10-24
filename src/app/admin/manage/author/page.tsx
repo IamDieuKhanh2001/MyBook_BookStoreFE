@@ -1,7 +1,7 @@
 'use client'
 import PageContainer from '@/components/admin/container/PageContainer';
 import { useConfirm } from 'material-ui-confirm';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
 import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
 import DashboardCard from '@/components/shared/DashboardCard';
@@ -11,14 +11,19 @@ import AuthorTableData from '@/components/admin/Author/AuthorTableData/AuthorTab
 import CreateAuthorModal from '@/components/admin/Author/CreateAuthorModal/CreateAuthorModal';
 import UpdateAuthorModal from '@/components/admin/Author/UpdateAuthorModal/UpdateAuthorModal';
 import useAPIAuthor from '@/lib/hooks/api/useAPIAuthor';
+import { useInView } from 'react-intersection-observer';
 
 const authorPage = () => {
     const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
     const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
     const [authorSelected, setAuthorSelected] = useState<IAuthor | null>(null);
     const confirm = useConfirm();
+    const [page, setPage] = useState(1)
+    const [limit, setLimit] = useState(10)
+    const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
+    const [isLastPage, setIsLastPage] = useState(false)
     const { getAuthorList, deleteAuthorById } = useAPIAuthor()
-    const { data, isLoading, mutate, error } = getAuthorList()
+    const { data, isLoading, mutate, error } = getAuthorList(1, 9999)
 
     const handleDeleteData = async (id: number) => {
         confirm({
@@ -36,6 +41,19 @@ const authorPage = () => {
                 }
             })
     }
+
+    const LoadProductNextPage = () => {
+        const nextPage = page + 1;
+        if (nextPage > 1 && !isLastPage) {
+            setPage(nextPage)
+        }
+    };
+
+    useEffect(() => {
+        if (inView) {
+            LoadProductNextPage();
+        }
+    }, [inView]);
 
     return (
         <>

@@ -17,7 +17,7 @@ const CreateAuthorModal = (props: ICreateAuthorModalProps) => {
     const { showModalCreate, setShowModalCreate } = props;
     const theme = useTheme();
     const { createNewAuthor, getAuthorList } = useAPIAuthor()
-    const { mutate } = getAuthorList()
+    const { mutate } = getAuthorList(1, 9999)
 
     const style = {
         position: 'absolute' as 'absolute',

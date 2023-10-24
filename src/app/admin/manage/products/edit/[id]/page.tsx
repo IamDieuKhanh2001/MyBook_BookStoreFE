@@ -7,9 +7,9 @@ interface ProductManagementEditPageProps {
 }
 const ProductManagementEditPage = ({ params }: ProductManagementEditPageProps) => {
   return (
-    <div>
+    <>
       <h1>Edit {params.id}</h1>
-    </div>
+    </>
   )
 }
 

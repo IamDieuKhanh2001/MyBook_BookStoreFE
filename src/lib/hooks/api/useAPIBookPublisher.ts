@@ -7,14 +7,18 @@ const useAPIBookPublisher = () => {
     const URL_PREFIX = '/admin/book/publisher'
     const axiosAuth = useAxiosAuth()
 
-    const getPublisherList = () => {
+    const getPublisherList = (page: number = 1, limit: number = 10) => {
         const fetcher = async (url: string) => {
             try {
                 const session = await getSession();
                 const headers = {
                     Authorization: `Bearer ${session?.user.jwtToken}`,
                 }
-                const response = await axiosAuth.get(url, { headers });
+                const params = {
+                    page,
+                    limit,
+                }
+                const response = await axiosAuth.get(url, { headers, params });
                 return response.data;
             }
             catch (e) {
@@ -31,7 +35,7 @@ const useAPIBookPublisher = () => {
         )
 
         return {
-            data: data ?? [], // nếu data = undefined sẽ là mảng rỗng
+            data: data?.data ?? [], // nếu data = undefined sẽ là mảng rỗng
             mutate: mutate,
             isLoading: !error && !data,
             error: error,
