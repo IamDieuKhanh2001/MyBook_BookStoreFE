@@ -27,8 +27,9 @@ interface IProps {
 const UpdateAuthorModal = (props: IProps) => {
     const { showModalUpdate, setShowModalUpdate, authorSelected, setAuthorSelected } = props;
     const theme = useTheme();
-    const { updateAuthorById, getAuthorList } = useAPIAuthor()
-    const { mutate } = getAuthorList(1, 9999)
+    const { updateAuthorById, getAuthorListPaginated } = useAPIAuthor()
+    // const { mutate } = getAuthorList(1, 9999)
+    const { mutate } = getAuthorListPaginated()
 
     const style = {
         position: 'absolute' as 'absolute',

@@ -16,8 +16,9 @@ interface ICreateAuthorModalProps {
 const CreateAuthorModal = (props: ICreateAuthorModalProps) => {
     const { showModalCreate, setShowModalCreate } = props;
     const theme = useTheme();
-    const { createNewAuthor, getAuthorList } = useAPIAuthor()
-    const { mutate } = getAuthorList(1, 9999)
+    const { createNewAuthor, getAuthorListPaginated } = useAPIAuthor()
+    // const { mutate } = getAuthorList(1, 9999)
+    const { mutate } = getAuthorListPaginated()
 
     const style = {
         position: 'absolute' as 'absolute',

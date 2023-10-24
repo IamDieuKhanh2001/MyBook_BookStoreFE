@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
+import { Button, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
 
 interface IAuthorTableDataProps {
@@ -8,9 +8,18 @@ interface IAuthorTableDataProps {
   setShowModalUpdate: (value: boolean) => void;
   handleDeleteData: (id: number) => void;
   setAuthorSelected: (value: IAuthor | null) => void
+  isReachedEnd: boolean | undefined
+  loadMoreRef: (node?: Element | null | undefined) => void
 }
 const AuthorTableData = (props: IAuthorTableDataProps) => {
-  const { authorList, handleDeleteData, setAuthorSelected, setShowModalUpdate } = props
+  const {
+    authorList,
+    handleDeleteData,
+    setAuthorSelected,
+    setShowModalUpdate,
+    isReachedEnd,
+    loadMoreRef
+  } = props
 
   return (
     <>
@@ -51,8 +60,8 @@ const AuthorTableData = (props: IAuthorTableDataProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {authorList.length > 0 ? (
-            (authorList.map((author: IAuthor) => (
+          {authorList && authorList.length > 0 ? (
+            authorList?.map((author: IAuthor) => (
               <TableRow key={author.id}>
                 <TableCell>
                   <Typography
@@ -71,7 +80,7 @@ const AuthorTableData = (props: IAuthorTableDataProps) => {
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={500}>
-                    {author.created_at}
+                  {author.created_at}
                   </Typography>
                 </TableCell>
                 <TableCell align="right">
@@ -96,16 +105,27 @@ const AuthorTableData = (props: IAuthorTableDataProps) => {
                   </Button>
                 </TableCell>
               </TableRow>
-            )))
+            ))
           ) : (
             <TableRow>
               <TableCell colSpan={5}>
                 <Typography align="center" variant="h4" mt={2}>
-                  Empty data list
+                  No data available
                 </Typography>
               </TableCell>
             </TableRow>
           )}
+          {
+            (isReachedEnd === false) && (
+              <TableRow
+                ref={loadMoreRef}
+              >
+                <TableCell align='center' colSpan={5}>
+                  <CircularProgress color="secondary" />
+                </TableCell>
+              </TableRow>
+            )
+          }
         </TableBody>
       </Table>
     </>

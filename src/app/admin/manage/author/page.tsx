@@ -18,12 +18,16 @@ const authorPage = () => {
     const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
     const [authorSelected, setAuthorSelected] = useState<IAuthor | null>(null);
     const confirm = useConfirm();
-    const [page, setPage] = useState(1)
-    const [limit, setLimit] = useState(10)
     const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
-    const [isLastPage, setIsLastPage] = useState(false)
-    const { getAuthorList, deleteAuthorById } = useAPIAuthor()
-    const { data, isLoading, mutate, error } = getAuthorList(1, 9999)
+
+    const { getAuthorListPaginated, deleteAuthorById } = useAPIAuthor()
+
+    const { paginatedData, error, isLoading, isReachedEnd, mutate, setSize, size } = getAuthorListPaginated()
+    useEffect(() => {
+        if (inView) {
+            setSize(size + 1)
+        }
+    }, [inView]);
 
     const handleDeleteData = async (id: number) => {
         confirm({
@@ -42,19 +46,6 @@ const authorPage = () => {
             })
     }
 
-    const LoadProductNextPage = () => {
-        const nextPage = page + 1;
-        if (nextPage > 1 && !isLastPage) {
-            setPage(nextPage)
-        }
-    };
-
-    useEffect(() => {
-        if (inView) {
-            LoadProductNextPage();
-        }
-    }, [inView]);
-
     return (
         <>
             <PageContainer title='Author CRUD' description='CRUD Operation for author'>
@@ -70,6 +61,13 @@ const authorPage = () => {
                                     Something when wrong — <strong>check your connection and reload page!</strong>
                                 </Alert>
                             )}
+                            <Button
+                                color='error'
+                                size="small"
+                                onClick={() => setSize(1)}
+                            >
+                                reset
+                            </Button>
                             <Button
                                 sx={{ mt: 2 }}
                                 startIcon={<IconPlus />}
@@ -94,8 +92,10 @@ const authorPage = () => {
                                 Recycle bin
                             </Button>
                             <AuthorTableData
-                                authorList={data}
+                                authorList={paginatedData}
                                 handleDeleteData={handleDeleteData}
+                                isReachedEnd={isReachedEnd}
+                                loadMoreRef={ref}
                                 setAuthorSelected={setAuthorSelected}
                                 setShowModalUpdate={setShowModalUpdate}
                             />

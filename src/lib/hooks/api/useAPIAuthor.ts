@@ -2,33 +2,97 @@ import React from 'react'
 import useAxiosAuth from '../utils/useAxiosAuth'
 import { getSession } from 'next-auth/react'
 import useSWR from 'swr'
+import useSWRInfinite from 'swr/infinite'
 
 const useAPIAuthor = () => {
     const URL_PREFIX = '/admin/book/author'
     const axiosAuth = useAxiosAuth()
+    const PAGE_SIZE = 4
 
-    const getAuthorList = (page: number = 1, limit: number = 10) => {
+    const getAuthorListPaginated = () => {
+        // const params = [];
+        // params.push(`page=${page}`)
+        // params.push(`limit=${limit}`)
+        // console.log("page " + page)
+        // console.log("limit " + limit)
+        const getKey = (pageIndex: number, previousPageData: any) => {
+            pageIndex = pageIndex + 1
+            if (previousPageData && !previousPageData.length) {
+                // Nếu trang trước đã trả về một trang trống, không cần gửi thêm yêu cầu
+                return null;
+            }
+
+            return `${URL_PREFIX}?page=${pageIndex}&limit=${PAGE_SIZE}`;
+        };
         const fetcher = async (url: string) => {
             try {
                 const session = await getSession();
                 const headers = {
                     Authorization: `Bearer ${session?.user.jwtToken}`,
                 }
-                const params = {
-                    page,
-                    limit,
+                // const params = {
+                //     page,
+                //     limit,
+                // }
+                // console.log(params)
+                const response = await axiosAuth.get(url, { headers });
+                return response.data.data;
+            } catch (error) {
+                console.error('Lỗi khi fetch:', error);
+                return Promise.reject(error); // Trả về một Promise bị từ chối
+            }
+        }
+        const { data, size, setSize, error, isLoading, mutate } = useSWRInfinite(
+            getKey,
+            fetcher,
+            { 
+                revalidateFirstPage: false 
+            }
+        )
+        const paginatedData = data?.flat() ?? []
+        const isReachedEnd = data && data[data.length - 1]?.length < PAGE_SIZE
+        console.log(paginatedData)
+        console.log('size: ' + size)
+        console.log('isReachedEnd: ' + isReachedEnd)
+
+        return {
+            paginatedData,
+            isReachedEnd,
+            size,
+            setSize,
+            mutate,
+            isLoading,
+            error,
+        }
+    }
+
+    const getAuthorList = (page: number = 1, limit: number = 10) => {
+        const params = [];
+        params.push(`page=${page}`)
+        params.push(`limit=${limit}`)
+        // console.log("page " + page)
+        // console.log("limit " + limit)
+
+        const fetcher = async (url: string) => {
+            try {
+                const session = await getSession();
+                const headers = {
+                    Authorization: `Bearer ${session?.user.jwtToken}`,
                 }
-                console.log(params)
-                const response = await axiosAuth.get(url, { headers, params });
+                // const params = {
+                //     page,
+                //     limit,
+                // }
+                // console.log(params)
+                const response = await axiosAuth.get(url, { headers });
                 return response.data;
             } catch (error) {
                 console.error('Lỗi khi fetch:', error);
                 return Promise.reject(error); // Trả về một Promise bị từ chối
             }
         }
-
         const { data, mutate, isLoading, error } = useSWR(
-            URL_PREFIX,
+            `${URL_PREFIX}?${params.join('&')}`,
             fetcher,
             {
                 revalidateOnReconnect: false,
@@ -172,6 +236,7 @@ const useAPIAuthor = () => {
 
     return {
         getAuthorList,
+        getAuthorListPaginated,
         getAuthorTrashList,
         createNewAuthor,
         updateAuthorById,
