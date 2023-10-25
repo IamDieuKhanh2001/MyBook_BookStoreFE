@@ -1,7 +1,7 @@
 'use client'
 import PageContainer from '@/components/admin/container/PageContainer';
 import { useConfirm } from 'material-ui-confirm';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
 import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
 import DashboardCard from '@/components/shared/DashboardCard';
@@ -11,14 +11,19 @@ import PublisherTableData from '@/components/admin/Publisher/PublisherTableData/
 import CreatePublisherModal from '@/components/admin/Publisher/CreatePublisherModal/CreatePublisherModal';
 import UpdatePublisherModal from '@/components/admin/Publisher/UpdatePublisherModal/UpdatePublisherModal';
 import useAPIBookPublisher from '@/lib/hooks/api/useAPIBookPublisher';
+import { useInView } from 'react-intersection-observer';
 
 const publisherPage = () => {
     const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
     const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
     const [publisherSelected, setPublisherSelected] = useState<IPublisher | null>(null);
     const confirm = useConfirm();
-    const { getPublisherList, deletePublisherById } = useAPIBookPublisher()
-    const { data, error, isLoading, mutate } = getPublisherList()
+    const [filters, setFilters] = useState({
+        limit: '4'
+    });
+    const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
+    const { getPublisherListPaginated, deletePublisherById } = useAPIBookPublisher()
+    const { paginatedData, isReachedEnd, setSize, error, isLoading, mutate } = getPublisherListPaginated(filters.limit)
 
     const handleDeleteData = async (id: number) => {
         confirm({
@@ -36,6 +41,12 @@ const publisherPage = () => {
                 }
             })
     }
+
+    useEffect(() => {
+        if (inView) {
+            setSize((previousSize) => previousSize + 1)
+        }
+    }, [inView]);
 
     return (
         <>
@@ -76,10 +87,12 @@ const publisherPage = () => {
                                 Recycle bin
                             </Button>
                             <PublisherTableData
-                                publisherList={data}
+                                publisherList={paginatedData}
                                 handleDeleteData={handleDeleteData}
                                 setPublisherSelected={setPublisherSelected}
                                 setShowModalUpdate={setShowModalUpdate}
+                                isReachedEnd={isReachedEnd}
+                                loadMoreRef={ref}
                             />
                         </Box>
                     </DashboardCard>
@@ -87,12 +100,14 @@ const publisherPage = () => {
                 <CreatePublisherModal
                     showModalCreate={showModalCreate}
                     setShowModalCreate={setShowModalCreate}
+                    mutate={mutate}
                 />
                 <UpdatePublisherModal
                     publisherSelected={publisherSelected}
                     setPublisherSelected={setPublisherSelected}
                     setShowModalUpdate={setShowModalUpdate}
                     showModalUpdate={showModalUpdate}
+                    mutate={mutate}
                 />
             </PageContainer>
         </>

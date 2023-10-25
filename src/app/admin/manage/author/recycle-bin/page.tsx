@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
 import { toast } from 'react-toastify';
 import { useConfirm } from 'material-ui-confirm';
@@ -9,12 +9,14 @@ import PageContainer from '@/components/admin/container/PageContainer'
 import DashboardCard from '@/components/shared/DashboardCard'
 import RecycleBinAuthorTableData from '@/components/admin/Author/RecycleBinAuthorTableData/RecycleBinAuthorTableData';
 import useAPIAuthor from '@/lib/hooks/api/useAPIAuthor';
+import { useInView } from 'react-intersection-observer';
 
 const authorRecycleBinPage = () => {
     const router = useRouter()
     const confirm = useConfirm();
-    const { getAuthorTrashList, destroyAuthorById, restoreAuthorById } = useAPIAuthor()
-    const { data, error, isLoading, mutate } = getAuthorTrashList()
+    const { getAuthorTrashListPaginated, destroyAuthorById, restoreAuthorById } = useAPIAuthor()
+    const { paginatedData: authorTrashList, isReachedEnd, setSize, error, isLoading, mutate } = getAuthorTrashListPaginated()
+    const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
 
     const handleDestroyData = async (id: number) => {
         confirm({
@@ -49,6 +51,13 @@ const authorRecycleBinPage = () => {
                 }
             })
     }
+
+    useEffect(() => {
+        if (inView) {
+            setSize((previousSize) => previousSize + 1)
+        }
+    }, [inView]);
+
     return (
         <>
             <PageContainer title='recycle bin' description='recycle bin'>
@@ -78,7 +87,9 @@ const authorRecycleBinPage = () => {
                             <RecycleBinAuthorTableData
                                 handleDestroyData={handleDestroyData}
                                 handleRestoreData={handleRestoreData}
-                                recycleBinList={data}
+                                recycleBinList={authorTrashList}
+                                isReachedEnd={isReachedEnd}
+                                loadMoreRef={ref}
                             />
                         </Box>
                     </DashboardCard>

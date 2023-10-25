@@ -13,6 +13,7 @@ import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import { toast } from 'react-toastify';
 import useAPIAuthor from '@/lib/hooks/api/useAPIAuthor';
+import { KeyedMutator } from 'swr';
 
 interface FormValues {
     id: number;
@@ -23,13 +24,13 @@ interface IProps {
     setShowModalUpdate: (value: boolean) => void;
     authorSelected: IAuthor | null;
     setAuthorSelected: (value: IAuthor | null) => void;
+    mutate: KeyedMutator<any[]>
 }
 const UpdateAuthorModal = (props: IProps) => {
-    const { showModalUpdate, setShowModalUpdate, authorSelected, setAuthorSelected } = props;
+    const { showModalUpdate, setShowModalUpdate, authorSelected, setAuthorSelected, mutate } = props;
     const theme = useTheme();
-    const { updateAuthorById, getAuthorListPaginated } = useAPIAuthor()
+    const { updateAuthorById } = useAPIAuthor()
     // const { mutate } = getAuthorList(1, 9999)
-    const { mutate } = getAuthorListPaginated()
 
     const style = {
         position: 'absolute' as 'absolute',

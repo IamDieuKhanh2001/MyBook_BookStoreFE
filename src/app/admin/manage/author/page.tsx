@@ -19,13 +19,16 @@ const authorPage = () => {
     const [authorSelected, setAuthorSelected] = useState<IAuthor | null>(null);
     const confirm = useConfirm();
     const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
+    const [filters, setFilters] = useState({
+        limit: '4'
+    });
 
     const { getAuthorListPaginated, deleteAuthorById } = useAPIAuthor()
-
-    const { paginatedData, error, isLoading, isReachedEnd, mutate, setSize, size } = getAuthorListPaginated()
+    const { paginatedData, error, isLoading, isReachedEnd, mutate, setSize } = getAuthorListPaginated(filters.limit)
+    
     useEffect(() => {
         if (inView) {
-            setSize(size + 1)
+            setSize((previousSize) => previousSize + 1)
         }
     }, [inView]);
 
@@ -105,12 +108,14 @@ const authorPage = () => {
                 <CreateAuthorModal
                     showModalCreate={showModalCreate}
                     setShowModalCreate={setShowModalCreate}
+                    mutate={mutate}
                 />
                 <UpdateAuthorModal
                     authorSelected={authorSelected}
                     setAuthorSelected={setAuthorSelected}
                     setShowModalUpdate={setShowModalUpdate}
                     showModalUpdate={showModalUpdate}
+                    mutate={mutate}
                 />
             </PageContainer>
         </>

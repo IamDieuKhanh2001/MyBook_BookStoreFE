@@ -62,7 +62,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
     const { data: authorList } = getAuthorList(1,9999)
     const { data: languageList } = getLanguageList()
     const { data: providerList } = getProviderList(1, 9999)
-    const { data: publisherList } = getPublisherList()
+    const { data: publisherList } = getPublisherList() //paging
     const { data: bookFormList } = getBookFormList()
     const { data: pCatgoryList } = getParentCategoryList()
     const { data: pCategoryDetail } = getParentCategoryDetail(selectedPCategoryId)

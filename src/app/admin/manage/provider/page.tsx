@@ -1,6 +1,6 @@
 'use client'
 import { useConfirm } from 'material-ui-confirm';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
 import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
 import DashboardCard from '@/components/shared/DashboardCard';
@@ -11,14 +11,19 @@ import ProviderTableData from '@/components/admin/Provider/ProviderTableData/Pro
 import CreateProviderModal from '@/components/admin/Provider/CreateProviderModal/CreateProviderModal';
 import UpdateProviderModal from '@/components/admin/Provider/UpdateProviderModal/UpdateProviderModal';
 import useAPIBookProvider from '@/lib/hooks/api/useAPIBookProvider';
+import { useInView } from 'react-intersection-observer';
 
 const BookProviderPage = () => {
     const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
     const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
     const [providerSelected, setProviderSelected] = useState<IProvider | null>(null);
     const confirm = useConfirm();
-    const { getProviderList, deleteProviderById, } = useAPIBookProvider()
-    const { data, error, isLoading, mutate } = getProviderList()
+    const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
+    const [filters, setFilters] = useState({
+        limit: '4'
+    });
+    const { getProviderListPaginated, deleteProviderById, } = useAPIBookProvider()
+    const { paginatedData, error, isLoading, isReachedEnd, mutate, setSize } = getProviderListPaginated(filters.limit)
 
     const handleDeleteData = async (id: number) => {
         confirm({
@@ -36,6 +41,13 @@ const BookProviderPage = () => {
                 }
             })
     }
+
+    useEffect(() => {
+        if (inView) {
+            setSize((previousSize) => previousSize + 1)
+        }
+    }, [inView]);
+
     return (
         <>
             <PageContainer title='Provider CRUD' description='CRUD Operation for provider'>
@@ -75,10 +87,12 @@ const BookProviderPage = () => {
                                 Recycle bin
                             </Button>
                             <ProviderTableData
-                                providerList={data}
+                                providerList={paginatedData}
                                 handleDeleteData={handleDeleteData}
                                 setProviderSelected={setProviderSelected}
                                 setShowModalUpdate={setShowModalUpdate}
+                                isReachedEnd={isReachedEnd}
+                                loadMoreRef={ref}
                             />
                         </Box>
                     </DashboardCard>
@@ -86,12 +100,14 @@ const BookProviderPage = () => {
                 <CreateProviderModal
                     setShowModalCreate={setShowModalCreate}
                     showModalCreate={showModalCreate}
+                    mutate={mutate}
                 />
                 <UpdateProviderModal
                     providerSelected={providerSelected}
                     setProviderSelected={setProviderSelected}
                     setShowModalUpdate={setShowModalUpdate}
                     showModalUpdate={showModalUpdate}
+                    mutate={mutate}
                 />
             </PageContainer>
         </>

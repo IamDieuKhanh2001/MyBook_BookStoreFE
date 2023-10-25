@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
 import { toast } from 'react-toastify';
 import { useConfirm } from 'material-ui-confirm';
@@ -9,12 +9,14 @@ import PageContainer from '@/components/admin/container/PageContainer'
 import DashboardCard from '@/components/shared/DashboardCard'
 import RecycleBinProviderTableData from '@/components/admin/Provider/RecycleBinProviderTableData/RecycleBinProviderTableData';
 import useAPIBookProvider from '@/lib/hooks/api/useAPIBookProvider';
+import { useInView } from 'react-intersection-observer';
 
 const bookProviderRecycleBinPage = () => {
     const router = useRouter()
     const confirm = useConfirm();
-    const { getProviderTrashList, restoreProviderById, destroyProviderById } = useAPIBookProvider()
-    const { data, error, isLoading, mutate } = getProviderTrashList()
+    const { getProviderTrashListPaginated, restoreProviderById, destroyProviderById } = useAPIBookProvider()
+    const { paginatedData: providerTrashList, isReachedEnd, error, setSize, mutate } = getProviderTrashListPaginated()
+    const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
 
     const handleDestroyData = async (id: number) => {
         confirm({
@@ -49,6 +51,13 @@ const bookProviderRecycleBinPage = () => {
                 }
             })
     }
+
+    useEffect(() => {
+        if (inView) {
+            setSize((previousSize) => previousSize + 1)
+        }
+    }, [inView]);
+
     return (
         <>
             <PageContainer title='recycle bin' description='recycle bin'>
@@ -69,16 +78,18 @@ const bookProviderRecycleBinPage = () => {
                             >
                                 Trở về
                             </Button>
-                            {/* {error && (
+                            {error && (
                                 <Alert sx={{ mb: 2 }} severity="error">
                                     <AlertTitle>Error</AlertTitle>
                                     Something when wrong — <strong>check your connection and reload page!</strong>
                                 </Alert>
-                            )} */}
+                            )}
                             <RecycleBinProviderTableData
-                                recycleBinList={data}
+                                recycleBinList={providerTrashList}
                                 handleDestroyData={handleDestroyData}
                                 handleRestoreData={handleRestoreData}
+                                isReachedEnd={isReachedEnd}
+                                loadMoreRef={ref}
                             />
                         </Box>
                     </DashboardCard>

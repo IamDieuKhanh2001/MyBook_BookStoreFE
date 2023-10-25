@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import useAPIBookProvider from '@/lib/hooks/api/useAPIBookProvider';
 import { errorHandler } from '@/lib/utils/ErrorHandler';
+import { KeyedMutator } from 'swr';
 
 interface FormValues {
     name: string;
@@ -13,12 +14,12 @@ interface FormValues {
 interface ICreateProviderModalProps {
     showModalCreate: boolean;
     setShowModalCreate: (value: boolean) => void;
+    mutate: KeyedMutator<any[]>
 }
 const CreateProviderModal = (props: ICreateProviderModalProps) => {
-    const { showModalCreate, setShowModalCreate } = props;
+    const { showModalCreate, setShowModalCreate, mutate } = props;
     const theme = useTheme();
-    const { createNewProvider, getProviderList } = useAPIBookProvider()
-    const { mutate } = getProviderList()
+    const { createNewProvider } = useAPIBookProvider()
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -114,7 +115,7 @@ const CreateProviderModal = (props: ICreateProviderModalProps) => {
                                         size="large"
                                         fullWidth
                                         type="submit"
-                                        disabled={false}
+                                        disabled={isSubmitting}
                                     >
                                         {
                                             isSubmitting ?

@@ -1,5 +1,5 @@
 'use client'
-import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
+import { Button, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import { IconHistory, IconTrashX } from '@tabler/icons-react';
 import React from 'react'
 
@@ -7,9 +7,17 @@ interface IProps {
     recycleBinList: IBookForm[]
     handleDestroyData: (id: number) => void;
     handleRestoreData: (id: number) => void;
+    isReachedEnd: boolean | undefined
+    loadMoreRef: (node?: Element | null | undefined) => void
 }
 const RecycleBinProviderTableData = (props: IProps) => {
-    const { recycleBinList, handleDestroyData, handleRestoreData } = props
+    const { 
+        recycleBinList, 
+        handleDestroyData, 
+        handleRestoreData,
+        isReachedEnd,
+        loadMoreRef
+    } = props
 
     return (
         <>
@@ -50,7 +58,7 @@ const RecycleBinProviderTableData = (props: IProps) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {recycleBinList.length > 0 ? (
+                    {recycleBinList && recycleBinList.length > 0 ? (
                         (recycleBinList.map((provider: IProvider) => (
                             <TableRow key={provider.id}>
                                 <TableCell>
@@ -102,6 +110,17 @@ const RecycleBinProviderTableData = (props: IProps) => {
                             </TableCell>
                         </TableRow>
                     )}
+                    {
+                        (isReachedEnd === false) && (
+                            <TableRow
+                                ref={loadMoreRef}
+                            >
+                                <TableCell align='center' colSpan={5}>
+                                    <CircularProgress color="secondary" />
+                                </TableCell>
+                            </TableRow>
+                        )
+                    }
                 </TableBody>
             </Table>
         </>

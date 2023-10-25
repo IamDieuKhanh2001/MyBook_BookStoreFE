@@ -14,6 +14,7 @@ import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import { toast } from 'react-toastify';
 import useAPIBookProvider from '@/lib/hooks/api/useAPIBookProvider';
 import { errorHandler } from '@/lib/utils/ErrorHandler';
+import { KeyedMutator } from 'swr';
 
 interface FormValues {
     id: number;
@@ -24,12 +25,12 @@ interface IProps {
     setShowModalUpdate: (value: boolean) => void;
     providerSelected: IProvider | null;
     setProviderSelected: (value: IProvider | null) => void;
+    mutate: KeyedMutator<any[]>
 }
 const UpdateProviderModal = (props: IProps) => {
-    const { showModalUpdate, setShowModalUpdate, providerSelected, setProviderSelected } = props;
+    const { showModalUpdate, setShowModalUpdate, providerSelected, setProviderSelected, mutate } = props;
     const theme = useTheme();
-    const { getProviderList, updateProviderById } = useAPIBookProvider()
-    const { mutate } = getProviderList()
+    const { updateProviderById } = useAPIBookProvider()
 
     const style = {
         position: 'absolute' as 'absolute',

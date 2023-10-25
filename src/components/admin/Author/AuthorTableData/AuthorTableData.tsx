@@ -61,7 +61,7 @@ const AuthorTableData = (props: IAuthorTableDataProps) => {
         </TableHead>
         <TableBody>
           {authorList && authorList.length > 0 ? (
-            authorList?.map((author: IAuthor) => (
+            authorList.map((author) => (
               <TableRow key={author.id}>
                 <TableCell>
                   <Typography
