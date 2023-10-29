@@ -43,53 +43,55 @@ interface FormValues {
     languageId: number,
     bookFormId: number,
 }
-interface IAddInfoProductProps {
+interface IEditInfoProductProps {
     displayTab?: boolean,
     setCurrentStepCompleted: () => void,
     stepCompleted?: boolean,
-    setProductCreated: React.Dispatch<React.SetStateAction<IBook | null>>
+    productEdit: IBook,
 }
-const AddInfoProduct = (props: IAddInfoProductProps) => {
+const EditInfoProduct = (props: IEditInfoProductProps) => {
     const {
         displayTab = false,
         setCurrentStepCompleted,
         stepCompleted = false,
-        setProductCreated,
+        productEdit,
     } = props
     const theme = useTheme();
-    const [selectedPCategoryId, setSelectedPCategoryId] = useState<number>(0);
+    const [selectedPCategoryId, setSelectedPCategoryId] = useState<number>(
+        productEdit?.ccategory?.parent_category_id || 0
+    );
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const { updateBookInfo } = useAPIBook()
     const { getLanguageList } = useAPIBookLanguage()
     const { getProviderListPaginated } = useAPIBookProvider()
     const { getPublisherListPaginated } = useAPIBookPublisher()
     const { getBookFormList } = useAPIBookForm()
     const { getAuthorListPaginated } = useAPIAuthor()
     const { getParentCategoryList, getParentCategoryDetail } = useAPIParentCategory()
-    const { createNewBook } = useAPIBook()
     const { paginatedData: authorList } = getAuthorListPaginated('999999')
     const { data: languageList } = getLanguageList()
     const { paginatedData: providerList } = getProviderListPaginated('999999')
     const { paginatedData: publisherList } = getPublisherListPaginated('999999')
     const { data: bookFormList } = getBookFormList()
     const { data: pCatgoryList } = getParentCategoryList()
-    const { data: pCategoryDetail } = getParentCategoryDetail(selectedPCategoryId)
+    const { data: pCategoryDetail } = getParentCategoryDetail(productEdit?.ccategory?.parent_category_id || 0)
 
     const initialValues: FormValues = {
-        pcategoryId: 0,
-        ccategoryId: 0,
-        name: '',
-        isbnCode: '',
-        price: 0,
-        quantity: 1,
-        desc: 'aaa',
-        weight: 0,
-        numberOfPages: 0,
+        pcategoryId: productEdit?.ccategory?.parent_category_id || 0,
+        ccategoryId: productEdit?.ccategory?.id || 0,
+        name: productEdit?.name || '',
+        isbnCode: productEdit?.isbn_code || '',
+        price: productEdit?.price || 0,
+        quantity: productEdit?.quantity || 1,
+        desc: productEdit?.desc || '',
+        weight: productEdit?.weight || 0,
+        numberOfPages: productEdit?.number_of_pages || 1,
         publishingYear: new Date().getFullYear(), // current year
-        authorId: 0,
-        providerId: 0,
-        publisherId: 0,
-        languageId: 0,
-        bookFormId: 0,
+        authorId: productEdit?.author?.id || 0,
+        providerId: productEdit?.provider?.id || 0,
+        publisherId: productEdit?.publisher?.id || 0,
+        languageId: productEdit?.language?.id || 0,
+        bookFormId: productEdit?.book_form?.id || 0,
     }
     const validationSchema = Yup.object().shape({
         pcategoryId: Yup.number()
@@ -178,8 +180,9 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                 languageId,
                 bookFormId
             } = values
+            console.log(values)
             setIsLoading(true)
-            const res = await createNewBook(
+            const res = await updateBookInfo(
                 ccategoryId,
                 isbnCode,
                 name,
@@ -195,9 +198,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                 languageId,
                 bookFormId
             )
-            console.log(res)
-            setProductCreated(res.data)
-            toast.success("Thêm thông tin sách thành công!!")
+            toast.success("Sửa thông tin sách thành công!!")
             setCurrentStepCompleted()
             setIsLoading(false)
         } catch (e: any) {
@@ -211,6 +212,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
         <>
             <Stack style={{ display: displayTab ? 'block' : 'none' }}>
                 <Formik
+                    enableReinitialize={true}
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
@@ -263,7 +265,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                     variant="outlined"
                                     fullWidth
                                     value={values.isbnCode}
-                                    disabled={stepCompleted}
+                                    disabled={true}
                                 />
                                 {errors.isbnCode && touched.isbnCode && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -442,7 +444,10 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                         <em>Hãy chọn phân loại sách</em>
                                     </CustomMenuItem>
                                     {pCatgoryList?.map((pcategoryItem: IParentCategory) => (
-                                        <CustomMenuItem key={pcategoryItem.id} value={pcategoryItem.id}>{pcategoryItem.name}</CustomMenuItem>
+                                        <CustomMenuItem key={pcategoryItem.id} value={pcategoryItem.id}>
+                                            {pcategoryItem.name}
+                                            &nbsp;(id:{pcategoryItem.id})
+                                        </CustomMenuItem>
                                     ))}
                                 </CustomSelectBox>
                                 {errors.pcategoryId && touched.pcategoryId && (
@@ -464,7 +469,10 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                         <em>Hãy chọn thể loại</em>
                                     </CustomMenuItem>
                                     {pCategoryDetail.childrenCategory?.map((ccategoryItem: IParentCategory) => (
-                                        <CustomMenuItem key={ccategoryItem.id} value={ccategoryItem.id}>{ccategoryItem.name}</CustomMenuItem>
+                                        <CustomMenuItem key={ccategoryItem.id} value={ccategoryItem.id}>
+                                            {ccategoryItem.name}
+                                            &nbsp;(id:{ccategoryItem.id})
+                                        </CustomMenuItem>
                                     ))}
                                 </CustomSelectBox>
                                 {errors.ccategoryId && touched.ccategoryId && (
@@ -610,4 +618,4 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
     )
 }
 
-export default AddInfoProduct
+export default EditInfoProduct

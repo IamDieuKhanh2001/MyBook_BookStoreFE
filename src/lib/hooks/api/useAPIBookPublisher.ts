@@ -1,6 +1,5 @@
 import React from 'react'
 import useAxiosAuth from '../utils/useAxiosAuth'
-import useSWR from 'swr'
 import { getSession } from "next-auth/react";
 import useSWRInfinite from 'swr/infinite';
 
@@ -48,41 +47,6 @@ const useAPIBookPublisher = () => {
             mutate,
             isLoading,
             error,
-        }
-    }
-
-    const getPublisherList = (page: number = 1, limit: number = 10) => {
-        const fetcher = async (url: string) => {
-            try {
-                const session = await getSession();
-                const headers = {
-                    Authorization: `Bearer ${session?.user.jwtToken}`,
-                }
-                const params = {
-                    page,
-                    limit,
-                }
-                const response = await axiosAuth.get(url, { headers, params });
-                return response.data;
-            }
-            catch (e) {
-                throw new Error("Error fetch publisher list: " + error.message);
-            }
-        }
-
-        const { data, mutate, isLoading, error } = useSWR(
-            URL_PREFIX,
-            fetcher,
-            {
-                revalidateOnReconnect: false,
-            }
-        )
-
-        return {
-            data: data?.data ?? [], // nếu data = undefined sẽ là mảng rỗng
-            mutate: mutate,
-            isLoading: !error && !data,
-            error: error,
         }
     }
 
@@ -217,7 +181,6 @@ const useAPIBookPublisher = () => {
     }
 
     return {
-        getPublisherList,
         getPublisherListPaginated,
         getPublisherTrashListPaginated,
         createNewPublisher,

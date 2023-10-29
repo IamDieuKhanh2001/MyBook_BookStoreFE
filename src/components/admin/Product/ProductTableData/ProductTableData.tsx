@@ -1,22 +1,23 @@
 'use client'
 import React from 'react'
 import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography, Stack, CircularProgress, Box } from '@mui/material'
-import { IconEdit, IconTrash } from '@tabler/icons-react'
+import { IconEdit, IconEye, IconTrash } from '@tabler/icons-react'
 import { IBook } from '../../../../../types/IBook'
+import { truncateText } from '@/lib/utils/TextUtils'
+import { useRouter } from 'next/navigation'
 
 interface IProductTableDataProps {
     bookListLoaded: IBook[]
     handleDeleteData: (id: string) => void
-    isLastPage: boolean
-    isLoading: boolean
+    isReachedEnd: boolean | undefined
     loadMoreRef: (node?: Element | null | undefined) => void
 }
 const ProductTableData = (props: IProductTableDataProps) => {
+    const router = useRouter()
     const {
         bookListLoaded,
         handleDeleteData,
-        isLastPage,
-        isLoading,
+        isReachedEnd,
         loadMoreRef,
     } = props
 
@@ -43,6 +44,11 @@ const ProductTableData = (props: IProductTableDataProps) => {
                         </TableCell>
                         <TableCell align='right'>
                             <Typography variant="subtitle2" fontWeight={600}>
+                                xem chi tiết
+                            </Typography>
+                        </TableCell>
+                        <TableCell align='right'>
+                            <Typography variant="subtitle2" fontWeight={600}>
                                 Sửa
                             </Typography>
                         </TableCell>
@@ -54,8 +60,8 @@ const ProductTableData = (props: IProductTableDataProps) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {bookListLoaded.length > 0 ? (
-                        (bookListLoaded.map((item: IBook) => (
+                    {bookListLoaded && bookListLoaded.length > 0 ? (
+                        (bookListLoaded.map((item) => (
                             <TableRow key={item.id}>
                                 <TableCell>
                                     <Typography
@@ -69,13 +75,30 @@ const ProductTableData = (props: IProductTableDataProps) => {
                                 </TableCell>
                                 <TableCell>
                                     <Typography variant="subtitle2" fontWeight={500}>
-                                        {item.name}
+                                        {truncateText(
+                                            item.name,
+                                            40
+                                        )}
                                     </Typography>
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Button
+                                        color='success'
+                                        size="small"
+                                        onClick={() => {
+                                            router.push(`/admin/manage/products/detail/${item.isbn_code}`)
+                                        }}
+                                    >
+                                        <IconEye />
+                                    </Button>
                                 </TableCell>
                                 <TableCell align="right">
                                     <Button
                                         color='info'
                                         size="small"
+                                        onClick={() => {
+                                            router.push(`/admin/manage/products/edit/${item.isbn_code}`)
+                                        }}
                                     >
                                         <IconEdit />
                                     </Button>
@@ -95,14 +118,14 @@ const ProductTableData = (props: IProductTableDataProps) => {
                         <TableRow>
                             <TableCell colSpan={5}>
                                 <Typography align="center" variant="h4" mt={2}>
-                                    Empty data list
+                                    No data available
                                 </Typography>
                             </TableCell>
                         </TableRow>
                     )}
                     {/* Load more product when scroll and see this element  */}
                     {
-                        (isLastPage === false) && isLoading === false && (
+                        (isReachedEnd === false) && (
                             <TableRow
                                 ref={loadMoreRef}
                             >

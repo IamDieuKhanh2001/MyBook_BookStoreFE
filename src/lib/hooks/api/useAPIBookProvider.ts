@@ -1,5 +1,4 @@
 import useAxiosAuth from '../utils/useAxiosAuth'
-import useSWR from 'swr'
 import { getSession } from 'next-auth/react'
 import useSWRInfinite from 'swr/infinite'
 
@@ -48,42 +47,6 @@ const useAPIBookProvider = () => {
             mutate,
             isLoading,
             error,
-        }
-    }
-
-    //closures function get API 
-    const getProviderList = (page: number = 1, limit: number = 10) => {
-        const fetcher = async (url: string) => {
-            try {
-                const session = await getSession();
-                const headers = {
-                    Authorization: `Bearer ${session?.user.jwtToken}`,
-                }
-                const params = {
-                    page,
-                    limit,
-                }
-                const response = await axiosAuth.get(url, { headers, params });
-                return response.data;
-            } catch (error) {
-                console.error('Lỗi khi fetch:', error);
-                return Promise.reject(error); // Trả về một Promise bị từ chối
-            }
-        }
-
-        const { data, mutate, isLoading, error } = useSWR(
-            URL_PREFIX,
-            fetcher,
-            {
-                revalidateOnReconnect: false,
-            }
-        )
-
-        return {
-            data: data?.data ?? [], // nếu data = undefined sẽ là mảng rỗng
-            mutate: mutate,
-            isLoading: !error && !data,
-            error: error,
         }
     }
 
@@ -218,7 +181,6 @@ const useAPIBookProvider = () => {
     return {
         getProviderListPaginated,
         getProviderTrashListPaginated,
-        getProviderList,
         createNewProvider,
         updateProviderById,
         deleteProviderById,

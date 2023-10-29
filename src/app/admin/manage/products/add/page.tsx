@@ -3,20 +3,18 @@ import LinearStepper from '@/components/admin/LinearStepper/LinearStepper'
 import PageContainer from '@/components/admin/container/PageContainer'
 import DashboardCard from '@/components/shared/DashboardCard'
 import {
-    Alert,
-    AlertTitle,
-    CircularProgress,
     Box,
     Grid,
 } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Typography from '@mui/material/Typography';
-import { toast } from 'react-toastify';
 import AddInfoProduct from '@/components/admin/Product/AddProduct/AddInfoProduct/AddInfoProduct'
 import AddProductImg from '@/components/admin/Product/AddProduct/AddProductImg/AddProductImg'
-import { FormikProps } from 'formik';
 import CustomButton from '@/components/forms/theme-elements/CustomButton'
 import { useRouter } from 'next/navigation'
+import SubmittedInfoSumary from '@/components/admin/Product/AddProduct/SubmittedInfoSumary/SubmittedInfoSumary'
+import { IconArrowBackUp } from '@tabler/icons-react'
+import { IBook } from '../../../../../../types/IBook'
 
 const AddProductPage = () => {
     const steps = ['Thêm thông tin sách', 'Thêm ảnh', 'Kiểm tra'];
@@ -25,6 +23,7 @@ const AddProductPage = () => {
         [k: number]: boolean;
     }>({});
     const router = useRouter()
+    const [productCreated, setProductCreated] = React.useState<IBook | null>(null)
 
     const totalSteps = () => {
         return steps.length;
@@ -66,6 +65,9 @@ const AddProductPage = () => {
         router.push('/admin/manage/products')
     }
 
+    useEffect(() => {
+        console.log(productCreated)
+    }, [productCreated])
     return (
         <>
             <PageContainer title='Product add' description='Add new product'>
@@ -75,6 +77,17 @@ const AddProductPage = () => {
                         subtitle='Thêm sản phẩm bày bán mới'
                     >
                         <Box sx={{ width: { xs: '280px', sm: 'auto' } }}>
+                            <CustomButton
+                                startIcon={<IconArrowBackUp />}
+                                color="secondary"
+                                size='small' disableElevation variant="contained" href=""
+                                sx={{ mb: 3 }}
+                                onClick={() => {
+                                    router.back()
+                                }}
+                            >
+                                Trở về
+                            </CustomButton>
                             <LinearStepper
                                 activeStep={activeStep}
                                 completed={completed}
@@ -88,13 +101,18 @@ const AddProductPage = () => {
                                 displayTab={activeStep === 0 ? true : false}
                                 setCurrentStepCompleted={setCurrentStepCompleted}
                                 stepCompleted={completed[0]}
+                                setProductCreated={setProductCreated}
                             />
                             {/* step 2: Add Img product */}
                             <AddProductImg
                                 displayTab={activeStep === 1 ? true : false}
                                 setCurrentStepCompleted={setCurrentStepCompleted}
                                 stepCompleted={completed[1]}
+                                productCreated={productCreated}
                             />
+                            {/* step 3: Recheck info */}
+                            <SubmittedInfoSumary displayTab={true} />
+                            {/* Button panel change tab */}
                             <React.Fragment>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                     <CustomButton

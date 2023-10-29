@@ -5,20 +5,20 @@ import { useConfirm } from 'material-ui-confirm'
 import React, { useState, useEffect, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { toast } from 'react-toastify'
-import styles from './AddProductImg.module.scss'
+import styles from './EditProductImg.module.scss'
 import CustomButton from '@/components/forms/theme-elements/CustomButton'
 import { IBook } from '../../../../../../types/IBook'
 import useAPIBook from '@/lib/hooks/api/useAPIBook'
 import { errorHandler } from '@/lib/utils/ErrorHandler'
 
-interface IAddProductImgProps {
+interface IEditProductImgProps {
   displayTab?: boolean,
   setCurrentStepCompleted: () => void,
   stepCompleted?: boolean,
-  productCreated: IBook | null
+  productEdit: IBook,
 }
-const AddProductImg = (props: IAddProductImgProps) => {
-  const { displayTab = false, setCurrentStepCompleted, stepCompleted = false, productCreated } = props
+const EditProductImg = (props: IEditProductImgProps) => {
+  const { displayTab = false, setCurrentStepCompleted, stepCompleted = false, productEdit } = props
   const [files, setFiles] = useState<any[]>([])
   const confirm = useConfirm();
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -59,14 +59,10 @@ const AddProductImg = (props: IAddProductImgProps) => {
     }
   }, [])
 
-  const removeFile = (index: number) => {
+  const removeFileUploaded = (index: number) => {
     if (index >= 0 && index < files.length) {
       setFiles(previousFiles => previousFiles.filter((_, i) => i !== index));
     }
-  }
-
-  const removeAll = () => {
-    setFiles([])
   }
 
   const saveImgsUploaded = () => {
@@ -81,14 +77,14 @@ const AddProductImg = (props: IAddProductImgProps) => {
           files.forEach((file, index) => {
             bodyFormData.append(`cover_image[${index}]`, file)
           })
-          await addListImage(bodyFormData, productCreated?.isbn_code)
+          await addListImage(bodyFormData, productEdit?.isbn_code)
           toast.success("Upload ảnh thành công")
           setIsLoading(false)
           setCurrentStepCompleted()
         }
         catch (e) {
           errorHandler(e)
-          toast.error("Có lỗi xảy ra, vui lòng thử lại!")
+          toast.error("Có lỗi xảy ra khi upload ảnh, vui lòng thử lại!")
         }
       })
   }
@@ -128,17 +124,7 @@ const AddProductImg = (props: IAddProductImgProps) => {
           </div>
         )}
         {/* Preview */}
-        <CustomButton
-          color="secondary"
-          onClick={removeAll}
-          disabled={stepCompleted}
-          size='small'
-          disableElevation
-          variant="contained"
-        >
-          Loại bỏ tất cả ảnh
-        </CustomButton>
-        <h2 className=''>Danh sách ảnh đã chọn</h2>
+        <h2 className=''>Danh sách ảnh đã tải lên</h2>
         {/* Accepted files */}
         <Grid container>
           {files.map((file, index) => (
@@ -149,18 +135,42 @@ const AddProductImg = (props: IAddProductImgProps) => {
                   alt={file.name}
                   width={100}
                   height={100}
-                  className=''
                 />
                 <button
                   type='button'
                   className={styles.deleteFile}
-                  onClick={() => removeFile(index)}
+                  onClick={() => removeFileUploaded(index)}
                   disabled={stepCompleted}
                 >
                   <IconTrash size={'20px'} />
                 </button>
                 <p className={styles.fileOriginName}>
                   {file.name}
+                </p>
+              </div>
+            </Grid>
+          ))}
+        </Grid>
+        <h2 className=''>Danh sách ảnh hiện tại ({productEdit.images?.length} ảnh)</h2>
+        <Grid container>
+          {productEdit && productEdit.images?.map((item) => (
+            <Grid key={item.id} item xs={2} lg={2}>
+              <div className={styles.previewFileItem}>
+                <img
+                  src={item?.image_source || ''}
+                  alt={`${item?.isbn_code}_${item?.id}`}
+                  width={100}
+                  height={100}
+                />
+                <button
+                  type='button'
+                  className={styles.deleteFile}
+                  disabled={stepCompleted}
+                >
+                  <IconTrash size={'20px'} />
+                </button>
+                <p className={styles.fileOriginName}>
+                  {`${item?.isbn_code}_${item?.id}`}
                 </p>
               </div>
             </Grid>
@@ -179,7 +189,7 @@ const AddProductImg = (props: IAddProductImgProps) => {
                   isLoading ?
                     (<CircularProgress color="inherit" size={25} />)
                     :
-                    "Lưu và tiếp tục"
+                    "Lưu các ảnh tải lên"
                 }
               </CustomButton>
             ) : (
@@ -197,14 +207,9 @@ const AddProductImg = (props: IAddProductImgProps) => {
             </Typography>
           )}
         </Box>
-        {/* <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
-        <Typography variant="caption" sx={{ display: 'inline-block' }}>
-          Bạn đã xác nhận bỏ qua bước này
-        </Typography>
-      </Box> */}
       </div>
     </>
   )
 }
 
-export default AddProductImg
+export default EditProductImg
