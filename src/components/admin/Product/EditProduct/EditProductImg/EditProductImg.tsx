@@ -10,19 +10,21 @@ import CustomButton from '@/components/forms/theme-elements/CustomButton'
 import { IBook } from '../../../../../../types/IBook'
 import useAPIBook from '@/lib/hooks/api/useAPIBook'
 import { errorHandler } from '@/lib/utils/ErrorHandler'
+import { KeyedMutator } from 'swr'
 
 interface IEditProductImgProps {
   displayTab?: boolean,
   setCurrentStepCompleted: () => void,
   stepCompleted?: boolean,
   productEdit: IBook,
+  mutate: KeyedMutator<any>,
 }
 const EditProductImg = (props: IEditProductImgProps) => {
-  const { displayTab = false, setCurrentStepCompleted, stepCompleted = false, productEdit } = props
+  const { displayTab = false, setCurrentStepCompleted, stepCompleted = false, productEdit, mutate } = props
   const [files, setFiles] = useState<any[]>([])
   const confirm = useConfirm();
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { addListImage } = useAPIBook()
+  const { addListImage, deleteImg } = useAPIBook()
 
   const onDrop = useCallback((acceptedFiles: any, rejectedFiles: any) => {
     if (acceptedFiles?.length) {
@@ -65,6 +67,24 @@ const EditProductImg = (props: IEditProductImgProps) => {
     }
   }
 
+  const handleRemoveImgById = (bookImageId: number) => {
+    confirm({
+      title: `Lưu các ảnh cho sản phẩm ?`,
+      description: 'Bạn có chắc chắn muốn thực hiện hành động này?',
+    })
+      .then(async () => {
+        try {
+          await deleteImg(bookImageId)
+          mutate()
+          toast.success("Delete img complete")
+        }
+        catch (e) {
+          errorHandler(e)
+          toast.error("Có lỗi xảy ra khi xóa ảnh, vui lòng thử lại!")
+        }
+      })
+  }
+
   const saveImgsUploaded = () => {
     confirm({
       title: `Lưu các ảnh cho sản phẩm ?`,
@@ -91,7 +111,7 @@ const EditProductImg = (props: IEditProductImgProps) => {
 
   const handleSkip = () => {
     confirm({
-      title: `Bỏ qua thêm ảnh sản phẩm ?`,
+      title: `Xoá ảnh ?`,
       description: 'Bạn có chắc chắn muốn thực hiện hành động này?',
     })
       .then(async () => {
@@ -166,6 +186,7 @@ const EditProductImg = (props: IEditProductImgProps) => {
                   type='button'
                   className={styles.deleteFile}
                   disabled={stepCompleted}
+                  onClick={() => handleRemoveImgById(item.id)}
                 >
                   <IconTrash size={'20px'} />
                 </button>

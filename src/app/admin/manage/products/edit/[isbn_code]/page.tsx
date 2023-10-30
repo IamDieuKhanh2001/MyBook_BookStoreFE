@@ -111,9 +111,10 @@ const ProductManagementEditPage = ({ params }: ProductManagementEditPageProps) =
                 setCurrentStepCompleted={setCurrentStepCompleted}
                 stepCompleted={completed[1]}
                 productEdit={data}
+                mutate={mutate}
               />
               {/* step 3: Recheck info */}
-              
+
               {/* Button panel change tab */}
               <React.Fragment>
                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>

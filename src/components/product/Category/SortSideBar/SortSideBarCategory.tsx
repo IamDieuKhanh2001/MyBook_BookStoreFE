@@ -1,9 +1,9 @@
 "use client"
 import React from 'react'
-import styles from './SortSideBar.module.scss'
+import styles from './SortSideBarCategory.module.scss'
 import Link from 'next/link'
 
-const SortSideBar = () => {
+const SortSideBarCategory = () => {
     return (
         <>
             <div>
@@ -162,4 +162,4 @@ const SortSideBar = () => {
     )
 }
 
-export default SortSideBar
+export default SortSideBarCategory

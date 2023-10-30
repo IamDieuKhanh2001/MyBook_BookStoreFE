@@ -4,4 +4,5 @@ interface IParentCategory {
     created_at: string;
     updated_at: string;
     deleted_at: string | null;
+    childrenCategory: IChildCategory[]
 }

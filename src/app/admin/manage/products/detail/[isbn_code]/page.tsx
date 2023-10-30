@@ -31,7 +31,7 @@ const ProductManagementDetailPage = ({ params }: IProductManagementDetailPagePro
       <PageContainer title='detail' description=''>
         <Grid item xs={12} lg={8}>
           <DashboardCard
-            title='Product detail'
+            title={`Sản phẩm: ${data.name}`}
             subtitle={`ISBN ID: ${isbn_code}`}
           >
             <Box sx={{ width: { xs: '280px', sm: 'auto' } }}>
@@ -45,7 +45,7 @@ const ProductManagementDetailPage = ({ params }: IProductManagementDetailPagePro
                 size='small' disableElevation variant="contained" href=""
                 sx={{ mr: 2 }}
                 onClick={() => {
-                  router.back()
+                  router.push('/admin/manage/products')
                 }}
               >
                 Trở về

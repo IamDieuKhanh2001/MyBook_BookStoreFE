@@ -1,13 +1,14 @@
 import { getSession } from 'next-auth/react';
 import React from 'react'
 import useAxiosAuth from '../utils/useAxiosAuth';
-import { IBook, IProductImage } from '../../../../types/IBook';
+import { IBook } from '../../../../types/IBook';
 import useSWRInfinite from 'swr/infinite';
 import useSWR from 'swr';
 
 const useAPIBook = () => {
     const axiosAuth = useAxiosAuth()
     const URL_PREFIX = '/admin/book/product'
+    //Admin Access API
 
     const getBookListPaginated = (limit: string = '5') => {
         const getKey = (pageIndex: number, previousPageData: any) => {
@@ -206,6 +207,20 @@ const useAPIBook = () => {
             throw e
         }
     }
+    const deleteImg = async (bookImgID: number) => {
+        try {
+            const session = await getSession();
+            const url = `${URL_PREFIX}/image/${bookImgID}`
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
+            const response = await axiosAuth.delete(url, { headers })
+            return response;
+        } catch (error: any) {
+            throw error;
+        }
+    };
+
 
     return {
         getBookListPaginated,
@@ -214,6 +229,7 @@ const useAPIBook = () => {
         deleteBook,
         getBookDetail,
         addListImage,
+        deleteImg,
     }
 }
 

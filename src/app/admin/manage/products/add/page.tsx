@@ -83,7 +83,7 @@ const AddProductPage = () => {
                                 size='small' disableElevation variant="contained" href=""
                                 sx={{ mb: 3 }}
                                 onClick={() => {
-                                    router.back()
+                                    router.push('/admin/manage/products')
                                 }}
                             >
                                 Trở về
