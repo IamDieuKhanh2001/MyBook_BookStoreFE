@@ -69,12 +69,12 @@ const bookFormRecycleBinPage = () => {
                             >
                                 Trở về
                             </Button>
-                            {/* {error && (
+                            {error && (
                                 <Alert sx={{ mb: 2 }} severity="error">
                                     <AlertTitle>Error</AlertTitle>
                                     Something when wrong — <strong>check your connection and reload page!</strong>
                                 </Alert>
-                            )} */}
+                            )}
                             <RecycleBinBookFormTableData
                                 recycleBinList={data}
                                 handleDestroyData={handleDestroyData}

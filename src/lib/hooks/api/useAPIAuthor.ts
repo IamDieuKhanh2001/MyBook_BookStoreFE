@@ -1,13 +1,24 @@
 import React from 'react'
 import useAxiosAuth from '../utils/useAxiosAuth'
 import { getSession } from 'next-auth/react'
-import useSWR from 'swr'
+import useSWRInfinite from 'swr/infinite'
 
 const useAPIAuthor = () => {
     const URL_PREFIX = '/admin/book/author'
     const axiosAuth = useAxiosAuth()
 
-    const getAuthorList = () => {
+    const getAuthorListPaginated = (limit: string = '5') => {
+        const getKey = (pageIndex: number, previousPageData: any) => {
+            if (previousPageData && !previousPageData.length) {
+                // Nếu trang trước đã trả về một trang trống, không cần gửi thêm yêu cầu
+                return null;
+            }
+            const params = new URLSearchParams({
+                page: (pageIndex + 1).toString(),
+                limit: limit,
+            });
+            return `${URL_PREFIX}?${params.toString()}`;
+        };
         const fetcher = async (url: string) => {
             try {
                 const session = await getSession();
@@ -15,26 +26,27 @@ const useAPIAuthor = () => {
                     Authorization: `Bearer ${session?.user.jwtToken}`,
                 }
                 const response = await axiosAuth.get(url, { headers });
-                return response.data;
+                return response.data.data;
             } catch (error) {
                 console.error('Lỗi khi fetch:', error);
                 return Promise.reject(error); // Trả về một Promise bị từ chối
             }
         }
-
-        const { data, mutate, isLoading, error } = useSWR(
-            URL_PREFIX,
-            fetcher,
-            {
-                revalidateOnReconnect: false,
-            }
+        const { data, size, setSize, error, isLoading, mutate } = useSWRInfinite(
+            getKey,
+            fetcher
         )
+        const paginatedData: IAuthor[] = data?.flat() ?? []
+        const isReachedEnd = data && data[data.length - 1]?.length < limit
 
         return {
-            data: data ?? [], // nếu data = undefined sẽ là mảng rỗng
-            mutate: mutate,
-            isLoading: !error && !data,
-            error: error,
+            paginatedData,
+            isReachedEnd,
+            size,
+            setSize,
+            mutate,
+            isLoading,
+            error,
         }
     }
 
@@ -86,36 +98,46 @@ const useAPIAuthor = () => {
         }
     };
 
-    const getAuthorTrashList = () => {
+    const getAuthorTrashListPaginated = (limit: string = '5') => {
+        const getKey = (pageIndex: number, previousPageData: any) => {
+            if (previousPageData && !previousPageData.length) {
+                // Nếu trang trước đã trả về một trang trống, không cần gửi thêm yêu cầu
+                return null;
+            }
+            const params = new URLSearchParams({
+                page: (pageIndex + 1).toString(),
+                limit: limit,
+            });
+            return `${URL_PREFIX}/trashed?${params.toString()}`;
+        };
         const fetcher = async (url: string) => {
-            const session = await getSession();
-            const config = {
-                headers: {
+            try {
+                const session = await getSession();
+                const headers = {
                     Authorization: `Bearer ${session?.user.jwtToken}`,
                 }
-            };
-            try {
-                const response = await axiosAuth.get(url, config);
-                return response.data;
+                const response = await axiosAuth.get(url, { headers });
+                return response.data.data;
             } catch (error) {
                 console.error('Lỗi khi fetch:', error);
                 return Promise.reject(error); // Trả về một Promise bị từ chối
             }
         }
-
-        const { data, mutate, isLoading, error } = useSWR(
-            `${URL_PREFIX}/trashed`,
-            fetcher,
-            {
-                revalidateOnReconnect: false,
-            }
+        const { data, size, setSize, error, isLoading, mutate } = useSWRInfinite(
+            getKey,
+            fetcher
         )
+        const paginatedData: IAuthor[] = data?.flat() ?? []
+        const isReachedEnd = data && data[data.length - 1]?.length < limit
 
         return {
-            data: data ?? [], // nếu data = undefined sẽ là mảng rỗng
-            mutate: mutate,
-            isLoading: !error && !data,
-            error: error,
+            paginatedData,
+            isReachedEnd,
+            size,
+            setSize,
+            mutate,
+            isLoading,
+            error,
         }
     }
 
@@ -156,8 +178,8 @@ const useAPIAuthor = () => {
     }
 
     return {
-        getAuthorList,
-        getAuthorTrashList,
+        getAuthorListPaginated,
+        getAuthorTrashListPaginated,
         createNewAuthor,
         updateAuthorById,
         deleteAuthorById,

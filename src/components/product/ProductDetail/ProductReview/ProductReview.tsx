@@ -20,12 +20,12 @@ const ProductReview = () => {
     return (
         <> 
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-12">
                     <h4 className="my-3">1 review for "Dummy Book Tilte"</h4>
                     <ReviewItem />
                     <ReviewItem />
                 </div>
-                <div className="col-md-6">
+                <div className="col-6">
                     <h4 className="my-3">Leave a review</h4>
                     <div className="d-flex my-3">
                         <p className="mb-0 me-2">Your Rating ({rating}) :</p>

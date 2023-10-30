@@ -6,18 +6,6 @@ const useAPIUserProfile = () => {
     const URL_PREFIX = '/user/profile'
     const axiosAuth = useAxiosAuth()
 
-    const getUserProfile = async () => {
-        try {
-            const session = await getSession();
-            const headers = {
-                Authorization: `Bearer ${session?.user.jwtToken}`,
-            }
-            const response = await axiosAuth.get(URL_PREFIX, { headers })
-            return response;
-        } catch (error: any) {
-            throw new Error(error.message);
-        }
-    };
     const updateUserProfile = async (firstname: string, lastname: string, phone_number: string, gender: string = 'male') => {
         try {
             const session = await getSession();
@@ -36,9 +24,23 @@ const useAPIUserProfile = () => {
             throw new Error(error.message);
         }
     };
+
+    const changeAccountPassword = async (currentPassword: string, newPassword: string, newPasswordConfirmation: string) => {
+        const session = await getSession();
+        const headers = {
+            Authorization: `Bearer ${session?.user.jwtToken}`,
+        }
+        const body = {
+            current_password: currentPassword,
+            new_password: newPassword,
+            new_password_confirmation: newPasswordConfirmation
+        }
+        const response = await axiosAuth.patch(`${URL_PREFIX}/password`, body, { headers })
+        return response;
+    };
     return {
-        getUserProfile,
         updateUserProfile,
+        changeAccountPassword,
     }
 }
 

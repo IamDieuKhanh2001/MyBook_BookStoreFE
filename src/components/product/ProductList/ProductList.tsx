@@ -2,25 +2,21 @@
 import React, { useEffect } from 'react'
 import ProductItem from './ProductItem/ProductItem'
 import styles from "./ProductList.module.scss"
-import { useSession } from 'next-auth/react'
-import useAxiosAuth from '@/lib/hooks/utils/useAxiosAuth'
+import { IBook } from '../../../../types/IBook'
 
-const ProductList = () => {
-    const { data: session } = useSession();
-    const axiosAuth = useAxiosAuth();
+interface IProductListProps {
+    dataList: IBook[]
+}
+const ProductList = (props: IProductListProps) => {
+    const { dataList } = props
 
     return (
         <>
             <div className="tab-content">
                 <div className="row g-2">
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
+                    {dataList?.map((item) => (
+                        <ProductItem key={item.id} data={item} />
+                    ))}
                 </div>
             </div>
         </>

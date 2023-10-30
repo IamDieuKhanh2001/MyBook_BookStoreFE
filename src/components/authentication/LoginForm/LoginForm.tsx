@@ -45,9 +45,7 @@ const LoginForm = () => {
             });
             setIsLoading(false)
         } catch (e) {
-            console.log(e)
             setIsLoading(false)
-            toast.error("Can not Login with" + values.email)
         }
     };
 
@@ -55,14 +53,14 @@ const LoginForm = () => {
         <div className={styles.loginFormContainer}>
             {isError === true && (
                 <Alert severity="error" >
-                    <AlertTitle>Login Error!</AlertTitle>
-                    Something went wrong — <strong>Please try again!</strong>
+                    <AlertTitle>Không thể đăng nhập!</AlertTitle>
+                    Tài khoản hoặc mật khẩu không đúng — <strong>Vui lòng thử lại!</strong>
                 </Alert>
             )}
             {isSessionExpired === true && (
                 <Alert severity="warning" >
-                    <AlertTitle>Session Has expired!</AlertTitle>
-                    Your session not available — <strong>Please login again!</strong>
+                    <AlertTitle>Phiên đăng nhập đã hết hạn!</AlertTitle>
+                    Phiên đăng nhập của bạn đã hết hạn — <strong>Vui lòng đăng nhập lại!</strong>
                 </Alert>
             )}
             <Formik

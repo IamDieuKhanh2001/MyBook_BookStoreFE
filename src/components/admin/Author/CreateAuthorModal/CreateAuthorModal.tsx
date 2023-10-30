@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import useAPIAuthor from '@/lib/hooks/api/useAPIAuthor';
+import { KeyedMutator } from 'swr';
 
 interface FormValues {
     name: string;
@@ -12,12 +13,14 @@ interface FormValues {
 interface ICreateAuthorModalProps {
     showModalCreate: boolean;
     setShowModalCreate: (value: boolean) => void;
+    mutate: KeyedMutator<any[]>
 }
 const CreateAuthorModal = (props: ICreateAuthorModalProps) => {
-    const { showModalCreate, setShowModalCreate } = props;
+    const { showModalCreate, setShowModalCreate, mutate } = props;
     const theme = useTheme();
-    const { createNewAuthor, getAuthorList } = useAPIAuthor()
-    const { mutate } = getAuthorList()
+    const { createNewAuthor } = useAPIAuthor()
+    // const { mutate } = getAuthorList(1, 9999)
+    // const { mutate } = getAuthorListPaginated()
 
     const style = {
         position: 'absolute' as 'absolute',

@@ -1,17 +1,21 @@
 import React from 'react'
 import useAxiosAuth from '../utils/useAxiosAuth'
 import useSWR from 'swr'
+import { getSession } from 'next-auth/react'
 
 //custom hook for calling APIS for parent category
 const useAPIParentCategory = () => {
     const URL_PREFIX = '/admin/category/parent'
     const axiosAuth = useAxiosAuth()
-
     //closures function get API 
     const getParentCategoryList = () => {
         const fetcher = async (url: string) => {
             try {
-                const response = await axiosAuth.get(url);
+                const session = await getSession();
+                const headers = {
+                    Authorization: `Bearer ${session?.user.jwtToken}`,
+                }
+                const response = await axiosAuth.get(url, { headers });
                 return response.data;
             } catch (error) {
                 console.error('Lỗi khi fetch:', error);
@@ -39,7 +43,11 @@ const useAPIParentCategory = () => {
     const getParentCategoryDetail = (id: number) => {
         const fetcher = async (url: string) => {
             try {
-                const response = await axiosAuth.get(url);
+                const session = await getSession();
+                const headers = {
+                    Authorization: `Bearer ${session?.user.jwtToken}`,
+                }
+                const response = await axiosAuth.get(url, { headers });
                 return response.data;
             } catch (error) {
                 console.error('Lỗi khi fetch:', error);
@@ -49,7 +57,7 @@ const useAPIParentCategory = () => {
 
         const { data, mutate, isLoading, error } = useSWR(
             `${URL_PREFIX}/${id}`,
-            fetcher,
+            id !== 0 ? fetcher : null,
             {
                 revalidateOnReconnect: false,
             }
@@ -66,11 +74,15 @@ const useAPIParentCategory = () => {
     //API create new 
     const createNewCategory = async (nameCreate: string) => {
         try {
+            const session = await getSession();
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
             const url = URL_PREFIX
             const body = {
                 name: nameCreate,
             };
-            const response = await axiosAuth.post(url, body)
+            const response = await axiosAuth.post(url, body, { headers })
             return response.data
         }
         catch (e: any) {
@@ -81,12 +93,16 @@ const useAPIParentCategory = () => {
     //api update by id
     const updateCategoryById = async (id: number, nameUpdate: string) => {
         try {
+            const session = await getSession();
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
             const url = URL_PREFIX
             const body = {
                 pcategory_id: id,
                 name: nameUpdate,
             };
-            const response = await axiosAuth.put(url, body)
+            const response = await axiosAuth.put(url, body, { headers })
             return response.data;
         } catch (error: any) {
             throw new Error("Error updating category: " + error.message);
@@ -96,8 +112,12 @@ const useAPIParentCategory = () => {
     //API delete by id
     const deleteCategoryById = async (id: number) => {
         try {
+            const session = await getSession();
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
             const url = `${URL_PREFIX}/delete/${id}`
-            const response = await axiosAuth.delete(url)
+            const response = await axiosAuth.delete(url, { headers })
             return response
         }
         catch (error: any) {
@@ -109,7 +129,11 @@ const useAPIParentCategory = () => {
     const getCategoryTrashList = () => {
         const fetcher = async (url: string) => {
             try {
-                const response = await axiosAuth.get(url);
+                const session = await getSession();
+                const headers = {
+                    Authorization: `Bearer ${session?.user.jwtToken}`,
+                }
+                const response = await axiosAuth.get(url, { headers });
                 return response.data;
             } catch (error) {
                 console.error('Lỗi khi fetch:', error);
@@ -136,8 +160,12 @@ const useAPIParentCategory = () => {
     //API delete by id
     const destroyCategoryById = async (id: number) => {
         try {
+            const session = await getSession();
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
             const url = `${URL_PREFIX}/destroy/${id}`
-            const response = await axiosAuth.delete(url)
+            const response = await axiosAuth.delete(url, { headers })
             return response
         }
         catch (error: any) {
@@ -147,8 +175,12 @@ const useAPIParentCategory = () => {
     //API restore by id
     const restoreCategoryById = async (id: number) => {
         try {
+            const session = await getSession();
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
             const url = `${URL_PREFIX}/restore/${id}`
-            const response = await axiosAuth.patch(url)
+            const response = await axiosAuth.patch(url, undefined, { headers })
             return response
         }
         catch (error: any) {

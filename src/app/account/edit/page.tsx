@@ -18,14 +18,14 @@ interface FormChangePasswordValues {
   retypePassword: string;
 }
 const EditInfoAccountPage = () => {
-  const [openChangePassword, setOpenChangePassword] = useState(false)
+  const [openChangePassword, setOpenChangePassword] = useState(true)
 
   return (
     <>
       <div className="card mb-4">
         <div className={styles.myAccount}>
           <div className={styles.pageTitle}>
-            <h1>Thông tin tài khoản</h1>
+            <h1>Thay đổi thông tin cá nhân</h1>
           </div>
           <div className={styles.formAccountInfo}>
             <InfoFormEdit />
@@ -38,7 +38,7 @@ const EditInfoAccountPage = () => {
                       className="form-check-input"
                       type="checkbox"
                       id='checkbox_open_password_form'
-                      defaultChecked={false}
+                      checked={openChangePassword}
                       onChange={() => {
                         setOpenChangePassword(!openChangePassword)
                       }}

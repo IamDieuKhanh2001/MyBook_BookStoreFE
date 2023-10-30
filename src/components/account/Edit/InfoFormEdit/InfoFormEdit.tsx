@@ -232,6 +232,9 @@ const InfoFormEdit = () => {
                                 disabled={isLoading || !isValid}
                                 className={styles.btnSave}
                             >
+                                {isLoading && (
+                                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                )}
                                 Lưu thông tin thay đổi
                             </button>
                         </div>

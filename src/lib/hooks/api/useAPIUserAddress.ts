@@ -58,6 +58,9 @@ const useAPIUserAddress = () => {
             fetcher,
             {
                 revalidateOnReconnect: false,
+                onErrorRetry: (error) => {
+                    if (error.status === 404) return
+                },
             }
         )
 

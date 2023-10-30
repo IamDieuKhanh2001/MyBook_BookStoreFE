@@ -1,5 +1,5 @@
 'use client'
-import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
+import { Button, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import { IconHistory, IconTrashX } from '@tabler/icons-react';
 import React from 'react'
 
@@ -7,9 +7,17 @@ interface IProps {
     recycleBinList: IAuthor[]
     handleDestroyData: (id: number) => void;
     handleRestoreData: (id: number) => void;
+    isReachedEnd: boolean | undefined
+    loadMoreRef: (node?: Element | null | undefined) => void
 }
 const RecycleBinAuthorTableData = (props: IProps) => {
-    const { recycleBinList, handleDestroyData, handleRestoreData } = props
+    const {
+        recycleBinList,
+        handleDestroyData,
+        handleRestoreData,
+        isReachedEnd,
+        loadMoreRef
+    } = props
 
     return (
         <>
@@ -50,8 +58,8 @@ const RecycleBinAuthorTableData = (props: IProps) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {recycleBinList.length > 0 ? (
-                        (recycleBinList.map((author: IAuthor) => (
+                    {recycleBinList && recycleBinList.length > 0 ? (
+                        (recycleBinList.map((author) => (
                             <TableRow key={author.id}>
                                 <TableCell>
                                     <Typography
@@ -97,11 +105,22 @@ const RecycleBinAuthorTableData = (props: IProps) => {
                         <TableRow>
                             <TableCell colSpan={5}>
                                 <Typography align="center" variant="h4" mt={2}>
-                                    Empty data list
+                                    No data available
                                 </Typography>
                             </TableCell>
                         </TableRow>
                     )}
+                    {
+                        (isReachedEnd === false) && (
+                            <TableRow
+                                ref={loadMoreRef}
+                            >
+                                <TableCell align='center' colSpan={5}>
+                                    <CircularProgress color="secondary" />
+                                </TableCell>
+                            </TableRow>
+                        )
+                    }
                 </TableBody>
             </Table>
         </>

@@ -44,8 +44,8 @@ function ClientNavBar() {
                                 <IconCategory />
                             </Link>
                             <CategoryOffCanvas />
-                            <Link href="#" className={`${styles.navLink} ${styles.navItem} nav-item nav-link`}>
-                                About Us
+                            <Link href="/product/all" className={`${styles.navLink} ${styles.navItem} nav-item nav-link`}>
+                                Sản phẩm
                             </Link>
                             <div className={`${styles.navItem} nav-item dropdown`}>
                                 <Link

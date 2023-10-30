@@ -23,7 +23,7 @@
 			font-size: 11px;
 
 			.ratingBox {
-				background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_star_gray.svg);
+				background: url('/img/rating/ico_star_gray.svg');
 				background-size: 16px 16px;
 				margin: 0px 0px 0px 10px;
 				position: relative;
@@ -34,7 +34,7 @@
 				overflow: hidden;
 
 				.rating {
-					background: url(https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_star_yellow.svg);
+					background: url('/img/rating/ico_star_yellow.svg');
 					background-size: 16px 16px;
 					height: 16px;
 					left: 0;

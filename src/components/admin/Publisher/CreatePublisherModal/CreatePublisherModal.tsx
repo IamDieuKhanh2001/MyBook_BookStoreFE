@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import useAPIBookPublisher from '@/lib/hooks/api/useAPIBookPublisher';
+import { KeyedMutator } from 'swr';
+import { errorHandler } from '@/lib/utils/ErrorHandler';
 
 interface FormValues {
     name: string;
@@ -12,12 +14,12 @@ interface FormValues {
 interface ICreatePublisherModalProps {
     showModalCreate: boolean;
     setShowModalCreate: (value: boolean) => void;
+    mutate: KeyedMutator<any[]>
 }
 const CreatePublisherModal = (props: ICreatePublisherModalProps) => {
-    const { showModalCreate, setShowModalCreate } = props;
+    const { showModalCreate, setShowModalCreate, mutate } = props;
     const theme = useTheme();
-    const { getPublisherList, createNewPublisher } = useAPIBookPublisher()
-    const { mutate } = getPublisherList()
+    const { createNewPublisher } = useAPIBookPublisher()
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -52,8 +54,9 @@ const CreatePublisherModal = (props: ICreatePublisherModalProps) => {
             mutate()
             toast.success("Create publisher complete with name: " + values.name)
         }
-        catch (e) {
-            toast.error("Something when wrong, please try again")
+        catch (e: any) {
+            console.log(e)
+            errorHandler(e)
         }
     };
 
@@ -112,7 +115,7 @@ const CreatePublisherModal = (props: ICreatePublisherModalProps) => {
                                         size="large"
                                         fullWidth
                                         type="submit"
-                                        disabled={false}
+                                        disabled={isSubmitting}
                                     >
                                         {
                                             isSubmitting ?

@@ -1,4 +1,3 @@
-import React from 'react'
 import useAxiosAuth from '../utils/useAxiosAuth'
 import useSWR from 'swr'
 import { getSession } from 'next-auth/react'

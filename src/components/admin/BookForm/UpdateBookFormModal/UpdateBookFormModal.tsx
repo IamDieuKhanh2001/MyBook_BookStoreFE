@@ -67,7 +67,7 @@ const UpdateBookFormModal = (props: IProps) => {
             await updateBookFormById(values.id, values.name)
             handleCloseModal()
             mutate()
-            toast.success("update author complete id: " + values.id)
+            toast.success("update bookform complete id: " + values.id)
         }
         catch (e) {
             toast.error("Something when wrong, please try again")

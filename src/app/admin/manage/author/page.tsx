@@ -1,7 +1,7 @@
 'use client'
 import PageContainer from '@/components/admin/container/PageContainer';
 import { useConfirm } from 'material-ui-confirm';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
 import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
 import DashboardCard from '@/components/shared/DashboardCard';
@@ -11,14 +11,26 @@ import AuthorTableData from '@/components/admin/Author/AuthorTableData/AuthorTab
 import CreateAuthorModal from '@/components/admin/Author/CreateAuthorModal/CreateAuthorModal';
 import UpdateAuthorModal from '@/components/admin/Author/UpdateAuthorModal/UpdateAuthorModal';
 import useAPIAuthor from '@/lib/hooks/api/useAPIAuthor';
+import { useInView } from 'react-intersection-observer';
 
 const authorPage = () => {
     const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
     const [showModalUpdate, setShowModalUpdate] = useState<boolean>(false);
     const [authorSelected, setAuthorSelected] = useState<IAuthor | null>(null);
     const confirm = useConfirm();
-    const { getAuthorList, deleteAuthorById } = useAPIAuthor()
-    const { data, isLoading, mutate, error } = getAuthorList()
+    const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
+    const [filters, setFilters] = useState({
+        limit: '4'
+    });
+
+    const { getAuthorListPaginated, deleteAuthorById } = useAPIAuthor()
+    const { paginatedData, error, isLoading, isReachedEnd, mutate, setSize } = getAuthorListPaginated(filters.limit)
+    
+    useEffect(() => {
+        if (inView) {
+            setSize((previousSize) => previousSize + 1)
+        }
+    }, [inView]);
 
     const handleDeleteData = async (id: number) => {
         confirm({
@@ -53,6 +65,13 @@ const authorPage = () => {
                                 </Alert>
                             )}
                             <Button
+                                color='error'
+                                size="small"
+                                onClick={() => setSize(1)}
+                            >
+                                reset
+                            </Button>
+                            <Button
                                 sx={{ mt: 2 }}
                                 startIcon={<IconPlus />}
                                 color="success"
@@ -76,8 +95,10 @@ const authorPage = () => {
                                 Recycle bin
                             </Button>
                             <AuthorTableData
-                                authorList={data}
+                                authorList={paginatedData}
                                 handleDeleteData={handleDeleteData}
+                                isReachedEnd={isReachedEnd}
+                                loadMoreRef={ref}
                                 setAuthorSelected={setAuthorSelected}
                                 setShowModalUpdate={setShowModalUpdate}
                             />
@@ -87,12 +108,14 @@ const authorPage = () => {
                 <CreateAuthorModal
                     showModalCreate={showModalCreate}
                     setShowModalCreate={setShowModalCreate}
+                    mutate={mutate}
                 />
                 <UpdateAuthorModal
                     authorSelected={authorSelected}
                     setAuthorSelected={setAuthorSelected}
                     setShowModalUpdate={setShowModalUpdate}
                     showModalUpdate={showModalUpdate}
+                    mutate={mutate}
                 />
             </PageContainer>
         </>

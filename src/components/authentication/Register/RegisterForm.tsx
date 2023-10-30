@@ -20,7 +20,7 @@ const RegisterForm = (props: RegisterFormProps) => {
     const { setActiveTab } = props
     const [isLoading, setIsLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
-    const [errorList, setErrorList] = useState<IError[]>([])
+    const [errorList, setErrorList] = useState<IErrorValidate[]>([])
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword)

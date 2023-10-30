@@ -11,6 +11,7 @@ import {
   IconBallpen,
   IconBoxModel2,
   IconBuildingFactory2,
+  IconBook,
 } from '@tabler/icons-react';
 
 import { uniqueId } from 'lodash';
@@ -30,8 +31,8 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: 'Sản phẩm',
-    icon: IconPackage,
+    title: 'Sách',
+    icon: IconBook,
     href: '/admin/manage/products',
   },
   {
@@ -58,6 +59,12 @@ const Menuitems = [
     icon: IconBuildingFactory2,
     href: '/admin/manage/publisher',
   },
+  {
+    id: uniqueId(),
+    title: 'Nhà cung cấp',
+    icon: IconPackage,
+    href: '/admin/manage/provider',
+  },
   //Home group
   {
     navlabel: true,
@@ -82,6 +89,12 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
+    title: 'Sách',
+    icon: IconHistory,
+    href: '/admin/manage/products/recycle-bin',
+  },
+  {
+    id: uniqueId(),
     title: 'Ngôn ngữ sách',
     icon: IconHistory,
     href: '/admin/manage/book-lang/recycle-bin',
@@ -103,6 +116,12 @@ const Menuitems = [
     title: 'Nhà xuất bản',
     icon: IconHistory,
     href: '/admin/manage/publisher/recycle-bin',
+  },
+  {
+    id: uniqueId(),
+    title: 'Nhà cung cấp',
+    icon: IconHistory,
+    href: '/admin/manage/provider/recycle-bin',
   },
   //Test group (remove in future)
   {

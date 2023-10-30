@@ -13,6 +13,8 @@ import * as Yup from 'yup';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import { toast } from 'react-toastify';
 import useAPIBookPublisher from '@/lib/hooks/api/useAPIBookPublisher';
+import { KeyedMutator } from 'swr';
+import { errorHandler } from '@/lib/utils/ErrorHandler';
 
 interface FormValues {
     id: number;
@@ -23,12 +25,12 @@ interface IProps {
     setShowModalUpdate: (value: boolean) => void;
     publisherSelected: IPublisher | null;
     setPublisherSelected: (value: IPublisher | null) => void;
+    mutate: KeyedMutator<any[]>
 }
 const UpdatePublisherModal = (props: IProps) => {
-    const { showModalUpdate, setShowModalUpdate, publisherSelected, setPublisherSelected } = props;
+    const { showModalUpdate, setShowModalUpdate, publisherSelected, setPublisherSelected, mutate } = props;
     const theme = useTheme();
-    const { updatePublisherById, getPublisherList } = useAPIBookPublisher()
-    const { mutate } = getPublisherList()
+    const { updatePublisherById } = useAPIBookPublisher()
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -69,8 +71,8 @@ const UpdatePublisherModal = (props: IProps) => {
             mutate()
             toast.success("update publisher complete id: " + values.id)
         }
-        catch (e) {
-            toast.error("Something when wrong, please try again")
+        catch (e: any) {
+            errorHandler(e)
         }
     }
     return (

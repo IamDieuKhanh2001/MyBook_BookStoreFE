@@ -7,12 +7,12 @@ import FlashSaleCountDown from './FlashSaleCountDown/FlashSaleCountDown'
 
 const ProductDetail = () => {
     const [productImages, SetProductImages] = useState([
+        '/img/book/no-image.jpg',
         '/img/book/sach1.jpg',
         '/img/book/sach2.jpg',
         '/img/book/sach3.jpg',
         '/img/book/sach4.jpg',
         '/img/book/sach5.jpg'
-
     ])
     const [quantity, setQuantity] = useState(1)
     const initialHours = 5; // Số giờ ban đầu
@@ -66,7 +66,6 @@ const ProductDetail = () => {
                                 <span className="text-body text-decoration-line-through me-2">30.000</span>
                                 <span className="text-primary me-1">15.000 VND</span>
                             </h2>
-                            <p className="mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti tempora atque et culpa, modi minima magni cupiditate mollitia est, laborum maxime id autem esse veniam eveniet voluptas? Error, numquam aperiam.</p>
                             <p><i className="fa fa-check text-primary me-3" />Đổi trả trong vòng 7 ngày</p>
                             <p><i className="fa fa-check text-primary me-3" />Cam kết sản phẩm chính hãng</p>
                             <p><i className="fa fa-check text-primary me-3" />Vận chuyển trên toàn quốc</p>

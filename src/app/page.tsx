@@ -45,7 +45,7 @@ export default function Home() {
             shortDescription='Các sản phẩm dưới đây có lượt doanh thu cao nhất'
           />
           <div className='row pb-4'>
-            <ProductList />
+            {/* <ProductList /> */}
           </div>
           <div className="col-12 text-center">
             {/* Go to product list page  */}
@@ -57,7 +57,7 @@ export default function Home() {
             title='Sách giáo khoa'
           />
           <div className='row pb-4'>
-            <ProductList />
+            {/* <ProductList /> */}
           </div>
           <div className="col-12 text-center">
             {/* Go to product list page  */}

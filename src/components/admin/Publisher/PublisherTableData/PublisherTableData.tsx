@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
+import { Button, CircularProgress, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
 
 interface IPublisherTableDataProps {
@@ -8,9 +8,18 @@ interface IPublisherTableDataProps {
   setShowModalUpdate: (value: boolean) => void;
   handleDeleteData: (id: number) => void;
   setPublisherSelected: (value: IPublisher | null) => void
+  isReachedEnd: boolean | undefined
+  loadMoreRef: (node?: Element | null | undefined) => void
 }
 const PublisherTableData = (props: IPublisherTableDataProps) => {
-  const { publisherList, handleDeleteData, setPublisherSelected, setShowModalUpdate } = props
+  const {
+    publisherList,
+    handleDeleteData,
+    setPublisherSelected,
+    setShowModalUpdate,
+    isReachedEnd,
+    loadMoreRef
+  } = props
 
   return (
     <>
@@ -51,8 +60,8 @@ const PublisherTableData = (props: IPublisherTableDataProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {publisherList.length > 0 ? (
-            (publisherList.map((publisher: IParentCategory) => (
+          {publisherList && publisherList.length > 0 ? (
+            (publisherList.map((publisher) => (
               <TableRow key={publisher.id}>
                 <TableCell>
                   <Typography
@@ -106,6 +115,17 @@ const PublisherTableData = (props: IPublisherTableDataProps) => {
               </TableCell>
             </TableRow>
           )}
+          {
+            (isReachedEnd === false) && (
+              <TableRow
+                ref={loadMoreRef}
+              >
+                <TableCell align='center' colSpan={5}>
+                  <CircularProgress color="secondary" />
+                </TableCell>
+              </TableRow>
+            )
+          }
         </TableBody>
       </Table>
     </>
