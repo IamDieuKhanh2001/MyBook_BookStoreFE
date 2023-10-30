@@ -1,46 +1,34 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './SortSideBar.module.scss'
 import Link from 'next/link'
+import CheckboxPrice from './CheckboxPrice/CheckboxPrice'
 
-const SortSideBarAll = () => {
+interface ISortSideBarAllProps {
+    filters: {
+        limit: string;
+        search: string;
+        minPrice: string;
+        maxPrice: string;
+        orderBy: string;
+    }
+    setFilters: React.Dispatch<React.SetStateAction<{
+        limit: string;
+        search: string;
+        minPrice: string;
+        maxPrice: string;
+        orderBy: string;
+    }>>
+}
+const SortSideBarAll = (props: ISortSideBarAllProps) => {
+    const { filters, setFilters } = props
+
     return (
         <>
-            <div>
-                <h5 className="px-3 py-2 border-bottom">Giá</h5>
-                <div className='py-2 px-3'>
-                    <div className="form-check mb-1">
-                        <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
-                        <label className="form-check-label" htmlFor="flexCheckDefault">
-                            0 - 150.000VND
-                        </label>
-                    </div>
-                    <div className="form-check mb-1">
-                        <input className="form-check-input" type="checkbox" id="flexCheckChecked" defaultChecked />
-                        <label className="form-check-label" htmlFor="flexCheckChecked">
-                            150.000 - 300.000VND
-                        </label>
-                    </div>
-                    <div className="form-check mb-1">
-                        <input className="form-check-input" type="checkbox" id="flexCheckChecked" defaultChecked />
-                        <label className="form-check-label" htmlFor="flexCheckChecked">
-                            300.000 - 500.000VND
-                        </label>
-                    </div>
-                    <div className="form-check mb-1">
-                        <input className="form-check-input" type="checkbox" id="flexCheckChecked" defaultChecked />
-                        <label className="form-check-label" htmlFor="flexCheckChecked">
-                            500.000 - 700.000VND
-                        </label>
-                    </div>
-                    <div className="form-check mb-1">
-                        <input className="form-check-input" type="checkbox" id="flexCheckChecked" defaultChecked />
-                        <label className="form-check-label" htmlFor="flexCheckChecked">
-                            700.000 - trở lên
-                        </label>
-                    </div>
-                </div>
-            </div>
+            <CheckboxPrice
+                filters={filters}
+                setFilters={setFilters}
+            />
             <div>
                 <h5 className="px-3 py-2 border-bottom">Nhà cung cấp</h5>
                 <div className='py-2 px-3'>

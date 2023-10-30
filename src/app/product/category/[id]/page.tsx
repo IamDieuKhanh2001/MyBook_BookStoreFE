@@ -1,7 +1,7 @@
 'use client'
 
-import SortSideBarCategory from '@/components/product/Category/SortSideBar/SortSideBarCategory';
 import FilterCurrentActive from '@/components/product/FilterCurrentActive/FilterCurrentActive';
+import SortSideBarCategory from '@/components/product/SortSideBar/SortSideBarCategory';
 import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb';
 import MainSectionTitle from '@/components/shared/MainSectionTitle/MainSectionTitle';
 import React, { useEffect, useState } from 'react'

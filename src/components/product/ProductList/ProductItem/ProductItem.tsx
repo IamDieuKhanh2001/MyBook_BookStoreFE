@@ -29,17 +29,15 @@ const ProductItem = (props: IProductItemProps) => {
                         onError={onImageError}
                         alt={data.name}
                     />
-                    <div className="bg-warning fw-bold rounded text-white position-absolute end-0 top-0 m-2 px-3">
-                        -16%
-                    </div>
                 </div>
                 <div className="px-4 py-2">
                     <a className="d-block h6 mb-2" href="">
                         {data.name}
                     </a>
                     <div className='d-flex flex-column'>
-                        <span className="text-danger fw-bold me-1">$19.00</span>
-                        <span className="text-body text-decoration-line-through">$29.00</span>
+                        <span className="text-danger fw-bold me-1">
+                            {data.price}
+                        </span>
                     </div>
                 </div>
                 <div className={`${styles.ratingContainer} px-3 pb-2`}>
