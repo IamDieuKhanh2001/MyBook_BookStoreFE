@@ -2,34 +2,11 @@
 import React from 'react'
 import LoadingFilter from '../LoadingFilter/LoadingFilter';
 import useAPIBookForm from '@/lib/hooks/api/useAPIBookForm';
+import { IBookFilter } from '../../../../../types/IBookFilter';
 
 interface ICheckBoxFormProps {
-    filters: {
-        limit: string;
-        search: string;
-        minPrice: string;
-        maxPrice: string;
-        orderBy: string;
-        langId: string,
-        authorId: string,
-        ccategoryId: string,
-        publisherId: string,
-        providerId: string,
-        bookFormId: string,
-    }
-    setFilters: React.Dispatch<React.SetStateAction<{
-        limit: string;
-        search: string;
-        minPrice: string;
-        maxPrice: string;
-        orderBy: string;
-        langId: string,
-        authorId: string,
-        ccategoryId: string,
-        publisherId: string,
-        providerId: string,
-        bookFormId: string,
-    }>>
+    filters: IBookFilter
+    setFilters: React.Dispatch<React.SetStateAction<IBookFilter>>
 }
 const CheckBoxForm = (props: ICheckBoxFormProps) => {
     const { filters, setFilters } = props
@@ -38,14 +15,15 @@ const CheckBoxForm = (props: ICheckBoxFormProps) => {
     const handleFormRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { checked, value } = event.target
         if (checked === true) {
+            const formSelected = data.find((item:IBookForm) => item.id === parseInt(value, 10));
             setFilters((prevFilters) => ({
                 ...prevFilters,
-                bookFormId: value,
+                bookForm: formSelected,
             }));
         } else {
             setFilters((prevFilters) => ({
                 ...prevFilters,
-                bookFormId: '',
+                bookForm: null,
             }));
         }
     }
@@ -63,7 +41,7 @@ const CheckBoxForm = (props: ICheckBoxFormProps) => {
                                 name={'checkbox_form'}
                                 id={`form_id_${checkboxItem.id.toString()}`}
                                 value={checkboxItem.id}
-                                checked={filters.bookFormId === `${checkboxItem.id}`}
+                                checked={filters.bookForm?.id === checkboxItem.id}
                                 onChange={handleFormRadioChange}
                             />
                             <label className="form-check-label" htmlFor={`form_id_${checkboxItem.id.toString()}`}>

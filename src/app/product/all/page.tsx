@@ -7,21 +7,23 @@ import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb'
 import useAPIGuest from '@/lib/hooks/api/useAPIGuest'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
+import { IBookLanguage } from '../../../../types/IBookLanguage'
+import { IBookFilter } from '../../../../types/IBookFilter'
 
 const ProductListAllPage = () => {
   const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<IBookFilter>({
     limit: '5',
     search: '',
     minPrice: '',
     maxPrice: '',
     orderBy: 'price,desc',
-    langId: '',
-    authorId: '',
-    ccategoryId: '',
-    publisherId: '',
-    providerId: '',
-    bookFormId: '',
+    language: null,
+    author: null,
+    ccategory: null,
+    publisher: null,
+    provider: null,
+    bookForm: null,
   });
   const { getBookFilterPaginated } = useAPIGuest()
   const { paginatedData, setSize, error, isLoading, isReachedEnd } = getBookFilterPaginated(
@@ -30,12 +32,12 @@ const ProductListAllPage = () => {
     filters.maxPrice,
     filters.orderBy,
     filters.limit,
-    filters.langId,
-    filters.authorId,
-    filters.ccategoryId,
-    filters.publisherId,
-    filters.providerId,
-    filters.bookFormId,
+    filters.language?.id.toString(),
+    filters.author?.id.toString(),
+    filters.ccategory?.id.toString(),
+    filters.publisher?.id.toString(),
+    filters.provider?.id.toString(),
+    filters.bookForm?.id.toString(),
   )
 
   useEffect(() => {

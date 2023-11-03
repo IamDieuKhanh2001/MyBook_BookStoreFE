@@ -3,34 +3,11 @@ import useAPIBookLanguage from '@/lib/hooks/api/useAPIBookLanguage';
 import React from 'react'
 import { IBookLanguage } from '../../../../../types/IBookLanguage';
 import LoadingFilter from '../LoadingFilter/LoadingFilter';
+import { IBookFilter } from '../../../../../types/IBookFilter';
 
 interface ICheckBoxLanguageProps {
-    filters: {
-        limit: string;
-        search: string;
-        minPrice: string;
-        maxPrice: string;
-        orderBy: string;
-        langId: string,
-        authorId: string,
-        ccategoryId: string,
-        publisherId: string,
-        providerId: string,
-        bookFormId: string,
-    }
-    setFilters: React.Dispatch<React.SetStateAction<{
-        limit: string;
-        search: string;
-        minPrice: string;
-        maxPrice: string;
-        orderBy: string;
-        langId: string,
-        authorId: string,
-        ccategoryId: string,
-        publisherId: string,
-        providerId: string,
-        bookFormId: string,
-    }>>
+    filters: IBookFilter
+    setFilters: React.Dispatch<React.SetStateAction<IBookFilter>>
 }
 const CheckBoxLanguage = (props: ICheckBoxLanguageProps) => {
     const { filters, setFilters } = props
@@ -39,14 +16,15 @@ const CheckBoxLanguage = (props: ICheckBoxLanguageProps) => {
     const handleLanguageRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { checked, value } = event.target
         if (checked === true) {
+            const langSelected = data.find((item:IBookLanguage) => item.id === parseInt(value, 10));
             setFilters((prevFilters) => ({
                 ...prevFilters,
-                langId: value,
+                language: langSelected,
             }));
         } else {
             setFilters((prevFilters) => ({
                 ...prevFilters,
-                langId: '',
+                language: null,
             }));
         }
     }
@@ -64,7 +42,7 @@ const CheckBoxLanguage = (props: ICheckBoxLanguageProps) => {
                                 name={'checkbox_lang'}
                                 id={`lang_id_${checkboxItem.id.toString()}`}
                                 value={checkboxItem.id}
-                                checked={filters.langId === `${checkboxItem.id}`}
+                                checked={filters.language?.id === checkboxItem.id}
                                 onChange={handleLanguageRadioChange}
                             />
                             <label className="form-check-label" htmlFor={`lang_id_${checkboxItem.id.toString()}`}>

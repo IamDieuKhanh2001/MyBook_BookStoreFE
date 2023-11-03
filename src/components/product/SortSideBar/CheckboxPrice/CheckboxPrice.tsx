@@ -1,33 +1,10 @@
 'use client'
 import React from 'react'
+import { IBookFilter } from '../../../../../types/IBookFilter'
 
 interface ICheckboxPriceProps {
-    filters: {
-        limit: string;
-        search: string;
-        minPrice: string;
-        maxPrice: string;
-        orderBy: string;
-        langId: string,
-        authorId: string,
-        ccategoryId: string,
-        publisherId: string,
-        providerId: string,
-        bookFormId: string,
-    }
-    setFilters: React.Dispatch<React.SetStateAction<{
-        limit: string;
-        search: string;
-        minPrice: string;
-        maxPrice: string;
-        orderBy: string;
-        langId: string,
-        authorId: string,
-        ccategoryId: string,
-        publisherId: string,
-        providerId: string,
-        bookFormId: string,
-    }>>
+    filters: IBookFilter
+    setFilters: React.Dispatch<React.SetStateAction<IBookFilter>>
 }
 const CheckboxPrice = (props: ICheckboxPriceProps) => {
     const { filters, setFilters } = props

@@ -5,34 +5,11 @@ import Link from 'next/link'
 import CheckboxPrice from './CheckboxPrice/CheckboxPrice'
 import CheckBoxLanguage from './CheckBoxLanguage/CheckBoxLanguage'
 import CheckBoxForm from './CheckBoxForm/CheckBoxForm'
+import { IBookFilter } from '../../../../types/IBookFilter'
 
 interface ISortSideBarAllProps {
-    filters: {
-        limit: string;
-        search: string;
-        minPrice: string;
-        maxPrice: string;
-        orderBy: string;
-        langId: string,
-        authorId: string,
-        ccategoryId: string,
-        publisherId: string,
-        providerId: string,
-        bookFormId: string,
-    }
-    setFilters: React.Dispatch<React.SetStateAction<{
-        limit: string;
-        search: string;
-        minPrice: string;
-        maxPrice: string;
-        orderBy: string;
-        langId: string,
-        authorId: string,
-        ccategoryId: string,
-        publisherId: string,
-        providerId: string,
-        bookFormId: string,
-    }>>
+    filters: IBookFilter
+    setFilters: React.Dispatch<React.SetStateAction<IBookFilter>>
 }
 const SortSideBarAll = (props: ISortSideBarAllProps) => {
     const { filters, setFilters } = props
@@ -40,6 +17,14 @@ const SortSideBarAll = (props: ISortSideBarAllProps) => {
     return (
         <>
             <CheckboxPrice
+                filters={filters}
+                setFilters={setFilters}
+            />
+            <CheckBoxLanguage
+                filters={filters}
+                setFilters={setFilters}
+            />
+            <CheckBoxForm
                 filters={filters}
                 setFilters={setFilters}
             />
@@ -103,14 +88,6 @@ const SortSideBarAll = (props: ISortSideBarAllProps) => {
                     </div>
                 </div>
             </div>
-            <CheckBoxLanguage
-                filters={filters}
-                setFilters={setFilters}
-            />
-            <CheckBoxForm
-                filters={filters}
-                setFilters={setFilters}
-            />
         </>
     )
 }
