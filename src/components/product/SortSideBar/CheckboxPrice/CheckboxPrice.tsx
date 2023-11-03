@@ -8,6 +8,12 @@ interface ICheckboxPriceProps {
         minPrice: string;
         maxPrice: string;
         orderBy: string;
+        langId: string,
+        authorId: string,
+        ccategoryId: string,
+        publisherId: string,
+        providerId: string,
+        bookFormId: string,
     }
     setFilters: React.Dispatch<React.SetStateAction<{
         limit: string;
@@ -15,6 +21,12 @@ interface ICheckboxPriceProps {
         minPrice: string;
         maxPrice: string;
         orderBy: string;
+        langId: string,
+        authorId: string,
+        ccategoryId: string,
+        publisherId: string,
+        providerId: string,
+        bookFormId: string,
     }>>
 }
 const CheckboxPrice = (props: ICheckboxPriceProps) => {

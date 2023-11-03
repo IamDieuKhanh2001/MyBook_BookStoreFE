@@ -13,7 +13,13 @@ const useAPIGuest = () => {
         minPrice: string = '',
         maxPrice: string = '',
         orderBy: string = 'price,desc',
-        limit: string = '5'
+        limit: string = '5',
+        langId: string = '',
+        authorId: string = '',
+        ccategoryId: string = '',
+        publisherId: string = '',
+        providerId: string = '',
+        bookFormId: string = ''
     ) => {
         const getKey = (pageIndex: number, previousPageData: any) => {
             if (previousPageData && !previousPageData.length) {
@@ -27,6 +33,12 @@ const useAPIGuest = () => {
                 order_by: orderBy,
                 page: (pageIndex + 1).toString(),
                 limit: limit,
+                lang_id: langId,
+                author_id: authorId,
+                ccategory_id: ccategoryId,
+                publisher_id: publisherId,
+                provider_id: providerId,
+                book_form_id: bookFormId,
             });
             return `${URL_PREFIX}/book?${params.toString()}`;
         };

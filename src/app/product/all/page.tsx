@@ -16,14 +16,26 @@ const ProductListAllPage = () => {
     minPrice: '',
     maxPrice: '',
     orderBy: 'price,desc',
+    langId: '',
+    authorId: '',
+    ccategoryId: '',
+    publisherId: '',
+    providerId: '',
+    bookFormId: '',
   });
   const { getBookFilterPaginated } = useAPIGuest()
-  const { paginatedData, mutate, setSize, error, isLoading, isReachedEnd } = getBookFilterPaginated(
+  const { paginatedData, setSize, error, isLoading, isReachedEnd } = getBookFilterPaginated(
     filters.search,
     filters.minPrice,
     filters.maxPrice,
     filters.orderBy,
-    filters.limit
+    filters.limit,
+    filters.langId,
+    filters.authorId,
+    filters.ccategoryId,
+    filters.publisherId,
+    filters.providerId,
+    filters.bookFormId,
   )
 
   useEffect(() => {
@@ -48,7 +60,10 @@ const ProductListAllPage = () => {
               />
             </div>
             <div className='col-xl-9 col-sm-12'>
-              <FilterCurrentActive />
+              <FilterCurrentActive
+                filters={filters}
+                setFilters={setFilters}
+              />
               <ProductList
                 dataList={paginatedData}
               />

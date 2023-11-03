@@ -3,6 +3,8 @@ import React, { useEffect } from 'react'
 import styles from './SortSideBar.module.scss'
 import Link from 'next/link'
 import CheckboxPrice from './CheckboxPrice/CheckboxPrice'
+import CheckBoxLanguage from './CheckBoxLanguage/CheckBoxLanguage'
+import CheckBoxForm from './CheckBoxForm/CheckBoxForm'
 
 interface ISortSideBarAllProps {
     filters: {
@@ -11,6 +13,12 @@ interface ISortSideBarAllProps {
         minPrice: string;
         maxPrice: string;
         orderBy: string;
+        langId: string,
+        authorId: string,
+        ccategoryId: string,
+        publisherId: string,
+        providerId: string,
+        bookFormId: string,
     }
     setFilters: React.Dispatch<React.SetStateAction<{
         limit: string;
@@ -18,6 +26,12 @@ interface ISortSideBarAllProps {
         minPrice: string;
         maxPrice: string;
         orderBy: string;
+        langId: string,
+        authorId: string,
+        ccategoryId: string,
+        publisherId: string,
+        providerId: string,
+        bookFormId: string,
     }>>
 }
 const SortSideBarAll = (props: ISortSideBarAllProps) => {
@@ -30,7 +44,7 @@ const SortSideBarAll = (props: ISortSideBarAllProps) => {
                 setFilters={setFilters}
             />
             <div>
-                <h5 className="px-3 py-2 border-bottom">Nhà cung cấp</h5>
+                <h5 className="px-3 py-2 border-bottom">Nhà cung cấp (Chưa map)</h5>
                 <div className='py-2 px-3'>
                     <div className="form-check">
                         <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
@@ -73,7 +87,7 @@ const SortSideBarAll = (props: ISortSideBarAllProps) => {
                 </div>
             </div>
             <div>
-                <h5 className="px-3 py-2 border-bottom">Tác giả</h5>
+                <h5 className="px-3 py-2 border-bottom">Tác giả (Chưa map)</h5>
                 <div className='py-2 px-3'>
                     <div className="form-check">
                         <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
@@ -89,40 +103,14 @@ const SortSideBarAll = (props: ISortSideBarAllProps) => {
                     </div>
                 </div>
             </div>
-            <div>
-                <h5 className="px-3 py-2 border-bottom">Ngôn ngữ</h5>
-                <div className='py-2 px-3'>
-                    <div className="form-check">
-                        <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
-                        <label className="form-check-label" htmlFor="flexCheckDefault">
-                            Tiếng anh
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input className="form-check-input" type="checkbox" id="flexCheckChecked" defaultChecked />
-                        <label className="form-check-label" htmlFor="flexCheckChecked">
-                            Tiếng nhật
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <h5 className="px-3 py-2 border-bottom">Hình thức</h5>
-                <div className='py-2 px-3'>
-                    <div className="form-check">
-                        <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
-                        <label className="form-check-label" htmlFor="flexCheckDefault">
-                            Bộ hộp
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input className="form-check-input" type="checkbox" id="flexCheckChecked" defaultChecked />
-                        <label className="form-check-label" htmlFor="flexCheckChecked">
-                            Bìa cứng
-                        </label>
-                    </div>
-                </div>
-            </div>
+            <CheckBoxLanguage
+                filters={filters}
+                setFilters={setFilters}
+            />
+            <CheckBoxForm
+                filters={filters}
+                setFilters={setFilters}
+            />
         </>
     )
 }
