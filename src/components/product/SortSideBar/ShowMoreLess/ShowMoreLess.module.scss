@@ -1,0 +1,26 @@
+
+.showMoreLessContainer {
+    display: flex;
+    height: 40px;
+    font-size: 11px;
+    align-items: center;
+    justify-content: center;
+
+    .showMoreBtn {
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+        color: #F7941E;
+        padding-right: 20px;
+        background: url('/img/filter/IconArrowDown.png') no-repeat right;
+    }
+
+    .showLessBtn {
+        font-weight: bold;
+        font-size: 14px;
+        cursor: pointer;
+        color: #F7941E;
+        padding-right: 20px;
+        background: url('/img/filter/IconArrowUp.png') no-repeat right;
+    }
+}
