@@ -2,12 +2,15 @@
 import React from 'react'
 import styles from './FilterCurrentActive.module.scss'
 import { IBookFilter } from '../../../../types/IBookFilter'
+import { useDispatch } from 'react-redux'
+import { productActions } from '@/redux/slices/ProductSlice'
 
 interface IFilterCurrentActiveProps {
     filters: IBookFilter
     setFilters: React.Dispatch<React.SetStateAction<IBookFilter>>
 }
 const FilterCurrentActive = (props: IFilterCurrentActiveProps) => {
+    const dispatch = useDispatch();
     const { filters, setFilters } = props
     const {
         limit,
@@ -48,6 +51,7 @@ const FilterCurrentActive = (props: IFilterCurrentActiveProps) => {
 
     //Item active filter must be render
     const shouldRenderCurrentActive = (
+        search ||
         minPrice ||
         maxPrice ||
         language ||
@@ -65,12 +69,25 @@ const FilterCurrentActive = (props: IFilterCurrentActiveProps) => {
                         Lọc theo:
                     </div>
                     <div className={styles.displayFilterCurrent}>
+                        {search && (
+                            <div className={`${styles.filterItem} me-1 alert alert-warning alert-dismissible fade show`} role="alert">
+                                <p>Từ khóa: {search}</p>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={() => {
+                                        handleChangeFilterValue('search', '')
+                                        dispatch(productActions.updateKeyword(''));
+                                    }}
+                                />
+                            </div>
+                        )}
                         {minPrice && (
                             <div className={`${styles.filterItem} me-1 alert alert-warning alert-dismissible fade show`} role="alert">
                                 <p>
-                                    Giá: 
+                                    Giá:
                                     {minPrice}-{maxPrice !== '' ? maxPrice : 'Trở lên'}
-                                    </p>
+                                </p>
                                 <button
                                     type="button"
                                     className="btn-close"

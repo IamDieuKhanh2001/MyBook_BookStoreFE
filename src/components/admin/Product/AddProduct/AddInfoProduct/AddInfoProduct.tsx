@@ -99,7 +99,6 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
             .notOneOf([0], '*Vui lòng chọn thể loại') // Không cho phép giá trị bằng 0
             .required('*Vui lòng chọn thể loại'),
         name: Yup.string()
-            .max(50, "*tên không quá 50 ký tự")
             .required("*Tên không được để trống"),
         isbnCode: Yup.string()
             .matches(/^[0-9]+$/, '*Chỉ được chứa các số')
@@ -120,7 +119,6 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
             .min(0, 'Số lượng không được âm')
             .required('Số lượng không được để trống'),
         desc: Yup.string()
-            .max(100, "*Mô tả không quá 100 ký tự")
             .required("*Mô tả không được để trống"),
         weight: Yup.number()
             .typeError('*Khối lượng phải là số, không chứa chữ cái A-Z, a-z, các kí hiệu đặc biệt')

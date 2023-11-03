@@ -2,10 +2,12 @@
 
 import { configureStore } from '@reduxjs/toolkit'
 import authorReducer from './slices/authorSlices';
+import productListReducer from './slices/ProductSlice'
 
 export const store = configureStore({
     reducer: {
-        author: authorReducer
+        author: authorReducer,
+        product: productListReducer
     }
 })
 

@@ -7,11 +7,14 @@ import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb'
 import useAPIGuest from '@/lib/hooks/api/useAPIGuest'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { IBookLanguage } from '../../../../types/IBookLanguage'
 import { IBookFilter } from '../../../../types/IBookFilter'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/redux/store'
 
 const ProductListAllPage = () => {
   const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
+  const searchKeyword = useSelector((state: RootState) => state.product.searchKeyword);
+
   const [filters, setFilters] = useState<IBookFilter>({
     limit: '5',
     search: '',
@@ -49,6 +52,14 @@ const ProductListAllPage = () => {
   useEffect(() => {
     console.log(filters)
   }, [filters])
+
+  useEffect(() => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      search: searchKeyword,
+  }));
+  }, [searchKeyword])
+
   return (
     <>
       <Breadcrumb />

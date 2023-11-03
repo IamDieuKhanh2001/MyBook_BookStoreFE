@@ -2,6 +2,7 @@
 import React from 'react'
 import styles from "./ProductItem.module.scss"
 import { IBook } from '../../../../../types/IBook'
+import { truncateText } from '@/lib/utils/TextUtils'
 
 interface IProductItemProps {
     data: IBook
@@ -11,8 +12,8 @@ const ProductItem = (props: IProductItemProps) => {
 
     const onImageError = (e: any) => {
         e.target.src = '/img/book/no-image.jpg'
-      }
-      
+    }
+
     return (
         // col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3
         <div className="col-xl-3 col-lg-3 col-md-3 col-4 wow fadeInUp" data-wow-delay="0.3s">
@@ -21,22 +22,23 @@ const ProductItem = (props: IProductItemProps) => {
                     <img
                         className="img-fluid w-100"
                         src={
-                            data?.images[0] ? 
-                            data.images[0]?.image_source 
-                            : 
-                            '/img/book/no-image.jpg'
+                            data?.images[0] ?
+                                data.images[0]?.image_source
+                                :
+                                '/img/book/no-image.jpg'
                         }
                         onError={onImageError}
-                        alt={data.name}
+                        alt={data.isbn_code}
                     />
                 </div>
                 <div className="px-4 py-2">
                     <a className="d-block h6 mb-2" href="">
-                        {data.name}
+                        {truncateText(data.name, 40)}
                     </a>
                     <div className='d-flex flex-column'>
+                        id: {data.isbn_code}
                         <span className="text-danger fw-bold me-1">
-                            {data.price}
+                            {data.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                         </span>
                     </div>
                 </div>
