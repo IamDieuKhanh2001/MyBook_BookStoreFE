@@ -47,6 +47,7 @@ const FilterCurrentActive = (props: IFilterCurrentActiveProps) => {
             provider: null,
             bookForm: null,
         })
+        dispatch(productActions.updateKeyword(''));
     }
 
     //Item active filter must be render
@@ -57,7 +58,6 @@ const FilterCurrentActive = (props: IFilterCurrentActiveProps) => {
         language ||
         author ||
         bookForm ||
-        ccategory ||
         provider ||
         publisher
     );
@@ -115,6 +115,36 @@ const FilterCurrentActive = (props: IFilterCurrentActiveProps) => {
                                     type="button"
                                     className="btn-close"
                                     onClick={() => handleChangeFilterValue('bookForm', null)}
+                                />
+                            </div>
+                        )}
+                        {publisher && (
+                            <div className={`${styles.filterItem} me-1 alert alert-warning alert-dismissible fade show`} role="alert">
+                                <p>Nhà xuất bản: {publisher.name}</p>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={() => handleChangeFilterValue('publisher', null)}
+                                />
+                            </div>
+                        )}
+                        {author && (
+                            <div className={`${styles.filterItem} me-1 alert alert-warning alert-dismissible fade show`} role="alert">
+                                <p>Tác giả: {author.author_name}</p>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={() => handleChangeFilterValue('author', null)}
+                                />
+                            </div>
+                        )}
+                        {provider && (
+                            <div className={`${styles.filterItem} me-1 alert alert-warning alert-dismissible fade show`} role="alert">
+                                <p>Nhà cung cấp: {provider.name}</p>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={() => handleChangeFilterValue('provider', null)}
                                 />
                             </div>
                         )}

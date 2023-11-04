@@ -1,28 +1,28 @@
 'use client'
 import React, { useState } from 'react'
-import styles from './CheckBoxPublisher.module.scss'
+import styles from './CheckBoxAuthor.module.scss'
 import ShowMoreLess from '../ShowMoreLess/ShowMoreLess'
 import { IBookFilter } from '../../../../../types/IBookFilter'
 import LoadingFilter from '../LoadingFilter/LoadingFilter'
 import useAPIGuest from '@/lib/hooks/api/useAPIGuest'
 
-interface ICheckBoxPublisherProps {
+interface ICheckBoxAuthorProps {
     filters: IBookFilter
     setFilters: React.Dispatch<React.SetStateAction<IBookFilter>>
 }
-const CheckBoxPublisher = (props: ICheckBoxPublisherProps) => {
+const CheckBoxAuthor = (props: ICheckBoxAuthorProps) => {
     const { filters, setFilters } = props
     const [isShowMore, setIsShowMore] = useState<boolean>(false)
-    const { getPublisherListPaginated } = useAPIGuest()
-    const { paginatedData: publisherList, isLoading } = getPublisherListPaginated('999999')
+    const { getAuthorListPaginated } = useAPIGuest()
+    const { paginatedData: authorList, isLoading } = getAuthorListPaginated('999999')
 
-    const handlePublisherRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleAuthorRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { checked, value } = event.target
         if (checked === true) {
-            const publisherSelected = publisherList.find((item) => item.id === parseInt(value, 10));
+            const authorSelected = authorList.find((item) => item.id === parseInt(value, 10));
             setFilters((prevFilters) => ({
                 ...prevFilters,
-                publisher: publisherSelected || null,
+                author: authorSelected || null,
             }));
         } else {
             setFilters((prevFilters) => ({
@@ -34,22 +34,22 @@ const CheckBoxPublisher = (props: ICheckBoxPublisherProps) => {
 
     return (
         <div>
-            <h5 className="px-3 py-2 border-bottom">Nhà xuất bản</h5>
+            <h5 className="px-3 py-2 border-bottom">Tác giả</h5>
             <div className={`py-2 px-3 ${styles.checkBoxContent} ${isShowMore ? styles.showFull : styles.showLess}`}>
                 {!isLoading ? (
-                    publisherList.map((publisher) => (
-                        <div key={publisher.id} className="form-check">
+                    authorList.map((author) => (
+                        <div key={author.id} className="form-check">
                             <input
                                 className="form-check-input"
                                 type="checkbox"
-                                name='checkbox_publisher'
-                                id={`publisher_id_${publisher.id}`}
-                                value={publisher.id}
-                                checked={filters?.publisher?.id === publisher.id}
-                                onChange={handlePublisherRadioChange}
+                                name='checkbox_author'
+                                id={`author_id_${author.id}`}
+                                value={author.id}
+                                checked={filters?.author?.id === author.id}
+                                onChange={handleAuthorRadioChange}
                             />
-                            <label className="form-check-label" htmlFor={`publisher_id_${publisher.id}`}>
-                                {publisher.name}
+                            <label className="form-check-label" htmlFor={`author_id_${author.id}`}>
+                                {author.author_name}
                             </label>
                         </div>
                     ))
@@ -66,4 +66,4 @@ const CheckBoxPublisher = (props: ICheckBoxPublisherProps) => {
     )
 }
 
-export default CheckBoxPublisher
+export default CheckBoxAuthor

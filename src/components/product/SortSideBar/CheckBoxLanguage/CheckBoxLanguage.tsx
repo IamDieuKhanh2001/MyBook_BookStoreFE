@@ -1,9 +1,9 @@
 'use client'
-import useAPIBookLanguage from '@/lib/hooks/api/useAPIBookLanguage';
 import React from 'react'
 import { IBookLanguage } from '../../../../../types/IBookLanguage';
 import LoadingFilter from '../LoadingFilter/LoadingFilter';
 import { IBookFilter } from '../../../../../types/IBookFilter';
+import useAPIGuest from '@/lib/hooks/api/useAPIGuest';
 
 interface ICheckBoxLanguageProps {
     filters: IBookFilter
@@ -11,7 +11,7 @@ interface ICheckBoxLanguageProps {
 }
 const CheckBoxLanguage = (props: ICheckBoxLanguageProps) => {
     const { filters, setFilters } = props
-    const { getLanguageList } = useAPIBookLanguage()
+    const { getLanguageList } = useAPIGuest()
     const { data, isLoading } = getLanguageList()
     const handleLanguageRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { checked, value } = event.target

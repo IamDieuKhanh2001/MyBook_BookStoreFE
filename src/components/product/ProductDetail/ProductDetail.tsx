@@ -5,7 +5,11 @@ import styles from './ProductDetail.module.scss'
 import ProductTab from './ProductTab/ProductTab'
 import FlashSaleCountDown from './FlashSaleCountDown/FlashSaleCountDown'
 
-const ProductDetail = () => {
+interface IProductDetailProps {
+    isbnCode: string
+}
+const ProductDetail = (props: IProductDetailProps) => {
+    const { isbnCode } = props
     const [productImages, SetProductImages] = useState([
         '/img/book/no-image.jpg',
         '/img/book/sach1.jpg',
@@ -38,14 +42,14 @@ const ProductDetail = () => {
             {/* About Start */}
             <div className="container-xxl py-3 mt-2 section-container">
                 <div className="container">
-                    <div className="row g-5 align-items-center">
+                    <div className="row align-items-center">
                         <div className="col-lg-6 col-md-12 wow fadeIn" data-wow-delay="0.1s">
                             <div className="about-img position-relative overflow-hidden p-lg-5 pe-0">
                                 <ProductImgSlider imgList={productImages} />
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-12 wow fadeIn" data-wow-delay="0.5s">
-                            <h1 className="display-5 mb-2">Dummy Book Tilte</h1>
+                            <h3 className="mb-2">Dummy Book Tilte id: {isbnCode}</h3>
                             <div className="d-flex mb-1">
                                 <div className="text-primary me-2">
                                     <small className="fas fa-star" />

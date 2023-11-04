@@ -3,6 +3,7 @@ import React from 'react'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dynamic from 'next/dynamic';
+import { useTheme } from '@mui/material'
 
 const DynamicDateTimePicker = dynamic(() => import('@mui/x-date-pickers/DateTimePicker')
     .then((module) => (module.DateTimePicker)), {
@@ -14,6 +15,8 @@ interface ICustomDateTimePickerProps {
     onChangeEvent: (value: any) => void
 }
 const CustomDateTimePicker = ({ value, onChangeEvent }: ICustomDateTimePickerProps) => {
+    const theme = useTheme()
+
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DynamicDateTimePicker
@@ -34,7 +37,7 @@ const CustomDateTimePicker = ({ value, onChangeEvent }: ICustomDateTimePickerPro
                     calendarHeader: {
                         sx: {
                             "&.MuiPickersCalendarHeader-root": {
-                                backgroundColor: "red",
+                                backgroundColor: theme.palette.secondary.dark,
                             },
                         },
                     },
@@ -42,14 +45,14 @@ const CustomDateTimePicker = ({ value, onChangeEvent }: ICustomDateTimePickerPro
                         sx: {
                             "&.MuiPickersLayout-root": {
                                 color: 'white',
-                                backgroundColor: "gray",
+                                backgroundColor: theme.palette.grey[600],
                             }
                         }
                     },
                     openPickerButton: {
                         sx: {
                             '&.MuiButtonBase-root': {
-                                color: 'red',
+                                color: theme.palette.secondary.dark,
                             }
                         }
                     },
@@ -57,14 +60,14 @@ const CustomDateTimePicker = ({ value, onChangeEvent }: ICustomDateTimePickerPro
                         sx: {
                             "&.MuiPickersDay-root": {
                                 '&:not(.Mui-selected)': {
-                                    backgroundColor: 'black',
+                                    backgroundColor: theme.palette.primary.main,
                                     border: 'none',
                                 },
                                 '&:hover': {
-                                    backgroundColor: 'red',
+                                    backgroundColor: theme.palette.secondary.dark,
                                 },
                                 '&.Mui-selected': {
-                                    backgroundColor: "red",
+                                    backgroundColor: theme.palette.secondary.dark,
                                 }
                             },
                         },

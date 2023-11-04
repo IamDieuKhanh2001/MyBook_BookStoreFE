@@ -6,6 +6,8 @@ import CheckBoxLanguage from './CheckBoxLanguage/CheckBoxLanguage'
 import CheckBoxForm from './CheckBoxForm/CheckBoxForm'
 import { IBookFilter } from '../../../../types/IBookFilter'
 import CheckBoxPublisher from './CheckBoxPublisher/CheckBoxPublisher'
+import CheckBoxAuthor from './CheckBoxAuthor/CheckBoxAuthor'
+import CheckBoxProvider from './CheckBoxProvider/CheckBoxProvider'
 
 interface ISortSideBarAllProps {
     filters: IBookFilter
@@ -32,23 +34,14 @@ const SortSideBarAll = (props: ISortSideBarAllProps) => {
                 filters={filters}
                 setFilters={setFilters}
             />
-            <div>
-                <h5 className="px-3 py-2 border-bottom">Tác giả (Chưa map)</h5>
-                <div className='py-2 px-3'>
-                    <div className="form-check">
-                        <input className="form-check-input" type="checkbox" id="flexCheckDefault" />
-                        <label className="form-check-label" htmlFor="flexCheckDefault">
-                            tg 1
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <input className="form-check-input" type="checkbox" id="flexCheckChecked" defaultChecked />
-                        <label className="form-check-label" htmlFor="flexCheckChecked">
-                            tg 2
-                        </label>
-                    </div>
-                </div>
-            </div>
+            <CheckBoxAuthor
+                filters={filters}
+                setFilters={setFilters}
+            />
+            <CheckBoxProvider
+                filters={filters}
+                setFilters={setFilters}
+            />
         </>
     )
 }

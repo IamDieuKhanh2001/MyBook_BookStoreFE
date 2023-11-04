@@ -3,15 +3,21 @@ import React from 'react'
 import styles from "./ProductItem.module.scss"
 import { IBook } from '../../../../../types/IBook'
 import { truncateText } from '@/lib/utils/TextUtils'
+import { useRouter } from 'next/navigation'
 
 interface IProductItemProps {
     data: IBook
 }
 const ProductItem = (props: IProductItemProps) => {
     const { data } = props
+    const router = useRouter()
 
     const onImageError = (e: any) => {
         e.target.src = '/img/book/no-image.jpg'
+    }
+
+    const handleDetailPageRedirect = () => {
+        router.push('/product/detail')
     }
 
     return (
@@ -29,14 +35,15 @@ const ProductItem = (props: IProductItemProps) => {
                         }
                         onError={onImageError}
                         alt={data.isbn_code}
+                        onClick={handleDetailPageRedirect}
                     />
                 </div>
                 <div className="px-4 py-2">
-                    <a className="d-block h6 mb-2" href="">
+                    <a className="d-block h6 mb-2" onClick={handleDetailPageRedirect}>
                         {truncateText(data.name, 40)}
                     </a>
                     <div className='d-flex flex-column'>
-                        id: {data.isbn_code}
+                        isbn: {data.isbn_code}
                         <span className="text-danger fw-bold me-1">
                             {data.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                         </span>

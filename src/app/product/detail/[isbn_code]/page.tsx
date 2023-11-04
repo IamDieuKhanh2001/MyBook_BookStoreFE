@@ -2,12 +2,18 @@ import ProductDetail from '@/components/product/ProductDetail/ProductDetail'
 import React from 'react'
 import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb'
 
-const ProductDetailPage = () => {
+interface IProductDetailPageProps {
+  params: {
+    isbn_code: string;
+  };
+}
+const ProductDetailPage = ({ params }: IProductDetailPageProps) => {
+  const { isbn_code } = params
 
   return (
     <>
       <Breadcrumb />
-      <ProductDetail />
+      <ProductDetail isbnCode={isbn_code} />
     </>
   )
 }

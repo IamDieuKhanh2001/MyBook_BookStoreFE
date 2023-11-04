@@ -104,12 +104,6 @@ const AddVoucherPage = () => {
                         subtitle='Manage Voucher list'
                     >
                         <Box sx={{ width: { xs: '280px', sm: 'auto' } }}>
-                            {/* {error && (
-                                <Alert sx={{ mb: 2 }} severity="error">
-                                    <AlertTitle>Error</AlertTitle>
-                                    Something when wrong — <strong>check your connection and reload page!</strong>
-                                </Alert>
-                            )} */}
                             <CustomButton
                                 startIcon={<IconArrowBackUp />}
                                 color="secondary"

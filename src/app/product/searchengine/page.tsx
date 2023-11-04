@@ -8,11 +8,13 @@ import useAPIGuest from '@/lib/hooks/api/useAPIGuest'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { IBookFilter } from '../../../../types/IBookFilter'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
+import { productActions } from '@/redux/slices/ProductSlice'
 
 const ProductListAllPage = () => {
   const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
+  const dispatch = useDispatch();
   const searchKeyword = useSelector((state: RootState) => state.product.searchKeyword);
 
   const [filters, setFilters] = useState<IBookFilter>({
@@ -57,8 +59,14 @@ const ProductListAllPage = () => {
     setFilters((prevFilters) => ({
       ...prevFilters,
       search: searchKeyword,
-  }));
+    }));
   }, [searchKeyword])
+
+  useEffect(() => {
+    return () => {
+      dispatch(productActions.updateKeyword(''))
+    }
+  }, [])
 
   return (
     <>
