@@ -268,8 +268,36 @@ const useAPIGuest = () => {
         }
     }
 
+    const getBookDetail = (isbnCode: string) => {
+        const fetcher = async (url: string) => {
+            try {
+                const response = await axiosAuth.get(url);
+                return response.data;
+            } catch (error) {
+                console.error('Lỗi khi fetch:', error);
+                return Promise.reject(error); // Trả về một Promise bị từ chối
+            }
+        }
+
+        const { data, mutate, isLoading, error } = useSWR(
+            `${URL_PREFIX}/book/${isbnCode}`,
+            fetcher,
+            {
+                revalidateOnReconnect: false,
+            }
+        )
+        const bookDetailData: IBook = data ?? {}
+        return {
+            data: bookDetailData,
+            mutate: mutate,
+            isLoading: !error && !data,
+            error: error,
+        }
+    }
+
     return {
         getBookFilterPaginated,
+        getBookDetail,
         getCategoryList,
         getBookFormList,
         getLanguageList,

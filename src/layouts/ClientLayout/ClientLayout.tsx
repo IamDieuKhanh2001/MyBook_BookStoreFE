@@ -22,12 +22,13 @@ const ClientLayout: React.FC<Props> = ({ children }) => {
             {/* JavaScript Libraries */}
             <Script src="/lib/jquery/jquery-3.4.1.min.js"></Script>
             <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></Script>
+            <Script src="/lib/owlcarousel/owl.carousel.min.js"></Script>
             <Script src="/lib/wow/wow.min.js"></Script>
             <Script src="/lib/easing/easing.min.js"></Script>
             <Script src="/lib/waypoints/waypoints.min.js"></Script>
-            <Script src="/lib/owlcarousel/owl.carousel.min.js"></Script>
             {/* Template JavaScript */}
             <Script src="/js/main.js"></Script>
+            {/*End JavaScript Libraries */}
         </>
     )
 }

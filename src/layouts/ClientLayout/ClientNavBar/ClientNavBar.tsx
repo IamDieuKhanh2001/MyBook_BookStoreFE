@@ -56,12 +56,6 @@ function ClientNavBar() {
                                     Pages
                                 </Link>
                                 <div className={`${styles.dropdownMenu} dropdown-menu m-0`}>
-                                    <Link href="/product/detail" className="dropdown-item">
-                                        product single
-                                    </Link>
-                                    <Link href="/product/all" className="dropdown-item">
-                                        product list
-                                    </Link>
                                     <Link href="/account" className='dropdown-item'>
                                         Account
                                     </Link>

@@ -16,8 +16,8 @@ const ProductItem = (props: IProductItemProps) => {
         e.target.src = '/img/book/no-image.jpg'
     }
 
-    const handleDetailPageRedirect = () => {
-        router.push('/product/detail')
+    const handleDetailPageRedirect = (isbn_code: string) => {
+        router.push(`/product/detail/${isbn_code}`)
     }
 
     return (
@@ -35,11 +35,11 @@ const ProductItem = (props: IProductItemProps) => {
                         }
                         onError={onImageError}
                         alt={data.isbn_code}
-                        onClick={handleDetailPageRedirect}
+                        onClick={() => handleDetailPageRedirect(data.isbn_code)}
                     />
                 </div>
                 <div className="px-4 py-2">
-                    <a className="d-block h6 mb-2" onClick={handleDetailPageRedirect}>
+                    <a className={`d-block h6 mb-2 ${styles.productTitle}`} onClick={() => handleDetailPageRedirect(data.isbn_code)}>
                         {truncateText(data.name, 40)}
                     </a>
                     <div className='d-flex flex-column'>

@@ -1,45 +1,52 @@
 'use client'
 import React from 'react'
-import styles from './ProductTab.module.scss'
-import ProductReview from '../ProductReview/ProductReview'
+import ProductReview from './ProductReview/ProductReview'
+import ProductInfo from './ProductInfo/ProductInfo'
+import ProductDesc from './ProductDesc/ProductDesc'
+import { IBook } from '../../../../../types/IBook'
 
-const ProductTab = () => {
+interface IProductTabProps {
+    product: IBook
+}
+const ProductTab = (props: IProductTabProps) => {
+    const { product } = props
+
     return (
         <>
             <nav>
                 <div className="nav nav-tabs pt-3" id="nav-tab" role="tablist">
                     <button
                         className="nav-link active"
-                        id="nav-home-tab"
+                        id="nav-detail-tab"
                         data-bs-toggle="tab"
-                        data-bs-target="#nav-home"
+                        data-bs-target="#nav-detail"
                         type="button"
                         role="tab"
-                        aria-controls="nav-home"
-                        aria-selected="true"
-                    >
-                        Mô tả
-                    </button>
-                    <button
-                        className="nav-link"
-                        id="nav-profile-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#nav-profile"
-                        type="button"
-                        role="tab"
-                        aria-controls="nav-profile"
+                        aria-controls="nav-detail"
                         aria-selected="false"
                     >
                         Thông tin chi tiết
                     </button>
                     <button
                         className="nav-link"
-                        id="nav-contact-tab"
+                        id="nav-desc-tab"
                         data-bs-toggle="tab"
-                        data-bs-target="#nav-contact"
+                        data-bs-target="#nav-desc"
                         type="button"
                         role="tab"
-                        aria-controls="nav-contact"
+                        aria-controls="nav-desc"
+                        aria-selected="true"
+                    >
+                        Mô tả
+                    </button>
+                    <button
+                        className="nav-link"
+                        id="nav-review-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#nav-review"
+                        type="button"
+                        role="tab"
+                        aria-controls="nav-review"
                         aria-selected="false"
                     >
                         Xem Đánh giá
@@ -49,86 +56,26 @@ const ProductTab = () => {
             <div className="tab-content" id="nav-tabContent">
                 <div
                     className="tab-pane fade show active"
-                    id="nav-home"
+                    id="nav-detail"
                     role="tabpanel"
-                    aria-labelledby="nav-home-tab"
+                    aria-labelledby="nav-detail-tab"
                 >
-                    <h4 className="my-3">Mô tả</h4>
-                    <p>
-                        Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea.
-                    </p>
+                    <ProductInfo product={product} />
                 </div>
                 <div
                     className="tab-pane fade"
-                    id="nav-profile"
+                    id="nav-desc"
                     role="tabpanel"
-                    aria-labelledby="nav-profile-tab"
+                    aria-labelledby="nav-desc-tab"
                 >
-                    <div className={styles.productInfo}>
-                        <h4 className='my-3'>Thông tin sản phẩm</h4>
-                        <div className={styles.productInfoContent}>
-                            <table className={styles.productInfoTable}>
-                                <tbody>
-                                    <tr>
-                                        <th className={styles.tableLabel}>
-                                            Mã hàng
-                                        </th>
-                                        <td className={styles.dataValue}>
-                                            9780241375235
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th className={styles.tableLabel}>
-                                            Age
-                                        </th>
-                                        <td className={styles.dataValue}>
-                                            12 - 17
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th className={styles.tableLabel}>
-                                            Nha cung cap
-                                        </th>
-                                        <td className={styles.dataValue}>
-                                            Ten nha cc
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th className={styles.tableLabel}>
-                                            Nha xuat ban
-                                        </th>
-                                        <td className={styles.dataValue}>
-                                            Ten nha xb
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th className={styles.tableLabel}>
-                                            Năm xuất bản
-                                        </th>
-                                        <td className={styles.dataValue}>
-                                            2023
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th className={styles.tableLabel}>
-                                            So trang
-                                        </th>
-                                        <td className={styles.dataValue}>
-                                            100
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <ProductDesc desc={product.desc} />
                 </div>
                 <div
                     className="tab-pane fade"
-                    id="nav-contact"
+                    id="nav-review"
                     role="tabpanel"
-                    aria-labelledby="nav-contact-tab"
+                    aria-labelledby="nav-review-tab"
                 >
-                    {/* tach component danh gia product  */}
                     <ProductReview />
                 </div>
             </div>
