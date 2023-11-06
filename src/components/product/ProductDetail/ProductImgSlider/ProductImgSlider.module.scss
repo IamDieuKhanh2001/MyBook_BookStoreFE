@@ -4,9 +4,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 5px;
 
     .mainImgActive {
-        width: 100%;
+        max-width: 428px;
+        max-height: 428px;
     }
 
     .thumbnailContainer {

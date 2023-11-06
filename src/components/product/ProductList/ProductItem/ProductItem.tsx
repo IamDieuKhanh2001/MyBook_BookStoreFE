@@ -2,17 +2,24 @@
 import React from 'react'
 import styles from "./ProductItem.module.scss"
 import { IBook } from '../../../../../types/IBook'
+import { truncateText } from '@/lib/utils/TextUtils'
+import { useRouter } from 'next/navigation'
 
 interface IProductItemProps {
     data: IBook
 }
 const ProductItem = (props: IProductItemProps) => {
     const { data } = props
+    const router = useRouter()
 
     const onImageError = (e: any) => {
         e.target.src = '/img/book/no-image.jpg'
-      }
-      
+    }
+
+    const handleDetailPageRedirect = (isbn_code: string) => {
+        router.push(`/product/detail/${isbn_code}`)
+    }
+
     return (
         // col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3
         <div className="col-xl-3 col-lg-3 col-md-3 col-4 wow fadeInUp" data-wow-delay="0.3s">
@@ -21,25 +28,25 @@ const ProductItem = (props: IProductItemProps) => {
                     <img
                         className="img-fluid w-100"
                         src={
-                            data?.images[0] ? 
-                            data.images[0]?.image_source 
-                            : 
-                            '/img/book/no-image.jpg'
+                            data?.images[0] ?
+                                data.images[0]?.image_source
+                                :
+                                '/img/book/no-image.jpg'
                         }
                         onError={onImageError}
-                        alt={data.name}
+                        alt={data.isbn_code}
+                        onClick={() => handleDetailPageRedirect(data.isbn_code)}
                     />
-                    <div className="bg-warning fw-bold rounded text-white position-absolute end-0 top-0 m-2 px-3">
-                        -16%
-                    </div>
                 </div>
                 <div className="px-4 py-2">
-                    <a className="d-block h6 mb-2" href="">
-                        {data.name}
+                    <a className={`d-block h6 mb-2 ${styles.productTitle}`} onClick={() => handleDetailPageRedirect(data.isbn_code)}>
+                        {truncateText(data.name, 40)}
                     </a>
                     <div className='d-flex flex-column'>
-                        <span className="text-danger fw-bold me-1">$19.00</span>
-                        <span className="text-body text-decoration-line-through">$29.00</span>
+                        isbn: {data.isbn_code}
+                        <span className="text-danger fw-bold me-1">
+                            {data.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                        </span>
                     </div>
                 </div>
                 <div className={`${styles.ratingContainer} px-3 pb-2`}>

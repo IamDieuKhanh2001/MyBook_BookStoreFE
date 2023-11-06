@@ -7,8 +7,12 @@ Khởi động project:
 ```bash
 # Cài đặt các dependency của project
 npm i
-# Chạy dự án trên chế độ dev mode
+# Build chế độ production (Khuyến khích)
+npm run build
+# Sau khi build, sử dụng lệnh sau để khởi động
+npm run start
+# Chạy dự án trên chế độ dev mode (Không cần thiết)
 npm run dev
 ```
 
-Mở [http://localhost:3000](http://localhost:3000) để xem dự án.
+Truy cập đường dẫn [http://localhost:3000](http://localhost:3000) để xem dự án trên localhost.

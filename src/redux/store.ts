@@ -1,11 +1,11 @@
 "use client";
 
 import { configureStore } from '@reduxjs/toolkit'
-import authorReducer from './slices/authorSlices';
+import productListReducer from './slices/ProductSlice'
 
 export const store = configureStore({
     reducer: {
-        author: authorReducer
+        product: productListReducer
     }
 })
 

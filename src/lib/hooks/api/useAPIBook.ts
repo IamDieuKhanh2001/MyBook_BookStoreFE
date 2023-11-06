@@ -10,7 +10,9 @@ const useAPIBook = () => {
     const URL_PREFIX = '/admin/book/product'
     //Admin Access API
 
-    const getBookListPaginated = (limit: string = '5') => {
+    const getBookListPaginated = (
+        limit: string = '5',
+    ) => {
         const getKey = (pageIndex: number, previousPageData: any) => {
             if (previousPageData && !previousPageData.length) {
                 // Nếu trang trước đã trả về một trang trống, không cần gửi thêm yêu cầu

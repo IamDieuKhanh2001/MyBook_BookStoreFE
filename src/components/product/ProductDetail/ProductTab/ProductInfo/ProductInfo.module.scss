@@ -1,0 +1,21 @@
+.productInfo {
+    .productInfoContent {
+        border-bottom: 1px solid #c1c1c1;
+        .productInfoTable {
+            border: none;
+            box-shadow: none;
+            width: 100%;
+            background: transparent;
+            border-spacing: 0;
+            empty-cells: show;
+            
+            .tableLabel {
+                display: table-cell;
+                padding-left: 0 !important;
+                line-height: 1.6;
+                text-align: left;
+                color: #777;
+            }
+        }
+    }
+}

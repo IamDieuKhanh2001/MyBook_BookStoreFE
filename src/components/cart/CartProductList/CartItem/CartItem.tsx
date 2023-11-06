@@ -1,7 +1,17 @@
 import React from 'react'
 import styles from './CartItem.module.scss'
 
-const CartItem = () => {
+interface ICartItemProps {
+    productData: ICartItem
+}
+const CartItem = (props: ICartItemProps) => {
+    const { productData } = props
+
+    const onImageError = (e: any) => {
+        e.target.src = '/img/book/no-image.jpg'
+    }
+
+    console.log(productData)
     return (
         <>
             <div className={styles.itemProductCart}>
@@ -9,28 +19,36 @@ const CartItem = () => {
                     <input type="checkbox" className={styles.checkboxAddCart} />
                 </div>
                 <div className={styles.imgProductCart}>
-                    <img className={styles.productImage} src="https://cdn0.fahasa.com/media/catalog/product//z/4/z4586028434491_71647a43468b2e70cdaa5b0b34a740b7.jpg" alt="img product" />
+                    <img
+                        className={styles.productImage}
+                        src={
+                            productData.book_info.images && productData.book_info.images.length > 0 ?
+                                productData.book_info.images[0].image_source : '/img/book/no-image.jpg'
+                        }
+                        onError={onImageError}
+                        alt="img product"
+                    />
                 </div>
                 <div className={styles.groupProductInfo}>
                     <div className={styles.infoProductCart}>
                         <div>
                             <h2>
-                                Không Diệt Không Sinh Đừng Sợ Hãi (Độc Quyền Tại Fahasa)
+                                {productData.book_info.name}
                             </h2>
                         </div>
                         <div className={styles.itemOptions}>
                             <dd>
-                                1 x  Bìa Cứng - Phiên Bản Đặc Biệt - Tặng Kèm Postcard (Độc Quyền Tại Fahasa)
+                                Mã số: {productData.book_info.isbn_code}
                             </dd>
                             <dd>
-                                1 x Quà Tặng Bút Chì Khắc Tên Sách - Không Diệt Không Sinh Đừng Sợ Hãi - Bìa Cứng - Phiên Bản Đặc Biệt
+                                Số lượng: {productData.quantity}
                             </dd>
                         </div>
                         <div className={styles.priceOriginal}>
                             <div className={styles.cartPrice}>
                                 <div>
                                     <span className={styles.price}>
-                                        240.000 VND
+                                        {productData.book_info.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                     </span>
                                 </div>
                                 <div className={styles.priceOld}>
@@ -66,7 +84,7 @@ const CartItem = () => {
                         <div className={styles.cartPriceTotal}>
                             <span className={styles.cartPrice}>
                                 <span className={styles.price}>
-                                    240.000
+                                    {productData.book_info.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                 </span>
                             </span>
                         </div>

@@ -39,7 +39,7 @@ const CategoryOffCanvas = () => {
                                 <ul className="list-group">
                                     {pcategory.childrenCategory.map((ccategory) => (
                                         <li key={ccategory.id} className="list-group-item border-0 d-flex justify-content-between align-items-center">
-                                            <Link href={'#'} className='text-dark'>
+                                            <Link href={`/product/category/${ccategory.id}`} className='text-dark'>
                                                 {ccategory.name}
                                             </Link>
                                         </li>

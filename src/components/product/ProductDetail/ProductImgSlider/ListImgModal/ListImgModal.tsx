@@ -3,9 +3,10 @@ import React, { useState } from 'react'
 import styles from './ListImgModal.module.scss'
 
 interface IListImgModalProps {
+    imgList: IProductImage[]
     handleCloseModalAllImg: () => void;
 }
-const ListImgModal = ({ handleCloseModalAllImg }: IListImgModalProps) => {
+const ListImgModal = ({ imgList, handleCloseModalAllImg }: IListImgModalProps) => {
     const [productImages, SetProductImages] = useState([
         '/img/book/sach1.jpg',
         '/img/book/sach2.jpg',
@@ -24,11 +25,11 @@ const ListImgModal = ({ handleCloseModalAllImg }: IListImgModalProps) => {
                 tabIndex={-1}
                 role="dialog"
             >
-                <div className="modal-dialog  modal-lg">
+                <div className="modal-dialog modal-dialog-scrollable modal-lg">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">
-                                Hình ảnh
+                                Các ảnh sản phẩm
                             </h5>
                             <button
                                 type="button"
@@ -36,19 +37,19 @@ const ListImgModal = ({ handleCloseModalAllImg }: IListImgModalProps) => {
                                 onClick={() => handleCloseModalAllImg()}
                             />
                         </div>
-                        <div className="modal-body d-flex" style={{ gap: '20px' }}>
+                        <div className={`modal-body ${styles.modalBody}`}>
                             <div className={styles.imgMain}>
                                 <img
-                                    src={productImages[currentActiveIndex]}
+                                    src={imgList && imgList.length > 0 ? imgList[currentActiveIndex].image_source : '/img/book/no-image.jpg'}
                                     alt={`product image`}
                                 />
                             </div>
                             <div className={styles.imgListContainer} >
-                                {productImages.map((imgItem, index) => (
+                                {imgList.map((imgItem, index) => (
                                     <img
                                         key={index}
-                                        src={imgItem}
-                                        alt="product item"
+                                        src={imgItem.image_source}
+                                        alt={imgItem.id.toString()}
                                         onClick={() => handleThumbnailHover(index)}
                                         className={`${styles.imgListItem}  ${index === currentActiveIndex ? styles.imgThumbActive : ''}`}
                                     />

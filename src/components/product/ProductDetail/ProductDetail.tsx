@@ -1,19 +1,20 @@
 "use client"
 import ProductImgSlider from '@/components/product/ProductDetail/ProductImgSlider/ProductImgSlider'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './ProductDetail.module.scss'
 import ProductTab from './ProductTab/ProductTab'
 import FlashSaleCountDown from './FlashSaleCountDown/FlashSaleCountDown'
+import useAPIGuest from '@/lib/hooks/api/useAPIGuest'
+import { useRouter } from 'next/navigation'
 
-const ProductDetail = () => {
-    const [productImages, SetProductImages] = useState([
-        '/img/book/no-image.jpg',
-        '/img/book/sach1.jpg',
-        '/img/book/sach2.jpg',
-        '/img/book/sach3.jpg',
-        '/img/book/sach4.jpg',
-        '/img/book/sach5.jpg'
-    ])
+interface IProductDetailProps {
+    isbnCode: string
+}
+const ProductDetail = (props: IProductDetailProps) => {
+    const router = useRouter()
+    const { isbnCode } = props
+    const { getBookDetail } = useAPIGuest()
+    const { data: product, error } = getBookDetail(isbnCode)
     const [quantity, setQuantity] = useState(1)
     const initialHours = 5; // Số giờ ban đầu
     const initialMinutes = 30; // Số phút ban đầu
@@ -33,19 +34,23 @@ const ProductDetail = () => {
         }
     };
 
+    useEffect(() => {
+        if (error)
+            router.push('/404')
+    }, [error])
+
     return (
         <>
-            {/* About Start */}
             <div className="container-xxl py-3 mt-2 section-container">
                 <div className="container">
-                    <div className="row g-5 align-items-center">
+                    <div className="row align-items-center">
                         <div className="col-lg-6 col-md-12 wow fadeIn" data-wow-delay="0.1s">
                             <div className="about-img position-relative overflow-hidden p-lg-5 pe-0">
-                                <ProductImgSlider imgList={productImages} />
+                                <ProductImgSlider imgList={product.images} />
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-12 wow fadeIn" data-wow-delay="0.5s">
-                            <h1 className="display-5 mb-2">Dummy Book Tilte</h1>
+                            <h3 className="mb-2">{product?.name}</h3>
                             <div className="d-flex mb-1">
                                 <div className="text-primary me-2">
                                     <small className="fas fa-star" />
@@ -63,14 +68,16 @@ const ProductDetail = () => {
                                 numProductTotal={10}
                             />
                             <h2>
-                                <span className="text-body text-decoration-line-through me-2">30.000</span>
-                                <span className="text-primary me-1">15.000 VND</span>
+                                {/* <span className="text-body text-decoration-line-through me-2">30.000</span> */}
+                                <span className="text-primary me-1">
+                                    {product.price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                </span>
                             </h2>
                             <p><i className="fa fa-check text-primary me-3" />Đổi trả trong vòng 7 ngày</p>
                             <p><i className="fa fa-check text-primary me-3" />Cam kết sản phẩm chính hãng</p>
                             <p><i className="fa fa-check text-primary me-3" />Vận chuyển trên toàn quốc</p>
 
-                            <div className="input-group quantity mr-3" style={{ width: 130 }}>
+                            <div className={`input-group ${styles.qtyContainer}`}>
                                 <div className="input-group-btn">
                                     <button
                                         className="btn btn-primary btn-minus"
@@ -104,7 +111,7 @@ const ProductDetail = () => {
                 </div>
             </div>
             <div className="container-xxl py-3 mt-2 section-container">
-                <ProductTab />
+                <ProductTab product={product} />
             </div>
             {/* About End */}
         </>

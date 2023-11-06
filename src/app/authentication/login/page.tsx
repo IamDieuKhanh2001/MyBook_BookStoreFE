@@ -1,16 +1,25 @@
 'use client'
-import ClientLayout from '@/layouts/ClientLayout/ClientLayout'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './page.module.scss'
 import LoginForm from '@/components/authentication/LoginForm/LoginForm'
 import RegisterForm from '@/components/authentication/Register/RegisterForm'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 const AuthenticationPage = () => {
   const [activeTab, setActiveTab] = useState('login');
+  const { data: session } = useSession();
+  const router =  useRouter()
 
   const handleTabClick = (tab: 'login' | 'register') => {
     setActiveTab(tab);
   };
+
+  useEffect(()=> {
+    if(session) {
+      router.push('/')
+    }
+  }, [session])
 
   return (
     <>

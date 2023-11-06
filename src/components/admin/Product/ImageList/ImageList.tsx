@@ -4,7 +4,6 @@ import {
     Grid,
 } from '@mui/material'
 import styles from './ImageList.module.scss'
-import { IProductImage } from '../../../../../types/IBook'
 
 interface IImageListProps {
     imgList: IProductImage[]

@@ -1,9 +1,17 @@
-import React from 'react'
+'use client'
+import React, { useEffect } from 'react'
 import styles from './page.module.scss'
 import CartProductList from '@/components/cart/CartProductList/CartProductList'
 import TotalCartPrice from '@/components/cart/CartRight/TotalCartPrice/TotalCartPrice'
+import useAPIUser from '@/lib/hooks/api/useAPIUser'
 
 const CartPage = () => {
+    const { getMyCartList } = useAPIUser()
+    const { data, error, isLoading, mutate } = getMyCartList()
+
+    useEffect(() => {
+        console.log(data)
+    }, [data])
     return (
         <>
             <div className='container-xxl p-0'>
@@ -22,7 +30,7 @@ const CartPage = () => {
                             </div>
                             <div className={`${styles.cartUIContent} row`}>
                                 <div className='col-xl-8 col-md-12'>
-                                    <CartProductList />
+                                    <CartProductList list={data} />
                                 </div>
                                 <div className='col-xl-4 col-md-12'>
                                     <TotalCartPrice />
