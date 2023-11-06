@@ -3,7 +3,12 @@ import React from 'react'
 import styles from './CartProductList.module.scss'
 import CartItem from './CartItem/CartItem'
 
-const CartProductList = () => {
+interface ICartProductListProps {
+    list: ICartItem[]
+}
+const CartProductList = (props: ICartProductListProps) => {
+    const { list } = props
+
     return (
         <>
             <div className={styles.headerCartItem}>
@@ -27,10 +32,13 @@ const CartProductList = () => {
                 <div className={styles.trashTitle}></div>
             </div>
             <div className={styles.productCartLeft}>
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
+                {list.length > 0 ? (
+                    list.map((productData) => (
+                        <CartItem key={productData.id} productData={productData} />
+                    ))
+                ) : (
+                    <h1>Empty</h1>
+                )}
             </div>
         </>
     )

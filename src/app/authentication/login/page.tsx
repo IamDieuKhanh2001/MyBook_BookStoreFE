@@ -17,7 +17,6 @@ const AuthenticationPage = () => {
 
   useEffect(()=> {
     if(session) {
-      console.log("aa")
       router.push('/')
     }
   }, [session])

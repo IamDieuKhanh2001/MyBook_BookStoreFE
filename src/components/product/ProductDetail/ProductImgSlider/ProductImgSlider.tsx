@@ -55,6 +55,7 @@ const ProductImgSlider = ({ imgList }: ProductImgSliderProps) => {
                                         alt={item.id.toString()}
                                         onMouseEnter={() => handleThumbnailHover(index)}
                                         onClick={handleOpenModalAllImg}
+                                        onError={onImageError}
                                     />
                                 </SplideSlide>
                             ))}

@@ -26,6 +26,14 @@ const ProductInfo = (props: IProductInfoProps) => {
                             </tr>
                             <tr>
                                 <th className={styles.tableLabel}>
+                                    Số lượng
+                                </th>
+                                <td className={styles.dataValue}>
+                                    {product.quantity}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th className={styles.tableLabel}>
                                     Thể loại
                                 </th>
                                 <td className={styles.dataValue}>
