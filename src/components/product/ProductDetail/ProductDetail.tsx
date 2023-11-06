@@ -6,6 +6,9 @@ import ProductTab from './ProductTab/ProductTab'
 import FlashSaleCountDown from './FlashSaleCountDown/FlashSaleCountDown'
 import useAPIGuest from '@/lib/hooks/api/useAPIGuest'
 import { useRouter } from 'next/navigation'
+import useAPIUserCart from '@/lib/hooks/api/useAPIUserCart'
+import { toast } from 'react-toastify'
+import { errorHandler } from '@/lib/utils/ErrorHandler'
 
 interface IProductDetailProps {
     isbnCode: string
@@ -14,6 +17,7 @@ const ProductDetail = (props: IProductDetailProps) => {
     const router = useRouter()
     const { isbnCode } = props
     const { getBookDetail } = useAPIGuest()
+    const { addBookToCart } = useAPIUserCart()
     const { data: product, error } = getBookDetail(isbnCode)
     const [quantity, setQuantity] = useState(1)
     const initialHours = 5; // Số giờ ban đầu
@@ -33,6 +37,15 @@ const ProductDetail = (props: IProductDetailProps) => {
             setQuantity(newValue);
         }
     };
+
+    const handleAddBookToCart = async () => {
+        try {
+            await addBookToCart(product.isbn_code, 1)
+            toast.success("Thêm sản phẩm thành công")
+        } catch(e) {
+            errorHandler(e)
+        }
+    }
 
     useEffect(() => {
         if (error)
@@ -102,7 +115,10 @@ const ProductDetail = (props: IProductDetailProps) => {
                                 </div>
                             </div>
 
-                            <a className="btn btn-primary rounded-pill py-3 px-5 mt-3" href="">
+                            <a
+                                className="btn btn-primary rounded-pill py-3 px-5 mt-3"
+                                onClick={handleAddBookToCart}
+                            >
                                 <i className="fas fa-cart-plus me-3" />
                                 Thêm vào giỏ hàng
                             </a>

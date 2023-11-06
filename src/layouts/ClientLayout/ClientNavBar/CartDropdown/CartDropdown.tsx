@@ -5,14 +5,24 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import CartMiniItem from './CartMiniItem/CartMiniItem'
 import CartMiniFooter from './CartMiniFooter/CartMiniFooter'
+import useAPIUserCart from '@/lib/hooks/api/useAPIUserCart'
 
 const CartDropdown = () => {
     const router = useRouter();
-
+    const { getMyCartList } = useAPIUserCart()
+    const { data } = getMyCartList()
     const handleCartClick = () => {
         // Xử lý việc chuyển đến trang "/cart" khi nhấn icon cart trên nav
         router.push('/cart');
     }
+
+    function calculateSum(cartList: ICartItem[]) {
+        const total = cartList.reduce((accumulator, object) => {
+          return accumulator + object.book_info.price * object.quantity;
+        }, 0);
+      
+        return total;
+      }
 
     return (
         <>
@@ -33,16 +43,12 @@ const CartDropdown = () => {
                     </div>
                     <div>
                         <ol className={styles.cartContent}>
-                            <CartMiniItem />
-                            <CartMiniItem />
-                            <CartMiniItem />
-                            <CartMiniItem />
-                            <CartMiniItem />
-                            <CartMiniItem />
-                            <CartMiniItem />
+                            {data.map((item) => (
+                                <CartMiniItem key={item.id} cartItemData={item} />
+                            ))}
                         </ol>
                     </div>
-                    <CartMiniFooter />
+                    <CartMiniFooter total={calculateSum(data)} />
                 </div>
             </div>
         </>
