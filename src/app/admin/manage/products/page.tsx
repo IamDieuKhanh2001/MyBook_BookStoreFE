@@ -46,10 +46,6 @@ const ProductManagementPage = () => {
         }
     }, [inView]);
 
-    useEffect(() => {
-        console.log(filters)
-    }, [filters])
-
     return (
         <>
             <PageContainer title='Categories CRUD' description='My CRUD Operation for categories'>
