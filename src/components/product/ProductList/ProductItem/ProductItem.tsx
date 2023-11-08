@@ -3,21 +3,16 @@ import React from 'react'
 import styles from "./ProductItem.module.scss"
 import { IBook } from '../../../../../types/IBook'
 import { truncateText } from '@/lib/utils/TextUtils'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 interface IProductItemProps {
     data: IBook
 }
 const ProductItem = (props: IProductItemProps) => {
     const { data } = props
-    const router = useRouter()
 
     const onImageError = (e: any) => {
         e.target.src = '/img/book/no-image.jpg'
-    }
-
-    const handleDetailPageRedirect = (isbn_code: string) => {
-        router.push(`/product/detail/${isbn_code}`)
     }
 
     return (
@@ -25,23 +20,31 @@ const ProductItem = (props: IProductItemProps) => {
         <div className="col-xl-3 col-lg-3 col-md-3 col-4 wow fadeInUp" data-wow-delay="0.3s">
             <div className={styles.productItem}>
                 <div className="position-relative overflow-hidden d-flex justify-content-center">
-                    <img
-                        className="img-fluid w-100"
-                        src={
-                            data?.images[0] ?
-                                data.images[0]?.image_source
-                                :
-                                '/img/book/no-image.jpg'
-                        }
-                        onError={onImageError}
-                        alt={data.isbn_code}
-                        onClick={() => handleDetailPageRedirect(data.isbn_code)}
-                    />
+                    <Link
+                        target='_blank'
+                        href={`/product/detail/${data.isbn_code}`}
+                    >
+                        <img
+                            className="img-fluid w-100"
+                            src={
+                                data?.images[0] ?
+                                    data.images[0]?.image_source
+                                    :
+                                    '/img/book/no-image.jpg'
+                            }
+                            onError={onImageError}
+                            alt={data.isbn_code}
+                        />
+                    </Link>
                 </div>
                 <div className="px-4 py-2">
-                    <a className={`d-block h6 mb-2 ${styles.productTitle}`} onClick={() => handleDetailPageRedirect(data.isbn_code)}>
+                    <Link
+                        href={`/product/detail/${data.isbn_code}`}
+                        target='_blank'
+                        className={`d-block h6 mb-2 ${styles.productTitle}`}
+                    >
                         {truncateText(data.name, 40)}
-                    </a>
+                    </Link>
                     <div className='d-flex flex-column'>
                         isbn: {data.isbn_code}
                         <span className="text-danger fw-bold me-1">

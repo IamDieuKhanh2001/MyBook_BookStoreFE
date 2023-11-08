@@ -1,7 +1,8 @@
+'use client'
 import React from 'react'
 import SearchIcon from '@mui/icons-material/Search';
-import { Button, styled, alpha, InputBase, Stack } from '@mui/material'
-
+import { styled, alpha, InputBase, Stack, InputAdornment, IconButton } from '@mui/material'
+import ClearIcon from '@mui/icons-material/Clear';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -39,7 +40,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-const AdminSearchBar = () => {
+interface IAdminSearchBarProps {
+    setSearchKeyWord: (value: string) => void;
+    placeholderText?: string
+}
+const AdminSearchBar = (props: IAdminSearchBarProps) => {
+    const { placeholderText = 'seach keyword', setSearchKeyWord } = props
+    let timeout: NodeJS.Timeout | undefined;
+
+    const handleInputChange = (e: any) => {
+        // Sử dụng setTimeout để trì hoãn việc gọi setSearch một giây sau khi người dùng nhập
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            setSearchKeyWord(e.target.value);
+        }, 1000);
+    };
+
     return (
         <>
             <Stack
@@ -50,13 +66,11 @@ const AdminSearchBar = () => {
                         <SearchIcon />
                     </SearchIconWrapper>
                     <StyledInputBase
-                        placeholder="Search…"
+                        placeholder={placeholderText}
                         inputProps={{ 'aria-label': 'search' }}
+                        onChange={handleInputChange}
                     />
                 </Search>
-                <Button size='small' variant="contained" disableElevation color="secondary" href="">
-                    <SearchIcon />
-                </Button>
             </Stack>
         </>
     )
