@@ -4,6 +4,7 @@ import styles from "./ProductItem.module.scss"
 import { IBook } from '../../../../../types/IBook'
 import { truncateText } from '@/lib/utils/TextUtils'
 import Link from 'next/link'
+import StickerChayHang from './StickerChayHang/StickerChayHang'
 
 interface IProductItemProps {
     data: IBook
@@ -23,6 +24,7 @@ const ProductItem = (props: IProductItemProps) => {
                     <Link
                         target='_blank'
                         href={`/product/detail/${data.isbn_code}`}
+                        className={styles.imgContainer}
                     >
                         <img
                             className="img-fluid w-100"
@@ -35,6 +37,7 @@ const ProductItem = (props: IProductItemProps) => {
                             onError={onImageError}
                             alt={data.isbn_code}
                         />
+                        {data.quantity <= 0 && <StickerChayHang />}       
                     </Link>
                 </div>
                 <div className="px-4 py-2">

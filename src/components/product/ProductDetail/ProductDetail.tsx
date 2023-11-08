@@ -18,7 +18,7 @@ const ProductDetail = (props: IProductDetailProps) => {
     const { isbnCode } = props
     const { getBookDetail } = useAPIGuest()
     const { addBookToCart } = useAPIUserCart()
-    const { data: product, error } = getBookDetail(isbnCode)
+    const { data: product, error, isLoading } = getBookDetail(isbnCode)
     const [quantity, setQuantity] = useState(1)
     const initialHours = 5; // Số giờ ban đầu
     const initialMinutes = 30; // Số phút ban đầu
@@ -34,15 +34,20 @@ const ProductDetail = (props: IProductDetailProps) => {
     const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = parseInt(event.target.value, 10);
         if (!isNaN(newValue) && newValue >= 1) {
-            setQuantity(newValue);
+            if (newValue > product.quantity) {
+                setQuantity(product.quantity);
+            } else {
+                setQuantity(newValue);
+            }
         }
     };
 
     const handleAddBookToCart = async () => {
         try {
-            await addBookToCart(product.isbn_code, 1)
+            await addBookToCart(product.isbn_code, quantity)
             toast.success("Thêm sản phẩm thành công")
-        } catch(e) {
+            setQuantity(1)
+        } catch (e) {
             errorHandler(e)
         }
     }
@@ -95,6 +100,7 @@ const ProductDetail = (props: IProductDetailProps) => {
                                     <button
                                         className="btn btn-primary btn-minus"
                                         onClick={handleDecreaseQuantity}
+                                        disabled={quantity === 1 ? true : false}
                                     >
                                         <i className="fa fa-minus" />
                                     </button>
@@ -109,19 +115,21 @@ const ProductDetail = (props: IProductDetailProps) => {
                                     <button
                                         className="btn btn-primary btn-plus"
                                         onClick={handleIncreaseQuantity}
+                                        disabled={product.quantity === quantity ? true : false}
                                     >
                                         <i className="fa fa-plus" />
                                     </button>
                                 </div>
                             </div>
 
-                            <a
+                            <button
                                 className="btn btn-primary rounded-pill py-3 px-5 mt-3"
                                 onClick={handleAddBookToCart}
+                                disabled={product.quantity > 0 ? false : true || isLoading}
                             >
                                 <i className="fas fa-cart-plus me-3" />
                                 Thêm vào giỏ hàng
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -3,13 +3,10 @@ import React from 'react'
 import useAxiosAuth from '../utils/useAxiosAuth'
 import { getSession } from 'next-auth/react'
 import useSWR from 'swr'
-import { useDispatch } from 'react-redux'
-import { cartActions } from '@/redux/slices/cartSlice'
 
 const useAPIUserCart = () => {
     const URL_PREFIX = '/user/cart'
     const axiosAuth = useAxiosAuth()
-    const dispatch = useDispatch()
     //API get lang list
     const getMyCartList = () => {
         const fetcher = async (url: string) => {
@@ -87,7 +84,7 @@ const useAPIUserCart = () => {
     };
 
     //API create new child category
-    const addBookToCart = async (isbnCode: string, quantity: number) => {
+    const addBookToCart = async (isbnCode: string, quantity: number = 1) => {
         try {
             const session = await getSession();
             const headers = {

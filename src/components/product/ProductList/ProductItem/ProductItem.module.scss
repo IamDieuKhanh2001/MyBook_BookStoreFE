@@ -9,11 +9,14 @@
 	.productTitle {
 		cursor: pointer;
 	}
-	img {
-		transition: .5s;
-		max-height: 231px;
-		max-width: 231px;
-		cursor: pointer;
+
+	.imgContainer {
+		img {
+			transition: .5s;
+			max-height: 231px;
+			max-width: 231px;
+			cursor: pointer;
+		}
 	}
 
 	&:hover {
