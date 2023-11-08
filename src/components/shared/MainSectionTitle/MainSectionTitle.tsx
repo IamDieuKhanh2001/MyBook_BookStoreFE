@@ -11,7 +11,7 @@ const MainSectionTitle = (props: MainSectionTitleProps) => {
         <>
             <div className="row g-0 gx-5 align-items-end">
                 <div className="col-lg-6">
-                    <div className="section-header text-start mb-5 wow fadeInUp" data-wow-delay="0.1s" style={{ maxWidth: 500 }}>
+                    <div className={`mb-5 wow fadeInUp ${styles.sectionHeader} ${styles.textStart}`} data-wow-delay="0.1s">
                         <h1 className="display-6 mb-3">{title}</h1>
                         {shortDescription !== undefined ? (
                             <p>{shortDescription}</p>

@@ -39,7 +39,7 @@ const CartDropdown = () => {
                     <div className={styles.cartHeader}>
                         <i className="fa fa-shopping-bag me-2"></i>
                         <span className={styles.cartTitle}>Giỏ hàng</span>
-                        <span className={`${styles.cartTitle} ms-2`}>(4)</span>
+                        <span className={`${styles.cartTitle} ms-2`}>({data.length})</span>
                     </div>
                     <div>
                         <ol className={styles.cartContent}>

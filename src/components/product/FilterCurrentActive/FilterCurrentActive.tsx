@@ -34,7 +34,8 @@ const FilterCurrentActive = (props: IFilterCurrentActiveProps) => {
     }
 
     const handleResetFilter = () => {
-        setFilters({
+        setFilters((prevFilters) => ({
+            ...prevFilters,
             limit: '5',
             search: '',
             minPrice: '',
@@ -42,11 +43,10 @@ const FilterCurrentActive = (props: IFilterCurrentActiveProps) => {
             orderBy: 'price,desc',
             language: null,
             author: null,
-            ccategory: null,
             publisher: null,
             provider: null,
             bookForm: null,
-        })
+        }))
         dispatch(productActions.updateKeyword(''));
     }
 

@@ -24,7 +24,7 @@ const ProductItem = (props: IProductItemProps) => {
         // col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3
         <div className="col-xl-3 col-lg-3 col-md-3 col-4 wow fadeInUp" data-wow-delay="0.3s">
             <div className={styles.productItem}>
-                <div className="position-relative overflow-hidden">
+                <div className="position-relative overflow-hidden d-flex justify-content-center">
                     <img
                         className="img-fluid w-100"
                         src={

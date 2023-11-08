@@ -10,8 +10,10 @@ import TopBar from './TopBar/TopBar';
 import CartDropdown from './CartDropdown/CartDropdown';
 import UserDropdown from './UserDropdown/UserDropdown';
 import SearchBarInput from './SearchBarInput/SearchBarInput';
+import { useSession } from 'next-auth/react';
 
 function ClientNavBar() {
+    const { data: session } = useSession();
 
     return (
         <>
@@ -74,7 +76,11 @@ function ClientNavBar() {
                                 </div>
                             </div>
                             <SearchBarInput />
-                            <CartDropdown />
+                            {session && (
+                                <>
+                                    <CartDropdown />
+                                </>
+                            )}
                             <UserDropdown />
                         </div>
                     </div>

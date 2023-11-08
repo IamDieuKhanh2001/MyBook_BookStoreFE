@@ -38,8 +38,8 @@ const CategoryOffCanvas = () => {
                             <div className="accordion-body">
                                 <ul className="list-group">
                                     {pcategory.childrenCategory.map((ccategory) => (
-                                        <li key={ccategory.id} className="list-group-item border-0 d-flex justify-content-between align-items-center">
-                                            <Link href={`/product/category/${ccategory.id}`} className='text-dark'>
+                                        <li key={ccategory.id} data-bs-dismiss="offcanvas" className="list-group-item border-0 d-flex justify-content-between align-items-center">
+                                            <Link href={`/product/category/${ccategory.id}?ccategoryname=${ccategory.name}&pcategoryid=${ccategory.parent_category_id}`} className='text-dark'>
                                                 {ccategory.name}
                                             </Link>
                                         </li>
