@@ -13,7 +13,7 @@ const useAPIGuest = () => {
         minPrice: string = '',
         maxPrice: string = '',
         orderBy: string = 'price,desc',
-        limit: string = '5',
+        limit: string = '8',
         langId: string = '',
         authorId: string = '',
         ccategoryId: string = '',
@@ -90,6 +90,33 @@ const useAPIGuest = () => {
 
         return {
             data: data ?? [], // nếu data = undefined sẽ là mảng rỗng
+            mutate: mutate,
+            isLoading: !error && !data,
+            error: error,
+        }
+    }
+
+    const getParentCategoryDetail = (id: number = 0) => {
+        const fetcher = async (url: string) => {
+            try {
+                const response = await axiosAuth.get(url);
+                return response.data;
+            } catch (error) {
+                console.error('Lỗi khi fetch:', error);
+                return Promise.reject(error); // Trả về một Promise bị từ chối
+            }
+        }
+
+        const { data, mutate, isLoading, error } = useSWR(
+            `${URL_PREFIX}/category/detail/${id}`,
+            id !== 0 ? fetcher : null,
+            {
+                revalidateOnReconnect: false,
+            }
+        )
+
+        return {
+            data: data ?? {},
             mutate: mutate,
             isLoading: !error && !data,
             error: error,
@@ -299,6 +326,7 @@ const useAPIGuest = () => {
         getBookFilterPaginated,
         getBookDetail,
         getCategoryList,
+        getParentCategoryDetail,
         getBookFormList,
         getLanguageList,
         getProviderListPaginated,

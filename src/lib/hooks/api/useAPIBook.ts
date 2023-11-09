@@ -11,7 +11,8 @@ const useAPIBook = () => {
     //Admin Access API
 
     const getBookListPaginated = (
-        limit: string = '5',
+        limit: string = '10',
+        search: string = '',
     ) => {
         const getKey = (pageIndex: number, previousPageData: any) => {
             if (previousPageData && !previousPageData.length) {
@@ -21,6 +22,7 @@ const useAPIBook = () => {
             const params = new URLSearchParams({
                 page: (pageIndex + 1).toString(),
                 limit: limit,
+                search: search,
             });
             return `${URL_PREFIX}?${params.toString()}`;
         };

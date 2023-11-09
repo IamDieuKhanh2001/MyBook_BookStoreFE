@@ -17,10 +17,11 @@ const ProductManagementPage = () => {
     const confirm = useConfirm();
     const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
     const [filters, setFilters] = useState({
-        limit: '4',
+        limit: '10',
+        search: '',
     });
     const { getBookListPaginated, deleteBook } = useAPIBook()
-    const { paginatedData, setSize, isReachedEnd, error, isLoading, mutate } = getBookListPaginated(filters.limit)
+    const { paginatedData, setSize, isReachedEnd, error, isLoading, mutate } = getBookListPaginated(filters.limit, filters.search)
 
     const handleDeleteData = async (isbnCode: string) => {
         confirm({
@@ -60,7 +61,10 @@ const ProductManagementPage = () => {
                                     Something when wrong — <strong>check your connection and reload page!</strong>
                                 </Alert>
                             )}
-                            <AdminSearchBar />
+                            <AdminSearchBar
+                                setSearchKeyWord={(value: string) => setFilters({ ...filters, search: value })}
+                                placeholderText='Nhập mã ISBN hoặc tiêu đề sách'
+                            />
                             <Button
                                 sx={{ mt: 2 }}
                                 startIcon={<IconPlus />}

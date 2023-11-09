@@ -1,6 +1,5 @@
 'use client'
 import PageContainer from '@/components/admin/container/PageContainer'
-import AdminSearchBar from '@/components/shared/AdminSearchBar/AdminSearchBar'
 import DashboardCard from '@/components/shared/DashboardCard'
 import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
 import { IconPlus, IconTrash, } from '@tabler/icons-react'
@@ -53,7 +52,6 @@ const categoriesManagementPage = () => {
                   Something when wrong — <strong>check your connection and reload page!</strong>
                 </Alert>
               )}
-              <AdminSearchBar />
               <Button
                 sx={{ mt: 2 }}
                 startIcon={<IconPlus />}

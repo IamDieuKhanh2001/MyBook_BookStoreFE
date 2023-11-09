@@ -3,25 +3,42 @@ import React from 'react'
 import styles from './CartMiniItem.module.scss'
 import Link from 'next/link'
 
-const CartMiniItem = () => {
+interface ICartMiniItemProps {
+    cartItemData: ICartItem
+}
+const CartMiniItem = (props: ICartMiniItemProps) => {
+    const { cartItemData } = props
+
+    const onImageError = (e: any) => {
+        e.target.src = '/img/book/no-image.jpg'
+    }
+
     return (
         <>
             <li className={styles.cartItem}>
                 <Link className={styles.itemImg} href="#" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
                     <img
-                        src="/img/book/sach2.jpg"
-                        alt="Sach 1"
+                        src={cartItemData.book_info.images && cartItemData.book_info.images.length > 0 ?
+                            cartItemData.book_info.images[0].image_source : '/img/book/no-image.jpg'}
+                        alt={cartItemData.id.toString()}
                         width={68}
                         height={68}
+                        onError={onImageError}
                     />
                 </Link>
                 <div className={styles.itemDetail}>
                     <p className={styles.itemName}>
-                        <Link href={'#'}>Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)</Link>
+                        <Link href={'#'}>
+                            {cartItemData.book_info.name}
+                        </Link>
                     </p>
                     <div className='mt-1'>
-                        <span className={styles.itemPrice}>37.000 VND</span>
-                        <span className={styles.itemQty}>x1</span>
+                        <span className={styles.itemPrice}>
+                            {cartItemData.book_info.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                        </span>
+                        <span className={styles.itemQty}>
+                            x{cartItemData.quantity}
+                        </span>
                     </div>
                 </div>
             </li>

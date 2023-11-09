@@ -1,17 +1,24 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './page.module.scss'
 import CartProductList from '@/components/cart/CartProductList/CartProductList'
 import TotalCartPrice from '@/components/cart/CartRight/TotalCartPrice/TotalCartPrice'
-import useAPIUser from '@/lib/hooks/api/useAPIUser'
+import useAPIUserCart from '@/lib/hooks/api/useAPIUserCart'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/redux/store'
+import { cartActions } from '@/redux/slices/cartSlice'
 
 const CartPage = () => {
-    const { getMyCartList } = useAPIUser()
+    const { getMyCartList } = useAPIUserCart()
+    const dispatch = useDispatch()
     const { data, error, isLoading, mutate } = getMyCartList()
+    const [itemSelected, setItemSelected] = useState<number[]>([])
+
 
     useEffect(() => {
-        console.log(data)
-    }, [data])
+        console.log("item select")
+        console.log(itemSelected)
+    }, [itemSelected])
     return (
         <>
             <div className='container-xxl p-0'>
@@ -24,13 +31,17 @@ const CartPage = () => {
                                         Giỏ hàng
                                     </h1>
                                     <span className={styles.cartTitleNumItems}>
-                                        (5 sản phẩm)
+                                        ({data.length} sản phẩm)
                                     </span>
                                 </div>
                             </div>
                             <div className={`${styles.cartUIContent} row`}>
                                 <div className='col-xl-8 col-md-12'>
-                                    <CartProductList list={data} />
+                                    <CartProductList
+                                        list={data}
+                                        itemSelected={itemSelected}
+                                        setItemSelected={setItemSelected}
+                                    />
                                 </div>
                                 <div className='col-xl-4 col-md-12'>
                                     <TotalCartPrice />
