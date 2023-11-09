@@ -18,11 +18,11 @@ const CartDropdown = () => {
 
     function calculateSum(cartList: ICartItem[]) {
         const total = cartList.reduce((accumulator, object) => {
-          return accumulator + object.book_info.price * object.quantity;
+            return accumulator + object.book_info.price * object.quantity;
         }, 0);
-      
+
         return total;
-      }
+    }
 
     return (
         <>

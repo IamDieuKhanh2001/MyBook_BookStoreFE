@@ -4,21 +4,38 @@ import styles from './page.module.scss'
 import CartProductList from '@/components/cart/CartProductList/CartProductList'
 import TotalCartPrice from '@/components/cart/CartRight/TotalCartPrice/TotalCartPrice'
 import useAPIUserCart from '@/lib/hooks/api/useAPIUserCart'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '@/redux/store'
-import { cartActions } from '@/redux/slices/cartSlice'
+import { useDispatch } from 'react-redux'
+import LZString from 'lz-string'
+import { useRouter } from 'next/navigation'
 
 const CartPage = () => {
     const { getMyCartList } = useAPIUserCart()
     const dispatch = useDispatch()
     const { data, error, isLoading, mutate } = getMyCartList()
     const [itemSelected, setItemSelected] = useState<number[]>([])
-
+    const router = useRouter()
 
     useEffect(() => {
         console.log("item select")
         console.log(itemSelected)
     }, [itemSelected])
+
+    const calculatePriceSelected = () => {
+        const total = data.reduce((accumulator, object) => {
+            if(itemSelected.some(item => item === object.id)) {
+                return accumulator + object.book_info.price * object.quantity;
+            } else {
+                return accumulator
+            }
+        }, 0);
+        return total
+    }
+
+    const handleGoToCheckout = () => {
+        const encodedData = LZString.compressToBase64(JSON.stringify(itemSelected));
+        router.push(`/checkout?state=${encodedData}`)
+    }
+
     return (
         <>
             <div className='container-xxl p-0'>
@@ -44,7 +61,7 @@ const CartPage = () => {
                                     />
                                 </div>
                                 <div className='col-xl-4 col-md-12'>
-                                    <TotalCartPrice />
+                                    <TotalCartPrice handleGotoCheckout={handleGoToCheckout} total={calculatePriceSelected()} />
                                 </div>
                             </div>
                         </div>
