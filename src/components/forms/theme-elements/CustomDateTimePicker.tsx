@@ -4,6 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dynamic from 'next/dynamic';
 import { useTheme } from '@mui/material'
+import dayjs from 'dayjs';
 
 const DynamicDateTimePicker = dynamic(() => import('@mui/x-date-pickers/DateTimePicker')
     .then((module) => (module.DateTimePicker)), {
@@ -20,9 +21,9 @@ const CustomDateTimePicker = ({ value, onChangeEvent }: ICustomDateTimePickerPro
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DynamicDateTimePicker
+                views={["day", "month", "year", 'hours', 'minutes', 'seconds']}
                 format="DD-MM-YYYY HH:mm:ss"
-                views={["year", "month", "day", 'hours', 'minutes', 'seconds']}
-                value={value}
+                value={dayjs(value).format('DD-MM-YYYY HH:mm:ss')}
                 onChange={onChangeEvent}
                 slotProps={{
                     textField: {
