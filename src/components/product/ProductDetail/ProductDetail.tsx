@@ -17,8 +17,9 @@ const ProductDetail = (props: IProductDetailProps) => {
     const router = useRouter()
     const { isbnCode } = props
     const { getBookDetail } = useAPIGuest()
-    const { addBookToCart } = useAPIUserCart()
+    const { addBookToCart, getMyCartList } = useAPIUserCart()
     const { data: product, error, isLoading } = getBookDetail(isbnCode)
+    const { mutate: mutateCartList } = getMyCartList()
     const [quantity, setQuantity] = useState(1)
     const initialHours = 5; // Số giờ ban đầu
     const initialMinutes = 30; // Số phút ban đầu
@@ -45,6 +46,7 @@ const ProductDetail = (props: IProductDetailProps) => {
     const handleAddBookToCart = async () => {
         try {
             await addBookToCart(product.isbn_code, quantity)
+            mutateCartList()
             toast.success("Thêm sản phẩm thành công")
             setQuantity(1)
         } catch (e) {
@@ -137,7 +139,6 @@ const ProductDetail = (props: IProductDetailProps) => {
             <div className="container-xxl py-3 mt-2 section-container">
                 <ProductTab product={product} />
             </div>
-            {/* About End */}
         </>
     )
 }
