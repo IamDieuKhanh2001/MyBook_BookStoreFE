@@ -9,6 +9,7 @@ import { IconPlus } from '@tabler/icons-react';
 import { IconTrash } from '@tabler/icons-react';
 import { useInView } from 'react-intersection-observer';
 import { useRouter } from 'next/navigation';
+import VoucherTableData from '@/components/admin/Voucher/VoucherTableData/VoucherTableData';
 
 const VoucherManagePage = () => {
     const confirm = useConfirm();
@@ -77,14 +78,7 @@ const VoucherManagePage = () => {
                             >
                                 Recycle bin
                             </Button>
-                            {/* <PublisherTableData
-                                publisherList={paginatedData}
-                                handleDeleteData={handleDeleteData}
-                                setPublisherSelected={setPublisherSelected}
-                                setShowModalUpdate={setShowModalUpdate}
-                                isReachedEnd={isReachedEnd}
-                                loadMoreRef={ref}
-                            /> */}
+                            <VoucherTableData />
                         </Box>
                     </DashboardCard>
                 </Grid>

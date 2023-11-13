@@ -9,7 +9,7 @@ import {
 import PageContainer from '@/components/admin/container/PageContainer';
 import DashboardCard from '@/components/shared/DashboardCard';
 import CustomButton from '@/components/forms/theme-elements/CustomButton';
-import { IconArrowBackUp, IconEdit, IconTrash } from '@tabler/icons-react';
+import { IconArrowBackUp, IconEdit } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import useAPIBook from '@/lib/hooks/api/useAPIBook';
 import ProductDetailTable from '@/components/admin/Product/ProductDetailTable/ProductDetailTable';
