@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { productActions } from '@/redux/slices/ProductSlice';
 import { RootState } from '@/redux/store';
 import { usePathname, useRouter } from 'next/navigation';
+import SearchFormSuggestion from './SearchFormSuggestion/SearchFormSuggestion';
+import { useTheme, useMediaQuery } from '@mui/material';
 
 const SearchBarInput = () => {
     const dispatch = useDispatch();
@@ -12,8 +14,12 @@ const SearchBarInput = () => {
     let currentPathname = usePathname();
     const searchKeyword = useSelector((state: RootState) => state.product.searchKeyword);
     const [keyword, SetKeyword] = useState<string>('')
+    const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("lg"));
 
+    console.log(lgUp)
     const handleSearch = () => {
+        const theme = useTheme();
+
         // Dispatch action để cập nhật trạng thái searchKeyword
         dispatch(productActions.updateKeyword(keyword));
         if (currentPathname === '/product/searchengine') {
@@ -36,23 +42,26 @@ const SearchBarInput = () => {
 
     return (
         <>
-            <div className={`d-flex  ${styles.searchField}`}>
-                <input
-                    name={"searchField"}
-                    className={`${styles.searchBarInput}`}
-                    id="inputEmailAddress"
-                    type="text"
-                    value={keyword}
-                    placeholder={"search"}
-                    onChange={(e) => SetKeyword(e.target.value)}
-                    onKeyUp={handlePressEnter}
-                />
-                <button
-                    className={`${styles.buttonSearch}`}
-                    onClick={handleSearch}
-                >
-                    <small className="fa fa-search text-body" />
-                </button>
+            <div className={styles.searchContainer}>
+                <div className={`d-flex  ${styles.searchField}`}>
+                    <input
+                        name={"searchField"}
+                        className={`${styles.searchBarInput}`}
+                        id="inputEmailAddress"
+                        type="text"
+                        value={keyword}
+                        placeholder={"search"}
+                        onChange={(e) => SetKeyword(e.target.value)}
+                        onKeyUp={handlePressEnter}
+                    />
+                    <button
+                        className={`${styles.buttonSearch}`}
+                        onClick={handleSearch}
+                    >
+                        <small className="fa fa-search text-body" />
+                    </button>
+                </div>
+                {lgUp && <SearchFormSuggestion />}
             </div>
         </>
     )
