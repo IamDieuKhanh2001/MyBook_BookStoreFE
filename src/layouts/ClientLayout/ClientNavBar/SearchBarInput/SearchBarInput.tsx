@@ -6,7 +6,8 @@ import { productActions } from '@/redux/slices/ProductSlice';
 import { RootState } from '@/redux/store';
 import { usePathname, useRouter } from 'next/navigation';
 import SearchFormSuggestion from './SearchFormSuggestion/SearchFormSuggestion';
-import { useTheme, useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
+import useAPIGuest from '@/lib/hooks/api/useAPIGuest';
 
 const SearchBarInput = () => {
     const dispatch = useDispatch();
@@ -15,11 +16,10 @@ const SearchBarInput = () => {
     const searchKeyword = useSelector((state: RootState) => state.product.searchKeyword);
     const [keyword, SetKeyword] = useState<string>('')
     const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("lg"));
+    let timeout: NodeJS.Timeout | undefined;
+    const [keywordRecommend, SetKeywordRecommend] = useState<string>('')
 
-    console.log(lgUp)
     const handleSearch = () => {
-        const theme = useTheme();
-
         // Dispatch action để cập nhật trạng thái searchKeyword
         dispatch(productActions.updateKeyword(keyword));
         if (currentPathname === '/product/searchengine') {
@@ -40,6 +40,19 @@ const SearchBarInput = () => {
         SetKeyword(searchKeyword);
     }, [searchKeyword]);
 
+    const handleChangeKW = (e: any) => {
+        SetKeyword(e.target.value)
+        // Sử dụng setTimeout để trì hoãn việc gọi setSearch một giây sau khi người dùng nhập
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            console.log("aaaaaaa")
+            SetKeywordRecommend(e.target.value)
+        }, 1000);
+    }
+
+    const { getBookSuggestion } = useAPIGuest()
+    const { suggestData } = getBookSuggestion(keywordRecommend, '5')
+
     return (
         <>
             <div className={styles.searchContainer}>
@@ -51,7 +64,7 @@ const SearchBarInput = () => {
                         type="text"
                         value={keyword}
                         placeholder={"search"}
-                        onChange={(e) => SetKeyword(e.target.value)}
+                        onChange={(e) => handleChangeKW(e)}
                         onKeyUp={handlePressEnter}
                     />
                     <button
@@ -61,7 +74,11 @@ const SearchBarInput = () => {
                         <small className="fa fa-search text-body" />
                     </button>
                 </div>
-                {lgUp && <SearchFormSuggestion />}
+                {
+                    lgUp ? (
+                        suggestData.length > 0 && <SearchFormSuggestion suggestData={suggestData} />
+                    ) : (<></>)
+                }
             </div>
         </>
     )

@@ -1,10 +1,23 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './SearchFormSuggestion.module.scss'
 import Link from 'next/link'
 import { truncateText } from '@/lib/utils/TextUtils'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/redux/store'
+import useAPIGuest from '@/lib/hooks/api/useAPIGuest'
+import { IBook } from '../../../../../../types/IBook'
 
-const SearchFormSuggestion = () => {
+interface ISearchFormSuggestionProps {
+    suggestData: IBook[]
+}
+const SearchFormSuggestion = (props: ISearchFormSuggestionProps) => {
+    const { suggestData = [] } = props
+
+    const onImageError = (e: any) => {
+        e.target.src = '/img/book/no-image.jpg'
+    }
+
     return (
         <>
             <div className={styles.searchFormSuggestion}>
@@ -17,51 +30,18 @@ const SearchFormSuggestion = () => {
                     </div>
                 </div>
                 <div className={styles.productSuggestList}>
-                    <Link href={'/'} className={styles.productSuggestItem}>
-                        <img
-                            src='/img/book/sach1.jpg'
-                            alt='aaa'
-                        />
-                        <div className={styles.ItemContent}>
-                            {truncateText('toansssssssssss', 15)}
-                        </div>
-                    </Link>
-                    <Link href={'/'} className={styles.productSuggestItem}>
-                        <img
-                            src='/img/book/no-image.jpg'
-                            alt='aaa'
-                        />
-                        <div className={styles.ItemContent}>
-                            {truncateText('toansssssssssss', 15)}
-                        </div>
-                    </Link>
-                    <Link href={'/'} className={styles.productSuggestItem}>
-                        <img
-                            src='https://cdn0.fahasa.com/media/catalog/product/i/m/image_195509_1_47708.jpg'
-                            alt='aaa'
-                        />
-                        <div className={styles.ItemContent}>
-                            {truncateText('toansssssssssss', 15)}
-                        </div>
-                    </Link>
-                    <Link href={'/'} className={styles.productSuggestItem}>
-                        <img
-                            src='https://cdn0.fahasa.com/media/catalog/product/i/m/image_195509_1_47708.jpg'
-                            alt='aaa'
-                        />
-                        <div className={styles.ItemContent}>
-                            {truncateText('toansssssssssss', 15)}
-                        </div>
-                    </Link>
-                    <Link href={'/'} className={styles.productSuggestItem}>
-                        <img
-                            src='https://cdn0.fahasa.com/media/catalog/product/i/m/image_195509_1_47708.jpg'
-                            alt='aaa'
-                        />
-                        <div className={styles.ItemContent}>
-                            {truncateText('toansssssssssss', 15)}
-                        </div>
-                    </Link>
+                    {suggestData.map((item, index) => (
+                        <Link key={index} href={`/product/detail/${item.isbn_code}`} className={styles.productSuggestItem}>
+                            <img
+                                src={item.images[0].image_source}
+                                alt='aaa'
+                                onError={onImageError}
+                            />
+                            <div className={styles.ItemContent}>
+                                {truncateText(item.name, 15)}
+                            </div>
+                        </Link>
+                    ))}
                 </div>
             </div>
         </>
