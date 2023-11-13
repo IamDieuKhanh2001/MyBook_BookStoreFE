@@ -48,7 +48,7 @@ const ProductManagementPage = () => {
 
     return (
         <>
-            <PageContainer title='Categories CRUD' description='My CRUD Operation for categories'>
+            <PageContainer title='Product CRUD' description='My CRUD Operation for Product'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
                         title='Product List'

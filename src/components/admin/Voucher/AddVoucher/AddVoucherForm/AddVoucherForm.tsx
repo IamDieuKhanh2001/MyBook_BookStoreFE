@@ -88,7 +88,23 @@ const AddVoucherForm = () => {
     const handleAddVoucher = async (values: FormValues) => {
         try {
             console.log(values)
-            toast.success("Sửa thông tin thành công ")
+            switch (values.voucherType) {
+                case 'General': {
+                    toast.success("Save general")
+                    break;
+                }
+                case 'Member Exclusive': {
+                    toast.success("Save Member exx")
+
+                    break;
+                }
+                case 'Personalized': {
+                    toast.success("Save Personalized")
+
+                    break;
+                }
+            }
+            toast.success("Thêm voucher thành công ")
         }
         catch (e) {
             toast.error("Có lỗi xảy ra, vui lòng thử lại")
