@@ -6,9 +6,10 @@ import Link from 'next/link'
 interface ITotalCartPriceProps {
     handleGotoCheckout: () => void;
     total: number
+    disabledCheckOutBtn: boolean
 }
 const TotalCartPrice = (props: ITotalCartPriceProps) => {
-    const { handleGotoCheckout, total } = props
+    const { handleGotoCheckout, total, disabledCheckOutBtn = true } = props
 
     return (
         <>
@@ -37,7 +38,7 @@ const TotalCartPrice = (props: ITotalCartPriceProps) => {
                             </div>
                         </div>
                         <div className={styles.checkoutBtnContainer}>
-                            <button onClick={handleGotoCheckout} className={styles.btnProceed}>
+                            <button disabled={disabledCheckOutBtn} onClick={handleGotoCheckout} className={styles.btnProceed}>
                                 <span>
                                     Thanh toán
                                 </span>

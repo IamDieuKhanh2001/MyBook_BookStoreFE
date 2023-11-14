@@ -18,7 +18,6 @@ const AddressRadio = (props: AddressRadioProps) => {
     const { addressList, isLoading } = getAllAddress()
     const router = useRouter()
 
-    console.log(addressList)
     useEffect(() => {
         const setInitDefaultAddress = () => {
             const currentDefaultAddress = addressList.find(item => item.is_default === 1);

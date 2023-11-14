@@ -22,7 +22,7 @@ const CartPage = () => {
 
     const calculatePriceSelected = () => {
         const total = data.reduce((accumulator, object) => {
-            if(itemSelected.some(item => item === object.id)) {
+            if (itemSelected.some(item => item === object.id)) {
                 return accumulator + object.book_info.price * object.quantity;
             } else {
                 return accumulator
@@ -32,8 +32,10 @@ const CartPage = () => {
     }
 
     const handleGoToCheckout = () => {
-        const encodedData = LZString.compressToBase64(JSON.stringify(itemSelected));
-        router.push(`/checkout?state=${encodedData}`)
+        if (itemSelected.length > 0) {
+            const encodedData = LZString.compressToBase64(JSON.stringify(itemSelected));
+            router.push(`/checkout?state=${encodedData}`)
+        }
     }
 
     return (
@@ -61,7 +63,11 @@ const CartPage = () => {
                                     />
                                 </div>
                                 <div className='col-xl-4 col-md-12'>
-                                    <TotalCartPrice handleGotoCheckout={handleGoToCheckout} total={calculatePriceSelected()} />
+                                    <TotalCartPrice
+                                        disabledCheckOutBtn={itemSelected.length === 0}
+                                        handleGotoCheckout={handleGoToCheckout}
+                                        total={calculatePriceSelected()}
+                                    />
                                 </div>
                             </div>
                         </div>

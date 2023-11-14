@@ -58,6 +58,13 @@
             background: transparent;
             cursor: pointer;
 
+            &:disabled {
+              cursor: not-allowed;
+              background-color: #E0E0E0;
+              span {
+                background: none
+              }
+            }
             span {
               background: $secondary-color;
               border: none;

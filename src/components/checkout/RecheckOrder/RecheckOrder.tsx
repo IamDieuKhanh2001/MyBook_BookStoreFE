@@ -11,7 +11,6 @@ interface IRecheckOrderProps {
 const RecheckOrder = (props: IRecheckOrderProps) => {
     const { productOrderList } = props
 
-    console.log(productOrderList)
     return (
         <>
             <div className='row'>

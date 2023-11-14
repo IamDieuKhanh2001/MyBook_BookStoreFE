@@ -10,6 +10,9 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import LZString from 'lz-string'
 import useAPIUserCart from '@/lib/hooks/api/useAPIUserCart'
 import { toast } from 'react-toastify'
+import OrderNote from './OrderNote/OrderNote'
+import useAPIUserOrder from '@/lib/hooks/api/useAPIUserOrder'
+import PaymentMethod from '@/enum/PaymentMethod'
 
 const Checkout = () => {
     const [selectedAddress, setSelectedAddress] = useState<IUserAddress>()
@@ -19,20 +22,15 @@ const Checkout = () => {
     const productStateParam = searchParams && searchParams.get("state");
     const { preOrder } = useAPIUserCart()
     const [preOrderData, setPreOrderData] = useState<IPreOrder>()
+    const [noteMessage, setNoteMessage] = useState<string>('')
 
-    useEffect(() => {
-        console.log(selectedAddress)
-    }, [selectedAddress])
-
-    useEffect(() => {
-        console.log(selectedPaymentMethod)
-    }, [selectedPaymentMethod])
-
+    const { createOrder } = useAPIUserOrder()
     const handlePreOrder = async (productCartIdList: number[]) => {
-        const res = await preOrder(productCartIdList)
-        if (res.status === 200) {
+        try {
+            const res = await preOrder(productCartIdList)
             setPreOrderData(res.data)
-        } else {
+        }
+        catch (e) {
             router.push('/404')
         }
     }
@@ -51,17 +49,47 @@ const Checkout = () => {
         }
     }, [productStateParam])
 
-    const handleCheckoutProduct = () => {
-        if(!selectedAddress) {
+    const handleCheckoutProduct = async () => {
+        if (!selectedAddress) {
             toast.error('Vui lòng chọn địa chỉ giao')
-            return 
+            return
         }
-        if(!selectedPaymentMethod) {
+        if (!selectedPaymentMethod) {
             toast.error('Vui lòng chọn phương thức thanh toán')
-            return 
+            return
         }
-        toast.success('Đang thanh toán')
+        try {
+            toast.success('Đang xử lý đơn hàng')
+            const productIdList = preOrderData?.orders.carts.map(product => product.id) ?? [];
+            const resData: ICreateOrderResponse = await createOrder(
+                productIdList,
+                undefined,
+                noteMessage,
+                selectedAddress.id,
+                selectedPaymentMethod.key
+            )
+            console.log(resData)
+            navigatePaymentSite(resData)
+        } catch (e) {
+            router.push('/payment/fail')
+        }
+    }
 
+    const navigatePaymentSite = (resCreateOrder: ICreateOrderResponse) => {
+        const { method, url } = resCreateOrder.payment
+        switch (method) {
+            case PaymentMethod.COD: {
+                router.push('/payment/success')
+                break
+            }
+            case PaymentMethod.PayPal: {
+                url ? router.push(url) : router.push('/payment/fail')
+                break
+            }
+            default: {
+                router.push('/payment/fail')
+            }
+        }
     }
 
     return (
@@ -85,6 +113,7 @@ const Checkout = () => {
                 total={preOrderData?.orders.price.total}
                 handleCheckoutProduct={handleCheckoutProduct}
             />
+            <OrderNote noteMessage={noteMessage} setNoteMessage={setNoteMessage} />
         </div>
     )
 }
