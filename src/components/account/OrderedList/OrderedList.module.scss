@@ -1,0 +1,45 @@
+@import '../../../style/variable';
+
+.headerListOrder {
+    margin-bottom: 10px;
+    border-radius: 8px;
+    padding: 10px 0;
+    display: flex;
+
+    div {
+        font-weight: 600;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .headerIdOrder {
+        flex-basis: 20%;
+    }
+
+    .headerPaymentMethod {
+        flex-basis: 20%;
+
+    }
+
+    .headerStatus {
+        flex-basis: 20%;
+    }
+
+    .headerDetailRedirect {
+        flex-basis: 20%;
+    }
+
+    .headerOrderTotalPrice {
+        color: $secondary-color;
+        flex-basis: 20%;
+        font-weight: bold;
+    }
+}
+
+.listContent {
+    div:first-of-type {
+        border-top: none;
+    }
+}
