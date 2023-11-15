@@ -10,6 +10,9 @@ import CustomMenuItem from '@/components/forms/theme-elements/CustomMenuItem';
 import CustomSelectBox from '@/components/forms/theme-elements/CustomSelectBox';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import { Box, Typography, useTheme } from '@mui/material'
+import useAPIUserVoucher from '@/lib/hooks/api/useAPIUserVoucher';
+import { errorHandler } from '@/lib/utils/ErrorHandler';
+import { useRouter } from 'next/navigation';
 
 interface FormValues {
     voucherName: string,
@@ -23,11 +26,13 @@ interface FormValues {
     startDate: string,
     endDate: string,
     status: string,
-    username: string,
+    userEmail: string,
     userLevelId: number,
 }
 const AddVoucherForm = () => {
     const theme = useTheme();
+    const { createVoucherGeneral, createVoucherPersonalized, createVoucherMemberExclusive } = useAPIUserVoucher()
+    const router = useRouter()
 
     const initialValues: FormValues = {
         voucherName: '',
@@ -41,7 +46,7 @@ const AddVoucherForm = () => {
         startDate: '',
         endDate: '',
         status: 'active',
-        username: '',
+        userEmail: '',
         userLevelId: 0,
     }
 
@@ -76,7 +81,7 @@ const AddVoucherForm = () => {
             .required("*Chọn ngày bắt đầu"),
         endDate: Yup.string()
             .required("*Chọn ngày kết thúc"),
-        username: Yup.string().when("voucherType", ([voucherType], sch) => {
+        userEmail: Yup.string().when("voucherType", ([voucherType], sch) => {
             return voucherType === 'Personalized' ? sch.required("Vui lòng không để trống") : sch.notRequired()
         }),
         userLevelId: Yup.number().when("voucherType", ([voucherType], sch) => {
@@ -88,26 +93,78 @@ const AddVoucherForm = () => {
     const handleAddVoucher = async (values: FormValues) => {
         try {
             console.log(values)
+            const {
+                voucherName,
+                voucherType,
+                desc,
+                discountMaxPrice,
+                discountPercentage,
+                endDate,
+                limited,
+                requireOrderMinPrice,
+                startDate,
+                status,
+                userLevelId,
+                userEmail,
+                voucherCode
+            } = values
             switch (values.voucherType) {
                 case 'General': {
                     toast.success("Save general")
+                    await createVoucherGeneral(
+                        voucherName,
+                        voucherCode,
+                        requireOrderMinPrice,
+                        discountPercentage,
+                        discountMaxPrice,
+                        limited,
+                        desc,
+                        startDate,
+                        endDate,
+                        status
+                    )
                     break;
                 }
                 case 'Member Exclusive': {
                     toast.success("Save Member exx")
-
+                    await createVoucherMemberExclusive(
+                        voucherName,
+                        voucherCode,
+                        requireOrderMinPrice,
+                        discountPercentage,
+                        discountMaxPrice,
+                        limited,
+                        desc,
+                        startDate,
+                        endDate,
+                        status,
+                        userLevelId
+                    )
                     break;
                 }
                 case 'Personalized': {
                     toast.success("Save Personalized")
-
+                    await createVoucherPersonalized(
+                        voucherName,
+                        voucherCode,
+                        requireOrderMinPrice,
+                        discountPercentage,
+                        discountMaxPrice,
+                        limited,
+                        desc,
+                        startDate,
+                        endDate,
+                        status,
+                        userEmail
+                    )
                     break;
                 }
             }
             toast.success("Thêm voucher thành công ")
+            router.push('/admin/manage/voucher')
         }
         catch (e) {
-            toast.error("Có lỗi xảy ra, vui lòng thử lại")
+            errorHandler(e)
         }
     }
 
@@ -240,7 +297,7 @@ const AddVoucherForm = () => {
                                     variant="subtitle1"
                                     fontWeight={600}
                                     component="label"
-                                    htmlFor="username"
+                                    htmlFor="userEmail"
                                     mb="5px"
                                     style={{ color: theme.palette.text.primary }}
                                 >
@@ -248,16 +305,16 @@ const AddVoucherForm = () => {
                                 </Typography>
                                 <Field
                                     as={CustomTextField}
-                                    id={"username"}
-                                    name="username"
+                                    id={"userEmail"}
+                                    name="userEmail"
                                     onChange={handleChange}
                                     variant="outlined"
                                     fullWidth
-                                    value={values.username}
+                                    value={values.userEmail}
                                 />
-                                {errors.username && touched.username && (
+                                {errors.userEmail && touched.userEmail && (
                                     <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
-                                        {errors.username}
+                                        {errors.userEmail}
                                     </Typography>
                                 )}
                             </Box>
