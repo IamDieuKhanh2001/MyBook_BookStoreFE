@@ -8,21 +8,6 @@ import { useRouter } from 'next/navigation';
 import React from 'react'
 import AddVoucherForm from '@/components/admin/Voucher/AddVoucher/AddVoucherForm/AddVoucherForm';
 
-interface FormValues {
-    voucherName: string,
-    voucherType: string,
-    voucherCode: string,
-    requireOrderMinPrice: number,
-    discountPercentage: number,
-    discountMaxPrice: number,
-    limited: number,
-    desc: string,
-    startDate: string,
-    endDate: string,
-    status: string,
-    username: string,
-    userLevelId: number,
-}
 const AddVoucherPage = () => {
     const router = useRouter()
 

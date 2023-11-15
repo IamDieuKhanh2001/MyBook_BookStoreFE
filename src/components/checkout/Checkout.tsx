@@ -92,6 +92,10 @@ const Checkout = () => {
         }
     }
 
+    useEffect(() => {
+        console.log(preOrderData)
+    }, [preOrderData])
+
     return (
         <div className='container'>
             <AddressRadio

@@ -14,9 +14,7 @@ import VoucherTableData from '@/components/admin/Voucher/VoucherTableData/Vouche
 const VoucherManagePage = () => {
     const confirm = useConfirm();
     const router = useRouter()
-    const [filters, setFilters] = useState({
-        limit: '4'
-    });
+
     const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
 
     const handleDeleteData = async (id: number) => {
