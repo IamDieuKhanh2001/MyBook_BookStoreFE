@@ -13,6 +13,7 @@ import {
   IconBuildingFactory2,
   IconBook,
   IconTicket,
+  IconNotes,
 } from '@tabler/icons-react';
 
 import { uniqueId } from 'lodash';
@@ -71,6 +72,12 @@ const Menuitems = [
     title: 'Mã voucher',
     icon: IconTicket,
     href: '/admin/manage/voucher',
+  },
+  {
+    id: uniqueId(),
+    title: 'Đơn hàng đặt',
+    icon: IconNotes,
+    href: '/admin/manage/order',
   },
   //Home group
   {

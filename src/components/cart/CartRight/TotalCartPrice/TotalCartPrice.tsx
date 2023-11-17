@@ -3,7 +3,14 @@ import React from 'react'
 import styles from './TotalCartPrice.module.scss'
 import Link from 'next/link'
 
-const TotalCartPrice = () => {
+interface ITotalCartPriceProps {
+    handleGotoCheckout: () => void;
+    total: number
+    disabledCheckOutBtn: boolean
+}
+const TotalCartPrice = (props: ITotalCartPriceProps) => {
+    const { handleGotoCheckout, total, disabledCheckOutBtn = true } = props
+
     return (
         <>
             <div className={styles.totalCartRight}>
@@ -15,17 +22,7 @@ const TotalCartPrice = () => {
                             </div>
                             <div className={styles.numberCartPageRight}>
                                 <span className={styles.price}>
-                                    277.000 VND
-                                </span>
-                            </div>
-                        </div>
-                        <div className={styles.totalCartPage}>
-                            <div className={styles.titleCartPageLeft}>
-                                Phí vận chuyển (Giao hàng tiêu chuẩn)
-                            </div>
-                            <div className={styles.numberCartPageRight}>
-                                <span className={styles.price}>
-                                    19.000 đ
+                                    {total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                 </span>
                             </div>
                         </div>
@@ -36,12 +33,12 @@ const TotalCartPrice = () => {
                             </div>
                             <div className={`${styles.numberCartPageRight} ${styles.finalPrice}`}>
                                 <span className={styles.price}>
-                                    296.050 đ
+                                    {total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                 </span>
                             </div>
                         </div>
                         <div className={styles.checkoutBtnContainer}>
-                            <button className={styles.btnProceed}>
+                            <button disabled={disabledCheckOutBtn} onClick={handleGotoCheckout} className={styles.btnProceed}>
                                 <span>
                                     Thanh toán
                                 </span>

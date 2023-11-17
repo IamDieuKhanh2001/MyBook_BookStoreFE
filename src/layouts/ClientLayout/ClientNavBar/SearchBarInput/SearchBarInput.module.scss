@@ -1,41 +1,47 @@
 @import "../../../../style/variable";
 
-.searchField {
-	background-color: transparent;
-	color: $dark-color;
-	border-radius: 20px;
-	border: 1px solid #0b0c2a;
-	overflow: hidden;
-	align-items: center;
-	height: 45px;
-	width: 250px;
+.searchContainer {
 	position: relative;
+	height: 45px;
+	width: 400px;
 
-	&:hover {
-		border-color: #80bdff;
-		outline: 0;
-		box-shadow: 0 0 0 2px rgba(0, 123, 255, .25);
-	}
-
-	.searchBarInput {
-		padding: 0 22px;
+	.searchField {
+		background-color: transparent;
+		color: $dark-color;
+		border-radius: 20px;
+		border: 1px solid #0b0c2a;
+		overflow: hidden;
+		align-items: center;
+		height: 100%;
 		width: 100%;
-		font-size: 14px;
-		border: none;
-		border-right: 1px solid rgba(153, 153, 153, 0.3);
-		background-color: transparent;
+		position: relative;
 
-		&:focus,
-		&:active {
+		&:hover {
+			border-color: #80bdff;
 			outline: 0;
+			box-shadow: 0 0 0 2px rgba(0, 123, 255, .25);
 		}
-	}
+
+		.searchBarInput {
+			padding: 0 22px;
+			width: 100%;
+			font-size: 14px;
+			border: none;
+			border-right: 1px solid rgba(153, 153, 153, 0.3);
+			background-color: transparent;
+
+			&:focus,
+			&:active {
+				outline: 0;
+			}
+		}
 
 
-	.buttonSearch {
-		background-color: transparent;
-		color: black;
-		border: none;
-		padding: 15px;
+		.buttonSearch {
+			background-color: transparent;
+			color: black;
+			border: none;
+			padding: 15px;
+		}
 	}
 }

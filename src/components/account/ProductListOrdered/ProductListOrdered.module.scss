@@ -1,0 +1,41 @@
+@import '../../../style/variable';
+@import '../../../style/responsive';
+
+.headerListItem {
+    margin-bottom: 10px;
+    border-radius: 8px;
+    padding: 10px 0;
+    display: flex;
+
+    .headerIdItem {
+        flex-basis: 17%;
+        font-weight: 600;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    div {
+        font-weight: 600;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    .headerNameItem {
+        justify-content: flex-start;
+        flex-basis: 60%;
+    }
+
+    .datePurchasedHeader {
+        flex-basis: 23%;
+    }
+}
+
+.listContent {
+    div:first-of-type {
+        border-top: none;
+    }
+}
+

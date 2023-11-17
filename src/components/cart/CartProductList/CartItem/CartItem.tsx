@@ -2,7 +2,6 @@
 import React from 'react'
 import styles from './CartItem.module.scss'
 import { useDispatch } from 'react-redux'
-import { cartActions } from '@/redux/slices/cartSlice'
 import useAPIUserCart from '@/lib/hooks/api/useAPIUserCart'
 import { toast } from 'react-toastify'
 import { errorHandler } from '@/lib/utils/ErrorHandler'

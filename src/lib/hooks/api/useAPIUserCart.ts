@@ -103,12 +103,30 @@ const useAPIUserCart = () => {
         }
     }
 
+    const preOrder = async (listIdProductOrder: number[]) => {
+        try {
+            const session = await getSession();
+            const url = `${URL_PREFIX}/pre_order`
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
+            const body = {
+                ids: listIdProductOrder
+            }
+            const response = await axiosAuth.post(url, body, { headers })
+            return response;
+        } catch (error: any) {
+            throw error;
+        }
+    };
+
     return {
         getMyCartList,
         increaseQty,
         decreaseQty,
         deleteCartItem,
         addBookToCart,
+        preOrder,
     }
 }
 

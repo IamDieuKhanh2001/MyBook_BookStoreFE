@@ -9,13 +9,12 @@ import { IconPlus } from '@tabler/icons-react';
 import { IconTrash } from '@tabler/icons-react';
 import { useInView } from 'react-intersection-observer';
 import { useRouter } from 'next/navigation';
+import VoucherTableData from '@/components/admin/Voucher/VoucherTableData/VoucherTableData';
 
 const VoucherManagePage = () => {
     const confirm = useConfirm();
     const router = useRouter()
-    const [filters, setFilters] = useState({
-        limit: '4'
-    });
+
     const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
 
     const handleDeleteData = async (id: number) => {
@@ -77,14 +76,7 @@ const VoucherManagePage = () => {
                             >
                                 Recycle bin
                             </Button>
-                            {/* <PublisherTableData
-                                publisherList={paginatedData}
-                                handleDeleteData={handleDeleteData}
-                                setPublisherSelected={setPublisherSelected}
-                                setShowModalUpdate={setShowModalUpdate}
-                                isReachedEnd={isReachedEnd}
-                                loadMoreRef={ref}
-                            /> */}
+                            <VoucherTableData />
                         </Box>
                     </DashboardCard>
                 </Grid>

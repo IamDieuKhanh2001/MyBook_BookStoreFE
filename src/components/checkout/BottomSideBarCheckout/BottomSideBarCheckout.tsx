@@ -3,7 +3,16 @@ import React from 'react'
 import styles from './BottomSideBarCheckout.module.scss'
 import Link from 'next/link'
 
-const BottomSideBarCheckout = () => {
+interface IBottomSideBarCheckoutProps {
+    shipFee?: number
+    productPrice?: number
+    total?: number
+    handleCheckoutProduct: () => void
+    loadingCheckout: boolean;
+}
+const BottomSideBarCheckout = (props: IBottomSideBarCheckoutProps) => {
+    const { shipFee = 0, productPrice = 0, total = 0, handleCheckoutProduct, loadingCheckout } = props
+
     return (
         <>
             <div className={styles.bsidebar}>
@@ -15,7 +24,7 @@ const BottomSideBarCheckout = () => {
                                     Thành tiền
                                 </div>
                                 <div>
-                                    500.000 VND
+                                    {productPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                 </div>
                             </div>
                             <div className={styles.totalShiping}>
@@ -23,7 +32,7 @@ const BottomSideBarCheckout = () => {
                                     Phí vận chuyển (Giao hàng tiêu chuẩn)
                                 </div>
                                 <div>
-                                    19.000 VND
+                                    {shipFee.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                 </div>
                             </div>
                             <div className={styles.grandTotal}>
@@ -31,7 +40,7 @@ const BottomSideBarCheckout = () => {
                                     Tổng Số Tiền (gồm VAT)
                                 </div>
                                 <div>
-                                    519.000 VND
+                                    {total.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                 </div>
                             </div>
                         </div>
@@ -43,7 +52,14 @@ const BottomSideBarCheckout = () => {
                                 </Link>
                             </div>
                             <div className={styles.btnAcceptPayContainer}>
-                                <button type="button" className={`${styles.btnAcceptPayment} btn btn-danger`}>Xác nhận thanh toán</button>
+                                <button
+                                    type="button"
+                                    className={`${styles.btnAcceptPayment} btn btn-danger`}
+                                    onClick={handleCheckoutProduct}
+                                    disabled={loadingCheckout}
+                                >
+                                    Xác nhận thanh toán
+                                </button>
                             </div>
                         </div>
                     </div>
