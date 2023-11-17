@@ -49,32 +49,6 @@ function ClientNavBar() {
                             <Link href="/product/searchengine" className={`${styles.navLink} ${styles.navItem} nav-item nav-link`}>
                                 Sản phẩm
                             </Link>
-                            <div className={`${styles.navItem} nav-item dropdown`}>
-                                <Link
-                                    href="#"
-                                    className={`${styles.dropdownToggle} ${styles.navLink} nav-link dropdown-toggle`}
-                                    data-bs-toggle="dropdown"
-                                >
-                                    Pages
-                                </Link>
-                                <div className={`${styles.dropdownMenu} dropdown-menu m-0`}>
-                                    <Link href="/account" className='dropdown-item'>
-                                        Account
-                                    </Link>
-                                    <Link href="/account/address" className='dropdown-item'>
-                                        Address CRUD
-                                    </Link>
-                                    <Link href="/cart" className='dropdown-item'>
-                                        cart
-                                    </Link>
-                                    <Link href="/checkout" className='dropdown-item'>
-                                        checkout
-                                    </Link>
-                                    <Link href="/404-error" className='dropdown-item'>
-                                        404 Page
-                                    </Link>
-                                </div>
-                            </div>
                             <SearchBarInput />
                             {session && (
                                 <>
