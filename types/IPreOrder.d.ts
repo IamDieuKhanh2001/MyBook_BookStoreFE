@@ -1,7 +1,7 @@
 interface IPreOrder {
     user: {
         voucher: {
-            hint: IVoucher[]
+            hints: IVoucher[]
         }
     },
     paymentMethods: IPaymentType[],

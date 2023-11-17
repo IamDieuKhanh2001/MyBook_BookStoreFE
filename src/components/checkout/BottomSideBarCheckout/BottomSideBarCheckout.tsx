@@ -8,9 +8,10 @@ interface IBottomSideBarCheckoutProps {
     productPrice?: number
     total?: number
     handleCheckoutProduct: () => void
+    loadingCheckout: boolean;
 }
 const BottomSideBarCheckout = (props: IBottomSideBarCheckoutProps) => {
-    const { shipFee = 0, productPrice = 0, total = 0, handleCheckoutProduct } = props
+    const { shipFee = 0, productPrice = 0, total = 0, handleCheckoutProduct, loadingCheckout } = props
 
     return (
         <>
@@ -55,6 +56,7 @@ const BottomSideBarCheckout = (props: IBottomSideBarCheckoutProps) => {
                                     type="button"
                                     className={`${styles.btnAcceptPayment} btn btn-danger`}
                                     onClick={handleCheckoutProduct}
+                                    disabled={loadingCheckout}
                                 >
                                     Xác nhận thanh toán
                                 </button>

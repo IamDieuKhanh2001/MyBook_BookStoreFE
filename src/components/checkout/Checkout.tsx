@@ -13,16 +13,19 @@ import { toast } from 'react-toastify'
 import OrderNote from './OrderNote/OrderNote'
 import useAPIUserOrder from '@/lib/hooks/api/useAPIUserOrder'
 import PaymentMethod from '@/enum/PaymentMethod'
+import { errorHandler } from '@/lib/utils/ErrorHandler'
 
 const Checkout = () => {
     const [selectedAddress, setSelectedAddress] = useState<IUserAddress>()
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<IPaymentType>()
+    const [selectedVoucher, setSelectedVoucher] = useState<IVoucher>()
     const searchParams = useSearchParams();
     const router = useRouter()
     const productStateParam = searchParams && searchParams.get("state");
     const { preOrder } = useAPIUserCart()
     const [preOrderData, setPreOrderData] = useState<IPreOrder>()
     const [noteMessage, setNoteMessage] = useState<string>('')
+    const [loading, setLoading] = useState<boolean>(false)
 
     const { createOrder } = useAPIUserOrder()
     const handlePreOrder = async (productCartIdList: number[]) => {
@@ -59,19 +62,21 @@ const Checkout = () => {
             return
         }
         try {
-            toast.success('Đang xử lý đơn hàng')
+            setLoading(true)
             const productIdList = preOrderData?.orders.carts.map(product => product.id) ?? [];
             const resData: ICreateOrderResponse = await createOrder(
                 productIdList,
-                undefined,
+                selectedVoucher?.voucher_code,
                 noteMessage,
                 selectedAddress.id,
                 selectedPaymentMethod.key
             )
             console.log(resData)
+            setLoading(false)
             navigatePaymentSite(resData)
         } catch (e) {
-            router.push('/payment/fail')
+            errorHandler(e)
+            setLoading(false)
         }
     }
 
@@ -107,7 +112,11 @@ const Checkout = () => {
                 selectedPaymentMethod={selectedPaymentMethod}
                 setSelectedPaymentMethod={setSelectedPaymentMethod}
             />
-            <AddVoucher />
+            <AddVoucher
+                voucherList={preOrderData?.user.voucher.hints}
+                selectedVoucher={selectedVoucher}
+                setSelectedVoucher={setSelectedVoucher}
+            />
             <RecheckOrder
                 productOrderList={preOrderData?.orders.carts}
             />
@@ -116,6 +125,7 @@ const Checkout = () => {
                 productPrice={preOrderData?.orders.price.productPrice}
                 total={preOrderData?.orders.price.total}
                 handleCheckoutProduct={handleCheckoutProduct}
+                loadingCheckout={loading}
             />
             <OrderNote noteMessage={noteMessage} setNoteMessage={setNoteMessage} />
         </div>
