@@ -10,6 +10,7 @@ import { IconTrash } from '@tabler/icons-react';
 import { useInView } from 'react-intersection-observer';
 import { useRouter } from 'next/navigation';
 import VoucherTableData from '@/components/admin/Voucher/VoucherTableData/VoucherTableData';
+import VoucherTab from '@/components/admin/Voucher/VoucherTab/VoucherTab';
 
 const VoucherManagePage = () => {
     const confirm = useConfirm();
@@ -76,22 +77,10 @@ const VoucherManagePage = () => {
                             >
                                 Recycle bin
                             </Button>
-                            <VoucherTableData />
+                            <VoucherTab />
                         </Box>
                     </DashboardCard>
                 </Grid>
-                {/* <CreatePublisherModal
-                    showModalCreate={showModalCreate}
-                    setShowModalCreate={setShowModalCreate}
-                    mutate={mutate}
-                />
-                <UpdatePublisherModal
-                    publisherSelected={publisherSelected}
-                    setPublisherSelected={setPublisherSelected}
-                    setShowModalUpdate={setShowModalUpdate}
-                    showModalUpdate={showModalUpdate}
-                    mutate={mutate}
-                /> */}
             </PageContainer>
         </>
     )
