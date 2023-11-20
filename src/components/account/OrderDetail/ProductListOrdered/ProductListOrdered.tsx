@@ -2,8 +2,18 @@
 import React from 'react'
 import styles from './ProductListOrdered.module.scss'
 import ProductItemOrdered from './ProductItemOrdered/ProductItemOrdered'
+import BadgeOrderCanceled from '../OrderOverview/StatusBadge/BadgeOrderCanceled/BadgeOrderCanceled'
+import BadgeOrderSuccess from '../OrderOverview/StatusBadge/BadgeOrderSuccess/BadgeOrderSuccess'
+import BadgeOrderUnpaid from '../OrderOverview/StatusBadge/BadgeOrderUnpaid/BadgeOrderUnpaid'
+import PaymentStatus from '@/enum/PaymentStatus'
 
-const ProductListOrdered = () => {
+interface IProductListOrderedProps {
+    data: IOrder
+}
+const ProductListOrdered = (props: IProductListOrderedProps) => {
+    const { data } = props
+
+    console.log(data)
     return (
         <>
             <div className="card mb-4 py-3 px-4">
@@ -14,18 +24,25 @@ const ProductListOrdered = () => {
                                 Mã đơn hàng:
                             </span>
                             <span>
-                                103343855
+                                {data.id}
                             </span>
                         </div>
-                        <div className={styles.orderViewStatus}>
-                            Đơn hàng Bị hủy
-                        </div>
+                        {
+                            data.status === PaymentStatus.PAID
+                                ? <BadgeOrderSuccess />
+                                :
+                                data.status === PaymentStatus.UNPAID
+                                    ? <BadgeOrderUnpaid /> :
+                                    data.status === PaymentStatus.CANCEL
+                                        ? <BadgeOrderCanceled /> :
+                                        <></>
+                        }
                         <div className={styles.orderViewQty}>
                             <span>
                                 Số lượng
                             </span>
                             <span>
-                                1
+                                {data.items?.length}
                             </span>
                         </div>
                         <div className={styles.orderViewTotal}>
@@ -33,7 +50,7 @@ const ProductListOrdered = () => {
                                 Tổng Tiền:
                             </span>
                             <span className={styles.price}>
-                                5000000000
+                                {data.final_price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                             </span>
                         </div>
                     </div>
@@ -61,8 +78,13 @@ const ProductListOrdered = () => {
                             </div>
                         </div>
                     </div>
-                    <ProductItemOrdered />
-                    <ProductItemOrdered />
+                    {data.items && data.items.length > 0 ? (
+                        data.items?.map((orderedItem, index) => (
+                            <ProductItemOrdered key={index} orderedItemData={orderedItem} />
+                        ))
+                    ) : (
+                        <></>
+                    )}
                 </div>
                 <div className={styles.orderSubOrderTotal}>
 
@@ -75,17 +97,17 @@ const ProductListOrdered = () => {
                         <div>
                             <p className={styles.orderTotalPrice}>
                                 <span>
-                                    33.250
+                                    {data.product_price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                 </span>
                             </p>
                             <p className={styles.orderTotalPrice}>
                                 <span>
-                                    33.250
+                                    {data.fee_price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                 </span>
                             </p>
                             <p className={styles.orderTotalPrice}>
                                 <span>
-                                    33.250
+                                    {data.final_price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                 </span>
                             </p>
                         </div>

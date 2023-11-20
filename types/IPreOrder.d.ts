@@ -9,6 +9,7 @@ interface IPreOrder {
         price: {
             productPrice: number
             shipFee: number
+            discountPrice: number
             total: number
         },
         carts: ICartItem[]

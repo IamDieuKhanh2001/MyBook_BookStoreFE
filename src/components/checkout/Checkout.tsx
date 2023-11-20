@@ -28,9 +28,10 @@ const Checkout = () => {
     const [loading, setLoading] = useState<boolean>(false)
 
     const { createOrder } = useAPIUserOrder()
-    const handlePreOrder = async (productCartIdList: number[]) => {
+    const handlePreOrder = async (productCartIdList: number[], voucherCode?: string) => {
         try {
-            const res = await preOrder(productCartIdList)
+            const res = await preOrder(productCartIdList, voucherCode)
+            console.log(res)
             setPreOrderData(res.data)
         }
         catch (e) {
@@ -51,6 +52,22 @@ const Checkout = () => {
             router.push('/404')
         }
     }, [productStateParam])
+
+    useEffect(() => {
+        if (selectedVoucher) {
+            if (!productStateParam) {
+                router.push('/404')
+                return
+            }
+            try {
+                const decodedData: number[] = JSON.parse(LZString.decompressFromBase64(productStateParam));
+                handlePreOrder(decodedData, selectedVoucher.voucher_code)
+            } catch (e: any) {
+                toast.error(e)
+                router.push('/404')
+            }
+        }
+    }, [selectedVoucher])
 
     const handleCheckoutProduct = async () => {
         if (!selectedAddress) {
@@ -116,6 +133,7 @@ const Checkout = () => {
                 voucherList={preOrderData?.user.voucher.hints}
                 selectedVoucher={selectedVoucher}
                 setSelectedVoucher={setSelectedVoucher}
+                handleRecallPreOrder={handlePreOrder}
             />
             <RecheckOrder
                 productOrderList={preOrderData?.orders.carts}
@@ -124,6 +142,8 @@ const Checkout = () => {
                 shipFee={preOrderData?.orders.price.shipFee}
                 productPrice={preOrderData?.orders.price.productPrice}
                 total={preOrderData?.orders.price.total}
+                voucherSelectedName={selectedVoucher?.voucher_name}
+                discountPrice={preOrderData?.orders.price.discountPrice}
                 handleCheckoutProduct={handleCheckoutProduct}
                 loadingCheckout={loading}
             />

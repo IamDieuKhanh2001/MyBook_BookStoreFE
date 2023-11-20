@@ -7,11 +7,13 @@ interface IBottomSideBarCheckoutProps {
     shipFee?: number
     productPrice?: number
     total?: number
+    voucherSelectedName?: string
+    discountPrice?: number
     handleCheckoutProduct: () => void
     loadingCheckout: boolean;
 }
 const BottomSideBarCheckout = (props: IBottomSideBarCheckoutProps) => {
-    const { shipFee = 0, productPrice = 0, total = 0, handleCheckoutProduct, loadingCheckout } = props
+    const { shipFee = 0, productPrice = 0, discountPrice = 0, total = 0, voucherSelectedName, handleCheckoutProduct, loadingCheckout } = props
 
     return (
         <>
@@ -27,6 +29,16 @@ const BottomSideBarCheckout = (props: IBottomSideBarCheckoutProps) => {
                                     {productPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                 </div>
                             </div>
+                            {voucherSelectedName && (
+                                <div className={styles.totalDiscount}>
+                                    <div>
+                                        Giảm giá (Nhập mã thành công - {voucherSelectedName})
+                                    </div>
+                                    <div>
+                                        - {discountPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                    </div>
+                                </div>
+                            )}
                             <div className={styles.totalShiping}>
                                 <div>
                                     Phí vận chuyển (Giao hàng tiêu chuẩn)

@@ -1,10 +1,13 @@
 'use client'
 import React from 'react'
 import styles from './OrderedList.module.scss'
-import OrderItem from '@/components/checkout/RecheckOrder/OrderItem/OrderItem'
 import OrderedItem from './OrderedItem/OrderedItem'
+import useAPIUserOrder from '@/lib/hooks/api/useAPIUserOrder'
 
 const OrderedList = () => {
+    const { getOrderList } = useAPIUserOrder()
+    const { data, error, isLoading } = getOrderList()
+
     return (
         <>
             <div className="card mb-4">
@@ -26,10 +29,13 @@ const OrderedList = () => {
                     </div>
                 </div>
                 <div className={styles.listContent}>
-                    <OrderedItem />
-                    <OrderedItem />
-                    <OrderedItem />
-                    <OrderedItem />
+                    {data.length > 0 ? (
+                        data.map((item) => (
+                            <OrderedItem key={item.id} data={item} />
+                        ))
+                    ) : (
+                        <>Trống</>
+                    )}
                 </div>
             </div>
         </>

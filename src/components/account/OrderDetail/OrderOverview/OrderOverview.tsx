@@ -1,8 +1,17 @@
 'use client'
 import React from 'react'
 import styles from './OrderOverview.module.scss'
+import BadgeOrderCanceled from './StatusBadge/BadgeOrderCanceled/BadgeOrderCanceled'
+import PaymentStatus from '@/enum/PaymentStatus'
+import BadgeOrderSuccess from './StatusBadge/BadgeOrderSuccess/BadgeOrderSuccess'
+import BadgeOrderUnpaid from './StatusBadge/BadgeOrderUnpaid/BadgeOrderUnpaid'
 
-const OrderOverview = () => {
+interface IOrderOverviewProps {
+    data: IOrder
+}
+const OrderOverview = (props: IOrderOverviewProps) => {
+    const { data } = props
+
     return (
         <>
             <div className={`card mb-2 py-3 px-4 ${styles.orderViewContentInfo}`}>
@@ -10,15 +19,22 @@ const OrderOverview = () => {
                     Chi tiết đơn hàng
                 </div>
                 <div>
-                    <div className={styles.orderViewStatus}>
-                        Đơn hàng Bị hủy
-                    </div>
+                    {
+                        data.status === PaymentStatus.PAID
+                            ? <BadgeOrderSuccess />
+                            :
+                            data.status === PaymentStatus.UNPAID
+                                ? <BadgeOrderUnpaid /> :
+                                data.status === PaymentStatus.CANCEL
+                                    ? <BadgeOrderCanceled /> :
+                                    <></>
+                    }
                     <div className={styles.orderViewId}>
                         <span>
                             Mã đơn hàng:
                         </span>
                         <span>
-                            103343855
+                            {data.id}
                         </span>
                     </div>
                     <div className={styles.orderViewDate}>
@@ -34,7 +50,7 @@ const OrderOverview = () => {
                             Tổng Tiền:
                         </span>
                         <span className={styles.price}>
-                            5000000000
+                            {data.final_price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                         </span>
                     </div>
                     <div className={styles.orderViewNote}>
@@ -42,14 +58,23 @@ const OrderOverview = () => {
                             Ghi chú:
                         </span>
                         <span className={styles.noteContent}>
-                            (Không có)
+
+                            {data.customer_note ? (
+                                <>
+                                    {data.customer_note}
+                                </>
+                            ) : (
+                                <>
+                                    (Không có)
+                                </>
+                            )}
                         </span>
                     </div>
                 </div>
                 <div className={styles.overviewBtns}>
                     <button className={styles.cancelOrderBtn}>Đặt hàng lại</button>
                 </div>
-            </div>
+            </div >
             <div className="card mb-2 py-3 px-4">
                 <div className={styles.orderViewContentBox}>
                     <div className={styles.orderViewBox}>
@@ -60,11 +85,11 @@ const OrderOverview = () => {
                         </div>
                         <div className={styles.orderBoxInfo}>
                             <address>
-                                Khanh Quach
+                                {data.userAddress?.recipient_name}
                                 <br />
-                                1 Vo Van Ngan street<br />
-                                Phường 07, Quận Bình Thạnh,  Hồ Chí Minh<br />
-                                Tel: 0912345678
+                                {data.userAddress?.street}<br />
+                                {data.userAddress?.wards.name}, {data.userAddress?.wards.district.name},  {data.userAddress?.wards.district.province.name}< br />
+                                    Tel: {data.userAddress?.recipient_phone}
                             </address>
                         </div>
                     </div>
@@ -85,7 +110,7 @@ const OrderOverview = () => {
                             </div>
                         </div>
                         <div className={styles.orderBoxInfo}>
-                            Thanh toán bằng tiền mặt khi nhận hàng
+                            {data.payment_method}
                         </div>
                     </div>
                 </div>
