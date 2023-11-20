@@ -46,28 +46,12 @@ const Checkout = () => {
         }
         try {
             const decodedData: number[] = JSON.parse(LZString.decompressFromBase64(productStateParam));
-            handlePreOrder(decodedData)
+            handlePreOrder(decodedData, selectedVoucher?.voucher_code)
         } catch (e: any) {
             toast.error(e)
             router.push('/404')
         }
-    }, [productStateParam])
-
-    useEffect(() => {
-        if (selectedVoucher) {
-            if (!productStateParam) {
-                router.push('/404')
-                return
-            }
-            try {
-                const decodedData: number[] = JSON.parse(LZString.decompressFromBase64(productStateParam));
-                handlePreOrder(decodedData, selectedVoucher.voucher_code)
-            } catch (e: any) {
-                toast.error(e)
-                router.push('/404')
-            }
-        }
-    }, [selectedVoucher])
+    }, [selectedVoucher, productStateParam])
 
     const handleCheckoutProduct = async () => {
         if (!selectedAddress) {
@@ -104,7 +88,8 @@ const Checkout = () => {
                 router.push('/payment/success')
                 break
             }
-            case PaymentMethod.PayPal: {
+            case PaymentMethod.PayPal:
+            case PaymentMethod.VnPay: {
                 url ? router.push(url) : router.push('/payment/fail')
                 break
             }

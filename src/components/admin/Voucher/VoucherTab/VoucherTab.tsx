@@ -8,9 +8,9 @@ import useAPIUserVoucher from '@/lib/hooks/api/useAPIUserVoucher'
 
 const VoucherTab = () => {
     const { getVoucherGeneral, getVoucherMemberExclusive, getVoucherPersonalized } = useAPIUserVoucher()
-    const { data: voucherGeneralData, } = getVoucherGeneral()
-    const { data: voucherMemberData, } = getVoucherMemberExclusive()
-    const { data: voucherPersonalizedData, } = getVoucherPersonalized()
+    const { paginatedData: voucherGeneralData, isReachedEnd: isReachedEndListGeneral, setSize: setSizeListGeneral } = getVoucherGeneral()
+    const { paginatedData: voucherMemberData, isReachedEnd: isReachedEndListME, setSize: setSizeListME } = getVoucherMemberExclusive()
+    const { paginatedData: voucherPersonalizedData, isReachedEnd: isReachedEndListPersonalized, setSize: setSizeListPersonalized } = getVoucherPersonalized()
     const [value, setValue] = React.useState<string>(VoucherType.GENERAL);
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -44,13 +44,25 @@ const VoucherTab = () => {
                         </CustomTabList>
                     </Box>
                     <TabPanel sx={{ padding: '24px 0' }} value={VoucherType.GENERAL}>
-                        <VoucherTableData data={voucherGeneralData} />
+                        <VoucherTableData
+                            data={voucherGeneralData}
+                            isReachedEnd={isReachedEndListGeneral}
+                            setSize={setSizeListGeneral}
+                        />
                     </TabPanel>
                     <TabPanel sx={{ padding: '24px 0' }} value={VoucherType.MEMBER_EXCLUSIVE}>
-                        <VoucherTableData data={voucherMemberData} />
+                        <VoucherTableData
+                            data={voucherMemberData}
+                            isReachedEnd={isReachedEndListME}
+                            setSize={setSizeListME}
+                        />
                     </TabPanel>
                     <TabPanel sx={{ padding: '24px 0' }} value={VoucherType.PERSONALIZED}>
-                        <VoucherTableData data={voucherPersonalizedData} />
+                        <VoucherTableData
+                            data={voucherPersonalizedData}
+                            isReachedEnd={isReachedEndListPersonalized}
+                            setSize={setSizeListPersonalized}
+                        />
                     </TabPanel>
                 </TabContext>
             </Box>
