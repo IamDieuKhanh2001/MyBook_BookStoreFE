@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import styles from './ProductListOrdered.module.scss'
-import ProductItemOrdered from './ProductItemOrdered/productItemOrdered'
+import ProductItemOrdered from './ProductItemOrdered/ProductItemOrdered'
 
 const ProductListOrdered = () => {
     return (
