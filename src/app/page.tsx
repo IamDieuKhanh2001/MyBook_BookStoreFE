@@ -20,7 +20,6 @@ Phone number:
 */
 import FirmVisit from '@/components/home/FirmVisit/FirmVisit'
 import ClientLayout from '@/layouts/ClientLayout/ClientLayout'
-import { Metadata } from 'next'
 import React from 'react'
 import TopBanner from '@/components/home/TopBanner/TopBanner'
 import MainSectionTitle from '@/components/shared/MainSectionTitle/MainSectionTitle'
@@ -28,10 +27,6 @@ import Link from 'next/link'
 import FlashSale from '@/components/home/FlashSale/FlashSale'
 import useAPIGuest from '@/lib/hooks/api/useAPIGuest'
 import ProductList from '@/components/product/ProductList/ProductList'
-
-export const metadata: Metadata = {
-  // title: 'My App Title',
-}
 
 export default function Home() {
   const { getBookFilterPaginated } = useAPIGuest()
