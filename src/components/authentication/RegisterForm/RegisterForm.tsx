@@ -76,7 +76,7 @@ const RegisterForm = (props: RegisterFormProps) => {
 
     return (
         <>
-            <div className={styles.loginFormContainer}>
+            <div className={styles.registerFormContainer}>
                 {errorList.map((error, index) => (
                     <Alert key={index} className='mb-1' severity="error" >
                         <AlertTitle>{error.rule}</AlertTitle>
