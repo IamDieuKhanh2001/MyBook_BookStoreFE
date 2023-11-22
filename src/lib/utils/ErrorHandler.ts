@@ -4,17 +4,18 @@ export const errorHandler = (e: any) => {
     console.log(e)
     const { status, data } = e.response;
     const errorStatusCode = status
-    switch(errorStatusCode) {
+    switch (errorStatusCode) {
         case 422: {
-            if(data.errors) {
+            if (data.errors) {
                 data.errors.forEach((errorItem: IErrorValidate) => {
                     toast.error(errorItem.message);
                 })
             }
             break;
         }
-        case 400: {
-            if(data) {
+        case 400:
+        case 404: {
+            if (data) {
                 toast.error(data.message);
             }
             break;

@@ -3,7 +3,7 @@ import styles from './page.module.scss'
 import RecoveryPassForm from '@/components/authentication/RecoveryPassForm/RecoveryPassForm'
 
 //This page link will be inside mail recovery send to client
-const RecoveryPage = () => {
+const RecoveryPasswordPage = () => {
     return (
         <>
             <div className='container section-container'>
@@ -11,7 +11,7 @@ const RecoveryPage = () => {
                     <div className={styles.recoveryPasswordFormContent}>
                         <div className={styles.recoveryPasswordWindow}>
                             <div className={styles.formTitle}>
-                                khôi phục mật khẩu
+                                Thay đổi mật khẩu mới
                             </div>
                             <div
                                 className={`${styles.recoveryPasswordContent}`}
@@ -26,4 +26,4 @@ const RecoveryPage = () => {
     )
 }
 
-export default RecoveryPage
+export default RecoveryPasswordPage

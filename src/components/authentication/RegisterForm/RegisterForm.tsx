@@ -36,6 +36,7 @@ const RegisterForm = (props: RegisterFormProps) => {
     };
     const validationSchema = Yup.object({
         email: Yup.string()
+            .email('this is not email address')
             .required("email not be empty"),
         password: Yup.string()
             .required("Password not be empty")
