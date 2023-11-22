@@ -1,28 +1,34 @@
 'use client'
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import styles from './AddVoucher.module.scss'
 import SectionTitle from '@/components/shared/sectionTitle/SectionTitle'
 import SelectVoucherModal from './SelectVoucherModal/SelectVoucherModal'
 import VoucherChosenAlert from './VoucherChosenAlert/VoucherChosenAlert'
 import { toast } from 'react-toastify'
+import { errorHandler } from '@/lib/utils/ErrorHandler'
 
 interface IAddVoucherProps {
   voucherList: IVoucher[] | undefined;
   selectedVoucher: IVoucher | undefined;
   setSelectedVoucher: React.Dispatch<React.SetStateAction<IVoucher | undefined>>;
+  handleRecallPreOrder: (productCartIdList: number[], voucherCode?: string) => Promise<void>
 }
 const AddVoucher = (props: IAddVoucherProps) => {
-  const { voucherList, selectedVoucher, setSelectedVoucher } = props
+  const { voucherList, selectedVoucher, setSelectedVoucher, handleRecallPreOrder } = props
   const [inputCodeValue, setInputCodeValue] = useState<string>('')
 
   const handleApplyCoupon = () => {
-    const foundVoucher = voucherList && voucherList.find(voucher => voucher.voucher_code === inputCodeValue.trim());
-    if(foundVoucher) {
-      setSelectedVoucher(foundVoucher)
-      setInputCodeValue('')
-      toast.success('Nhập thành công - ' + foundVoucher?.voucher_name)
-    } else {
-      toast.error("Mã khuyến mại không tồn tại!!")
+    try {
+      const foundVoucher = voucherList && voucherList.find(voucher => voucher.voucher_code === inputCodeValue.trim());
+      if (foundVoucher) {
+        setSelectedVoucher(foundVoucher)
+        setInputCodeValue('')
+        toast.success('Nhập thành công - ' + foundVoucher?.voucher_name)
+      } else {
+        toast.error("Mã khuyến mại không tồn tại!!")
+      }
+    } catch (e) {
+      errorHandler(e)
     }
   }
 

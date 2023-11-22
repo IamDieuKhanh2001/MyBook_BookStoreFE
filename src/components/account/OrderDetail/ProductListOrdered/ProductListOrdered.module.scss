@@ -1,0 +1,131 @@
+@import '../../../../style/variable';
+@import '../../../../style/responsive';
+
+.subOrderInfo {
+
+    .orderViewId {
+        padding-bottom: 0px;
+
+        span {
+            &:nth-child(2) {
+                margin-left: 5px;
+                font-size: 14px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .orderViewQty {
+        padding-bottom: 10px;
+
+        span {
+            &:nth-child(2) {
+                margin-left: 5px;
+                font-size: 14px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .orderViewTotal {
+        padding-bottom: 10px;
+
+        span {
+            &:nth-child(2) {
+                margin-left: 5px;
+                font-size: 14px;
+                font-weight: bold;
+            }
+        }
+
+        .price {
+            font-size: 15px;
+        }
+    }
+
+}
+
+.tableSubOrderContainer {
+    padding: 10px 0;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+
+    .subOrderHeaderAndImg {
+
+        .tableHeader {
+            width: 100%;
+            font-weight: 700;
+            background: white;
+            font-size: 16px;
+            display: flex;
+            border-bottom: 1px solid #E0E0E0;
+
+            .tableSubOrderHeader {
+                padding: 10px 5px;
+                font-size: 14px;
+
+                &:nth-child(2) {
+                    flex-basis: 40%;
+                }
+
+                &:nth-child(3) {
+                    flex-basis: 20%;
+                }
+
+                &:nth-child(4) {
+                    flex-basis: 15%;
+                }
+
+                &:nth-child(5) {
+                    flex-basis: 10%;
+                }
+
+                &:nth-child(6) {
+                    flex-basis: 15%;
+                }
+            }
+
+            .tableSubOrderHeaderImg {
+                width: 100px;
+            }
+        }
+    }
+
+}
+
+
+.orderSubOrderTotal {
+    padding-bottom: 10px;
+
+    .orderSubOrderTotalDesktop {
+        display: flex;
+        justify-content: flex-end;
+
+        div {
+            text-align: right;
+
+            p {
+                margin: 0 0 10px;
+
+                span {
+                    font-size: 14px;
+                }
+            }
+
+            &:nth-child(2) {
+                font-weight: bold;
+                margin-left: 10px;
+            }
+        }
+
+        .orderTotalPrice {
+            margin: 0 0 10px;
+
+            span {
+                font-size: 14px;
+            }
+        }
+    }
+
+}

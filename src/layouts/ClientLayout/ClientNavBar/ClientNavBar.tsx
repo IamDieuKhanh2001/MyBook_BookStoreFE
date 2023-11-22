@@ -27,7 +27,7 @@ function ClientNavBar() {
                     className={`${styles.navbar} navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn`}
                     data-wow-delay="0.1s"
                 >
-                    <Link href="/" className="navbar-brand ms-4 ms-lg-0">
+                    <Link href="/" className="navbar-brand ms-4 ms-lg-0" scroll={false}>
                         <h1 className="fw-bold text-primary m-0">
                             M<span className="text-secondary">y</span>Bo<span className="text-secondary">ok</span>
                         </h1>
@@ -49,32 +49,6 @@ function ClientNavBar() {
                             <Link href="/product/searchengine" className={`${styles.navLink} ${styles.navItem} nav-item nav-link`}>
                                 Sản phẩm
                             </Link>
-                            <div className={`${styles.navItem} nav-item dropdown`}>
-                                <Link
-                                    href="#"
-                                    className={`${styles.dropdownToggle} ${styles.navLink} nav-link dropdown-toggle`}
-                                    data-bs-toggle="dropdown"
-                                >
-                                    Pages
-                                </Link>
-                                <div className={`${styles.dropdownMenu} dropdown-menu m-0`}>
-                                    <Link href="/account" className='dropdown-item'>
-                                        Account
-                                    </Link>
-                                    <Link href="/account/address" className='dropdown-item'>
-                                        Address CRUD
-                                    </Link>
-                                    <Link href="/cart" className='dropdown-item'>
-                                        cart
-                                    </Link>
-                                    <Link href="/checkout" className='dropdown-item'>
-                                        checkout
-                                    </Link>
-                                    <Link href="/404-error" className='dropdown-item'>
-                                        404 Page
-                                    </Link>
-                                </div>
-                            </div>
                             <SearchBarInput />
                             {session && (
                                 <>

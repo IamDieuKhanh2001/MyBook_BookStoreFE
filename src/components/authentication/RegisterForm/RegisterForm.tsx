@@ -36,6 +36,7 @@ const RegisterForm = (props: RegisterFormProps) => {
     };
     const validationSchema = Yup.object({
         email: Yup.string()
+            .email('this is not email address')
             .required("email not be empty"),
         password: Yup.string()
             .required("Password not be empty")
@@ -76,7 +77,7 @@ const RegisterForm = (props: RegisterFormProps) => {
 
     return (
         <>
-            <div className={styles.loginFormContainer}>
+            <div className={styles.registerFormContainer}>
                 {errorList.map((error, index) => (
                     <Alert key={index} className='mb-1' severity="error" >
                         <AlertTitle>{error.rule}</AlertTitle>

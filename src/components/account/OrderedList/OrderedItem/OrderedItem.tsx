@@ -2,24 +2,29 @@ import React from 'react'
 import styles from './OrderedItem.module.scss'
 import Link from 'next/link'
 
-const OrderedItem = () => {
+interface IOrderedItemProps {
+    data: IOrder
+}
+const OrderedItem = (props: IOrderedItemProps) => {
+    const { data } = props
+
     return (
         <>
             <div className={styles.orderItem}>
                 <div className={styles.orderItemId}>
-                    01
+                    {data.id}
                 </div>
                 <div className={styles.orderPaymentMethod}>
-                    PayPal
+                    {data.payment_method}
                 </div>
                 <div className={styles.orderStatus}>
-                    Chưa thanh toán
+                    {data.status}
                 </div>
                 <div className={styles.orderTotalPrice}>
-                    100000000Đ
+                    {data.final_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                 </div>
                 <div className={styles.orderDetailRedirect}>
-                    <Link href={'/account/order/history/detail/1'}>
+                    <Link href={`/account/order/history/detail/${data.id}`}>
                         Chi Tiết
                     </Link>
                 </div>

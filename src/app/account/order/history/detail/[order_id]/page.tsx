@@ -1,6 +1,10 @@
-import ProductListOrdered from '@/components/account/ProductListOrdered/ProductListOrdered';
-import Link from 'next/link';
+'use client'
+
 import React from 'react'
+import styles from './page.module.scss'
+import ProductListOrdered from '@/components/account/OrderDetail/ProductListOrdered/ProductListOrdered';
+import OrderOverview from '@/components/account/OrderDetail/OrderOverview/OrderOverview';
+import useAPIUserOrder from '@/lib/hooks/api/useAPIUserOrder';
 
 interface IOrderedDetailPageProps {
     params: {
@@ -9,14 +13,13 @@ interface IOrderedDetailPageProps {
 }
 const OrderedDetailPage = (props: IOrderedDetailPageProps) => {
     const { params } = props
+    const { getOrderDetail } = useAPIUserOrder()
+    const { data, error, isLoading } = getOrderDetail(params.order_id)
 
     return (
         <>
-            <Link href={'/account/order/history'} type="button" className="btn btn-primary mb-2">
-                <i className="fas fa-arrow-left"></i>
-                Trở về
-            </Link>
-            <ProductListOrdered />
+            <OrderOverview data={data} />
+            <ProductListOrdered data={data} />
         </>
     )
 }

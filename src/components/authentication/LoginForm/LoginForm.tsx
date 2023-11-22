@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { toast } from "react-toastify";
 import { signIn } from 'next-auth/react'
+import Link from 'next/link'
 
 interface FormValues {
     email: string;
@@ -28,6 +29,7 @@ const LoginForm = () => {
     };
     const validationSchema = Yup.object({
         email: Yup.string()
+            .email('this is not email address')
             .required("email not be empty"),
         password: Yup.string().required("Password not be empty"),
     });
@@ -111,7 +113,7 @@ const LoginForm = () => {
                         </div>
                         <div className={styles.inputBox}>
                             <div className={styles.forgetPass}>
-                                <span>Quên mật khẩu?</span>
+                                <Link href={'/authentication/forgot-password'} scroll={false}>Quên mật khẩu?</Link>
                             </div>
                         </div>
                         <div className={styles.inputBox}>

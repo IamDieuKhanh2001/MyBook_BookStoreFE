@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './page.module.scss'
 import LoginForm from '@/components/authentication/LoginForm/LoginForm'
-import RegisterForm from '@/components/authentication/Register/RegisterForm'
+import RegisterForm from '@/components/authentication/RegisterForm/RegisterForm'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 

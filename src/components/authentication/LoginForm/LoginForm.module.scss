@@ -49,10 +49,12 @@
             flex-direction: row;
             align-items: center;
             justify-content: flex-end;
-            color: $secondary-color;
-            cursor: pointer;
             user-select: none;
             font-size: 14px;
+
+            a {
+                color: $secondary-color;
+            }
         }
 
         .btnBox {
