@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import CartMiniItem from './CartMiniItem/CartMiniItem'
 import CartMiniFooter from './CartMiniFooter/CartMiniFooter'
 import useAPIUserCart from '@/lib/hooks/api/useAPIUserCart'
+import CartEmptyAlert from './CartEmptyAlert/CartEmptyAlert'
 
 const CartDropdown = () => {
     const router = useRouter();
@@ -48,13 +49,17 @@ const CartDropdown = () => {
                         <span className={`${styles.cartTitle} ms-2`}>({data.length})</span>
                     </div>
                     <div>
-                        <ol className={styles.cartContent}>
-                            {data.map((item) => (
-                                <CartMiniItem key={item.id} cartItemData={item} />
-                            ))}
-                        </ol>
+                        {data.length > 0 ? (
+                            <ol className={styles.cartContent}>
+                                {data.map((item) => (
+                                    <CartMiniItem key={item.id} cartItemData={item} />
+                                ))}
+                            </ol>
+                        ) : (
+                            <CartEmptyAlert />
+                        )}
                     </div>
-                    <CartMiniFooter total={calculateSum(data)} />
+                    {data.length > 0 && <CartMiniFooter total={calculateSum(data)} />}
                 </div>
             </div>
         </>
