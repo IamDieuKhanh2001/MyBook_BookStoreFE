@@ -14,7 +14,8 @@ export const errorHandler = (e: any) => {
             break;
         }
         case 400:
-        case 404: {
+        case 404:
+        case 429: {
             if (data) {
                 toast.error(data.message);
             }
