@@ -24,9 +24,9 @@ import React from 'react'
 import TopBanner from '@/components/home/TopBanner/TopBanner'
 import MainSectionTitle from '@/components/shared/MainSectionTitle/MainSectionTitle'
 import Link from 'next/link'
-import FlashSale from '@/components/home/FlashSale/FlashSale'
 import useAPIGuest from '@/lib/hooks/api/useAPIGuest'
 import ProductList from '@/components/product/ProductList/ProductList'
+import FlashSale from '@/components/product/FlashSale/FlashSale'
 
 export default function Home() {
   const { getBookFilterPaginated } = useAPIGuest()

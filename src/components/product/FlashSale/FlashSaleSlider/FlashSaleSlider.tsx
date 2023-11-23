@@ -3,7 +3,7 @@ import React from 'react'
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import styles from './FlashSaleSlider.module.scss'
-import FlashSaleItem from '../FlashSaleItem/FlashSaleItem';
+import FlashSaleSliderItem from './FlashSaleSliderItem/FlashSaleSliderItem';
 
 const FlashSaleSlider = () => {
     const sliderOptions = {
@@ -32,50 +32,50 @@ const FlashSaleSlider = () => {
         <div>
             <Splide options={sliderOptions}>
                 <SplideSlide>
-                    <FlashSaleItem />
+                    <FlashSaleSliderItem />
                 </SplideSlide>
                 <>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                     <SplideSlide>
-                        <FlashSaleItem />
+                        <FlashSaleSliderItem />
                     </SplideSlide>
                 </>
             </Splide>

@@ -1,8 +1,8 @@
 'use client'
 import React from 'react'
-import styles from './FlashSaleItem.module.scss'
+import styles from './FlashSaleSliderItem.module.scss'
 
-const FlashSaleItem = () => {
+const FlashSaleSliderItem = () => {
     return (
         <>
             <div className={styles.flashSaleItem}>
@@ -45,4 +45,4 @@ const FlashSaleItem = () => {
     )
 }
 
-export default FlashSaleItem
+export default FlashSaleSliderItem
