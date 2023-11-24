@@ -1,0 +1,59 @@
+@import '../../../../../style/variable';
+
+.flashSaleItem {
+    background-color: $light-color;
+    border-radius: 8px;
+    height: 100%;
+    width: 100%;
+
+    .imgContainer {
+        img {
+            transition: .5s;
+            max-height: 231px;
+            max-width: 231px;
+            cursor: pointer;
+        }
+    }
+
+    &:hover {
+        .imgContainer {
+            img {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .progress {
+        border-radius: 20px;
+        margin-bottom: 0px;
+        text-align: center;
+        margin-top: 5px;
+        background-color: rgba(210, 33, 33, 0.4);
+        background-image: none;
+        position: relative;
+        height: 18px;
+        box-shadow: none;
+        overflow: hidden;
+
+        .progressValue {
+            position: absolute;
+            right: 0;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            color: #ffffff;
+            font-size: 12px;
+        }
+
+        .progressBar {
+            background-image: linear-gradient(to bottom, #D22121 0%, #D22121 100%);
+            float: left;
+            height: 100%;
+            font-size: 12px;
+            line-height: 20px;
+            color: $light-color;
+            text-align: center;
+            transition: width .6s ease;
+        }
+    }
+}
