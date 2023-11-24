@@ -8,6 +8,7 @@ interface ICartMiniItemProps {
 }
 const CartMiniItem = (props: ICartMiniItemProps) => {
     const { cartItemData } = props
+    const linkToDetail = `/product/detail/${cartItemData.isbn_code}`
 
     const onImageError = (e: any) => {
         e.target.src = '/img/book/no-image.jpg'
@@ -16,7 +17,7 @@ const CartMiniItem = (props: ICartMiniItemProps) => {
     return (
         <>
             <li className={styles.cartItem}>
-                <Link className={styles.itemImg} href="#" title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
+                <Link className={styles.itemImg} href={linkToDetail} title='Tiếng Anh 12 - Tập 2 - Sách Học Sinh (2023)'>
                     <img
                         src={cartItemData.book_info.images && cartItemData.book_info.images.length > 0 ?
                             cartItemData.book_info.images[0].image_source : '/img/book/no-image.jpg'}
@@ -28,7 +29,7 @@ const CartMiniItem = (props: ICartMiniItemProps) => {
                 </Link>
                 <div className={styles.itemDetail}>
                     <p className={styles.itemName}>
-                        <Link href={'#'}>
+                        <Link href={linkToDetail}>
                             {cartItemData.book_info.name}
                         </Link>
                     </p>
