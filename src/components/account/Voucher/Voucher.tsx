@@ -1,10 +1,14 @@
 "use client"
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import styles from './Voucher.module.scss'
-import Link from 'next/link'
-import VoucherItem from './VoucherItem/VoucherItem'
+import useAPIUserVoucher from '@/lib/hooks/api/useAPIUserVoucher'
+import VoucherList from './VoucherList/VoucherList'
 
 const Voucher = () => {
+    const { getVoucherPersonalized, getVoucherPartner } = useAPIUserVoucher()
+    const { paginatedData: voucherPersonalizedList, isLoading: isLoadingPersonalizedList, isReachedEnd: isPersonalizedReachEnd, setSize: setSizePersonalized } = getVoucherPersonalized()
+    const { paginatedData: voucherPartnerList, isLoading: isLoadingPartnerList, isReachedEnd: isPartnerReachedEnd, setSize: setSizePartner } = getVoucherPartner()
+
     return (
         <>
             <div>
@@ -23,18 +27,18 @@ const Voucher = () => {
                 <hr />
                 <div className="tab-content" id="partner-vouchertabContent">
                     <div className="tab-pane fade show active" id="pills-my-voucher" role="tabpanel" aria-labelledby="pills-my-voucher-tab">
-                        <div className={styles.voucherList}>
-                            <VoucherItem />
-                            <VoucherItem />
-                            <VoucherItem />
-                        </div>
-
+                        <VoucherList
+                            data={voucherPersonalizedList}
+                            isReachedEnd={isPersonalizedReachEnd}
+                            setSize={setSizePersonalized}
+                        />
                     </div>
                     <div className="tab-pane fade" id="pills-partner-voucher" role="tabpanel" aria-labelledby="pills-partner-tab">
-                        <div className={styles.voucherList}>
-                            <VoucherItem />
-                            <VoucherItem />
-                        </div>
+                        <VoucherList
+                            data={voucherPartnerList}
+                            isReachedEnd={isPartnerReachedEnd}
+                            setSize={setSizePartner}
+                        />
                     </div>
                 </div>
             </div>

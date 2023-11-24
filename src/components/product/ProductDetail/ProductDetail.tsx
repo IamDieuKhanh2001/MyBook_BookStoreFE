@@ -112,12 +112,13 @@ const ProductDetail = (props: IProductDetailProps) => {
                                     className="form-control bg-light border-1 text-center"
                                     value={quantity}
                                     onChange={handleQuantityChange}
+                                    disabled={product.quantity === 0}
                                 />
                                 <div className="input-group-btn">
                                     <button
                                         className="btn btn-primary btn-plus"
                                         onClick={handleIncreaseQuantity}
-                                        disabled={product.quantity === quantity ? true : false}
+                                        disabled={product.quantity === quantity || product.quantity === 0 ? true : false}
                                     >
                                         <i className="fa fa-plus" />
                                     </button>

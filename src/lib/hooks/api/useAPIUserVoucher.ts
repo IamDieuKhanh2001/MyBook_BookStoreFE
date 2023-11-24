@@ -1,176 +1,10 @@
-import React from 'react'
-import useAxiosAuth from '../utils/useAxiosAuth'
-import { getSession } from 'next-auth/react'
-import VoucherType from '@/enum/VoucherType'
-import VoucherStatus from '@/enum/VoucherStatus'
-import useSWR from 'swr'
-import useSWRInfinite from 'swr/infinite'
+import { getSession } from "next-auth/react";
+import useAxiosAuth from "../utils/useAxiosAuth";
+import useSWRInfinite from "swr/infinite";
 
 const useAPIUserVoucher = () => {
-    const URL_PREFIX = '/admin/voucher'
+    const URL_PREFIX = '/user/voucher'
     const axiosAuth = useAxiosAuth()
-
-    const createVoucherGeneral = async (
-        voucherName: string = 'unset name voucher',
-        voucherCode: string,
-        requireOrderMinPrice: number,
-        discountPercentage: number,
-        discountMaxPrice: number,
-        limited: number = 1,
-        desc: string = 'unset description',
-        startDate: string,
-        endDate: string,
-        status: string = VoucherStatus.ACTIVE,
-    ) => {
-        try {
-            const session = await getSession();
-            const headers = {
-                Authorization: `Bearer ${session?.user.jwtToken}`,
-            }
-            const url = URL_PREFIX
-            const body = {
-                voucher_name: voucherName,
-                voucher_type: VoucherType.GENERAL,
-                voucher_code: voucherCode,
-                require_order_min_price: requireOrderMinPrice,
-                discount_percentage: discountPercentage,
-                discount_max_price: discountMaxPrice,
-                limited: limited,
-                desc: desc,
-                start_date: startDate,
-                end_date: endDate,
-                status: status,
-            };
-            const response = await axiosAuth.post(url, body, { headers })
-            return response.data
-        }
-        catch (e: any) {
-            throw e
-        }
-    }
-    const createVoucherPersonalized = async (
-        voucherName: string = 'unset name voucher',
-        voucherCode: string,
-        requireOrderMinPrice: number,
-        discountPercentage: number,
-        discountMaxPrice: number,
-        limited: number = 1,
-        desc: string = 'unset description',
-        startDate: string,
-        endDate: string,
-        status: string = VoucherStatus.ACTIVE,
-        userEmail: string,
-    ) => {
-        try {
-            const session = await getSession();
-            const headers = {
-                Authorization: `Bearer ${session?.user.jwtToken}`,
-            }
-            const url = URL_PREFIX
-            const body = {
-                voucher_name: voucherName,
-                voucher_type: VoucherType.PERSONALIZED,
-                voucher_code: voucherCode,
-                require_order_min_price: requireOrderMinPrice,
-                discount_percentage: discountPercentage,
-                discount_max_price: discountMaxPrice,
-                limited: limited,
-                desc: desc,
-                start_date: startDate,
-                end_date: endDate,
-                status: status,
-                user_email: userEmail,
-            };
-            const response = await axiosAuth.post(url, body, { headers })
-            return response.data
-        }
-        catch (e: any) {
-            throw e
-        }
-    }
-    const createVoucherMemberExclusive = async (
-        voucherName: string = 'unset name voucher',
-        voucherCode: string,
-        requireOrderMinPrice: number,
-        discountPercentage: number,
-        discountMaxPrice: number,
-        limited: number = 1,
-        desc: string = 'unset description',
-        startDate: string,
-        endDate: string,
-        status: string = VoucherStatus.ACTIVE,
-        userLevelId: number,
-    ) => {
-        try {
-            const session = await getSession();
-            const headers = {
-                Authorization: `Bearer ${session?.user.jwtToken}`,
-            }
-            const url = URL_PREFIX
-            const body = {
-                voucher_name: voucherName,
-                voucher_type: VoucherType.MEMBER_EXCLUSIVE,
-                voucher_code: voucherCode,
-                require_order_min_price: requireOrderMinPrice,
-                discount_percentage: discountPercentage,
-                discount_max_price: discountMaxPrice,
-                limited: limited,
-                desc: desc,
-                start_date: startDate,
-                end_date: endDate,
-                status: status,
-                user_level_id: userLevelId,
-            };
-            const response = await axiosAuth.post(url, body, { headers })
-            return response.data
-        }
-        catch (e: any) {
-            throw e
-        }
-    }
-
-    const getVoucherGeneral = (limit: string = '4') => {
-        const getKey = (pageIndex: number, previousPageData: any) => {
-            if (previousPageData && !previousPageData.length) {
-                // Nếu trang trước đã trả về một trang trống, không cần gửi thêm yêu cầu
-                return null;
-            }
-            const params = new URLSearchParams({
-                page: (pageIndex + 1).toString(),
-                limit: limit,
-            });
-            return `${URL_PREFIX}/general?${params.toString()}`;
-        };
-        const fetcher = async (url: string) => {
-            try {
-                const session = await getSession();
-                const headers = {
-                    Authorization: `Bearer ${session?.user.jwtToken}`,
-                }
-                const response = await axiosAuth.get(url, { headers });
-                return response.data.data;
-            } catch (error) {
-                console.error('Lỗi khi fetch:', error);
-                return Promise.reject(error); // Trả về một Promise bị từ chối
-            }
-        }
-        const { data, size, setSize, error, isLoading, mutate } = useSWRInfinite(
-            getKey,
-            fetcher
-        )
-        const paginatedData: IVoucher[] = data?.flat() ?? []
-        const isReachedEnd = data && data[data.length - 1]?.length < limit
-
-        return {
-            paginatedData,
-            isReachedEnd,
-            size,
-            setSize,
-            mutate,
-            isLoading,
-            error,
-        }
-    }
 
     const getVoucherPersonalized = (limit: string = '4') => {
         const getKey = (pageIndex: number, previousPageData: any) => {
@@ -182,7 +16,7 @@ const useAPIUserVoucher = () => {
                 page: (pageIndex + 1).toString(),
                 limit: limit,
             });
-            return `${URL_PREFIX}/personalized?${params.toString()}`;
+            return `${URL_PREFIX}/voucher-personalized?${params.toString()}`;
         };
         const fetcher = async (url: string) => {
             try {
@@ -214,7 +48,8 @@ const useAPIUserVoucher = () => {
             error,
         }
     }
-    const getVoucherMemberExclusive = (limit: string = '4') => {
+
+    const getVoucherPartner = (limit: string = '4') => {
         const getKey = (pageIndex: number, previousPageData: any) => {
             if (previousPageData && !previousPageData.length) {
                 // Nếu trang trước đã trả về một trang trống, không cần gửi thêm yêu cầu
@@ -224,7 +59,7 @@ const useAPIUserVoucher = () => {
                 page: (pageIndex + 1).toString(),
                 limit: limit,
             });
-            return `${URL_PREFIX}/member_exclusive?${params.toString()}`;
+            return `${URL_PREFIX}/voucher-partner?${params.toString()}`;
         };
         const fetcher = async (url: string) => {
             try {
@@ -258,12 +93,8 @@ const useAPIUserVoucher = () => {
     }
 
     return {
-        createVoucherGeneral,
-        createVoucherPersonalized,
-        createVoucherMemberExclusive,
-        getVoucherGeneral,
         getVoucherPersonalized,
-        getVoucherMemberExclusive,
+        getVoucherPartner,
     }
 }
 

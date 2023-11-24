@@ -1,22 +1,18 @@
 'use client'
 import PageContainer from '@/components/admin/container/PageContainer';
 import { useConfirm } from 'material-ui-confirm';
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { toast } from 'react-toastify';
 import { Alert, AlertTitle, Box, Button, Grid, } from '@mui/material'
 import DashboardCard from '@/components/shared/DashboardCard';
 import { IconPlus } from '@tabler/icons-react';
 import { IconTrash } from '@tabler/icons-react';
-import { useInView } from 'react-intersection-observer';
 import { useRouter } from 'next/navigation';
-import VoucherTableData from '@/components/admin/Voucher/VoucherTableData/VoucherTableData';
 import VoucherTab from '@/components/admin/Voucher/VoucherTab/VoucherTab';
 
 const VoucherManagePage = () => {
     const confirm = useConfirm();
     const router = useRouter()
-
-    const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
 
     const handleDeleteData = async (id: number) => {
         confirm({
