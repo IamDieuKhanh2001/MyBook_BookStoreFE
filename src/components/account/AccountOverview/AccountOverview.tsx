@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './AccountOverview.module.scss'
 import { useSession } from 'next-auth/react'
 import ChangeAvatarModal from './ChangeAvatarModal/ChangeAvatarModal'
@@ -11,6 +11,9 @@ const AccountOverview = () => {
     const { getDefaultAddress } = useAPIUserAddress()
     const { addressDefault, isLoadingDefaultAddress } = getDefaultAddress()
 
+    const onImageAvatarError = (e: any) => {
+        e.target.src = '/img/avatar/default.png'
+    }
 
     return (
         <>
@@ -18,9 +21,15 @@ const AccountOverview = () => {
                 <div className="card-body d-flex flex-column align-items-center">
                     <div className={styles.avatar}>
                         <img
-                            src="/img/avatar/default.png"
+                            src={
+                                session?.user.userInfo.profile?.avatar_source ?
+                                    session.user.userInfo.profile?.avatar_source
+                                    :
+                                    '/img/avatar/default.png'
+                            }
                             alt="avatar"
                             className={`rounded-circle img-fluid`}
+                            onError={onImageAvatarError}
                         />
                     </div>
                     <div className='d-flex flex-column align-items-center'>
@@ -69,7 +78,7 @@ const AccountOverview = () => {
                             <p className="text-muted mb-0">{session?.user.userInfo.email}</p>
                         </div>
                     </div>
-                    <hr /> 
+                    <hr />
                     <div className="row">
                         <div className="col-sm-3">
                             <p className="mb-0">Số credit</p>

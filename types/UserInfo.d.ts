@@ -4,8 +4,8 @@ interface UserInfo {
   money: number
   user_level_id: number
   user_role_id: number
-  created_at: string
-  updated_at: string
+  is_email_verified: boolean
+  deleted_at: string | null
   userLevel: UserLevel
   userRole: UserRole
   profile: IProfile | null
