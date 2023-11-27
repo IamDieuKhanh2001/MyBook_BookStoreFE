@@ -10,8 +10,15 @@ import {
 } from '@mui/material'
 import { truncateText } from '@/lib/utils/TextUtils'
 import CustomChip from '@/components/forms/theme-elements/CustomChip'
+import VoucherType from '@/enum/VoucherType'
+import VoucherStatus from '@/enum/VoucherStatus'
 
-const VoucherDetailTable = () => {
+interface IVoucherDetailTableProps {
+    data: IVoucher
+}
+const VoucherDetailTable = (props: IVoucherDetailTableProps) => {
+    const { data } = props
+
     return (
         <>
             <Table
@@ -25,7 +32,7 @@ const VoucherDetailTable = () => {
                     <TableRow>
                         <TableCell align='center' colSpan={2}>
                             <Typography variant="h4" fontWeight={600}>
-                                Thông tin voucher 1111
+                                Thông tin voucher {data.voucher_code}
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -39,7 +46,7 @@ const VoucherDetailTable = () => {
                         </TableCell>
                         <TableCell>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                1111
+                                {data.id}
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -68,7 +75,7 @@ const VoucherDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                ssss
+                                {data.voucher_code}
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -79,12 +86,24 @@ const VoucherDetailTable = () => {
                             </Typography>
                         </TableCell>
                         <TableCell align='left'>
-                            <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                <CustomChip
-                                    bgColor='success'
-                                    label='Tất cả người dùng'
-                                />
-                            </Typography>
+                            <CustomChip
+                                bgColor={
+                                    data.voucher_type === VoucherType.GENERAL
+                                        ? ('success')
+                                        : data.voucher_type === VoucherType.MEMBER_EXCLUSIVE
+                                            ? ('warning')
+                                            : data.voucher_type === VoucherType.PERSONALIZED
+                                                ? ('error') : undefined
+                                }
+                                label={
+                                    data.voucher_type === VoucherType.GENERAL
+                                        ? ('Tất cả người dùng')
+                                        : data.voucher_type === VoucherType.MEMBER_EXCLUSIVE
+                                            ? ('Nhóm thành viên')
+                                            : data.voucher_type === VoucherType.PERSONALIZED
+                                                ? ('Cá nhân') : undefined
+                                }
+                            />
                         </TableCell>
                     </TableRow>
                     <TableRow>
@@ -95,7 +114,12 @@ const VoucherDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                aaaa
+                                {
+                                    truncateText(
+                                        data.desc,
+                                        100
+                                    )
+                                }
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -107,7 +131,7 @@ const VoucherDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                0
+                                {data.require_order_min_price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -119,7 +143,7 @@ const VoucherDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                0
+                                {data.discount_max_price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -131,7 +155,7 @@ const VoucherDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                10 (%)
+                                {data.discount_percentage} (%)
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -143,7 +167,31 @@ const VoucherDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                11
+                                {data.limited}
+                            </Typography>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell align='left' sx={{ minWidth: '200px', width: '200px' }}>
+                            <Typography variant="subtitle2" fontWeight={600}>
+                                Đối tượng thành viên
+                            </Typography>
+                        </TableCell>
+                        <TableCell align='left'>
+                            <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                                {data.user_level_id}
+                            </Typography>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell align='left' sx={{ minWidth: '200px', width: '200px' }}>
+                            <Typography variant="subtitle2" fontWeight={600}>
+                                id user
+                            </Typography>
+                        </TableCell>
+                        <TableCell align='left'>
+                            <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                                {data.user_id}
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -155,7 +203,7 @@ const VoucherDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                aaa
+                                {data.start_date}
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -167,7 +215,7 @@ const VoucherDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                aaa
+                                {data.end_date}
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -179,8 +227,16 @@ const VoucherDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <CustomChip
-                                bgColor='success'
-                                label='Active'
+                                bgColor={
+                                    data.status === VoucherStatus.ACTIVE
+                                        ? ('success')
+                                        : ('warning')
+                                }
+                                label={
+                                    data.status === VoucherStatus.ACTIVE
+                                        ? ('Đang hoạt động')
+                                        : ('Đã hủy hoạt động')
+                                }
                             />
                         </TableCell>
                     </TableRow>

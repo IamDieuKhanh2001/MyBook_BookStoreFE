@@ -5,9 +5,16 @@ import { Button, Table, TableBody, TableCell, TableHead, TableRow, Typography, S
 import { IconEye } from '@tabler/icons-react'
 import { useRouter } from 'next/navigation'
 import CustomChip from '@/components/forms/theme-elements/CustomChip'
+import PaymentStatus from '@/enum/PaymentStatus'
 
-const OrderTableData = () => {
+interface IOrderTableDataProps {
+    orderListLoaded: IOrder[]
+    isReachedEnd: boolean | undefined
+    loadMoreRef: (node?: Element | null | undefined) => void
+}
+const OrderTableData = (props: IOrderTableDataProps) => {
     const router = useRouter()
+    const { orderListLoaded, isReachedEnd, loadMoreRef } = props
 
     return (
         <>
@@ -27,7 +34,7 @@ const OrderTableData = () => {
                         </TableCell>
                         <TableCell>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                Gmail
+                                Tài khoản
                             </Typography>
                         </TableCell>
                         <TableCell>
@@ -48,84 +55,81 @@ const OrderTableData = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow key={'1'}>
-                        <TableCell>
-                            <Typography
-                                sx={{
-                                    fontSize: "15px",
-                                    fontWeight: "500",
-                                }}
+                    {orderListLoaded && orderListLoaded.length > 0 ? (
+                        orderListLoaded.map((item) => (
+                            <TableRow key={item.id}>
+                                <TableCell>
+                                    <Typography
+                                        sx={{
+                                            fontSize: "15px",
+                                            fontWeight: "500",
+                                        }}
+                                    >
+                                        {item.id}
+                                    </Typography>
+                                </TableCell>
+                                <TableCell>
+                                    <Typography variant="subtitle2" fontWeight={500}>
+                                        {item.user.email}
+                                    </Typography>
+                                </TableCell>
+                                <TableCell>
+                                    <Typography variant="subtitle2" fontWeight={500}>
+                                        {item.created_at}
+                                    </Typography>
+                                </TableCell>
+                                <TableCell>
+                                    <CustomChip
+                                        bgColor={
+                                            item.status === PaymentStatus.PAID
+                                                ? ('success')
+                                                : item.status === PaymentStatus.UNPAID
+                                                    ? ('error')
+                                                    : undefined
+                                        }
+                                        label={
+                                            item.status === PaymentStatus.PAID
+                                                ? ('Đã thanh toán')
+                                                : item.status === PaymentStatus.UNPAID
+                                                    ? ('Chưa thanh toán')
+                                                    : undefined
+                                        }
+                                    />
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Button
+                                        color='success'
+                                        size="small"
+                                        onClick={() => {
+                                            router.push(`/admin/manage/order/detail/${item.id}`)
+                                        }}
+                                    >
+                                        <IconEye />
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))
+                    ) : (
+                        <TableRow>
+                            <TableCell colSpan={5}>
+                                <Typography align="center" variant="h4" mt={2}>
+                                    No data available
+                                </Typography>
+                            </TableCell>
+                        </TableRow>
+                    )}
+                    {/* Load more order when scroll and see this element  */}
+                    {
+                        (isReachedEnd === false) && (
+                            <TableRow
+                                ref={loadMoreRef}
                             >
-                                111
-                            </Typography>
-                        </TableCell>
-                        <TableCell>
-                            <Typography variant="subtitle2" fontWeight={500}>
-                                qdkhanh2001
-                            </Typography>
-                        </TableCell>
-                        <TableCell>
-                            <Typography variant="subtitle2" fontWeight={500}>
-                                1/1
-                            </Typography>
-                        </TableCell>
-                        <TableCell>
-                            <CustomChip
-                                label='Đã thanh toán'
-                                bgColor='success'
-                            />
-                        </TableCell>
-                        <TableCell align="right">
-                            <Button
-                                color='success'
-                                size="small"
-                                onClick={() => {
-                                    router.push(`/admin/manage/`)
-                                }}
-                            >
-                                <IconEye />
-                            </Button>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow key={'2'}>
-                        <TableCell>
-                            <Typography
-                                sx={{
-                                    fontSize: "15px",
-                                    fontWeight: "500",
-                                }}
-                            >
-                                222
-                            </Typography>
-                        </TableCell>
-                        <TableCell>
-                            <Typography variant="subtitle2" fontWeight={500}>
-                                qdkhanh2001
-                            </Typography>
-                        </TableCell>
-                        <TableCell>
-                            <Typography variant="subtitle2" fontWeight={500}>
-                                1/1
-                            </Typography>
-                        </TableCell>
-                        <TableCell>
-                            <CustomChip
-                                label='Chưa thanh toán'
-                                bgColor='error'
-                            />
-                        </TableCell>
-                        <TableCell align="right">
-                            <Button
-                                color='success'
-                                size="small"
-                                onClick={() => {
-                                    router.push(`/admin/manage/order/detail/1`)
-                                }}
-                            >
-                                <IconEye />
-                            </Button>
-                        </TableCell>
-                    </TableRow>
+                                <TableCell align='center' colSpan={5}>
+                                    <CircularProgress color="secondary" />
+                                </TableCell>
+                            </TableRow>
+                        )
+                    }
                 </TableBody>
             </Table>
         </>

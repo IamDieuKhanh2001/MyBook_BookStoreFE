@@ -13,8 +13,26 @@ import { truncateText } from '@/lib/utils/TextUtils'
 import CustomButton from '@/components/forms/theme-elements/CustomButton'
 import { IconCheck, IconX } from '@tabler/icons-react'
 import CustomChip from '@/components/forms/theme-elements/CustomChip'
+import PaymentStatus from '@/enum/PaymentStatus'
 
-const OrderDetailTable = () => {
+interface IOrderDetailTableProps {
+    orderData: IOrder
+}
+const OrderDetailTable = (props: IOrderDetailTableProps) => {
+    const { orderData } = props
+    const {
+        id,
+        user,
+        payment_method,
+        customer_note,
+        status,
+        created_at,
+        product_price,
+        fee_price,
+        final_price,
+        voucher,
+    } = orderData
+
     return (
         <>
             <Table
@@ -42,7 +60,7 @@ const OrderDetailTable = () => {
                         </TableCell>
                         <TableCell>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                1111
+                                {id}
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -54,7 +72,7 @@ const OrderDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                quach dieu kahnh
+                                {user.email}
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -66,8 +84,20 @@ const OrderDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <CustomChip
-                                bgColor='success'
-                                label='Đã thanh toán'
+                                bgColor={
+                                    status === PaymentStatus.PAID
+                                        ? ('success')
+                                        : status === PaymentStatus.UNPAID
+                                            ? ('error')
+                                            : undefined
+                                }
+                                label={
+                                    status === PaymentStatus.PAID
+                                        ? ('Đã thanh toán')
+                                        : status === PaymentStatus.UNPAID
+                                            ? ('Chưa thanh toán')
+                                            : undefined
+                                }
                             />
                         </TableCell>
                     </TableRow>
@@ -79,19 +109,19 @@ const OrderDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                30-10-2023 00:00:00
+                                {created_at}
                             </Typography>
                         </TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell align='left' sx={{ minWidth: '200px', width: '200px' }}>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                Ghi chú đơn
+                                Phương thức thanh toán
                             </Typography>
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                aaaa
+                                {payment_method}
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -103,7 +133,19 @@ const OrderDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                1000000
+                                {product_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                            </Typography>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell align='left' sx={{ minWidth: '200px', width: '200px' }}>
+                            <Typography variant="subtitle2" fontWeight={600}>
+                                Voucher sử dụng
+                            </Typography>
+                        </TableCell>
+                        <TableCell align='left'>
+                            <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                                {voucher}
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -115,9 +157,33 @@ const OrderDetailTable = () => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                1000
+                                + {fee_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                             </Typography>
                         </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell align='left' sx={{ minWidth: '200px', width: '200px' }}>
+                            <Typography variant="subtitle2" fontWeight={600}>
+                                Tổng phí đơn hàng
+                            </Typography>
+                        </TableCell>
+                        <TableCell align='left'>
+                            <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                                {final_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                            </Typography>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell align='left' sx={{ minWidth: '200px', width: '200px' }}>
+                            <Typography variant="subtitle2" fontWeight={600}>
+                                Ghi chú đơn
+                            </Typography>
+                        </TableCell>
+                        <TableCell align='left'>
+                            <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                                {customer_note}
+                            </Typography>
+                        </TableCell> 
                     </TableRow>
                 </TableBody>
             </Table>
@@ -126,6 +192,7 @@ const OrderDetailTable = () => {
                 color="success"
                 size='small' disableElevation variant="contained" href=""
                 sx={{ mr: 2, mt: 2 }}
+                disabled={true}
             >
                 Xác nhận đơn
             </CustomButton>
@@ -134,6 +201,7 @@ const OrderDetailTable = () => {
                 color="error"
                 size='small' disableElevation variant="contained" href=""
                 sx={{ mr: 2, mt: 2 }}
+                disabled={true}
             >
                 Hủy đơn hàng
             </CustomButton>
