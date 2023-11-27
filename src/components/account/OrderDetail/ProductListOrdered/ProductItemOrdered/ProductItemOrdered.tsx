@@ -19,7 +19,6 @@ const ProductItemOrdered = (props: IProductItemOrderedProps) => {
         e.target.src = '/img/book/no-image.jpg'
     }
 
-    console.log(orderedItemData)
     return (
         <>
             <div className={styles.tableSubOrderCellItem}>

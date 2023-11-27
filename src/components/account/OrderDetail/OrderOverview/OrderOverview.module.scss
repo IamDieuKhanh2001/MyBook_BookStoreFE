@@ -73,7 +73,7 @@
         min-width: 203px;
     }
 
-    .cancelOrderBtn {
+    .orderReceivedBtn {
         font-size: 15px;
         font-weight: bold;
         border-radius: 8px;
@@ -81,6 +81,7 @@
         padding: 7px 20px;
         color: white !important;
         border: none;
+        margin-bottom: 10px;
 
         &:disabled {
             cursor: not-allowed;

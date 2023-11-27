@@ -5,6 +5,7 @@ import BadgeOrderCanceled from './StatusBadge/BadgeOrderCanceled/BadgeOrderCance
 import PaymentStatus from '@/enum/PaymentStatus'
 import BadgeOrderSuccess from './StatusBadge/BadgeOrderSuccess/BadgeOrderSuccess'
 import BadgeOrderUnpaid from './StatusBadge/BadgeOrderUnpaid/BadgeOrderUnpaid'
+import ReviewOrderModal from './ReviewOrderModal/ReviewOrderModal'
 
 interface IOrderOverviewProps {
     data: IOrder
@@ -72,7 +73,10 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                     </div>
                 </div>
                 <div className={styles.overviewBtns}>
-                    <button className={styles.cancelOrderBtn}>Đặt hàng lại</button>
+                    <button className={styles.orderReceivedBtn}>
+                        Đặt hàng lại
+                    </button>
+                    <ReviewOrderModal orderId={data.id} />
                 </div>
             </div >
             <div className="card mb-2 py-3 px-4">
@@ -89,7 +93,7 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                                 <br />
                                 {data.userAddress?.street}<br />
                                 {data.userAddress?.wards.name}, {data.userAddress?.wards.district.name},  {data.userAddress?.wards.district.province.name}< br />
-                                    Tel: {data.userAddress?.recipient_phone}
+                                Tel: {data.userAddress?.recipient_phone}
                             </address>
                         </div>
                     </div>

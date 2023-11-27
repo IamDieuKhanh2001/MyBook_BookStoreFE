@@ -99,10 +99,36 @@ const useAPIUserOrder = () => {
             throw e
         }
     }
+
+    const updateOrCreateOrderReview = async (
+        orderId: number,
+        rateStar: number = 1,
+        reviewComment: string = '',
+    ) => {
+        try {
+            const session = await getSession();
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
+            const url = `${URL_PREFIX}/review/write`
+            const body = {
+                order_id: orderId,
+                rate_star: rateStar,
+                review_comment: reviewComment,
+            };
+            const response = await axiosAuth.post(url, body, { headers })
+            return response.data
+        }
+        catch (e: any) {
+            throw e
+        }
+    }
+
     return {
         getOrderList,
         getOrderDetail,
         createOrder,
+        updateOrCreateOrderReview,
     }
 }
 

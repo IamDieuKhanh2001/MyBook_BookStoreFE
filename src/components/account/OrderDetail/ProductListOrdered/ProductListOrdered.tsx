@@ -13,7 +13,6 @@ interface IProductListOrderedProps {
 const ProductListOrdered = (props: IProductListOrderedProps) => {
     const { data } = props
 
-    console.log(data)
     return (
         <>
             <div className="card mb-4 py-3 px-4">

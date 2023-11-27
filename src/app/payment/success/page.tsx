@@ -1,7 +1,11 @@
+'use client'
 import React from 'react'
 import styles from './page.module.scss'
+import { useRouter } from 'next/navigation'
 
 const PaymentSuccessPage = () => {
+    const router = useRouter()
+
     return (
         <>
             <div className='row'>
@@ -14,7 +18,10 @@ const PaymentSuccessPage = () => {
                             <span className="fw-bold fs-1">Hoàn tất thanh toán</span>
                             <small className="mt-2 fs-5">Cảm ơn bạn đã sử dụng dịch vụ</small>
                         </div>
-                        <button className="btn btn-success btn-block">
+                        <button
+                            className="btn btn-success btn-block"
+                            onClick={() => router.push('/account/order/history')}
+                        >
                             xem danh sách order
                         </button>
                     </div>

@@ -1,0 +1,14 @@
+.reviewOrderBtn {
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 8px;
+    background: white;
+    padding: 7px 20px;
+    color: #C92127 !important;
+    border: 2px solid #C92127;
+
+    &:disabled {
+        cursor: not-allowed;
+        background-color: #E0E0E0;
+    }
+}
