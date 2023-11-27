@@ -46,7 +46,7 @@ const OrderDetailTable = (props: IOrderDetailTableProps) => {
                     <TableRow>
                         <TableCell align='center' colSpan={2}>
                             <Typography variant="h4" fontWeight={600}>
-                                Thông tin đơn hàng mã số: 1111
+                                Thông tin đơn hàng mã số: {id}
                             </Typography>
                         </TableCell>
                     </TableRow>

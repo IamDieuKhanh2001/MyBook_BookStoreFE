@@ -20,6 +20,17 @@ import { uniqueId } from 'lodash';
 
 //Nơi chứa hiển thị thông tin của side bar các items
 const Menuitems = [
+  //Order group 
+  {
+    navlabel: true,
+    subheader: 'Đơn hàng',
+  },
+  {
+    id: uniqueId(),
+    title: 'Đơn hàng đặt',
+    icon: IconNotes,
+    href: '/admin/manage/order',
+  },
   //Manage group
   {
     navlabel: true,
@@ -27,15 +38,15 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: 'Danh mục',
-    icon: IconCategory,
-    href: '/admin/manage/categories',
-  },
-  {
-    id: uniqueId(),
     title: 'Sách',
     icon: IconBook,
     href: '/admin/manage/products',
+  },
+  {
+    id: uniqueId(),
+    title: 'Danh mục',
+    icon: IconCategory,
+    href: '/admin/manage/categories',
   },
   {
     id: uniqueId(),
@@ -72,12 +83,6 @@ const Menuitems = [
     title: 'Mã voucher',
     icon: IconTicket,
     href: '/admin/manage/voucher',
-  },
-  {
-    id: uniqueId(),
-    title: 'Đơn hàng đặt',
-    icon: IconNotes,
-    href: '/admin/manage/order',
   },
   //Home group
   {
