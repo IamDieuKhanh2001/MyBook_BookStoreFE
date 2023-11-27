@@ -7,6 +7,10 @@ import { signOut, useSession } from 'next-auth/react'
 const UserDropdown = () => {
     const { data: session } = useSession();
 
+    const onImageAvatarError = (e: any) => {
+        e.target.src = '/img/avatar/default.png'
+    }
+
     return (
         <>
             {session?.user ? (
@@ -14,10 +18,11 @@ const UserDropdown = () => {
                     <div className={`${styles.navItem} dropdown`}>
                         <Link data-bs-toggle="dropdown" className={`${styles.dropdownToggle} nav-link dropdown-toggle`} href="">
                             <img
-                                src="/img/avatar/default.png"
+                                src={session.user.userInfo.profile?.avatar_source ? session.user.userInfo.profile?.avatar_source : '/img/avatar/default.png'}
                                 alt="avatar"
                                 width={25}
                                 height={25}
+                                onError={onImageAvatarError}
                                 className={`${styles.avatar} rounded-circle img-fluid`}
                             />
                         </Link>

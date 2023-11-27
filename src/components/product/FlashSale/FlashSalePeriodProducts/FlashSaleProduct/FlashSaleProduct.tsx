@@ -1,21 +1,34 @@
-'use client'
 import React from 'react'
-import styles from './FlashSaleItem.module.scss'
+import styles from './FlashSaleProduct.module.scss'
+import Link from 'next/link'
+import StickerChayHang from '@/components/product/ProductList/ProductItem/StickerChayHang/StickerChayHang'
 
-const FlashSaleItem = () => {
+const FlashSaleProduct = () => {
     return (
-        <>
+        <div className='col-md-3 col-4 wow fadeInUp' data-wow-delay="0.3s">
             <div className={styles.flashSaleItem}>
                 <div className="position-relative overflow-hidden">
-                    <div className={styles.imgContainer}>
-                        <img className="img-fluid w-100" src="/img/book/sach2.jpg" alt="" />
-                        <div className={styles.outStockContainer}>
+                    <div className='d-flex justify-content-center'>
+                        <Link
+                            target='_blank'
+                            href={``}
+                            className={styles.imgContainer}
+                        >
                             <img
-                                className={styles.flashSaleImgChayHang}
-                                src="/img/flashSale/img-chay-hang.svg"
-                                alt='img chay hang'
+                                className="img-fluid"
+                                // src={
+                                //   data?.images[0] ?
+                                //     data.images[0]?.image_source
+                                //     :
+                                //     '/img/book/no-image.jpg'
+                                // }
+                                src={'/img/book/sach2.jpg'}
+                                // onError={onImageError}
+                                alt={'anh'}
                             />
-                        </div>
+                            <StickerChayHang />
+                            {/* {data.quantity <= 0 && <StickerChayHang />} */}
+                        </Link>
                     </div>
                     <div className="bg-warning fw-bold rounded text-white position-absolute end-0 top-0 m-2 px-3">
                         -16%
@@ -41,8 +54,8 @@ const FlashSaleItem = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
-export default FlashSaleItem
+export default FlashSaleProduct

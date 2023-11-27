@@ -10,7 +10,7 @@ import CustomMenuItem from '@/components/forms/theme-elements/CustomMenuItem';
 import CustomSelectBox from '@/components/forms/theme-elements/CustomSelectBox';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import { Box, Typography, useTheme } from '@mui/material'
-import useAPIUserVoucher from '@/lib/hooks/api/useAPIUserVoucher';
+import useAPIVoucher from '@/lib/hooks/api/useAPIVoucher';
 import { errorHandler } from '@/lib/utils/ErrorHandler';
 import { useRouter } from 'next/navigation';
 
@@ -31,7 +31,7 @@ interface FormValues {
 }
 const AddVoucherForm = () => {
     const theme = useTheme();
-    const { createVoucherGeneral, createVoucherPersonalized, createVoucherMemberExclusive } = useAPIUserVoucher()
+    const { createVoucherGeneral, createVoucherPersonalized, createVoucherMemberExclusive } = useAPIVoucher()
     const router = useRouter()
 
     const initialValues: FormValues = {

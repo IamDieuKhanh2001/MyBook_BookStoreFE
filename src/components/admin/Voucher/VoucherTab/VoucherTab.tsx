@@ -4,10 +4,10 @@ import { Box, Tab, styled } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 import VoucherType from '@/enum/VoucherType'
 import VoucherTableData from '../VoucherTableData/VoucherTableData'
-import useAPIUserVoucher from '@/lib/hooks/api/useAPIUserVoucher'
+import useAPIVoucher from '@/lib/hooks/api/useAPIVoucher'
 
 const VoucherTab = () => {
-    const { getVoucherGeneral, getVoucherMemberExclusive, getVoucherPersonalized } = useAPIUserVoucher()
+    const { getVoucherGeneral, getVoucherMemberExclusive, getVoucherPersonalized } = useAPIVoucher()
     const { paginatedData: voucherGeneralData, isReachedEnd: isReachedEndListGeneral, setSize: setSizeListGeneral } = getVoucherGeneral()
     const { paginatedData: voucherMemberData, isReachedEnd: isReachedEndListME, setSize: setSizeListME } = getVoucherMemberExclusive()
     const { paginatedData: voucherPersonalizedData, isReachedEnd: isReachedEndListPersonalized, setSize: setSizeListPersonalized } = getVoucherPersonalized()

@@ -25,7 +25,7 @@ const AddVoucher = (props: IAddVoucherProps) => {
         setInputCodeValue('')
         toast.success('Nhập thành công - ' + foundVoucher?.voucher_name)
       } else {
-        toast.error("Mã khuyến mại không tồn tại!!")
+        toast.error("Mã khuyến mại không khả dụng!!")
       }
     } catch (e) {
       errorHandler(e)

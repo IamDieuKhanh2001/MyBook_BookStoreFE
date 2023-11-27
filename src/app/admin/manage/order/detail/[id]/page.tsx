@@ -8,9 +8,18 @@ import { IconArrowBackUp, IconEdit } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import OrderDetailTable from '@/components/admin/Order/OrderDetailTable/OrderDetailTable';
 import OrderProductItem from '@/components/admin/Order/OrderProductItem/OrderProductItem';
+import useAPIOrder from '@/lib/hooks/api/useAPIOrder';
 
-const OrderDetailPage = () => {
+interface IOrderDetailPageProps {
+    params: {
+        id: number;
+    };
+}
+const OrderDetailPage = (props: IOrderDetailPageProps) => {
     const router = useRouter()
+    const { params } = props
+    const { getOrderDetail } = useAPIOrder()
+    const { data, error, isLoading, mutate } = getOrderDetail(params.id)
 
     return (
         <>
@@ -19,7 +28,7 @@ const OrderDetailPage = () => {
                     <Grid item xs={12} lg={6}>
                         <DashboardCard
                             title={`Order: aaa`}
-                            subtitle={`ID: 1`}
+                            subtitle={`ID: ${data.id}`}
                         >
                             <Box sx={{ width: { xs: '280px', sm: 'auto' } }}>
                                 {/* {error && <Alert sx={{ mb: 2 }} severity="error">
@@ -32,32 +41,30 @@ const OrderDetailPage = () => {
                                     size='small' disableElevation variant="contained" href=""
                                     sx={{ mr: 2 }}
                                     onClick={() => {
-                                        router.push('/admin/manage/voucher')
+                                        router.push('/admin/manage/order')
                                     }}
                                 >
                                     Trở về
                                 </CustomButton>
-                                <>
-                                    <CustomButton
-                                        startIcon={<IconEdit />}
-                                        color="success"
-                                        size='small'
-                                        disableElevation
-                                        variant="contained"
-                                    >
-                                        Chỉnh sửa thông tin
-                                    </CustomButton>
-                                    {/* data table  */}
-                                    <OrderDetailTable />
-                                </>
+                                {!error && !isLoading && (
+                                    <OrderDetailTable orderData={data} />
+                                )}
                             </Box>
                         </DashboardCard>
                     </Grid>
-                    <Grid item xs={12} lg={6}>
-                        <OrderProductItem />
-                        <OrderProductItem />
-                        <OrderProductItem />
-                    </Grid>
+                    {!error && !isLoading && (
+                        <Grid item xs={12} lg={6}>
+                            {data.items && data.items?.length > 0 ? (
+                                data.items?.map((item) => (
+                                    <OrderProductItem
+                                        orderProductData={item}
+                                    />
+                                ))
+                            ) : (
+                                <></>
+                            )}
+                        </Grid>
+                    )}
                 </Grid>
             </PageContainer>
         </>

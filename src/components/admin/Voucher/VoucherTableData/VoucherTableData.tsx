@@ -111,7 +111,7 @@ const VoucherTableData = (props: IVoucherTableDataProps) => {
                                         color='success'
                                         size="small"
                                         onClick={() => {
-                                            router.push(`/admin/manage/voucher/detail/1`)
+                                            router.push(`/admin/manage/voucher/detail/${item.id}`)
                                         }}
                                     >
                                         <IconEye />

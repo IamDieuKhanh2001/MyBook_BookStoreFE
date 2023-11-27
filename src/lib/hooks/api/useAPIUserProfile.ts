@@ -38,9 +38,30 @@ const useAPIUserProfile = () => {
         const response = await axiosAuth.patch(`${URL_PREFIX}/password`, body, { headers })
         return response;
     };
+
+    const uploadProfileAvatar = async (bodyFormData: FormData) => {
+        try {
+            const session = await getSession();
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+                "Content-Type": "multipart/form-data",
+            }
+            const response = await axiosAuth.post(
+                `${URL_PREFIX}/upload-avatar`,
+                bodyFormData,
+                { headers, maxBodyLength: Infinity, }
+            )
+            return response
+        }
+        catch (e: any) {
+            throw e
+        }
+    }
+
     return {
         updateUserProfile,
         changeAccountPassword,
+        uploadProfileAvatar,
     }
 }
 

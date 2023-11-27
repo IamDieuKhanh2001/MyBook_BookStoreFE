@@ -15,7 +15,7 @@ const FlashSaleHeader = (props: FlashSaleHeaderProps) => {
     return (
         <>
             <div className={styles.flashSaleHeader}>
-                <Link href="#">
+                <Link href="/product/flashsale">
                     <img
                         style={{
                             width: '25px',

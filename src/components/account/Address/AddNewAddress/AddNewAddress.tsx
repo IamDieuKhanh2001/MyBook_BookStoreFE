@@ -15,7 +15,6 @@ const AddNewAddress = () => {
 
     return (
         <>
-            {/* tach component btn add address  */}
             <button
                 type="button"
                 className="btn btn-success mb-3"

@@ -9,6 +9,17 @@ interface IOrder {
   payment_method: string
   status: string
   customer_note: string
+  created_at: string | null
+  updated_at: string | null
+  user: {
+    id: number
+    email: string
+    money: number
+    user_level_id: number
+    user_role_id: number
+    is_email_verified: number
+    deleted_at: string | null
+  }
   items?: ItemOrdered[]
 }
 

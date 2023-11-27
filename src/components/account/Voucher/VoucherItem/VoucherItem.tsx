@@ -4,7 +4,11 @@ import styles from './VoucherItem.module.scss'
 import Link from 'next/link'
 import { toast } from 'react-toastify'
 
-const VoucherItem = () => {
+interface IVoucherItemProps {
+    data: IVoucher
+}
+const VoucherItem = (props: IVoucherItemProps) => {
+    const { data } = props
     const [isCopiedCode, setIsCopiedCode] = useState(false);
 
     const copyTextToClipboard = async (text: string) => {
@@ -37,17 +41,21 @@ const VoucherItem = () => {
                 <div>
                     <div>
                         <div className={styles.voucherDetail} >
-                            <div>09.09 - Tặng Bạn Mã Giảm Giá 50K</div>
-                            <div>Mã giảm 50K - Giảm Toàn Sàn dành cho ĐH 500K</div>
-                            <div className={styles.voucherCode}>Mã voucher - FHS50KT09</div>
-                            <div className={styles.voucherExpiry}>HSD: 30/09/2023</div>
+                            <div>{data.voucher_name}</div>
+                            <div>{data.desc}</div>
+                            <div className={styles.voucherCode}>
+                                Mã voucher - {data.voucher_code}
+                            </div>
+                            <div className={styles.voucherExpiry}>
+                                HSD: {data.end_date}
+                            </div>
                         </div>
                         <div className={styles.btnActionContainer}>
                             <Link href={'#'} className={styles.linkToVoucherDetail}>Chi tiết</Link>
                             <div className={styles.copyBtnContainer}>
                                 <button
                                     className={'btn btn-primary'}
-                                    onClick={() => handleCopyClick('FHS50KT091')}
+                                    onClick={() => handleCopyClick(data.voucher_code)}
                                     disabled={isCopiedCode}
                                 >
                                     {isCopiedCode ? (
@@ -57,7 +65,7 @@ const VoucherItem = () => {
                                         </>
                                     ) : (
                                         <>
-                                        <i className="far fa-clipboard me-2"></i>
+                                            <i className="far fa-clipboard me-2"></i>
                                             Sao chép mã
                                         </>
                                     )}
