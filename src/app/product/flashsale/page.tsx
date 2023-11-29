@@ -1,12 +1,16 @@
+'use client'
+
 import FlashSaleHeader from '@/components/product/FlashSale/FlashSaleHeader/FlashSaleHeader'
 import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb'
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './page.module.scss'
 import FlashSalePageBanner from '@/components/product/FlashSale/FlashSalePageBanner/FlashSalePageBanner'
 import FlashSalePeriods from '@/components/product/FlashSale/FlashSalePeriods/FlashSalePeriods'
 import FlashSalePeriodProducts from '@/components/product/FlashSale/FlashSalePeriodProducts/FlashSalePeriodProducts'
 
 const FlashSalePage = () => {
+  const [currentPeriodActive, setCurrentPeriodActive] = useState(0)
+
   return (
     <>
       <Breadcrumb />

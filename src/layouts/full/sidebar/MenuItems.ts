@@ -14,6 +14,7 @@ import {
   IconBook,
   IconTicket,
   IconNotes,
+  IconReceiptTax,
 } from '@tabler/icons-react';
 
 import { uniqueId } from 'lodash';
@@ -30,6 +31,16 @@ const Menuitems = [
     title: 'Đơn hàng đặt',
     icon: IconNotes,
     href: '/admin/manage/order',
+  },
+  {
+    navlabel: true,
+    subheader: 'Sự kiện',
+  },
+  {
+    id: uniqueId(),
+    title: 'Ngày hội giảm giá',
+    icon: IconReceiptTax,
+    href: '/admin/manage/flash-sale',
   },
   //Manage group
   {
