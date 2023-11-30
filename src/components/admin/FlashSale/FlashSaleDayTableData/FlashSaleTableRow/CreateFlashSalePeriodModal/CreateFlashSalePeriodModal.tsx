@@ -2,12 +2,15 @@
 
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
 import CustomTimePicker from '@/components/forms/theme-elements/CustomTimePicker';
+import useAPIFlashSale from '@/lib/hooks/api/useAPIFlashSale';
 import { errorHandler } from '@/lib/utils/ErrorHandler';
 import { Box, CircularProgress, Modal, Typography, useTheme, Stack, Button } from '@mui/material';
+import { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
 import { Field, Form, Formik } from 'formik';
 import React from 'react'
 import { toast } from 'react-toastify';
+import { KeyedMutator } from 'swr';
 import * as Yup from 'yup';
 
 interface FormValues {
@@ -18,10 +21,14 @@ interface FormValues {
 interface ICreateFlashSalePeriodModalProps {
     showModalCreate: boolean;
     setShowModalCreate: (value: boolean) => void;
-    //Flash sale day data
+    flashSaleItem: IFlashSaleEventDay;
+    mutate: KeyedMutator<AxiosResponse<any, any>>
 }
 const CreateFlashSalePeriodModal = (props: ICreateFlashSalePeriodModalProps) => {
-    const { showModalCreate, setShowModalCreate } = props;
+    const { showModalCreate, setShowModalCreate, flashSaleItem, mutate } = props;
+    const { getFlashSaleDayListPaginated, createNewFlashSalePeriod } = useAPIFlashSale()
+    const { mutate: mutateData } = getFlashSaleDayListPaginated()
+
     const theme = useTheme();
 
     const style = {
@@ -64,9 +71,12 @@ const CreateFlashSalePeriodModal = (props: ICreateFlashSalePeriodModalProps) => 
 
     const handleSubmit = async (values: FormValues) => {
         try {
-            //   handleCloseModal()
-            console.log(values)
-            toast.success("Tạo khung giờ sự kiện <" + values.timeStart + '-' + values.timeEnd + '> thành công cho ngày <' + '2/9/2023' + '>')
+            const { percentDiscount, timeEnd, timeStart } = values
+            await createNewFlashSalePeriod(flashSaleItem.id, percentDiscount, timeStart, timeEnd)
+            handleCloseModal()
+            mutate()
+            // mutateData(['/admin/flash-sale/all']) // key API mutate
+            toast.success("Tạo khung giờ sự kiện <" + values.timeStart + '-' + values.timeEnd + '> thành công cho ngày <' + flashSaleItem.event_date + '>')
         }
         catch (e) {
             errorHandler(e)
@@ -85,7 +95,7 @@ const CreateFlashSalePeriodModal = (props: ICreateFlashSalePeriodModalProps) => 
                     <Typography id="modal-modal-title" variant="h6" component="h2"
                         style={{ color: theme.palette.text.primary }}
                     >
-                        Tạo mới khung giờ cho ngày 2/9/2023
+                        Tạo mới khung giờ cho ngày {flashSaleItem.event_date}
                     </Typography>
                     <Formik
                         initialValues={initialValues}

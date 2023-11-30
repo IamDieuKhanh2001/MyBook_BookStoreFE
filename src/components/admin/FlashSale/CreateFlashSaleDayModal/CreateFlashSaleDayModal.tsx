@@ -2,12 +2,14 @@
 
 import CustomDatePicker from '@/components/forms/theme-elements/CustomDatePicker';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
+import useAPIFlashSale from '@/lib/hooks/api/useAPIFlashSale';
 import { errorHandler } from '@/lib/utils/ErrorHandler';
 import { Box, CircularProgress, Modal, Typography, useTheme, Stack, Button } from '@mui/material';
 import dayjs from 'dayjs';
 import { Field, Form, Formik } from 'formik';
 import React from 'react'
 import { toast } from 'react-toastify';
+import { KeyedMutator } from 'swr';
 import * as Yup from 'yup';
 
 interface FormValues {
@@ -17,10 +19,12 @@ interface FormValues {
 interface ICreateFlashSaleDayModalProps {
     showModalCreate: boolean;
     setShowModalCreate: (value: boolean) => void;
+    mutate: KeyedMutator<any[]>;
 }
 const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
-    const { showModalCreate, setShowModalCreate } = props;
+    const { showModalCreate, setShowModalCreate, mutate } = props;
     const theme = useTheme();
+    const { createNewFlashSaleEvent, } = useAPIFlashSale()
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -37,7 +41,7 @@ const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
     //Formik init
     const initialValues: FormValues = {
         eventDate: '',
-        eventName: "",
+        eventName: '',
     };
     const validationSchema = Yup.object({
         eventName: Yup.string()
@@ -58,8 +62,10 @@ const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
 
     const handleSubmit = async (values: FormValues) => {
         try {
-            //   handleCloseModal()
-            console.log(values)
+            const { eventDate, eventName } = values
+            await createNewFlashSaleEvent(eventName, eventDate)
+            handleCloseModal()
+            mutate(); 
             toast.success("Tạo sự kiện <" + values.eventName + '> thành công cho ngày <' + values.eventDate + '>')
         }
         catch (e) {

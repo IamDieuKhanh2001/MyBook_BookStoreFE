@@ -3,6 +3,7 @@
 import React from 'react'
 import IconButton from '@mui/material/IconButton';
 import TableCell from '@mui/material/TableCell';
+import Collapse from '@mui/material/Collapse';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -10,21 +11,10 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { IconTrash } from '@tabler/icons-react';
 import { IconEdit } from '@tabler/icons-react';
 import { Button, useTheme } from '@mui/material';
-import PeriodsCollapsibleRow from './PeriodsCollapsibleRow/PeriodsCollapsibleRow';
+import PeriodsCollapseContent from './PeriodsCollapseContent/PeriodsCollapseContent';
 
 interface IRowProps {
-    flashSaleItem: {
-        id: number;
-        event_name: string;
-        hours: {
-            id: number,
-            percent_discount: number,
-            time_start: string,
-            time_end: string,
-            created_at: string,
-            updated_at: string,
-        }[]
-    }
+    flashSaleItem: IFlashSaleEventDay
 }
 const FlashSaleTableRow = (props: IRowProps) => {
     const { flashSaleItem } = props;
@@ -61,7 +51,7 @@ const FlashSaleTableRow = (props: IRowProps) => {
                 </TableCell>
                 <TableCell align="right">
                     <Typography variant="subtitle2" fontWeight={500}>
-                        2/9/2023
+                        {flashSaleItem.event_date}
                     </Typography>
                 </TableCell>
                 <TableCell align="right">
@@ -87,7 +77,15 @@ const FlashSaleTableRow = (props: IRowProps) => {
                 </TableCell>
             </TableRow>
             {/* Flash sale periods list  */}
-            <PeriodsCollapsibleRow open={open} hours={flashSaleItem.hours} />
+            <TableRow>
+                <TableCell sx={{ paddingBottom: 0, paddingTop: 0, borderBottom: 0 }} colSpan={6}>
+                    <Collapse in={open} timeout="auto" unmountOnExit>
+                        <PeriodsCollapseContent
+                            flashSaleItem={flashSaleItem}
+                        />
+                    </Collapse>
+                </TableCell>
+            </TableRow>
         </React.Fragment>
     )
 }

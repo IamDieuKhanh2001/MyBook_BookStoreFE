@@ -6,26 +6,17 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
-import { useRouter } from 'next/navigation'
 import FlashSaleTableRow from './FlashSaleTableRow/FlashSaleTableRow'
 
 interface IFlashSaleDayTableDataProps {
-    flashSaleDayList: {
-        id: number;
-        event_name: string;
-        hours: {
-            id: number,
-            percent_discount: number,
-            time_start: string,
-            time_end: string,
-            created_at: string,
-            updated_at: string,
-        }[]
-    }[]
+    flashSaleDayList: IFlashSaleEventDay[]
+    isReachedEnd: boolean | undefined
+    loadMoreRef: (node?: Element | null | undefined) => void
 }
 const FlashSaleDayTableData = (props: IFlashSaleDayTableDataProps) => {
-    const { flashSaleDayList } = props
+    const { flashSaleDayList, isReachedEnd, loadMoreRef } = props
 
     return (
         <>
@@ -64,6 +55,18 @@ const FlashSaleDayTableData = (props: IFlashSaleDayTableDataProps) => {
                     {flashSaleDayList.map((flashSaleDay) => (
                         <FlashSaleTableRow key={flashSaleDay.id} flashSaleItem={flashSaleDay} />
                     ))}
+                    {
+                        (isReachedEnd === false) && (
+                            <TableRow
+                                key={'reload-spinner'}
+                                ref={loadMoreRef}
+                            >
+                                <TableCell align='center' colSpan={5}>
+                                    <CircularProgress color="secondary" />
+                                </TableCell>
+                            </TableRow>
+                        )
+                    }
                 </TableBody>
             </Table>
         </>
