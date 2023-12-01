@@ -11,6 +11,7 @@ import CartDropdown from './CartDropdown/CartDropdown';
 import UserDropdown from './UserDropdown/UserDropdown';
 import SearchBarInput from './SearchBarInput/SearchBarInput';
 import { useSession } from 'next-auth/react';
+import AlertConfirmEmail from '../AlertConfirmEmail/AlertConfirmEmail';
 
 function ClientNavBar() {
     const { data: session } = useSession();
@@ -59,6 +60,9 @@ function ClientNavBar() {
                         </div>
                     </div>
                 </nav>
+                {/* {!session?.user.userInfo.is_email_verified && (
+                    <AlertConfirmEmail emailAddress={session?.user.userInfo.email} />
+                )} */}
             </div>
             {/* Navbar End */}
         </>
