@@ -16,12 +16,14 @@ import { Button, Stack } from '@mui/material';
 import CreateFlashSalePeriodModal from '../CreateFlashSalePeriodModal/CreateFlashSalePeriodModal';
 import CustomButton from '@/components/forms/theme-elements/CustomButton';
 import useAPIFlashSale from '@/lib/hooks/api/useAPIFlashSale';
+import { useRouter } from 'next/navigation';
 
 interface IPeriodsCollapseContentProps {
   flashSaleItem: IFlashSaleEventDay
 }
 const PeriodsCollapseContent = (props: IPeriodsCollapseContentProps) => {
   const { flashSaleItem } = props
+  const router = useRouter()
   const [showModalCreate, setShowModalCreate] = React.useState<boolean>(false)
   const { getFlashSalePeriods } = useAPIFlashSale()
   const { data: flashSaleDayPeriodsData, error, isLoading, mutate } = getFlashSalePeriods(flashSaleItem.id)
@@ -84,9 +86,9 @@ const PeriodsCollapseContent = (props: IPeriodsCollapseContentProps) => {
                   </TableCell>
                   <TableCell align="right">
                     <Button color='success' size="small"
-                    // onClick={() => {
-                    //     router.push(`/admin/manage/categories/detail/${category.id}`)
-                    // }}
+                      onClick={() => {
+                        router.push(`/admin/manage/flash-sale/period/${period.id}`)
+                      }}
                     >
                       <IconEye />
                     </Button>

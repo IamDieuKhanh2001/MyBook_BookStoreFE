@@ -4,6 +4,7 @@ interface IBook {
   id: number
   isbn_code: string
   name: string
+  slug: string
   price: number
   quantity: number
   desc: string

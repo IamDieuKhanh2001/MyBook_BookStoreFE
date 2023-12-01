@@ -3,6 +3,7 @@ import useAxiosAuth from '../utils/useAxiosAuth'
 import { getSession } from 'next-auth/react'
 import useSWRInfinite from 'swr/infinite'
 import useSWR from 'swr'
+import { IFlashSalePeriod } from '../../../../types/IFlashSalePeriod'
 
 const useAPIFlashSale = () => {
     const axiosAuth = useAxiosAuth()
@@ -136,11 +137,47 @@ const useAPIFlashSale = () => {
         }
     }
 
+    const getFlashSalePeriodDetail = (
+        flashSalePeriodId: number
+    ) => {
+        const fetcher = async (url: string) => {
+            try {
+                const session = await getSession();
+                const headers = {
+                    Authorization: `Bearer ${session?.user.jwtToken}`,
+                }
+                const response = await axiosAuth.get(url, { headers });
+                return response;
+            }
+            catch (error) {
+                console.error('Lỗi khi fetch:', error);
+                return Promise.reject(error); // Trả về một Promise bị từ chối            }
+            }
+        }
+
+        const { data, mutate, isLoading, error } = useSWR(
+            `${URL_PREFIX}/hour/${flashSalePeriodId}`,
+            fetcher,
+            {
+                revalidateOnReconnect: false,
+            }
+        )
+
+        const flashSalePeriodData: IFlashSalePeriod = data?.data ?? {}
+        return {
+            data: flashSalePeriodData ?? {}, // nếu data = undefined sẽ là mảng rỗng
+            mutate: mutate,
+            isLoading: !error && !data,
+            error: error,
+        }
+    }
+
     return {
         getFlashSaleDayListPaginated,
         createNewFlashSaleEvent,
         createNewFlashSalePeriod,
         getFlashSalePeriods,
+        getFlashSalePeriodDetail,
     }
 }
 
