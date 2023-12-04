@@ -4,6 +4,7 @@ import { getSession } from 'next-auth/react'
 import useSWRInfinite from 'swr/infinite'
 import useSWR from 'swr'
 import { IFlashSalePeriod } from '../../../../types/IFlashSalePeriod'
+import { IFlashSaleEventDay } from '../../../../types/IFlashSaleEventDay'
 
 const useAPIFlashSale = () => {
     const axiosAuth = useAxiosAuth()

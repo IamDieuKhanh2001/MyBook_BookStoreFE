@@ -17,6 +17,7 @@ import CreateFlashSalePeriodModal from '../CreateFlashSalePeriodModal/CreateFlas
 import CustomButton from '@/components/forms/theme-elements/CustomButton';
 import useAPIFlashSale from '@/lib/hooks/api/useAPIFlashSale';
 import { useRouter } from 'next/navigation';
+import { IFlashSaleEventDay } from '../../../../../../../types/IFlashSaleEventDay';
 
 interface IPeriodsCollapseContentProps {
   flashSaleItem: IFlashSaleEventDay

@@ -1,44 +1,27 @@
+'use client'
 import React from 'react'
 import styles from './FlashSalePeriods.module.scss'
 import FlashSalePeriodItem from './FlashSalePeriodItem/FlashSalePeriodItem'
+import { IFlashSalePeriod } from '../../../../../types/IFlashSalePeriod'
 
 interface IFlashSalePeriodsProps {
     periodIdActive: number
     setPeriodIdActive: React.Dispatch<React.SetStateAction<number>>
+    periodList: IFlashSalePeriod[]
 }
-const FlashSalePeriods = (props : IFlashSalePeriodsProps) => {
+const FlashSalePeriods = (props: IFlashSalePeriodsProps) => {
+    const { periodIdActive, setPeriodIdActive, periodList } = props
+
     return (
         <div className={`${styles.flashSalePeriods} row g-0`}>
-            <FlashSalePeriodItem
-                time='10:00'
-                onSaleStatus='Đang bán'
-                isActive={true}
-            />
-            <FlashSalePeriodItem
-                time='12:00'
-                onSaleStatus='Đang bán'
-                isActive={false}
-            />
-            <FlashSalePeriodItem
-                time='14:00'
-                onSaleStatus='Đang bán'
-                isActive={false}
-            />
-            <FlashSalePeriodItem
-                time='16:00'
-                onSaleStatus='Đang bán'
-                isActive={false}
-            />
-            <FlashSalePeriodItem
-                time='18:00'
-                onSaleStatus='Đang bán'
-                isActive={false}
-            />
-            <FlashSalePeriodItem
-                time='20:00'
-                onSaleStatus='Đang bán'
-                isActive={false}
-            />
+            {periodList?.map((period) => (
+                <FlashSalePeriodItem
+                    key={period.id}
+                    timeStart={period.time_start}
+                    onSaleStatus='Đang bán'
+                    isActive={periodIdActive === period.id}
+                />
+            ))}
         </div>
     )
 }

@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import FlashSaleTableRow from './FlashSaleTableRow/FlashSaleTableRow'
+import { IFlashSaleEventDay } from '../../../../../types/IFlashSaleEventDay';
 
 interface IFlashSaleDayTableDataProps {
     flashSaleDayList: IFlashSaleEventDay[]

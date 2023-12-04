@@ -1,4 +1,4 @@
-
+'use client'
 import Link from 'next/link'
 import React from 'react'
 import styles from './ClientNavBar.module.scss'
@@ -10,11 +10,52 @@ import TopBar from './TopBar/TopBar';
 import CartDropdown from './CartDropdown/CartDropdown';
 import UserDropdown from './UserDropdown/UserDropdown';
 import SearchBarInput from './SearchBarInput/SearchBarInput';
-import { useSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import AlertConfirmEmail from '../AlertConfirmEmail/AlertConfirmEmail';
+import useAPIAuthentication from '@/lib/hooks/api/useAPIAuthentication';
 
 function ClientNavBar() {
-    const { data: session } = useSession();
+    const { data: session, update } = useSession();
+    const { checkIsVerifiedEmail } = useAPIAuthentication()
+    const [isVerified, setIsVerified] = React.useState(true)
+
+    const updateSessionVerifyStatus = async () => {
+        try {
+            await update({
+                ...session,
+                user: {
+                    ...session?.user,
+                    userInfo: {
+                        ...session?.user.userInfo,
+                        is_email_verified: 1
+                    }
+                }
+            });
+            console.log("update sesssion")
+        } catch (e) {
+            console.log("Can not update session")
+        }
+    }
+    React.useEffect(() => {
+        const handleCallCHeckMail = async () => {
+            try {
+                let allowCall = session?.user.userInfo.is_email_verified === 0 ? true : false
+                if (allowCall) {
+                    const res = await checkIsVerifiedEmail()
+                    if (res.status === 200) {
+                        setIsVerified(true)
+                        updateSessionVerifyStatus()
+                    }
+                }
+            } catch (e: any) {
+                if (e?.response.status === 400) {
+                    setIsVerified(false)
+                }
+            }
+        }
+        handleCallCHeckMail()
+        console.log(session)
+    }, [session])
 
     return (
         <>
@@ -60,7 +101,7 @@ function ClientNavBar() {
                         </div>
                     </div>
                 </nav>
-                {session?.user.userInfo.is_email_verified === 0 && (
+                {!isVerified && (
                     <AlertConfirmEmail emailAddress={session?.user.userInfo.email} />
                 )}
             </div>

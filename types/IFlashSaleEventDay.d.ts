@@ -1,3 +1,5 @@
+import { IFlashSalePeriod } from "./IFlashSalePeriod"
+
 interface IFlashSaleEventDay {
     id: number
     event_name: string
@@ -6,4 +8,5 @@ interface IFlashSaleEventDay {
     event_date: string
     created_at: string
     updated_at: string
+    hours: IFlashSalePeriod[]
 }

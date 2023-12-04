@@ -12,6 +12,7 @@ import React from 'react'
 import { toast } from 'react-toastify';
 import { KeyedMutator } from 'swr';
 import * as Yup from 'yup';
+import { IFlashSaleEventDay } from '../../../../../../../types/IFlashSaleEventDay';
 
 interface FormValues {
     percentDiscount: number;

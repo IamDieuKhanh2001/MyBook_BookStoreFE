@@ -1,4 +1,6 @@
+import useSWR from "swr"
 import useAxiosAuth from "../utils/useAxiosAuth"
+import { getSession } from "next-auth/react"
 
 const useAPIAuthentication = () => {
     const URL_PREFIX = '/auth'
@@ -48,10 +50,28 @@ const useAPIAuthentication = () => {
         }
     }
 
+    const checkIsVerifiedEmail = async () => {
+        try {
+            const session = await getSession();
+            const headers = {
+                Authorization: '',
+            }
+            if(session) {
+                headers.Authorization = `Bearer ${session?.user.jwtToken}`
+            }
+            const url = `${URL_PREFIX}/check/is-verified`
+            const response = await axiosAuth.get(url, { headers })
+            return response
+        } catch (e) {
+            throw e
+        }
+    }
+
     return {
         SendMailRecoveryPassword,
         ResetPassword,
         RequestVerifyMail,
+        checkIsVerifiedEmail,
     }
 }
 

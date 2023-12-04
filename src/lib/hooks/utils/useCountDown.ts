@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react';
 
 // initialHours: init time for countdown
 // initialMinutes: init minutes for countdown
-const useCountdown = (initialHours: number, initialMinutes: number) => {
+const useCountdown = (initialHours: number, initialMinutes: number, initialSeconds: number) => {
     const [time, setTime] = useState({
         hours: initialHours,
         minutes: initialMinutes,
-        seconds: 0,
+        seconds: initialSeconds,
     });
 
     useEffect(() => {
@@ -31,7 +31,7 @@ const useCountdown = (initialHours: number, initialMinutes: number) => {
         }, 1000);
 
         return () => clearInterval(countdownInterval); //Cleanup function
-    }, [initialHours, initialMinutes]);
+    }, [initialHours, initialMinutes, initialSeconds]);
 
     return time;
 };

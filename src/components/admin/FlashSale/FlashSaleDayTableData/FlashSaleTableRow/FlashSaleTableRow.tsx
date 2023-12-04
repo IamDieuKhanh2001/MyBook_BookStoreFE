@@ -12,6 +12,7 @@ import { IconTrash } from '@tabler/icons-react';
 import { IconEdit } from '@tabler/icons-react';
 import { Button, useTheme } from '@mui/material';
 import PeriodsCollapseContent from './PeriodsCollapseContent/PeriodsCollapseContent';
+import { IFlashSaleEventDay } from '../../../../../../types/IFlashSaleEventDay';
 
 interface IRowProps {
     flashSaleItem: IFlashSaleEventDay

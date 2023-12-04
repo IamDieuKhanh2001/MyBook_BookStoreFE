@@ -9,7 +9,7 @@ const FlashSale = () => {
     return (
         <>
             <div className="container-xxl pt-5">
-                <FlashSaleHeader initialHours={10} initialMinutes={30}/>
+                {/* <FlashSaleHeader initialHours={10} initialMinutes={30}/> */}
                 <div className='row pb-4'>
                     <FlashSaleSlider />
                 </div>

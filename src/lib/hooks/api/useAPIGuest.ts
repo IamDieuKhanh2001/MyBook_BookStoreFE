@@ -3,6 +3,7 @@ import useAxiosAuth from '../utils/useAxiosAuth'
 import useSWRInfinite from 'swr/infinite';
 import { IBook } from '../../../../types/IBook';
 import useSWR from 'swr';
+import { IFlashSaleEventDay } from '../../../../types/IFlashSaleEventDay';
 
 const useAPIGuest = () => {
     const axiosAuth = useAxiosAuth()
@@ -365,6 +366,37 @@ const useAPIGuest = () => {
         }
     }
 
+    //flash sale 
+    const getFlashSaleToday = () => {
+        const fetcher = async (url: string) => {
+            try {
+                const response = await axiosAuth.get(url);
+                return response;
+            }
+            catch (error) {
+                console.error('Lỗi khi fetch:', error);
+                return Promise.reject(error); // Trả về một Promise bị từ chối            }
+            }
+        }
+
+        const { data, mutate, isLoading, error } = useSWR(
+            `${URL_PREFIX}/flash-sale/today/accessable-periods`,
+            fetcher,
+            {
+                revalidateOnReconnect: false,
+            }
+        )
+
+        const flashSaleDayData: IFlashSaleEventDay = data?.data ?? {}
+        return {
+            data: flashSaleDayData ?? {},
+            mutate: mutate,
+            isLoading: !error && !data,
+            error: error,
+        }
+    }
+
+
     return {
         getBookFilterPaginated,
         getBookDetail,
@@ -376,6 +408,7 @@ const useAPIGuest = () => {
         getPublisherListPaginated,
         getAuthorListPaginated,
         getBookSuggestion,
+        getFlashSaleToday,
     }
 }
 
