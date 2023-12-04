@@ -1,12 +1,31 @@
 'use client'
+import useAPIAuthentication from '@/lib/hooks/api/useAPIAuthentication'
 import styles from './AlertConfirmEmail.module.scss'
 import React from 'react'
+import { useSession } from 'next-auth/react'
+import { toast } from 'react-toastify'
+import { errorHandler } from '@/lib/utils/ErrorHandler'
 
 interface IAlertConfirmEmailProps {
     emailAddress: string | undefined
 }
 const AlertConfirmEmail = (props: IAlertConfirmEmailProps) => {
     const { emailAddress } = props
+    const { RequestVerifyMail } = useAPIAuthentication()
+    const { data: session } = useSession()
+
+    const handleResendEmailVerify = async () => {
+        try {
+            if (session) {
+                const res = await RequestVerifyMail(session?.user.userInfo.email)
+                toast.success(`Đã gửi xác thực đến hộp thư ${session?.user.userInfo.email}`)
+            } else {
+                toast.error("Bạn chưa đăng nhập")
+            }
+        } catch (e) {
+            errorHandler(e)
+        }
+    }
 
     return (
         <>
@@ -23,6 +42,7 @@ const AlertConfirmEmail = (props: IAlertConfirmEmailProps) => {
                 <div className={styles.resendConfirmationContainer}>
                     <button
                         className={styles.resendConfirmationBtn}
+                        onClick={handleResendEmailVerify}
                     >
                         Gửi lại mail xác thực
                     </button>

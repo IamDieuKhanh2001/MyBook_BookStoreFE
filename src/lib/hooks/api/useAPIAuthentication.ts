@@ -34,9 +34,24 @@ const useAPIAuthentication = () => {
         }
     }
 
+    const RequestVerifyMail = async (email: string) => {
+        try {
+            const url = `${URL_PREFIX}/request-verify`
+            const body = {
+                email: email,
+            };
+            const response = await axiosAuth.post(url, body)
+            return response.data
+        }
+        catch (e) {
+            throw e
+        }
+    }
+
     return {
         SendMailRecoveryPassword,
         ResetPassword,
+        RequestVerifyMail,
     }
 }
 

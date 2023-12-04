@@ -13,8 +13,9 @@ const DynamicDatePicker = dynamic(() => import('@mui/x-date-pickers/DatePicker')
 interface ICustomDatePickerProps {
     value: string,
     onChangeEvent: (value: any) => void
+    disablePast?: boolean
 }
-const CustomDatePicker = ({ value, onChangeEvent }: ICustomDatePickerProps) => {
+const CustomDatePicker = ({ value, onChangeEvent, disablePast = false }: ICustomDatePickerProps) => {
     const theme = useTheme()
 
     return (
@@ -22,6 +23,7 @@ const CustomDatePicker = ({ value, onChangeEvent }: ICustomDatePickerProps) => {
             <DynamicDatePicker
                 views={["day", "month", "year"]}
                 format="DD-MM-YYYY"
+                disablePast={disablePast}
                 value={dayjs(value).format('DD-MM-YYYY')}
                 onChange={onChangeEvent}
                 slotProps={{

@@ -5,6 +5,10 @@ import * as Yup from 'yup';
 import { Field, Form, Formik } from 'formik';
 import { Box, CircularProgress, Modal, Typography, useTheme, Stack, Button } from '@mui/material';
 import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
+import useAPIFlashSale from '@/lib/hooks/api/useAPIFlashSale';
+import { errorHandler } from '@/lib/utils/ErrorHandler';
+import { KeyedMutator } from 'swr';
+import { AxiosResponse } from 'axios';
 
 interface FormValues {
     isbnCode: string;
@@ -13,10 +17,12 @@ interface IAddProductEventModalProps {
     periodId: number
     showModalCreate: boolean;
     setShowModalCreate: (value: boolean) => void;
+    mutate: KeyedMutator<AxiosResponse<any, any>>
 }
 const AddProductEventModal = (props: IAddProductEventModalProps) => {
-    const { periodId, setShowModalCreate, showModalCreate } = props
+    const { periodId, setShowModalCreate, showModalCreate, mutate } = props
     const theme = useTheme();
+    const { addProductToHour } = useAPIFlashSale()
 
     const style = {
         position: 'absolute' as 'absolute',
@@ -54,12 +60,13 @@ const AddProductEventModal = (props: IAddProductEventModalProps) => {
 
     const handleSubmit = async (values: FormValues) => {
         try {
-            console.log(values)
+            await addProductToHour(periodId, values.isbnCode)
+            mutate()
             handleCloseModal()
             toast.success("Thêm sách vào sự kiện thành công")
         }
         catch (e) {
-            toast.error("Something when wrong, please try again")
+            errorHandler(e)
         }
     };
     return (

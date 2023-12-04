@@ -9,7 +9,7 @@ import FlashSalePeriods from '@/components/product/FlashSale/FlashSalePeriods/Fl
 import FlashSalePeriodProducts from '@/components/product/FlashSale/FlashSalePeriodProducts/FlashSalePeriodProducts'
 
 const FlashSalePage = () => {
-  const [currentPeriodActive, setCurrentPeriodActive] = useState(0)
+  const [periodIdActive, setPeriodIdActive] = useState(0)
 
   return (
     <>
@@ -18,7 +18,10 @@ const FlashSalePage = () => {
         <FlashSalePageBanner />
         <div className={styles.flashSalePage}>
           <FlashSaleHeader initialHours={10} initialMinutes={30} />
-          <FlashSalePeriods />
+          <FlashSalePeriods
+            periodIdActive={periodIdActive}
+            setPeriodIdActive={setPeriodIdActive}
+          />
           {/* page flash sale content  */}
           <div className={styles.flashSalePageContent}>
             <div className={styles.flashSalePagePeriodContent}>

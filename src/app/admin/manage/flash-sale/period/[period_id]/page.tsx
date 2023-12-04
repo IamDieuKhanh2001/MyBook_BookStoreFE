@@ -1,13 +1,14 @@
 'use client'
 
 import PageContainer from '@/components/admin/container/PageContainer'
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Button, Grid, Typography, Alert, AlertTitle } from '@mui/material'
 import DashboardCard from '@/components/shared/DashboardCard'
-import { IconArrowBackUp } from '@tabler/icons-react'
+import { IconArrowBackUp, IconPlus } from '@tabler/icons-react'
 import { useRouter } from 'next/navigation'
 import useAPIFlashSale from '@/lib/hooks/api/useAPIFlashSale'
 import PeriodProductTableData from '@/components/admin/FlashSale/PeriodProductTableData/PeriodProductTableData'
+import AddProductEventModal from '@/components/admin/FlashSale/AddProductEventModal/AddProductEventModal'
 
 interface IFlashSalePeriodPageProps {
     params: {
@@ -19,6 +20,7 @@ const FlashSalePeriodPage = (props: IFlashSalePeriodPageProps) => {
     const { params } = props
     const { getFlashSalePeriodDetail } = useAPIFlashSale()
     const { data, error, isLoading, mutate } = getFlashSalePeriodDetail(params.period_id)
+    const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
 
     return (
         <>
@@ -30,15 +32,28 @@ const FlashSalePeriodPage = (props: IFlashSalePeriodPageProps) => {
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                             <Button
+                                sx={{ mb: 2 }}
                                 startIcon={<IconArrowBackUp />}
                                 color="secondary"
                                 size='small' disableElevation variant="contained" href=""
-                                sx={{ marginBottom: 2 }}
                                 onClick={() => {
                                     router.push('/admin/manage/flash-sale')
                                 }}
                             >
                                 Trở về
+                            </Button>
+                            <Button
+                                sx={{ mb: 2, ml: 2 }}
+                                startIcon={<IconPlus />}
+                                color="success"
+                                size='small'
+                                disableElevation
+                                variant="contained"
+                                onClick={() => {
+                                    setShowModalCreate(true);
+                                }}
+                            >
+                                Thêm sản phẩm cho sự kiện
                             </Button>
                             {error && (
                                 <Alert sx={{ mb: 2 }} severity="error">
@@ -87,6 +102,13 @@ const FlashSalePeriodPage = (props: IFlashSalePeriodPageProps) => {
                     </DashboardCard>
                 </Grid>
             </PageContainer>
+            {/* Modal  */}
+            <AddProductEventModal
+                periodId={data.id}
+                showModalCreate={showModalCreate}
+                setShowModalCreate={setShowModalCreate}
+                mutate={mutate}
+            />
         </>
     )
 }

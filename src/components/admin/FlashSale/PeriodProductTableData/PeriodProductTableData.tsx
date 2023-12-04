@@ -1,21 +1,19 @@
 'use client'
 
 import CustomButton from '@/components/forms/theme-elements/CustomButton';
-import { IconPlus, IconTrash } from '@tabler/icons-react';
+import { IconTrash } from '@tabler/icons-react';
 import { useConfirm } from 'material-ui-confirm';
-import React, { useState } from 'react'
+import React from 'react'
 import { toast } from 'react-toastify';
 import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import { truncateText } from '@/lib/utils/TextUtils';
 import { IFlashSalePeriod } from '../../../../../types/IFlashSalePeriod';
-import AddProductEventModal from '../AddProductEventModal/AddProductEventModal';
 
 interface IPeriodProductTableDataProps {
     periodData: IFlashSalePeriod
 }
 const PeriodProductTableData = (props: IPeriodProductTableDataProps) => {
     const { periodData } = props
-    const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
     const confirm = useConfirm();
 
     const handleDeleteData = async (id: number) => {
@@ -36,19 +34,6 @@ const PeriodProductTableData = (props: IPeriodProductTableDataProps) => {
 
     return (
         <>
-            <CustomButton
-                sx={{ mt: 2 }}
-                startIcon={<IconPlus />}
-                color="success"
-                size='small'
-                disableElevation
-                variant="contained"
-                onClick={() => {
-                    setShowModalCreate(true);
-                }}
-            >
-                Thêm sản phẩm cho sự kiện
-            </CustomButton>
             <Table
                 aria-label="simple table"
                 sx={{
@@ -131,12 +116,6 @@ const PeriodProductTableData = (props: IPeriodProductTableDataProps) => {
                     )}
                 </TableBody>
             </Table>
-            {/* Modal  */}
-            <AddProductEventModal
-                periodId={periodData.id}
-                showModalCreate={showModalCreate}
-                setShowModalCreate={setShowModalCreate}
-            />
         </>
     )
 }

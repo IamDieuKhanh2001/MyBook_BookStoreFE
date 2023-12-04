@@ -60,9 +60,9 @@ function ClientNavBar() {
                         </div>
                     </div>
                 </nav>
-                {/* {!session?.user.userInfo.is_email_verified && (
+                {session?.user.userInfo.is_email_verified === 0 && (
                     <AlertConfirmEmail emailAddress={session?.user.userInfo.email} />
-                )} */}
+                )}
             </div>
             {/* Navbar End */}
         </>

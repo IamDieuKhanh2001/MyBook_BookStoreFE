@@ -18,7 +18,7 @@ interface FormChangePasswordValues {
   retypePassword: string;
 }
 const EditInfoAccountPage = () => {
-  const [openChangePassword, setOpenChangePassword] = useState(true)
+  const [openChangePassword, setOpenChangePassword] = useState(false)
 
   return (
     <>

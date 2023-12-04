@@ -172,12 +172,35 @@ const useAPIFlashSale = () => {
         }
     }
 
+    const addProductToHour = async (
+        flashSaleHourId: number,
+        isbnCode: string,
+    ) => {
+        try {
+            const session = await getSession();
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
+            const url = `${URL_PREFIX}/hour/add-product`
+            const body = {
+                flash_sale_hour_id: flashSaleHourId,
+                isbn_code: isbnCode,
+            };
+            const response = await axiosAuth.post(url, body, { headers })
+            return response
+        }
+        catch (e: any) {
+            throw e
+        }
+    }
+
     return {
         getFlashSaleDayListPaginated,
         createNewFlashSaleEvent,
         createNewFlashSalePeriod,
         getFlashSalePeriods,
         getFlashSalePeriodDetail,
+        addProductToHour,
     }
 }
 

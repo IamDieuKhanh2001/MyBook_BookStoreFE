@@ -2,7 +2,11 @@ import React from 'react'
 import styles from './FlashSalePeriods.module.scss'
 import FlashSalePeriodItem from './FlashSalePeriodItem/FlashSalePeriodItem'
 
-const FlashSalePeriods = () => {
+interface IFlashSalePeriodsProps {
+    periodIdActive: number
+    setPeriodIdActive: React.Dispatch<React.SetStateAction<number>>
+}
+const FlashSalePeriods = (props : IFlashSalePeriodsProps) => {
     return (
         <div className={`${styles.flashSalePeriods} row g-0`}>
             <FlashSalePeriodItem

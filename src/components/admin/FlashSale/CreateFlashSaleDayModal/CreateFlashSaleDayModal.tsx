@@ -110,6 +110,7 @@ const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
                                         onChangeEvent={
                                             (value: any) => setFieldValue('eventDate', handleChangeDateFormat(value))
                                         }
+                                        disablePast={true}
                                     />
                                     {errors.eventDate && touched.eventDate && (
                                         <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
