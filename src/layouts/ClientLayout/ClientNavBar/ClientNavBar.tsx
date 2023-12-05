@@ -54,7 +54,6 @@ function ClientNavBar() {
             }
         }
         handleCallCHeckMail()
-        console.log(session)
     }, [session])
 
     return (

@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './FlashSaleHeader.module.scss'
 import Link from 'next/link'
 import useCountdown from '@/lib/hooks/utils/useCountDown'
+import { convertMillisecondsToHours, convertMillisecondsToMinutes, convertMillisecondsToSeconds } from '@/lib/utils/DateTimeUtils'
 
 interface FlashSaleHeaderProps {
     initialHoursStart?: number
@@ -13,8 +14,7 @@ interface FlashSaleHeaderProps {
     initialSecondEnd?: number
 }
 const FlashSaleHeader = (props: FlashSaleHeaderProps) => {
-    const [isStarted, setIsStart] = React.useState<boolean>()
-    let dateTimeNow = new Date();
+    const [isStarted, setIsStarted] = React.useState<boolean>()
     const {
         initialHoursStart = 0,
         initialMinutesStart = 0,
@@ -23,45 +23,43 @@ const FlashSaleHeader = (props: FlashSaleHeaderProps) => {
         initialMinutesEnd = 0,
         initialSecondEnd = 0,
     } = props
+    const startTime = new Date();
+    const endTime = new Date();
+    let dateTimeNow = new Date();
+    startTime.setHours(initialHoursStart, initialMinutesStart, initialSecondsStart);
+    endTime.setHours(initialHoursEnd, initialMinutesEnd, initialSecondEnd);
+    const timeDifferenceToEnd = endTime.getTime() - dateTimeNow.getTime();
+    const timeDifferenceToStart = startTime.getTime() - dateTimeNow.getTime();
+
+
     const { hours: hoursStart, minutes: minutesStart, seconds: secondsStart } = useCountdown(
-        Math.abs(initialHoursStart - dateTimeNow.getHours()),
-        Math.abs(initialMinutesStart - dateTimeNow.getMinutes()),
-        Math.abs(initialSecondsStart - dateTimeNow.getSeconds())
+        convertMillisecondsToHours(timeDifferenceToStart),
+        convertMillisecondsToMinutes(timeDifferenceToStart),
+        convertMillisecondsToSeconds(timeDifferenceToStart)
     );
     const { hours: hoursEnd, minutes: minutesEnd, seconds: secondsEnd } = useCountdown(
-        Math.abs(initialHoursEnd - dateTimeNow.getHours()),
-        Math.abs(initialMinutesEnd - dateTimeNow.getMinutes()),
-        Math.abs(initialSecondEnd - dateTimeNow.getSeconds())
+        convertMillisecondsToHours(timeDifferenceToEnd),
+        convertMillisecondsToMinutes(timeDifferenceToEnd),
+        convertMillisecondsToSeconds(timeDifferenceToEnd)
     );
 
-    const isWithinTimeRange = (start: string, end: string): boolean => {
-        const now = new Date();
-        const startTime = new Date();
-        const endTime = new Date();
-      
-        // Parse giờ và phút từ chuỗi start và end
-        const [startHour, startMinute] = start.split(':').map(Number);
-        const [endHour, endMinute] = end.split(':').map(Number);
-      
-        startTime.setHours(startHour, startMinute, 0); // Thiết lập thời gian bắt đầu
-        endTime.setHours(endHour, endMinute, 59); // Thiết lập thời gian kết thúc (lấy phút cuối cùng)
-      
-        return now >= startTime && now <= endTime;
-      }
-
     React.useEffect(() => {
-        console.log(props)
-        let currentHours = dateTimeNow.getHours()
-        let currentMinutes = dateTimeNow.getMinutes()
-        console.log(currentHours)
-        console.log(currentMinutes)
         const startTime = new Date();
         startTime.setHours(initialHoursStart, initialMinutesStart, initialSecondsStart);
         const endTime = new Date();
         endTime.setHours(initialHoursEnd, initialMinutesEnd, initialSecondEnd);
+        if (dateTimeNow.getTime() > endTime.getTime()) {
+            return
+        }
+        if (dateTimeNow.getTime() >= startTime.getTime() && dateTimeNow.getTime() <= endTime.getTime()) {
+            console.log('In sale')
+            setIsStarted(true)
+        } else {
+            console.log('not sale')
+            setIsStarted(false)
+        }
 
-
-    }, [])
+    }, [setIsStarted])
 
     React.useEffect(() => {
         console.log(isStarted)
@@ -85,7 +83,7 @@ const FlashSaleHeader = (props: FlashSaleHeaderProps) => {
                 <span>
                     <div className={styles.split}></div>
                 </span>
-                {isStarted && (
+                {isStarted !== undefined && (
                     <>
                         <span className={styles.flashSalePageCountDownLabel}>
                             {isStarted === true ? "Kết thúc trong" : "Bắt đầu lúc"}
