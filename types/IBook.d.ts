@@ -4,6 +4,7 @@ interface IBook {
   id: number
   isbn_code: string
   name: string
+  slug: string
   price: number
   quantity: number
   desc: string
@@ -17,4 +18,10 @@ interface IBook {
   language: IBookLanguage
   provider: IProvider
   publisher: IPublisher
+  flash_sale_info?: {
+    is_flash_sale: boolean,
+    original_price: number,
+    discount_percent: number,
+    price_after_discount: number,
+  }
 }

@@ -1,7 +1,7 @@
-'use client'
+
 import React from 'react'
 import useAxiosAuth from '../utils/useAxiosAuth'
-import { getSession } from 'next-auth/react'
+import { getSession, useSession } from 'next-auth/react'
 import useSWR from 'swr'
 
 const useAPIUserCart = () => {
@@ -9,9 +9,9 @@ const useAPIUserCart = () => {
     const axiosAuth = useAxiosAuth()
     //API get lang list
     const getMyCartList = () => {
+        const { data: session } = useSession();
         const fetcher = async (url: string) => {
             try {
-                const session = await getSession();
                 const headers = {
                     Authorization: `Bearer ${session?.user.jwtToken}`,
                 }
@@ -26,7 +26,7 @@ const useAPIUserCart = () => {
 
         const { data, mutate, isLoading, error } = useSWR(
             `${URL_PREFIX}`,
-            fetcher,
+            session ? fetcher : null,
             {
                 revalidateOnReconnect: false,
             }

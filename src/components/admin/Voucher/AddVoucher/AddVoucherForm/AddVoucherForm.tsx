@@ -61,7 +61,7 @@ const AddVoucherForm = () => {
         requireOrderMinPrice: Yup.number()
             .typeError('*Giá tối thiểu phải là số, không chứa chữ cái A-Z, a-z, các kí hiệu đặc biệt')
             .min(0, '*Giá tối thiểu không được âm')
-            .required('*Phần trăm giảm giá không được để trống'),
+            .required('*Giá tối thiểu không được để trống'),
         discountPercentage: Yup.number()
             .typeError('*Phần trăm giảm giá là số, không chứa chữ cái A-Z, a-z, các kí hiệu đặc biệt')
             .min(0, '*Phần trăm giảm giá không được âm')
@@ -108,7 +108,7 @@ const AddVoucherForm = () => {
                 userEmail,
                 voucherCode
             } = values
-            switch (values.voucherType) {
+            switch (voucherType) {
                 case 'General': {
                     toast.success("Save general")
                     await createVoucherGeneral(

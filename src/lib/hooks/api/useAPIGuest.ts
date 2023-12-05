@@ -3,6 +3,7 @@ import useAxiosAuth from '../utils/useAxiosAuth'
 import useSWRInfinite from 'swr/infinite';
 import { IBook } from '../../../../types/IBook';
 import useSWR from 'swr';
+import { IFlashSaleEventDay } from '../../../../types/IFlashSaleEventDay';
 
 const useAPIGuest = () => {
     const axiosAuth = useAxiosAuth()
@@ -365,6 +366,76 @@ const useAPIGuest = () => {
         }
     }
 
+    const getProductCommentPaginated = (isbnCode: string, limit: string = '5') => {
+        const getKey = (pageIndex: number, previousPageData: any) => {
+            if (previousPageData && !previousPageData.length) {
+                // Nếu trang trước đã trả về một trang trống, không cần gửi thêm yêu cầu
+                return null;
+            }
+            const params = new URLSearchParams({
+                page: (pageIndex + 1).toString(),
+                limit: limit,
+            });
+            return `${URL_PREFIX}/book/comment/${isbnCode}?${params.toString()}`;
+        };
+        const fetcher = async (url: string) => {
+            try {
+                const response = await axiosAuth.get(url);
+                return response.data.data;
+            } catch (error) {
+                console.error('Lỗi khi fetch:', error);
+                return Promise.reject(error); // Trả về một Promise bị từ chối
+            }
+        }
+        const { data, size, setSize, error, isLoading, mutate } = useSWRInfinite(
+            getKey,
+            fetcher
+        )
+        const paginatedData: IProductComment[] = data?.flat() ?? []
+        const isReachedEnd = data && data[data.length - 1]?.length < limit
+
+        return {
+            paginatedData,
+            isReachedEnd,
+            size,
+            setSize,
+            mutate,
+            isLoading,
+            error,
+        }
+    }
+
+    //flash sale 
+    const getFlashSaleToday = () => {
+        const fetcher = async (url: string) => {
+            try {
+                const response = await axiosAuth.get(url);
+                return response;
+            }
+            catch (error) {
+                console.error('Lỗi khi fetch:', error);
+                return Promise.reject(error); // Trả về một Promise bị từ chối            }
+            }
+        }
+
+        const { data, mutate, isLoading, error } = useSWR(
+            `${URL_PREFIX}/flash-sale/today/accessable-periods`,
+            fetcher,
+            {
+                revalidateOnReconnect: false,
+            }
+        )
+
+        const flashSaleDayData: IFlashSaleEventDay = data?.data ?? {}
+        return {
+            data: flashSaleDayData ?? {},
+            mutate: mutate,
+            isLoading: !error && !data,
+            error: error,
+        }
+    }
+
+
     return {
         getBookFilterPaginated,
         getBookDetail,
@@ -376,6 +447,8 @@ const useAPIGuest = () => {
         getPublisherListPaginated,
         getAuthorListPaginated,
         getBookSuggestion,
+        getProductCommentPaginated,
+        getFlashSaleToday,
     }
 }
 

@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import OrderDetailTable from '@/components/admin/Order/OrderDetailTable/OrderDetailTable';
 import OrderProductItem from '@/components/admin/Order/OrderProductItem/OrderProductItem';
 import useAPIOrder from '@/lib/hooks/api/useAPIOrder';
+import OrderReview from '@/components/admin/Order/OrderReview/OrderReview';
 
 interface IOrderDetailPageProps {
     params: {
@@ -51,6 +52,7 @@ const OrderDetailPage = (props: IOrderDetailPageProps) => {
                                 )}
                             </Box>
                         </DashboardCard>
+                        <OrderReview />
                     </Grid>
                     {!error && !isLoading && (
                         <Grid item xs={12} lg={6}>

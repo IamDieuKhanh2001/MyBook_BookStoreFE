@@ -21,8 +21,6 @@ const ProductDetail = (props: IProductDetailProps) => {
     const { data: product, error, isLoading } = getBookDetail(isbnCode)
     const { mutate: mutateCartList } = getMyCartList()
     const [quantity, setQuantity] = useState(1)
-    const initialHours = 5; // Số giờ ban đầu
-    const initialMinutes = 30; // Số phút ban đầu
 
     const handleIncreaseQuantity = () => {
         setQuantity((quantity) => (quantity + 1))
@@ -81,17 +79,34 @@ const ProductDetail = (props: IProductDetailProps) => {
                                 </div>
                                 <small className="pt-1">(99 Reviews)</small>
                             </div>
-                            <FlashSaleCountDown
-                                initialHours={initialHours}
-                                initialMinutes={initialMinutes}
-                                numProductSold={4}
-                                numProductTotal={10}
-                            />
-                            <h2>
+                            {product.flash_sale_info && (
+                                <FlashSaleCountDown
+                                    initialHours={5}
+                                    initialMinutes={30}
+                                    initialSeconds={30}
+                                    numProductSold={4}
+                                    numProductTotal={10}
+                                />
+                            )}
+                            <h2 className='d-flex align-items-center'>
                                 {/* <span className="text-body text-decoration-line-through me-2">30.000</span> */}
                                 <span className="text-primary me-1">
-                                    {product.price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                    {product.flash_sale_info ? (
+                                        product.flash_sale_info.price_after_discount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+                                    ) : (
+                                        product.price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+                                    )}
                                 </span>
+                                <span className="text-decoration-line-through me-1">
+                                    {product.flash_sale_info && (
+                                        product.flash_sale_info.original_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
+                                    )}
+                                </span>
+                                {product.flash_sale_info && (
+                                    <span className={styles.discountPercent}>
+                                        -{product.flash_sale_info.discount_percent}%
+                                    </span>
+                                )}
                             </h2>
                             <p><i className="fa fa-check text-primary me-3" />Đổi trả trong vòng 7 ngày</p>
                             <p><i className="fa fa-check text-primary me-3" />Cam kết sản phẩm chính hãng</p>
