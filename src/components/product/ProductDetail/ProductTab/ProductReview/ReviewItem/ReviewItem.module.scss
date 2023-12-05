@@ -1,9 +1,26 @@
 .media {
     display: flex;
     align-items: flex-start;
-    
+    position: relative;
+
     .mediaBody {
         flex: 1;
         padding-left: 10px;
+    }
+
+    .btnMoreAction {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        .dropdownToggle {
+            background-color: transparent;
+            border: 0;
+            opacity: 0.5;
+            &::after {
+                display: none;
+            }
+        }
     }
 }
