@@ -21,8 +21,6 @@ const ProductDetail = (props: IProductDetailProps) => {
     const { data: product, error, isLoading } = getBookDetail(isbnCode)
     const { mutate: mutateCartList } = getMyCartList()
     const [quantity, setQuantity] = useState(1)
-    const initialHours = 5; // Số giờ ban đầu
-    const initialMinutes = 30; // Số phút ban đầu
 
     const handleIncreaseQuantity = () => {
         setQuantity((quantity) => (quantity + 1))
@@ -83,8 +81,9 @@ const ProductDetail = (props: IProductDetailProps) => {
                             </div>
                             {product.flash_sale_info && (
                                 <FlashSaleCountDown
-                                    initialHours={initialHours}
-                                    initialMinutes={initialMinutes}
+                                    initialHours={5}
+                                    initialMinutes={30}
+                                    initialSeconds={30}
                                     numProductSold={4}
                                     numProductTotal={10}
                                 />

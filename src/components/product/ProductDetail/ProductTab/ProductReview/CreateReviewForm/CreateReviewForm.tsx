@@ -4,20 +4,21 @@ import styles from './CreateReviewForm.module.scss'
 import { errorHandler } from '@/lib/utils/ErrorHandler';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-import { Field, Form, Formik, ErrorMessage } from 'formik';
+import { Field, Form, Formik, ErrorMessage, FormikHelpers } from 'formik';
+import { KeyedMutator } from 'swr';
+import useAPIProductComment from '@/lib/hooks/api/useAPIProductComment';
 
 interface FormValues {
     content: string;
 }
 interface ICreateReviewFormProps {
-
-}interface ICreateReviewFormProps {
     isbnCode: string
+    mutate: KeyedMutator<any[]>
 }
 const CreateReviewForm = (props: ICreateReviewFormProps) => {
-    const { isbnCode } = props
-
+    const { isbnCode, mutate } = props
     const [rating, setRating] = useState(1);
+    const { createNewComment } = useAPIProductComment()
 
     const handleStarHover = (starValue: number) => {
         // Xử lý khi người dùng hover vào sao
@@ -39,11 +40,11 @@ const CreateReviewForm = (props: ICreateReviewFormProps) => {
             .required("*Bình luận không được để trống"),
     });
 
-    const handleSubmit = async (values: FormValues) => {
+    const handleSubmit = async (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
         try {
-            console.log(isbnCode)
-            console.log(values)
-            console.log(rating)
+            await createNewComment(isbnCode, rating, values.content)
+            mutate()
+            formikHelpers.resetForm()
             toast.success("Gửi bình luận thành công")
         }
         catch (e) {
@@ -73,10 +74,10 @@ const CreateReviewForm = (props: ICreateReviewFormProps) => {
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
-                {({ values, setFieldValue, handleChange, errors, touched, isSubmitting }) => (
+                {({ values, setFieldValue, handleChange, isSubmitting }) => (
                     <Form>
                         <div className="form-group">
-                            <label htmlFor="message">Bình luận khi đã đọc sách*</label>
+                            <label htmlFor="content">Bình luận khi đã đọc sách*</label>
                             <Field
                                 as="textarea"
                                 id="content"

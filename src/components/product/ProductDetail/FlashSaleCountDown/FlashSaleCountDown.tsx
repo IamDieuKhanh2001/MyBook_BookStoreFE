@@ -1,18 +1,19 @@
 'use client'
 import React from 'react'
 import styles from './FlashSaleCountDown.module.scss'
-import useCountdown from '@/lib/hooks/utils/useCountDown';
+import useCountdown from '@/lib/hooks/utils/useCountDown'
 
 interface FlashSaleCountDownProps {
     initialHours?: number
     initialMinutes?: number
+    initialSeconds?: number;
     numProductTotal?: number
     numProductSold?: number
 }
 
 const FlashSaleCountDown = (props: FlashSaleCountDownProps) => {
-    const {initialHours  = 0, initialMinutes = 0, numProductTotal = 0, numProductSold = 0} = props
-    const { hours, minutes, seconds } = useCountdown(initialHours, initialMinutes);
+    const {initialHours  = 0, initialMinutes = 0, initialSeconds = 0, numProductTotal = 0, numProductSold = 0} = props
+    const { hours, minutes, seconds } = useCountdown(initialHours, initialMinutes, initialSeconds);
     const percentageSold = (numProductSold / numProductTotal) * 100;
 
     return (

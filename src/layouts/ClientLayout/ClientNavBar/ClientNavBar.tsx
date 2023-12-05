@@ -10,17 +10,18 @@ import TopBar from './TopBar/TopBar';
 import CartDropdown from './CartDropdown/CartDropdown';
 import UserDropdown from './UserDropdown/UserDropdown';
 import SearchBarInput from './SearchBarInput/SearchBarInput';
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import AlertConfirmEmail from '../AlertConfirmEmail/AlertConfirmEmail';
 import useAPIAuthentication from '@/lib/hooks/api/useAPIAuthentication';
 
 function ClientNavBar() {
-    const { data: session, update } = useSession();
+    const { data: session, update, status } = useSession();
     const { checkIsVerifiedEmail } = useAPIAuthentication()
     const [isVerified, setIsVerified] = React.useState(true)
 
     const updateSessionVerifyStatus = async () => {
         try {
+            console.log("update sesssion")
             await update({
                 ...session,
                 user: {
@@ -31,7 +32,6 @@ function ClientNavBar() {
                     }
                 }
             });
-            console.log("update sesssion")
         } catch (e) {
             console.log("Can not update session")
         }
@@ -53,8 +53,11 @@ function ClientNavBar() {
                 }
             }
         }
-        handleCallCHeckMail()
-    }, [session])
+        if (status === 'authenticated' && session) {
+            console.log(session)
+            handleCallCHeckMail()
+        }
+    }, [session, status])
 
     return (
         <>

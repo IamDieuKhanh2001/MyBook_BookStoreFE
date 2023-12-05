@@ -7,19 +7,27 @@ import LoadingReviewList from './LoadingReviewList/LoadingReviewList';
 import { useInView } from 'react-intersection-observer';
 import { useConfirm } from 'material-ui-confirm';
 import { toast } from 'react-toastify';
+import useAPIGuest from '@/lib/hooks/api/useAPIGuest';
+import { useSession } from 'next-auth/react';
+import useAPIProductComment from '@/lib/hooks/api/useAPIProductComment';
+import { errorHandler } from '@/lib/utils/ErrorHandler';
 
 interface IProductReviewProps {
     isbnCode: string
 }
 const ProductReview = (props: IProductReviewProps) => {
+    const { data: session } = useSession()
     const { isbnCode } = props
     const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
     const confirm = useConfirm();
+    const { getProductCommentPaginated } = useAPIGuest()
+    const { paginatedData: commentPaginatedData, error, isReachedEnd, mutate, setSize } = getProductCommentPaginated(isbnCode)
+    const { deleteComment } = useAPIProductComment()
 
     useEffect(() => {
-        // if (inView) {
-        //   setSize((previousSize) => previousSize + 1)
-        // }
+        if (inView) {
+            setSize((previousSize) => previousSize + 1)
+        }
     }, [inView]);
 
     const handleDeleteComment = async (id: number) => {
@@ -29,11 +37,12 @@ const ProductReview = (props: IProductReviewProps) => {
         })
             .then(async () => {
                 try {
-
+                    await deleteComment(id)
+                    mutate()
                     toast.success("Delete comment complete id: " + id)
                 }
                 catch (e) {
-                    toast.error("Something when wrong, please try again")
+                    errorHandler(e)
                 }
             })
     }
@@ -43,11 +52,17 @@ const ProductReview = (props: IProductReviewProps) => {
             <div className="row">
                 <div className="col-12 col-lg-6">
                     <h4 className="my-3">1 review for "Dummy Book Tilte"</h4>
-                    <ReviewItem handleDeleteComment={handleDeleteComment} />
-                    <ReviewItem handleDeleteComment={handleDeleteComment} />
-                    <LoadingReviewList loadingRef={ref} />
+                    {commentPaginatedData.map((commnent) => (
+                        <ReviewItem
+                            key={commnent.id}
+                            data={commnent}
+                            handleDeleteComment={handleDeleteComment}
+                            mutate={mutate}
+                        />
+                    ))}
+                    {!isReachedEnd && <LoadingReviewList loadingRef={ref} />}
                 </div>
-                <CreateReviewForm isbnCode={isbnCode} />
+                {session && (<CreateReviewForm isbnCode={isbnCode} mutate={mutate} />)}
             </div>
         </>
     )

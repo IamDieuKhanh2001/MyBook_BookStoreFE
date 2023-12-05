@@ -89,7 +89,6 @@ const useAxiosAuth = () => {
                     handle401Error(error)
                     return Promise.reject(error); //reject other error 401
                 }
-                console.log(">>>>>>other error")
                 return Promise.reject(error); //reject other error 5xx
             }
         );
