@@ -4,25 +4,19 @@ import styles from './FlashSaleHeader.module.scss'
 import Link from 'next/link'
 import useCountdown from '@/lib/hooks/utils/useCountDown'
 import { convertMillisecondsToHours, convertMillisecondsToMinutes, convertMillisecondsToSeconds } from '@/lib/utils/DateTimeUtils'
+import { IFlashSalePeriod } from '../../../../../types/IFlashSalePeriod'
 
 interface FlashSaleHeaderProps {
-    initialHoursStart?: number
-    initialMinutesStart?: number
-    initialSecondsStart?: number
-    initialHoursEnd?: number
-    initialMinutesEnd?: number
-    initialSecondEnd?: number
+    periodActive: IFlashSalePeriod
 }
 const FlashSaleHeader = (props: FlashSaleHeaderProps) => {
     const [isStarted, setIsStarted] = React.useState<boolean>()
     const {
-        initialHoursStart = 0,
-        initialMinutesStart = 0,
-        initialSecondsStart = 0,
-        initialHoursEnd = 0,
-        initialMinutesEnd = 0,
-        initialSecondEnd = 0,
+        periodActive,
     } = props
+    const [initialHoursStart, initialMinutesStart, initialSecondsStart] = periodActive.time_start.split(':').map(Number);
+    const [initialHoursEnd, initialMinutesEnd, initialSecondEnd] = periodActive.time_end.split(':').map(Number);
+
     const startTime = new Date();
     const endTime = new Date();
     let dateTimeNow = new Date();
@@ -30,7 +24,8 @@ const FlashSaleHeader = (props: FlashSaleHeaderProps) => {
     endTime.setHours(initialHoursEnd, initialMinutesEnd, initialSecondEnd);
     const timeDifferenceToEnd = endTime.getTime() - dateTimeNow.getTime();
     const timeDifferenceToStart = startTime.getTime() - dateTimeNow.getTime();
-
+    console.log("timeDifferenceToStart " + timeDifferenceToStart)
+    console.log("timeDifferenceToEnd " + timeDifferenceToEnd)
 
     const { hours: hoursStart, minutes: minutesStart, seconds: secondsStart } = useCountdown(
         convertMillisecondsToHours(timeDifferenceToStart),
@@ -44,11 +39,8 @@ const FlashSaleHeader = (props: FlashSaleHeaderProps) => {
     );
 
     React.useEffect(() => {
-        const startTime = new Date();
-        startTime.setHours(initialHoursStart, initialMinutesStart, initialSecondsStart);
-        const endTime = new Date();
-        endTime.setHours(initialHoursEnd, initialMinutesEnd, initialSecondEnd);
         if (dateTimeNow.getTime() > endTime.getTime()) {
+            setIsStarted(undefined)
             return
         }
         if (dateTimeNow.getTime() >= startTime.getTime() && dateTimeNow.getTime() <= endTime.getTime()) {
@@ -58,12 +50,12 @@ const FlashSaleHeader = (props: FlashSaleHeaderProps) => {
             console.log('not sale')
             setIsStarted(false)
         }
-
-    }, [setIsStarted])
-
-    React.useEffect(() => {
         console.log(isStarted)
-    }, [isStarted])
+    }, [periodActive])
+
+    // React.useEffect(() => {
+    //     console.log(isStarted)
+    // }, [isStarted])
 
     return (
         <>
