@@ -3,6 +3,7 @@ import styles from './FlashSaleProduct.module.scss'
 import Link from 'next/link'
 import StickerChayHang from '@/components/product/ProductList/ProductItem/StickerChayHang/StickerChayHang'
 import { IFlashSaleBook } from '../../../../../../types/IFlashSaleBook'
+import { truncateText } from '@/lib/utils/TextUtils'
 
 interface IFlashSaleProductProps {
     data: IFlashSaleBook
@@ -43,7 +44,11 @@ const FlashSaleProduct = (props: IFlashSaleProductProps) => {
                     </div>
                 </div>
                 <div className="px-4 py-2">
-                    <a className="d-block h6 mb-2" href="">{data.product_info.name}</a>
+                    <Link className="d-block h6 mb-1" href="" style={{minHeight: '38px'}}>
+                        {
+                            truncateText(data.product_info.name, 40)
+                        }
+                    </Link>
                     <div className='d-flex flex-column'>
                         <span className="text-warning fw-bold me-1">{data.product_info.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                         <span className="text-body text-decoration-line-through">$29.00 (cứng)</span>

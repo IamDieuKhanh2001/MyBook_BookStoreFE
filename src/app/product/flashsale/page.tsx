@@ -1,7 +1,7 @@
 'use client'
 
 import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './page.module.scss'
 import FlashSalePageBanner from '@/components/product/FlashSale/FlashSalePageBanner/FlashSalePageBanner'
 import FlashSalePeriods from '@/components/product/FlashSale/FlashSalePeriods/FlashSalePeriods'
@@ -10,7 +10,8 @@ import useAPIGuest from '@/lib/hooks/api/useAPIGuest'
 import dynamic from 'next/dynamic'
 import { IFlashSalePeriod } from '../../../../types/IFlashSalePeriod'
 import { useRouter } from 'next/navigation'
-const FlashSaleHeader = dynamic(() => import('@/components/product/FlashSale/FlashSaleHeader/FlashSaleHeader'), { ssr: false })
+import { convertMillisecondsToHours, convertMillisecondsToMinutes, convertMillisecondsToSeconds } from '@/lib/utils/DateTimeUtils'
+import FlashSaleHeader from '@/components/product/FlashSale/FlashSaleHeader/FlashSaleHeader'
 
 const FlashSalePage = () => {
   const [periodActive, setPeriodActive] = useState<IFlashSalePeriod>()
@@ -28,6 +29,65 @@ const FlashSalePage = () => {
   //   console.log(periodActive)
   // }, [periodActive])
 
+  const renderFlashSaleHeader = () => {
+    console.log(periodActive)
+    if (!periodActive) {
+      return <></>
+    }
+    let time_start = '12:30:00'
+    let time_end = '12:59:00'
+    // const [initialHoursStart, initialMinutesStart, initialSecondsStart] = time_start.split(':').map(Number);
+    // const [initialHoursEnd, initialMinutesEnd, initialSecondEnd] = time_end.split(':').map(Number);
+    const [initialHoursStart, initialMinutesStart, initialSecondsStart] = periodActive.time_start.split(':').map(Number);
+    const [initialHoursEnd, initialMinutesEnd, initialSecondEnd] = periodActive.time_end.split(':').map(Number);
+    const startTime = new Date();
+    const endTime = new Date();
+    let dateTimeNow = new Date();
+    startTime.setHours(initialHoursStart, initialMinutesStart, initialSecondsStart);
+    endTime.setHours(initialHoursEnd, initialMinutesEnd, initialSecondEnd);
+    const timeDifferenceToEnd = endTime.getTime() - dateTimeNow.getTime();
+    const timeDifferenceToStart = startTime.getTime() - dateTimeNow.getTime();
+    switch (true) {
+      case timeDifferenceToStart > 0:
+        console.log("timeDifferenceToStart " + timeDifferenceToStart)
+        return (
+          <FlashSaleHeader
+            flashSaleLabel='Sẽ bắt đầu trong'
+            initialHours={convertMillisecondsToHours(timeDifferenceToStart)}
+            initialMinutes={convertMillisecondsToMinutes(timeDifferenceToStart)}
+            initialSeconds={convertMillisecondsToSeconds(timeDifferenceToStart)}
+          />
+        )
+      case timeDifferenceToEnd > 0:
+        console.log("timeDifferenceToEnd " + timeDifferenceToEnd)
+        return (
+          <FlashSaleHeader
+            flashSaleLabel='Kết thúc trong'
+            initialHours={convertMillisecondsToHours(timeDifferenceToEnd)}
+            initialMinutes={convertMillisecondsToMinutes(timeDifferenceToEnd)}
+            initialSeconds={convertMillisecondsToSeconds(timeDifferenceToEnd)}
+          />
+        )
+      default:
+        console.log("k gia tri")
+        return (
+          <FlashSaleHeader
+            flashSaleLabel='Khung giờ sự kiện đã kết thúc'
+            initialHours={0}
+            initialMinutes={0}
+            initialSeconds={0}
+          />
+        )
+    }
+  }
+
+  useEffect(() => {
+    // Gọi lại renderFlashSaleHeader khi periodActive thay đổi
+    if (periodActive) {
+      renderFlashSaleHeader();
+    }
+  }, [periodActive]); // Theo dõi sự thay đổi của periodActive
+
   return (
     <>
       <Breadcrumb />
@@ -36,11 +96,7 @@ const FlashSalePage = () => {
           <>
             <FlashSalePageBanner />
             <div className={styles.flashSalePage}>
-              {periodActive && (
-                <FlashSaleHeader
-                  periodActive={periodActive}
-                />
-              )}
+              {periodActive && renderFlashSaleHeader()}
               <FlashSalePeriods
                 periodActive={periodActive}
                 setPeriodActive={setPeriodActive}
@@ -49,7 +105,9 @@ const FlashSalePage = () => {
 
               <div className={styles.flashSalePageContent}>
                 <div className={styles.flashSalePagePeriodContent}>
-                  <FlashSalePeriodProducts flashSalePeriodId={47} />
+                  {flashSaleTodayData.hours.length > 0 && flashSaleTodayData.hours.map((period) => (
+                    <FlashSalePeriodProducts key={period.id} flashSalePeriodId={period.id} periodActive={periodActive} />
+                  ))}
                 </div>
               </div>
             </div>
