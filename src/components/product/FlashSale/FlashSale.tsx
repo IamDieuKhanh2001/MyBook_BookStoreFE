@@ -15,7 +15,7 @@ const FlashSale = () => {
                 </div>
                 <div className="col-12 text-center">
                     {/* Go to flash sale list page  */}
-                    <Link className="btn btn-primary rounded-pill py-3 px-5" href="">
+                    <Link className="btn btn-primary rounded-pill py-3 px-5" href="/product/flashsale">
                         Xem thêm
                     </Link>
                 </div>

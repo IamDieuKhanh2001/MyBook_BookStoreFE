@@ -438,7 +438,7 @@ const useAPIGuest = () => {
 
     const getFlashSaleProductPaginated = (
         periodId: number,
-        limit: string = '5',
+        limit: string = '4',
     ) => {
         const getKey = (pageIndex: number, previousPageData: any) => {
             if (previousPageData && !previousPageData.length) {
@@ -454,7 +454,7 @@ const useAPIGuest = () => {
         const fetcher = async (url: string) => {
             try {
                 const response = await axiosAuth.get(url);
-                return response.data;
+                return response.data.products;
             } catch (error) {
                 console.error('Lỗi khi fetch:', error);
                 return Promise.reject(error); // Trả về một Promise bị từ chối
