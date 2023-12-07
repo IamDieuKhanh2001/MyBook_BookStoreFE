@@ -34,10 +34,6 @@ const FlashSalePage = () => {
     if (!periodActive) {
       return <></>
     }
-    let time_start = '12:30:00'
-    let time_end = '12:59:00'
-    // const [initialHoursStart, initialMinutesStart, initialSecondsStart] = time_start.split(':').map(Number);
-    // const [initialHoursEnd, initialMinutesEnd, initialSecondEnd] = time_end.split(':').map(Number);
     const [initialHoursStart, initialMinutesStart, initialSecondsStart] = periodActive.time_start.split(':').map(Number);
     const [initialHoursEnd, initialMinutesEnd, initialSecondEnd] = periodActive.time_end.split(':').map(Number);
     const startTime = new Date();

@@ -5,17 +5,17 @@ import Link from 'next/link'
 import useCountdown from '@/lib/hooks/utils/useCountDown'
 
 interface FlashSaleHeaderProps {
-    initialHours: number
-    initialMinutes: number
-    initialSeconds: number
-    flashSaleLabel: string
+    initialHours?: number
+    initialMinutes?: number
+    initialSeconds?: number
+    flashSaleLabel?: string
 }
 const FlashSaleHeader = (props: FlashSaleHeaderProps) => {
     const {
-        initialHours,
-        initialMinutes,
-        initialSeconds,
-        flashSaleLabel,
+        initialHours = 0,
+        initialMinutes = 0,
+        initialSeconds = 0,
+        flashSaleLabel = 'unset label',
     } = props
 
     const { hours: hoursLeft, minutes: minutesLeft, seconds: secondsLeft } = useCountdown(
