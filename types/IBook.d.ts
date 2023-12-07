@@ -23,5 +23,13 @@ interface IBook {
     original_price: number,
     discount_percent: number,
     price_after_discount: number,
+    time_takes_place?: {
+      time_start: string,
+      time_end: string,
+    }
+    instock_info?: {
+      sold_number: number,
+      instock: number,
+    }
   }
 }

@@ -18,7 +18,7 @@ const FlashSalePeriodItem = (props: IFlashSalePeriodItemProps) => {
                     onClick={handleSetTabActive}
                 >
                     <div className={styles.time}>
-                        {timeStart}
+                        {timeStart.match(/\d{2}:\d{2}/)?.[0]}
                     </div>
                     <div className={styles.status}>
                         {onSaleStatus}

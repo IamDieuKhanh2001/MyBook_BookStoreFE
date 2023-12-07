@@ -52,7 +52,6 @@ const ReviewItem = (props: IReviewItemProps) => {
                                 ))}
                             </div>
                             <p>
-                                {data.id}
                                 {data.content}
                             </p>
                         </>

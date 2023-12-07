@@ -54,7 +54,7 @@ function ClientNavBar() {
             }
         }
         if (status === 'authenticated' && session) {
-            console.log(session)
+            // console.log(session)
             handleCallCHeckMail()
         }
     }, [session, status])

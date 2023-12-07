@@ -1,14 +1,20 @@
 'use client'
 import { useState, useEffect } from 'react';
 
-// initialHours: init time for countdown
-// initialMinutes: init minutes for countdown
 const useCountdown = (initialHours: number, initialMinutes: number, initialSeconds: number) => {
     const [time, setTime] = useState({
         hours: initialHours,
         minutes: initialMinutes,
         seconds: initialSeconds,
     });
+
+    useEffect(() => {
+        setTime({
+            hours: initialHours,
+            minutes: initialMinutes,
+            seconds: initialSeconds,
+        });
+    }, [initialHours, initialMinutes, initialSeconds]);
 
     useEffect(() => {
         let countdownInterval = setInterval(() => {

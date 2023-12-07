@@ -4,6 +4,7 @@ import useSWRInfinite from 'swr/infinite';
 import { IBook } from '../../../../types/IBook';
 import useSWR from 'swr';
 import { IFlashSaleEventDay } from '../../../../types/IFlashSaleEventDay';
+import { IFlashSaleBook } from '../../../../types/IFlashSaleBook';
 
 const useAPIGuest = () => {
     const axiosAuth = useAxiosAuth()
@@ -435,6 +436,47 @@ const useAPIGuest = () => {
         }
     }
 
+    const getFlashSaleProductPaginated = (
+        periodId: number,
+        limit: string = '4',
+    ) => {
+        const getKey = (pageIndex: number, previousPageData: any) => {
+            if (previousPageData && !previousPageData.length) {
+                // Nếu trang trước đã trả về một trang trống, không cần gửi thêm yêu cầu
+                return null;
+            }
+            const params = new URLSearchParams({
+                page: (pageIndex + 1).toString(),
+                limit: limit,
+            });
+            return `${URL_PREFIX}/flash-sale/hour/${periodId}?${params.toString()}`;
+        };
+        const fetcher = async (url: string) => {
+            try {
+                const response = await axiosAuth.get(url);
+                return response.data.products;
+            } catch (error) {
+                console.error('Lỗi khi fetch:', error);
+                return Promise.reject(error); // Trả về một Promise bị từ chối
+            }
+        }
+        const { data, size, setSize, error, isLoading, mutate } = useSWRInfinite(
+            getKey,
+            fetcher
+        )
+        const paginatedData: IFlashSaleBook[] = data?.flat() ?? []
+        const isReachedEnd = data && data[data.length - 1]?.length < limit
+
+        return {
+            paginatedData,
+            isReachedEnd,
+            size,
+            setSize,
+            mutate,
+            isLoading,
+            error,
+        }
+    }
 
     return {
         getBookFilterPaginated,
@@ -449,6 +491,7 @@ const useAPIGuest = () => {
         getBookSuggestion,
         getProductCommentPaginated,
         getFlashSaleToday,
+        getFlashSaleProductPaginated,
     }
 }
 

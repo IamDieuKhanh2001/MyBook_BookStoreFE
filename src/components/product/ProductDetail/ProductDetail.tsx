@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import useAPIUserCart from '@/lib/hooks/api/useAPIUserCart'
 import { toast } from 'react-toastify'
 import { errorHandler } from '@/lib/utils/ErrorHandler'
+import { convertMillisecondsToHours, convertMillisecondsToMinutes, convertMillisecondsToSeconds } from '@/lib/utils/DateTimeUtils'
 
 interface IProductDetailProps {
     isbnCode: string
@@ -57,6 +58,37 @@ const ProductDetail = (props: IProductDetailProps) => {
             router.push('/404')
     }, [error])
 
+    const renderFlashSaleCountDown = () => {
+        if (!product.flash_sale_info?.time_takes_place) {
+          return <></>
+        }
+        const [initialHoursEnd, initialMinutesEnd, initialSecondEnd] = product.flash_sale_info.time_takes_place.time_end.split(':').map(Number);
+        const endTime = new Date();
+        let dateTimeNow = new Date();
+        endTime.setHours(initialHoursEnd, initialMinutesEnd, initialSecondEnd);
+        const timeDifferenceToEnd = endTime.getTime() - dateTimeNow.getTime();
+        switch (true) {
+          case timeDifferenceToEnd > 0:
+            return (
+              <FlashSaleCountDown
+                initialHours={convertMillisecondsToHours(timeDifferenceToEnd)}
+                initialMinutes={convertMillisecondsToMinutes(timeDifferenceToEnd)}
+                initialSeconds={convertMillisecondsToSeconds(timeDifferenceToEnd)}
+                numProductSold={product.flash_sale_info.instock_info?.sold_number}
+                numProductTotal={product.flash_sale_info.instock_info?.instock}
+              />
+            )
+          default:
+            return (
+              <FlashSaleCountDown
+                initialHours={0}
+                initialMinutes={0}
+                initialSeconds={0}
+              />
+            )
+        }
+      }
+
     return (
         <>
             <div className="container-xxl py-3 mt-2 section-container">
@@ -79,15 +111,7 @@ const ProductDetail = (props: IProductDetailProps) => {
                                 </div>
                                 <small className="pt-1">(99 Reviews)</small>
                             </div>
-                            {product.flash_sale_info && (
-                                <FlashSaleCountDown
-                                    initialHours={5}
-                                    initialMinutes={30}
-                                    initialSeconds={30}
-                                    numProductSold={4}
-                                    numProductTotal={10}
-                                />
-                            )}
+                            {renderFlashSaleCountDown()}
                             <h2 className='d-flex align-items-center'>
                                 {/* <span className="text-body text-decoration-line-through me-2">30.000</span> */}
                                 <span className="text-primary me-1">
