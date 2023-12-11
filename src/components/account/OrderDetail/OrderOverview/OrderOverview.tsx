@@ -6,6 +6,7 @@ import PaymentStatus from '@/enum/PaymentStatus'
 import BadgeOrderSuccess from './StatusBadge/BadgeOrderSuccess/BadgeOrderSuccess'
 import BadgeOrderUnpaid from './StatusBadge/BadgeOrderUnpaid/BadgeOrderUnpaid'
 import ReviewOrderModal from './ReviewOrderModal/ReviewOrderModal'
+import BadgeOrderPaid from './StatusBadge/BadgeOrderPaid/BadgeOrderPaid'
 
 interface IOrderOverviewProps {
     data: IOrder
@@ -22,13 +23,14 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                 <div>
                     {
                         data.status === PaymentStatus.PAID
-                            ? <BadgeOrderSuccess />
-                            :
-                            data.status === PaymentStatus.UNPAID
-                                ? <BadgeOrderUnpaid /> :
-                                data.status === PaymentStatus.CANCEL
-                                    ? <BadgeOrderCanceled /> :
-                                    <></>
+                            ? <BadgeOrderPaid />
+                            : data.status === PaymentStatus.UNPAID
+                                ? <BadgeOrderSuccess /> :
+                                data.status === PaymentStatus.UNPAID
+                                    ? <BadgeOrderUnpaid /> :
+                                    data.status === PaymentStatus.CANCEL
+                                        ? <BadgeOrderCanceled /> :
+                                        <></>
                     }
                     <div className={styles.orderViewId}>
                         <span>
@@ -74,7 +76,7 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                 </div>
                 <div className={styles.overviewBtns}>
                     <button className={styles.orderReceivedBtn}>
-                        Đặt hàng lại
+                        Xác nhận đã nhận hàng
                     </button>
                     <ReviewOrderModal orderId={data.id} />
                 </div>

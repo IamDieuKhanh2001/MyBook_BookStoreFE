@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styles from './SearchBarInput.module.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { productActions } from '@/redux/slices/ProductSlice';
@@ -18,6 +18,7 @@ const SearchBarInput = () => {
     const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("lg"));
     let timeout: NodeJS.Timeout | undefined;
     const [keywordRecommend, SetKeywordRecommend] = useState<string>('')
+    const [showSuggestions, setShowSuggestions] = useState(false);
 
     const handleSearch = () => {
         // Dispatch action để cập nhật trạng thái searchKeyword
@@ -42,16 +43,29 @@ const SearchBarInput = () => {
 
     const handleChangeKW = (e: any) => {
         SetKeyword(e.target.value)
+        setShowSuggestions(keyword !== '');
         // Sử dụng setTimeout để trì hoãn việc gọi setSearch một giây sau khi người dùng nhập
         clearTimeout(timeout);
         timeout = setTimeout(() => {
-            console.log("aaaaaaa")
             SetKeywordRecommend(e.target.value)
         }, 1000);
     }
 
+    // useEffect(() => {
+    //     console.log('setShowSuggestions: ', showSuggestions);
+    // }, [showSuggestions]);
+
     const { getBookSuggestion } = useAPIGuest()
     const { suggestData } = getBookSuggestion(keywordRecommend, '5')
+
+    const handleHideSuggestion = () => {
+         // hủy thành phần gợi ý từ khóa nếu người dùng nhấn bên ngoài component SearchFormSuggestion
+        setShowSuggestions(false)
+    }
+
+    const handleShowSuggestion = () => {
+        setShowSuggestions(true)
+    }
 
     return (
         <>
@@ -75,9 +89,11 @@ const SearchBarInput = () => {
                     </button>
                 </div>
                 {
-                    lgUp ? (
-                        suggestData.length > 0 && <SearchFormSuggestion suggestData={suggestData} />
-                    ) : (<></>)
+                    lgUp && suggestData.length > 0 && showSuggestions &&
+                    <SearchFormSuggestion
+                        suggestData={suggestData}
+                        handleHideSuggestion={handleHideSuggestion}
+                    />
                 }
             </div>
         </>

@@ -53,7 +53,7 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
           <IconMenu width="20" height="20" />
         </IconButton>
 
-        <IconButton
+        {/* <IconButton
           size="large"
           aria-label="show 11 new notifications"
           aria-controls="msgs-menu"
@@ -63,9 +63,9 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
           <Badge color="warning" badgeContent={2} max={99}>
             <IconBellRinging size="21" stroke="1.5" />
           </Badge>
-        </IconButton>
+        </IconButton> */}
 
-        <IconButton
+        {/* <IconButton
           size="large"
           aria-label="show 11 new notifications"
           color="inherit"
@@ -74,9 +74,9 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
           style={{ color: theme.palette.secondary.main }}
         >
           <IconSettings size="21" stroke="1.5" />
-        </IconButton>
+        </IconButton> */}
 
-        <IconButton
+        {/* <IconButton
           size="large"
           aria-label="show 11 new notifications"
           color="inherit"
@@ -87,11 +87,11 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
           <Badge color="warning" badgeContent={100} max={99}>
             <IconMail size="21" stroke="1.5" />
           </Badge>
-        </IconButton>
+        </IconButton> */}
 
         <Box flexGrow={1} />
         <Stack spacing={1} direction="row" alignItems="center">
-          <Button
+          {/* <Button
             startIcon={<IconBellRinging />}
             color="secondary"            
             size='small' disableElevation variant="contained" href="">
@@ -102,7 +102,7 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
           </Button>
           <Button size='small' variant="contained" disableElevation color="secondary" href="">
             Chức năng 3
-          </Button>
+          </Button> */}
           <DarkModeToggle />
           {session?.user && <Profile />}
         </Stack>

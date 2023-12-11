@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true,
+    reactStrictMode: false,
     modularizeImports: {
         '@mui/icons-material/?(((\\w*)?/?)*)': {
             transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}'

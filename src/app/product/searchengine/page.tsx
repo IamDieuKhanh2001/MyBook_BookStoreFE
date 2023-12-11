@@ -64,6 +64,7 @@ const ProductListAllPage = () => {
 
   useEffect(() => {
     return () => {
+      console.log("call cleanup")
       dispatch(productActions.updateKeyword(''))
     }
   }, [])
