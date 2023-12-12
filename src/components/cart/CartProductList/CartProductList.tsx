@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
 import Link from 'next/link'
 import CartEmptyAlert from './CartEmptyAlert/CartEmptyAlert'
+import { ICartItem } from '../../../../types/ICartItem'
 
 interface ICartProductListProps {
     list: ICartItem[]

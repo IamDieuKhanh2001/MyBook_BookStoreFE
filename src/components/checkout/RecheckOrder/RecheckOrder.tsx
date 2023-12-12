@@ -4,6 +4,7 @@ import React from 'react'
 import styles from './RecheckOrder.module.scss'
 import SectionTitle from '@/components/shared/sectionTitle/SectionTitle'
 import OrderItem from './OrderItem/OrderItem'
+import { ICartItem } from '../../../../types/ICartItem'
 
 interface IRecheckOrderProps {
     productOrderList: ICartItem[] | undefined;

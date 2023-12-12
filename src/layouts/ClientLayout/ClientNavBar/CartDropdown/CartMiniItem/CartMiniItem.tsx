@@ -2,6 +2,7 @@
 import React from 'react'
 import styles from './CartMiniItem.module.scss'
 import Link from 'next/link'
+import { ICartItem } from '../../../../../../types/ICartItem'
 
 interface ICartMiniItemProps {
     cartItemData: ICartItem
