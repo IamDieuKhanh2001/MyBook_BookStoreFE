@@ -45,11 +45,13 @@ const MonthlyEarnings = () => {
       theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
     },
   };
+
+  console.log(theme.palette.mode)
   const seriescolumnchart: any = [
     {
       name: '',
       color: secondary,
-      data: [25, 66, 20, 40, 12, 58, 20],
+      data: [25, 66, 20, 40, 12, 58, 20, 25, 301],
     },
   ];
 
