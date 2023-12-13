@@ -55,7 +55,7 @@ const FlashSaleSliderItem = (props: IFlashSaleSliderItemProps) => {
             <div className="px-4 py-2">
                 <Link className="d-block h6 mb-1" target='_blank' href={`/product/detail/${data.isbn_code}`} style={{ minHeight: '38px' }}>
                     {
-                        truncateText(data.product_info?.name, 20)
+                        truncateText(data.product_info?.name, 40)
                     }
                 </Link>
                 <div className='d-flex flex-column'>
