@@ -4,7 +4,7 @@ import MenuItem, { MenuItemProps } from '@mui/material/MenuItem';
 import styled from '@mui/system/styled';
 
 const CustomMenuItem = styled(MenuItem)<MenuItemProps>(({ theme }) => ({
-    color: 'black',
+    color: theme.palette.text.secondary,
     '&:focus': {
         backgroundColor: `${theme.palette.secondary.main} !important`, // Màu nền khi hover
         color: 'white', // Màu sắc khi focus

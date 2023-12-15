@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import styles from './OrderItem.module.scss'
+import { ICartItem } from '../../../../../types/ICartItem'
 
 interface IOrderItemProps {
     data: ICartItem
@@ -26,9 +27,11 @@ const OrderItem = (props: IOrderItemProps) => {
                     <div>
                         {data.book_info.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                     </div>
-                    <div className={styles.checkoutProductItemOriginalPrice}>
-                        0 D
-                    </div>
+                    {data.book_info?.flash_sale_info && (
+                        <div className={styles.checkoutProductItemOriginalPrice}>
+                            {data.book_info.flash_sale_info.original_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                        </div>
+                    )}
                 </div>
                 <div className={styles.checkoutProductItemQty}>
                     <span>Số lượng: </span>

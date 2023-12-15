@@ -10,6 +10,7 @@ const CustomSelectBox = (
     selectMuiProps: SelectProps,
 ) => {
     const CustomSelect = styled(Select)(({ theme }) => ({
+        color: theme.palette.text.secondary,
         ".MuiSelect-select": {
             color: 'black',
             background: theme.palette.grey[400],

@@ -8,17 +8,7 @@ import RecentTransactions from '@/components/admin/dashboard/RecentTransactions'
 import ProductPerformance from '@/components/admin/dashboard/ProductPerformance';
 const AdminHomePage = () => {
     return (
-        <PageContainer title="Dashboard" description="this is Dashboard"
-        // footer={
-        //     <Typography variant="h5" sx={{ color: (theme) => theme.palette.warning.main }}>
-        //         Footer
-        //     </Typography>
-        // }
-        // cardheading={"Card heading"}
-        // headtitle={"Head title"}
-        // headsubtitle={"Head subtitle"}
-        // middlecontent={"Middle content"}
-        >
+        <PageContainer title="Dashboard" description="this is Dashboard">
             <Box>
                 <Grid container spacing={3}>
                     <Grid item xs={12} lg={8}>

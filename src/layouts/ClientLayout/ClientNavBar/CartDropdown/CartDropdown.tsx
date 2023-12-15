@@ -7,6 +7,7 @@ import CartMiniItem from './CartMiniItem/CartMiniItem'
 import CartMiniFooter from './CartMiniFooter/CartMiniFooter'
 import useAPIUserCart from '@/lib/hooks/api/useAPIUserCart'
 import CartEmptyAlert from './CartEmptyAlert/CartEmptyAlert'
+import { ICartItem } from '../../../../../types/ICartItem'
 
 const CartDropdown = () => {
     const router = useRouter();

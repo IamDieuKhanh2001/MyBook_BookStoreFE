@@ -6,6 +6,7 @@ import useAPIUserCart from '@/lib/hooks/api/useAPIUserCart'
 import { toast } from 'react-toastify'
 import { errorHandler } from '@/lib/utils/ErrorHandler'
 import { useConfirm } from 'material-ui-confirm'
+import { ICartItem } from '../../../../../types/ICartItem'
 
 interface ICartItemProps {
     productData: ICartItem
@@ -125,11 +126,13 @@ const CartItem = (props: ICartItemProps) => {
                                         {productData.book_info.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                     </span>
                                 </div>
-                                <div className={styles.priceOld}>
-                                    <span className={styles.price}>
-                                        290.000 VND
-                                    </span>
-                                </div>
+                                {productData.book_info?.flash_sale_info && (
+                                    <div className={styles.priceOld}>
+                                        <span className={styles.price}>
+                                            {productData.book_info.flash_sale_info.original_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                        </span>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

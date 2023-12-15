@@ -4,6 +4,7 @@ import { createTheme } from "@mui/material/styles";
 const baselightTheme = createTheme({
   direction: "ltr",
   palette: {
+    mode: 'light',
     primary: {
       main: "#e6e6ed",
       light: "#fff",
@@ -138,6 +139,7 @@ const baselightTheme = createTheme({
 const baseDarkTheme = createTheme({
   direction: "ltr",
   palette: {
+    mode: 'dark',
     primary: {
       main: '#282828', // Màu chính cho dark mode
       light: '#2c2c2c', // Màu phụ cho dark mode

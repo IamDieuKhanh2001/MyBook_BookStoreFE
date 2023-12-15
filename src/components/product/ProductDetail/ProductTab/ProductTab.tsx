@@ -76,7 +76,11 @@ const ProductTab = (props: IProductTabProps) => {
                     role="tabpanel"
                     aria-labelledby="nav-review-tab"
                 >
-                    <ProductReview isbnCode={product.isbn_code} />
+                    <ProductReview
+                        totalReview={product.comment_info?.total_comment || 0}
+                        productName={product.name}
+                        isbnCode={product.isbn_code}
+                    />
                 </div>
             </div>
         </>

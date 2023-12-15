@@ -3,6 +3,7 @@ import React from 'react'
 import useAxiosAuth from '../utils/useAxiosAuth'
 import { getSession, useSession } from 'next-auth/react'
 import useSWR from 'swr'
+import { ICartItem } from '../../../../types/ICartItem'
 
 const useAPIUserCart = () => {
     const URL_PREFIX = '/user/cart'

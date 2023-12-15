@@ -4,8 +4,13 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import styles from './FlashSaleSlider.module.scss'
 import FlashSaleSliderItem from './FlashSaleSliderItem/FlashSaleSliderItem';
+import { IFlashSaleBook } from '../../../../../types/IFlashSaleBook';
 
-const FlashSaleSlider = () => {
+interface IFlashSaleSliderProps {
+    productList: IFlashSaleBook[]
+}
+const FlashSaleSlider = (props: IFlashSaleSliderProps) => {
+    const { productList } = props
     const sliderOptions = {
         perPage: 5,
         perMove: 3,
@@ -31,53 +36,11 @@ const FlashSaleSlider = () => {
     return (
         <div>
             <Splide options={sliderOptions}>
-                <SplideSlide>
-                    <FlashSaleSliderItem />
-                </SplideSlide>
-                <>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
+                {productList && productList.length > 0 && productList.map((item) => (
+                    <SplideSlide key={item.id}>
+                        <FlashSaleSliderItem data={item} key={item.isbn_code} />
                     </SplideSlide>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <FlashSaleSliderItem />
-                    </SplideSlide>
-                </>
+                ))}
             </Splide>
         </div>
     )

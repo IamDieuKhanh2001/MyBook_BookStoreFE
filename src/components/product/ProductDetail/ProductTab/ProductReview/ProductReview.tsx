@@ -13,11 +13,13 @@ import useAPIProductComment from '@/lib/hooks/api/useAPIProductComment';
 import { errorHandler } from '@/lib/utils/ErrorHandler';
 
 interface IProductReviewProps {
+    totalReview: number
+    productName: string
     isbnCode: string
 }
 const ProductReview = (props: IProductReviewProps) => {
     const { data: session } = useSession()
-    const { isbnCode } = props
+    const { isbnCode, totalReview, productName } = props
     const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
     const confirm = useConfirm();
     const { getProductCommentPaginated } = useAPIGuest()
@@ -51,7 +53,7 @@ const ProductReview = (props: IProductReviewProps) => {
         <>
             <div className="row">
                 <div className="col-12 col-lg-6">
-                    <h4 className="my-3">1 review for "Dummy Book Tilte"</h4>
+                    <h4 className="my-3">{totalReview} lượt bình luận cho "{productName}"</h4>
                     {commentPaginatedData.map((commnent) => (
                         <ReviewItem
                             key={commnent.id}

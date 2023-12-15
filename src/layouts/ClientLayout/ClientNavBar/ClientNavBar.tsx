@@ -73,7 +73,7 @@ function ClientNavBar() {
                 >
                     <Link href="/" className="navbar-brand ms-4 ms-lg-0" scroll={false}>
                         <h1 className="fw-bold text-primary m-0">
-                            M<span className="text-secondary">y</span>Bo<span className="text-secondary">ok</span>
+                            Sá<span className="text-secondary">ch</span>Vi<span className="text-secondary">ệt</span>
                         </h1>
                     </Link>
                     <button

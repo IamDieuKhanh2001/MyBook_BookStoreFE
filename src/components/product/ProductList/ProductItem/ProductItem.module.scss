@@ -8,13 +8,16 @@
 
 	.productTitle {
 		cursor: pointer;
+		max-height: 40px;
+		min-height: 40px;
+		overflow: hidden;
 	}
 
 	.imgContainer {
 		img {
 			transition: .5s;
-			max-height: 231px;
-			max-width: 231px;
+			height: 231px;
+			// max-width: 231px;
 			cursor: pointer;
 		}
 	}

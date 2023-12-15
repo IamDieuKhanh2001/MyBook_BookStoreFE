@@ -4,26 +4,14 @@
     background-color: $light-color;
     border-radius: 8px;
     height: 100%;
+    width: 100%;
 
     .imgContainer {
-        max-height: 251px;
         img {
             transition: .5s;
-        }
-
-        .outStockContainer {
-            background: rgba(0, 0, 0, 0.3);
-            height: 100%;
-            width: 100%;
-            top: 0;
-            left: 0;
-            position: absolute;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-
-            .flashSaleImgChayHang {
-            }
+			height: 231px;
+			// max-width: 231px;
+            cursor: pointer;
         }
     }
 
@@ -37,7 +25,7 @@
 
     .progress {
         border-radius: 20px;
-        margin-bottom: 0px;
+        margin-bottom: 8px;
         text-align: center;
         margin-top: 5px;
         background-color: rgba(210, 33, 33, 0.4);

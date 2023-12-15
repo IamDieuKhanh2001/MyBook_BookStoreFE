@@ -71,8 +71,8 @@ const Profile = () => {
           }}
         >
           <Avatar
-            alt="Khanh Quach"
-            src="/img/avatar/default.png"
+            alt={session?.user.userInfo.email}
+            src={session?.user.userInfo.profile?.avatar_source ? session.user.userInfo.profile.avatar_source : '/img/avatar/default.png'}
             sx={{
               width: 35,
               height: 35,

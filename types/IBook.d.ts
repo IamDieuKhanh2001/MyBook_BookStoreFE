@@ -32,4 +32,8 @@ interface IBook {
       instock: number,
     }
   }
+  comment_info?: {
+    total_comment: number
+    avg_star: number
+  }
 }

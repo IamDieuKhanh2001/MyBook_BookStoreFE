@@ -4,13 +4,11 @@ import styles from './page.module.scss'
 import CartProductList from '@/components/cart/CartProductList/CartProductList'
 import TotalCartPrice from '@/components/cart/CartRight/TotalCartPrice/TotalCartPrice'
 import useAPIUserCart from '@/lib/hooks/api/useAPIUserCart'
-import { useDispatch } from 'react-redux'
 import LZString from 'lz-string'
 import { useRouter } from 'next/navigation'
 
 const CartPage = () => {
     const { getMyCartList } = useAPIUserCart()
-    const dispatch = useDispatch()
     const { data, error, isLoading, mutate } = getMyCartList()
     const [itemSelected, setItemSelected] = useState<number[]>([])
     const router = useRouter()
