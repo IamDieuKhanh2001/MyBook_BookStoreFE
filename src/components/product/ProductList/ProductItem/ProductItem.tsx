@@ -30,7 +30,7 @@ const ProductItem = (props: IProductItemProps) => {
                 <div className="position-relative overflow-hidden d-flex justify-content-center">
                     <Link
                         target='_blank'
-                        href={`/product/detail/${data.isbn_code}`}
+                        href={`/product/detail/${data.slug}`}
                         className={styles.imgContainer}
                     >
                         <img
@@ -49,7 +49,7 @@ const ProductItem = (props: IProductItemProps) => {
                 </div>
                 <div className="px-4 py-2">
                     <Link
-                        href={`/product/detail/${data.isbn_code}`}
+                        href={`/product/detail/${data.slug}`}
                         target='_blank'
                         className={`d-block h6 mb-1 ${styles.productTitle}`}
                     >

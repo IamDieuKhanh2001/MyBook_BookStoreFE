@@ -341,7 +341,35 @@ const useAPIGuest = () => {
         }
     }
 
-    const getBookDetail = (isbnCode: string) => {
+    // const getBookDetail = (isbnCode: string) => {
+    //     const fetcher = async (url: string) => {
+    //         try {
+    //             const response = await axiosAuth.get(url);
+    //             return response.data;
+    //         } catch (error) {
+    //             console.error('Lỗi khi fetch:', error);
+    //             return Promise.reject(error); // Trả về một Promise bị từ chối
+    //         }
+    //     }
+
+    //     const { data, mutate, isLoading, error } = useSWR(
+    //         `${URL_PREFIX}/book/${isbnCode}`,
+    //         fetcher,
+    //         {
+    //             revalidateOnReconnect: false,
+    //         }
+    //     )
+    //     const bookDetailData: IBook = data ?? {}
+    //     return {
+    //         data: bookDetailData,
+    //         mutate: mutate,
+    //         isLoading: !error && !data,
+    //         error: error,
+    //     }
+    // }
+
+    type getBookDetailParams = { isbnCode: string } | { slug: string };
+    const getBookDetail = (params: getBookDetailParams) => {
         const fetcher = async (url: string) => {
             try {
                 const response = await axiosAuth.get(url);
@@ -351,21 +379,38 @@ const useAPIGuest = () => {
                 return Promise.reject(error); // Trả về một Promise bị từ chối
             }
         }
-
-        const { data, mutate, isLoading, error } = useSWR(
-            `${URL_PREFIX}/book/${isbnCode}`,
-            fetcher,
-            {
-                revalidateOnReconnect: false,
+        if ('isbnCode' in params) {
+            const { data, mutate, isLoading, error } = useSWR(
+                `${URL_PREFIX}/book/${params.isbnCode}`,
+                fetcher,
+                {
+                    revalidateOnReconnect: false,
+                }
+            )
+            const bookDetailData: IBook = data ?? {}
+            return {
+                data: bookDetailData,
+                mutate: mutate,
+                isLoading: !error && !data,
+                error: error,
             }
-        )
-        const bookDetailData: IBook = data ?? {}
-        return {
-            data: bookDetailData,
-            mutate: mutate,
-            isLoading: !error && !data,
-            error: error,
+        } else {
+            const { data, mutate, isLoading, error } = useSWR(
+                `${URL_PREFIX}/book/slug/${params.slug}`,
+                fetcher,
+                {
+                    revalidateOnReconnect: false,
+                }
+            )
+            const bookDetailData: IBook = data ?? {}
+            return {
+                data: bookDetailData,
+                mutate: mutate,
+                isLoading: !error && !data,
+                error: error,
+            }
         }
+
     }
 
     const getProductCommentPaginated = (isbnCode: string, limit: string = '5') => {

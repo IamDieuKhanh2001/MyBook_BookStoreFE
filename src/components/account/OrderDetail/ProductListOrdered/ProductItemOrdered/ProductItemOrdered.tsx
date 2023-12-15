@@ -2,6 +2,7 @@
 import React from 'react'
 import styles from './ProductItemOrdered.module.scss'
 import { truncateText } from '@/lib/utils/TextUtils'
+import Link from 'next/link'
 
 interface IProductItemOrderedProps {
     orderedItemData: ItemOrdered
@@ -21,7 +22,10 @@ const ProductItemOrdered = (props: IProductItemOrderedProps) => {
 
     return (
         <>
-            <div className={styles.tableSubOrderCellItem}>
+            <Link
+                href={`/product/detail/${orderedItemData.product.slug}`}
+                className={styles.tableSubOrderCellItem}
+            >
                 <div className={styles.subOrderRow}>
                     <div className={`${styles.subOrderCell} ${styles.subOrderImgWeb}`}>
                         <img
@@ -46,7 +50,7 @@ const ProductItemOrdered = (props: IProductItemOrderedProps) => {
                         {countTotal().toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                     </div>
                 </div>
-            </div>
+            </Link>
         </>
     )
 }

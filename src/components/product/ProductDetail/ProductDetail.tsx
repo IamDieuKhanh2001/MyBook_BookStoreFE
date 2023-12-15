@@ -12,14 +12,14 @@ import { errorHandler } from '@/lib/utils/ErrorHandler'
 import { convertMillisecondsToHours, convertMillisecondsToMinutes, convertMillisecondsToSeconds } from '@/lib/utils/DateTimeUtils'
 
 interface IProductDetailProps {
-    isbnCode: string
+    slug: string
 }
 const ProductDetail = (props: IProductDetailProps) => {
     const router = useRouter()
-    const { isbnCode } = props
+    const { slug } = props
     const { getBookDetail } = useAPIGuest()
     const { addBookToCart, getMyCartList } = useAPIUserCart()
-    const { data: product, error, isLoading } = getBookDetail(isbnCode)
+    const { data: product, error, isLoading } = getBookDetail({ slug: slug })
     const { mutate: mutateCartList } = getMyCartList()
     const [quantity, setQuantity] = useState(1)
 
@@ -60,7 +60,7 @@ const ProductDetail = (props: IProductDetailProps) => {
 
     const renderFlashSaleCountDown = () => {
         if (!product.flash_sale_info?.time_takes_place) {
-          return <></>
+            return <></>
         }
         const [initialHoursEnd, initialMinutesEnd, initialSecondEnd] = product.flash_sale_info.time_takes_place.time_end.split(':').map(Number);
         const endTime = new Date();
@@ -68,26 +68,26 @@ const ProductDetail = (props: IProductDetailProps) => {
         endTime.setHours(initialHoursEnd, initialMinutesEnd, initialSecondEnd);
         const timeDifferenceToEnd = endTime.getTime() - dateTimeNow.getTime();
         switch (true) {
-          case timeDifferenceToEnd > 0:
-            return (
-              <FlashSaleCountDown
-                initialHours={convertMillisecondsToHours(timeDifferenceToEnd)}
-                initialMinutes={convertMillisecondsToMinutes(timeDifferenceToEnd)}
-                initialSeconds={convertMillisecondsToSeconds(timeDifferenceToEnd)}
-                numProductSold={product.flash_sale_info.instock_info?.sold_number}
-                numProductTotal={product.flash_sale_info.instock_info?.instock}
-              />
-            )
-          default:
-            return (
-              <FlashSaleCountDown
-                initialHours={0}
-                initialMinutes={0}
-                initialSeconds={0}
-              />
-            )
+            case timeDifferenceToEnd > 0:
+                return (
+                    <FlashSaleCountDown
+                        initialHours={convertMillisecondsToHours(timeDifferenceToEnd)}
+                        initialMinutes={convertMillisecondsToMinutes(timeDifferenceToEnd)}
+                        initialSeconds={convertMillisecondsToSeconds(timeDifferenceToEnd)}
+                        numProductSold={product.flash_sale_info.instock_info?.sold_number}
+                        numProductTotal={product.flash_sale_info.instock_info?.instock}
+                    />
+                )
+            default:
+                return (
+                    <FlashSaleCountDown
+                        initialHours={0}
+                        initialMinutes={0}
+                        initialSeconds={0}
+                    />
+                )
         }
-      }
+    }
 
     return (
         <>

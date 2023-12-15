@@ -18,12 +18,10 @@ const CartProductList = (props: ICartProductListProps) => {
 
     const handleChangeCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked === true) {
-            console.log("Check all")
             const getAllId = list.map(item => item.id);
             setItemSelected(getAllId)
 
         } else {
-            console.log("remove all")
             setItemSelected([])
         }
     }

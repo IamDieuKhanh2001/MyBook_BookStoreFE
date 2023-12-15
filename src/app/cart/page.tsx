@@ -13,11 +13,6 @@ const CartPage = () => {
     const [itemSelected, setItemSelected] = useState<number[]>([])
     const router = useRouter()
 
-    useEffect(() => {
-        console.log("item select")
-        console.log(itemSelected)
-    }, [itemSelected])
-
     const calculatePriceSelected = () => {
         const total = data.reduce((accumulator, object) => {
             if (itemSelected.some(item => item === object.id)) {
