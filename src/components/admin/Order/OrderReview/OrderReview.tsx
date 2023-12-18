@@ -3,28 +3,44 @@ import DashboardCard from '@/components/shared/DashboardCard'
 import { Avatar, Box as BoxMaterial, Grid } from '@mui/material'
 import React from 'react'
 
-const OrderReview = () => {
+interface IOrderReviewProps {
+    reviewData: {
+        id: number
+        order_id: number
+        rate_star: string
+        review_comment: string
+        created_at: string
+        updated_at: string
+    }
+    userData: UserInfo
+}
+const OrderReview = (props: IOrderReviewProps) => {
+    const { reviewData, userData } = props
+
     return (
         <>
             <BoxMaterial sx={{ mt: 2 }}>
                 <DashboardCard
                     title={`Phản hồi khách hàng`}
-                    subtitle={`Khách hàng : quachdieukhanh@gmail.com`}
+                    subtitle={`Khách hàng : ${userData.email}`}
                 >
                     <BoxMaterial sx={{ width: { xs: '280px', sm: 'auto' } }}>
                         <Grid container wrap="nowrap" spacing={2}>
                             <Grid item>
-                                <Avatar alt="Remy Sharp" src={'/img/avatar/testimonial-1.jpg'} />
+                                <Avatar
+                                    alt={userData.email}
+                                    src={userData.profile?.avatar_source ? userData.profile.avatar_source : '/img/avatar/default.png'}
+                                />
                             </Grid>
                             <Grid justifyContent="left" item xs zeroMinWidth>
-                                <h4 style={{ margin: 0, textAlign: "left" }}>Michel Michel</h4>
+                                <h4 style={{ margin: 0, textAlign: "left" }}>
+                                    {userData.email}
+                                </h4>
                                 <p style={{ textAlign: "left" }}>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-                                    luctus ut est sed faucibus. Duis bibendum ac ex vehicula laoreet.
-                                    Suspendisse congue vulputate lobortis. .{" "}
+                                    {reviewData.review_comment}.{" "}
                                 </p>
                                 <p style={{ textAlign: "left", color: "gray" }}>
-                                    1 minute ago
+                                    {reviewData.created_at}
                                 </p>
                             </Grid>
                         </Grid>

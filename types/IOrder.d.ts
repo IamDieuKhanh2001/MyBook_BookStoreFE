@@ -8,18 +8,19 @@ interface IOrder {
   userAddress: IUserAddress
   payment_method: string
   status: string
+  payment_status: string
   customer_note: string
   created_at: string | null
   updated_at: string | null
-  user: {
+  review?: {
     id: number
-    email: string
-    money: number
-    user_level_id: number
-    user_role_id: number
-    is_email_verified: number
-    deleted_at: string | null
+    order_id: number
+    rate_star: string
+    review_comment: string
+    created_at: string
+    updated_at: string
   }
+  user: UserInfo
   items?: ItemOrdered[]
 }
 

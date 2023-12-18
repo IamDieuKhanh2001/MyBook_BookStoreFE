@@ -84,9 +84,54 @@ const useAPIOrder = () => {
         }
     }
 
+    const  confirmOrder = async (id: number) => {
+        try {
+            const session = await getSession();
+            const url = `${URL_PREFIX}/confirmed/${id}`
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
+            const response = await axiosAuth.put(url, undefined, { headers })
+            return response;
+        } catch (error: any) {
+            throw error;
+        }
+    };
+
+    const deliveringOrder = async (id: number) => {
+        try {
+            const session = await getSession();
+            const url = `${URL_PREFIX}/delivering/${id}`
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
+            const response = await axiosAuth.put(url, undefined, { headers })
+            return response;
+        } catch (error: any) {
+            throw error;
+        }
+    };
+
+    const cancelOrder = async (id: number) => {
+        try {
+            const session = await getSession();
+            const url = `${URL_PREFIX}/cancel/${id}`
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
+            const response = await axiosAuth.delete(url, { headers })
+            return response;
+        } catch (error: any) {
+            throw error;
+        }
+    };
+
     return {
         getAllOrderPaginated,
         getOrderDetail,
+        confirmOrder,
+        deliveringOrder,
+        cancelOrder,
     }
 }
 

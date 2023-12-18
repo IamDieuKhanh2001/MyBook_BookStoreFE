@@ -6,6 +6,7 @@ import { IconEye } from '@tabler/icons-react'
 import { useRouter } from 'next/navigation'
 import CustomChip from '@/components/forms/theme-elements/CustomChip'
 import PaymentStatus from '@/enum/PaymentStatus'
+import OrderStatus from '@/enum/OrderStatus'
 
 interface IOrderTableDataProps {
     orderListLoaded: IOrder[]
@@ -44,7 +45,12 @@ const OrderTableData = (props: IOrderTableDataProps) => {
                         </TableCell>
                         <TableCell>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                Trạng thái
+                                Trạng thái đơn
+                            </Typography>
+                        </TableCell>
+                        <TableCell>
+                            <Typography variant="subtitle2" fontWeight={600}>
+                                Trạng thái thanh toán
                             </Typography>
                         </TableCell>
                         <TableCell align='right'>
@@ -78,21 +84,55 @@ const OrderTableData = (props: IOrderTableDataProps) => {
                                         {item.created_at}
                                     </Typography>
                                 </TableCell>
-                                <TableCell>
+                                <TableCell align='center'>
                                     <CustomChip
                                         bgColor={
-                                            item.status === PaymentStatus.PAID
+                                            item.status === OrderStatus.COMPLETED
                                                 ? ('success')
-                                                : item.status === PaymentStatus.UNPAID
-                                                    ? ('error')
-                                                    : undefined
+                                                : item.status === OrderStatus.CONFIRMED
+                                                    ? ('info')
+                                                    : item.status === OrderStatus.DELIVERING ?
+                                                        ('warning')
+                                                        : item.status === OrderStatus.PENDING ?
+                                                            ('error')
+                                                            : item.status === OrderStatus.CANCELED ?
+                                                                ('grey')
+                                                                : undefined
                                         }
                                         label={
-                                            item.status === PaymentStatus.PAID
+                                            item.status === OrderStatus.COMPLETED
+                                                ? ('Đã nhận hàng')
+                                                : item.status === OrderStatus.CONFIRMED
+                                                    ? ('Đã xác nhận')
+                                                    : item.status === OrderStatus.DELIVERING ?
+                                                        ('Đang vận chuyển')
+                                                        : item.status === OrderStatus.PENDING ?
+                                                            ('Đang chờ xác nhận')
+                                                            : item.status === OrderStatus.CANCELED ?
+                                                                ('Đã hủy')
+                                                                : undefined
+                                        }
+                                    />
+                                </TableCell>
+                                <TableCell align='center'>
+                                    <CustomChip
+                                        bgColor={
+                                            item.payment_status === PaymentStatus.PAID
+                                                ? ('success')
+                                                : item.payment_status === PaymentStatus.UNPAID
+                                                    ? ('error')
+                                                    : item.payment_status === PaymentStatus.REFUNDED ?
+                                                        ('warning')
+                                                        : undefined
+                                        }
+                                        label={
+                                            item.payment_status === PaymentStatus.PAID
                                                 ? ('Đã thanh toán')
-                                                : item.status === PaymentStatus.UNPAID
+                                                : item.payment_status === PaymentStatus.UNPAID
                                                     ? ('Chưa thanh toán')
-                                                    : undefined
+                                                    : item.payment_status === PaymentStatus.REFUNDED ?
+                                                        ('Đã hoàn tiền')
+                                                        : undefined
                                         }
                                     />
                                 </TableCell>

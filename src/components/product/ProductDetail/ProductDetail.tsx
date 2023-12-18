@@ -46,7 +46,7 @@ const ProductDetail = (props: IProductDetailProps) => {
         try {
             await addBookToCart(product.isbn_code, quantity)
             mutateCartList()
-            toast.success("Thêm sản phẩm thành công")
+            toast.success("Thêm sản phẩm thành công", { position: "top-center" })
             setQuantity(1)
         } catch (e) {
             errorHandler(e)
