@@ -1,9 +1,6 @@
 import { APIUserLogin } from "@/lib/axios/api/accountAPI";
-import { Password } from "@mui/icons-material";
 import NextAuth, { AuthOptions } from "next-auth";
-import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
-import Email from "next-auth/providers/email";
 
 export const authOptions: AuthOptions = {
     // Configure one or more authentication providers
@@ -24,17 +21,12 @@ export const authOptions: AuthOptions = {
                     process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0"; // disable self-signed certificate
                     const res = await APIUserLogin(credentials?.email, credentials?.password)
                     const user = res.data;
-
-                    console.log(res);
-
                     if (res.status === 200 && user) {
                         return user;
                     } else {
                         return null;
                     }
                 } catch (e) {
-                    console.log("Catch blog");
-                    console.log(e)
                     return null;
                 }
             }

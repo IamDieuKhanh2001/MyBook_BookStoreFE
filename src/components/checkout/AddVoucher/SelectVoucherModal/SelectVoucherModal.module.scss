@@ -1,0 +1,68 @@
+.linkModalTrigger {
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+.VoucherModalTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    span {
+        &:first-of-type {
+            padding-right: 8px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 0;
+            vertical-align: top;
+        }
+
+        &:nth-of-type(2) {
+            text-transform: uppercase;
+            color: #2F80ED;
+            font-weight: 600;
+        }
+    }
+}
+
+.modalBody {
+    height: 500px;
+    overflow-y: auto;
+
+    .voucherModalContent {
+        width: 100%;
+
+        .voucherList {
+            .voucherListTitle {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+
+                span {
+                    &:first-of-type {
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: #212121;
+                    }
+                }
+
+                .labelNote {
+                    font-size: 14px;
+                    color: #9FA7AB;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: flex-start;
+                    margin-left: 8px;
+                }
+            }
+        }
+    }
+}

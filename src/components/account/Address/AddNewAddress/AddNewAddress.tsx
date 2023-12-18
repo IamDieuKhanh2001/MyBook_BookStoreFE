@@ -1,32 +1,51 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import AddressForm from './AddressForm'
 
 const AddNewAddress = () => {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
+
+    const handleHideModal = () => {
+        setShowModal(false);
+    };
+
     return (
         <>
-            {/* tach component btn add address  */}
-            <button type="button" className="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button
+                type="button"
+                className="btn btn-success mb-3"
+                onClick={handleShowModal}
+            >
                 <i className="fas fa-plus me-2"></i>
                 Thêm 1 địa chỉ khác
             </button>
             {/* Modal */}
-            <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Thêm 1 địa chỉ khác</h5>
-                        </div>
-                        <div className="modal-body">
-                            <AddressForm />
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
+            {showModal && (
+                <div className="modal d-block" tabIndex={-1} role="dialog">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Thêm 1 địa chỉ khác</h5>
+                                <button type="button" className="btn-close" onClick={handleHideModal}/>
+                            </div>
+                            <div className="modal-body">
+                                <AddressForm
+                                    handleHideModal={handleHideModal}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
+            {showModal && (
+                <div
+                    className="modal-backdrop show"
+                ></div>
+            )}
         </>
     )
 }

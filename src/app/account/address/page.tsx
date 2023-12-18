@@ -1,10 +1,10 @@
-import AddressEdit from '@/components/account/Address/Address'
+import Address from '@/components/account/Address/Address'
 import React from 'react'
 
 const AddressPage = () => {
     return (
         <>
-            <AddressEdit />
+            <Address />
         </>
     )
 }

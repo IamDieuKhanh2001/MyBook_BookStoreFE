@@ -1,21 +1,22 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import ProductItem from './ProductItem/ProductItem'
 import styles from "./ProductList.module.scss"
+import { IBook } from '../../../../types/IBook'
 
-const ProductList = () => {
+interface IProductListProps {
+    dataList: IBook[]
+}
+const ProductList = (props: IProductListProps) => {
+    const { dataList } = props
+
     return (
         <>
             <div className="tab-content">
                 <div className="row g-2">
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
+                    {dataList?.map((item) => (
+                        <ProductItem key={item.id} data={item} />
+                    ))}
                 </div>
             </div>
         </>

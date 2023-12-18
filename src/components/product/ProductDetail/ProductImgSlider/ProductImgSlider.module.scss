@@ -4,21 +4,52 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    .thumbnailSplideItem {
-        width: 100%;
-        height: 100%;
-        border: 1px solid $dark-color;
-        cursor: pointer;
-        opacity: 0.6;
-    }
-
-    .thumbnailActive {
-        border: 3px solid $secondary-color;
-        opacity: 1;
-    }
+    gap: 5px;
 
     .mainImgActive {
-        width: 100%;
+        max-width: 428px;
+        max-height: 428px;
+    }
+
+    .thumbnailContainer {
+        display: flex;
+        width: 344.71px;
+        height: 80px;
+        gap: 10px;
+
+        .thumbnailSplideList {
+            .thumbnailSplideItem {
+                width: 100%;
+                height: 100%;
+                border: 1px solid $dark-color;
+                cursor: pointer;
+                opacity: 0.6;
+                flex-basis: 75%;
+                border-radius: 8px;
+            }
+
+            .thumbnailActive {
+                border: 3px solid $secondary-color;
+                opacity: 1;
+            }
+        }
+
+        .thumbnailMorePlaceHolder {
+            width: 100%;
+            height: 100%;
+            background-color: rgb(13, 14, 15, 0.8);
+            border: 1px solid $dark-color;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $light-color;
+            flex-basis: 25%;
+            border-radius: 8px;
+
+            &:hover {
+                background-color: rgb(13, 14, 15, 1);
+            }
+        }
     }
 }

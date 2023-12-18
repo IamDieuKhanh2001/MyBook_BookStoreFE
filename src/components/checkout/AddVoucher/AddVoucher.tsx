@@ -1,41 +1,79 @@
 'use client'
-import React from 'react'
+import React, {  useState } from 'react'
 import styles from './AddVoucher.module.scss'
 import SectionTitle from '@/components/shared/sectionTitle/SectionTitle'
+import SelectVoucherModal from './SelectVoucherModal/SelectVoucherModal'
+import VoucherChosenAlert from './VoucherChosenAlert/VoucherChosenAlert'
+import { toast } from 'react-toastify'
+import { errorHandler } from '@/lib/utils/ErrorHandler'
 
-const AddVoucher = () => {
+interface IAddVoucherProps {
+  voucherList: IVoucher[] | undefined;
+  selectedVoucher: IVoucher | undefined;
+  setSelectedVoucher: React.Dispatch<React.SetStateAction<IVoucher | undefined>>;
+  handleRecallPreOrder: (productCartIdList: number[], voucherCode?: string) => Promise<void>
+}
+const AddVoucher = (props: IAddVoucherProps) => {
+  const { voucherList, selectedVoucher, setSelectedVoucher, handleRecallPreOrder } = props
+  const [inputCodeValue, setInputCodeValue] = useState<string>('')
+
+  const handleApplyCoupon = () => {
+    try {
+      const foundVoucher = voucherList && voucherList.find(voucher => voucher.voucher_code === inputCodeValue.trim());
+      if (foundVoucher) {
+        setSelectedVoucher(foundVoucher)
+        setInputCodeValue('')
+        toast.success('Nhập thành công - ' + foundVoucher?.voucher_name)
+      } else {
+        toast.error("Mã khuyến mại không khả dụng!!")
+      }
+    } catch (e) {
+      errorHandler(e)
+    }
+  }
+
   return (
     <>
       <div className='row'>
-            <div className="col-12">
-              <SectionTitle title='Mã Khuyến mãi / Mã quà tặng'/>
-              <div className="bg-light p-4">
-                <div className={styles.voucherInsertContent}>
-                  <form className='mb-3' action="">
-                    <div className={styles.inputGroup}>
-                      <input
-                        type="text"
-                        className={`${styles.formControl} p-2`}
-                        placeholder="Coupon Code"
-                      />
-                      <div className='d-flex'>
-                        <button className="btn btn-primary">Apply Coupon</button>
-                      </div>
-                    </div>
-                  </form>
-                  <div className={styles.voucherChoosenList}>
-                    <div className={`${styles.voucherChoosenItem} alert alert-warning alert-dismissible fade show`} role="alert">
-                      <span className="text-truncate" style={{ maxWidth: 300 }}>
-                        Nhập mã thành công - Mã giảm giá 10K TOÀN SÀN - Đơn hàng từ 150K
-                      </span>
-                      <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" />
-                    </div>
-                  </div>
+        <div className="col-12">
+          <SectionTitle title='Mã Khuyến mãi / Mã quà tặng' />
+          <div className="section-container p-4">
+            <div className={styles.voucherInsertContent}>
+              <div className={`${styles.inputGroup} mb-3`}>
+                <input
+                  type="text"
+                  value={inputCodeValue}
+                  onChange={(e) => setInputCodeValue(e.target.value)}
+                  className={`${styles.formControl} p-2`}
+                  placeholder="Coupon Code"
+                />
+                <div className='d-flex align-items-center justify-content-between'>
+                  <button
+                    className="btn btn-primary h-100"
+                    onClick={handleApplyCoupon}
+                    disabled={inputCodeValue === ''}
+                  >
+                    Apply Coupon
+                  </button>
+                  <SelectVoucherModal
+                    voucherList={voucherList}
+                    selectedVoucher={selectedVoucher}
+                    setSelectedVoucher={setSelectedVoucher}
+                  />
                 </div>
-
               </div>
+              {selectedVoucher && (
+                <div className={styles.voucherChoosenList}>
+                  <VoucherChosenAlert
+                    selectedVoucher={selectedVoucher}
+                    setSelectedVoucher={setSelectedVoucher}
+                  />
+                </div>
+              )}
             </div>
           </div>
+        </div>
+      </div>
     </>
   )
 }

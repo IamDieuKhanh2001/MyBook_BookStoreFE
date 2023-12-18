@@ -4,9 +4,6 @@ import { Inter } from 'next/font/google'
 import Providers from "./providers";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
-import Head from 'next/head';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,8 +12,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const pathname = usePathname();
-  const applyBootstrapCSS = pathname && !pathname.startsWith('/admin'); //Boolean
+  // const pathname = usePathname();
+  // const applyBootstrapCSS = pathname && !pathname.startsWith('/admin'); //Boolean
   // Không cho phép BootstrapCSS sử dụng trong page có sử dụng MUI, Tránh gây xung đột về style của 2 UI lib này
   // Kiểm tra trang không là trang admin (đang Sử dụng MUI) sẽ cho phép dùng bootstrap css
   // BS class name sẽ ảnh hưởng đến MUI do 2 thư viện này có cùng class name có tên giống nhau, style css giống nhau 
@@ -42,14 +39,16 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
           rel="stylesheet"
         />
-        {applyBootstrapCSS && (
+        {/* {applyBootstrapCSS && (
           <>
             <link href="/lib/animate/animate.min.css" rel="stylesheet" />
             <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
             <link href="/css/bootstrap.min.css" rel="stylesheet" />
-            <link href="/css/style.css" rel="stylesheet" />
           </>
-        )}
+        )} */}
+        <link href="/lib/animate/animate.min.css" rel="stylesheet" />
+        <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+        <link href="/css/bootstrap.min.css" rel="stylesheet" />
       </head>
       <body
         className={inter.className}

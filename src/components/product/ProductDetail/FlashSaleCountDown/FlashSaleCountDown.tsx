@@ -1,18 +1,19 @@
 'use client'
 import React from 'react'
 import styles from './FlashSaleCountDown.module.scss'
-import useCountdown from '@/lib/hooks/useCountDown';
+import useCountdown from '@/lib/hooks/utils/useCountDown'
 
 interface FlashSaleCountDownProps {
     initialHours?: number
     initialMinutes?: number
+    initialSeconds?: number;
     numProductTotal?: number
     numProductSold?: number
 }
 
 const FlashSaleCountDown = (props: FlashSaleCountDownProps) => {
-    const {initialHours  = 0, initialMinutes = 0, numProductTotal = 0, numProductSold = 0} = props
-    const { hours, minutes, seconds } = useCountdown(initialHours, initialMinutes);
+    const { initialHours = 0, initialMinutes = 0, initialSeconds = 0, numProductTotal = 0, numProductSold = 0 } = props
+    const { hours: hoursLeft, minutes: minutesLeft, seconds: secondsLeft } = useCountdown(initialHours, initialMinutes, initialSeconds);
     const percentageSold = (numProductSold / numProductTotal) * 100;
 
     return (
@@ -26,15 +27,15 @@ const FlashSaleCountDown = (props: FlashSaleCountDownProps) => {
                         />
                         <div className={styles.flashSaleCountdown}>
                             <span className={styles.flashSaleCountdownNumber}>
-                                {hours < 10 ? `0${hours}` : hours}
+                                {hoursLeft < 10 ? `0${hoursLeft}` : hoursLeft}
                             </span>
                             <span className={styles.flashSaleCountdownSeparateNumber}>:</span>
                             <span className={styles.flashSaleCountdownNumber}>
-                                {minutes < 10 ? `0${minutes}` : minutes}
+                                {minutesLeft < 10 ? `0${minutesLeft}` : minutesLeft}
                             </span>
                             <span className={styles.flashSaleCountdownSeparateNumber}>:</span>
                             <span className={styles.flashSaleCountdownNumber}>
-                                {seconds < 10 ? `0${seconds}` : seconds}
+                                {secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft}
                             </span>
                         </div>
                     </div>

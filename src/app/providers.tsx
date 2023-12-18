@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react';
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from '@/context/ThemeContext';
 import { ConfirmProvider } from 'material-ui-confirm';
+import { ReduxProvider } from '@/redux/ReduxProvider';
 
 interface Props {
     children: ReactNode
@@ -11,13 +12,15 @@ interface Props {
 const providers = ({ children }: Props) => {
     return (
         <React.Fragment>
-            <ConfirmProvider>
-                <SessionProvider>
-                    <ThemeProvider>
-                        {children}
-                    </ThemeProvider>
-                </SessionProvider>
-            </ConfirmProvider>
+            <ReduxProvider>
+                <ConfirmProvider>
+                    <SessionProvider>
+                        <ThemeProvider>
+                            {children}
+                        </ThemeProvider>
+                    </SessionProvider>
+                </ConfirmProvider>
+            </ReduxProvider>
         </React.Fragment>
     )
 }

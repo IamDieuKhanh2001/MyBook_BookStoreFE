@@ -1,0 +1,48 @@
+.pageTitle {
+    padding: 20px 30px 0px 30px;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+
+    h1 {
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: 400;
+        line-height: 36px;
+    }
+}
+
+.orderHistoryContainer {
+    margin-bottom: 2px;
+
+    .tabHistoryItem {
+        text-align: center;
+        padding: 10px;
+        cursor: pointer;
+        width: 100%;
+        position: relative;
+
+        &:hover {
+            color: #F7941E;
+        }
+
+        .tabHistoryItemNumber {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .tabHistoryItemText {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .tabHistoryItemBorderRight {
+            height: 75%;
+            width: 1px;
+            background: #e0e0e0;
+            position: absolute;
+            top: 10px;
+            right: 0;
+        }
+    }
+}

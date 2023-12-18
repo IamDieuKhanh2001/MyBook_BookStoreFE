@@ -7,7 +7,8 @@ import { useTheme } from '@mui/material/styles';
 // components
 import Profile from './Profile';
 import { IconBellRinging, IconMenu, IconSettings, IconMail } from '@tabler/icons-react';
-import DarkModeToggle from '@/components/DarkModeToggle/DarkModeToggle';
+import DarkModeToggle from '@/layouts/full/header/DarkModeToggle/DarkModeToggle';
+import { useSession } from 'next-auth/react';
 
 interface ItemType {
   toggleMobileSidebar: (event: React.MouseEvent<HTMLElement>) => void;
@@ -15,6 +16,7 @@ interface ItemType {
 
 const Header = ({ toggleMobileSidebar }: ItemType) => {
   const theme = useTheme();
+  const { data: session } = useSession()
 
   // const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   // const lgDown = useMediaQuery((theme) => theme.breakpoints.down('lg'));
@@ -51,7 +53,7 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
           <IconMenu width="20" height="20" />
         </IconButton>
 
-        <IconButton
+        {/* <IconButton
           size="large"
           aria-label="show 11 new notifications"
           aria-controls="msgs-menu"
@@ -61,9 +63,9 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
           <Badge color="warning" badgeContent={2} max={99}>
             <IconBellRinging size="21" stroke="1.5" />
           </Badge>
-        </IconButton>
+        </IconButton> */}
 
-        <IconButton
+        {/* <IconButton
           size="large"
           aria-label="show 11 new notifications"
           color="inherit"
@@ -72,9 +74,9 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
           style={{ color: theme.palette.secondary.main }}
         >
           <IconSettings size="21" stroke="1.5" />
-        </IconButton>
+        </IconButton> */}
 
-        <IconButton
+        {/* <IconButton
           size="large"
           aria-label="show 11 new notifications"
           color="inherit"
@@ -85,11 +87,11 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
           <Badge color="warning" badgeContent={100} max={99}>
             <IconMail size="21" stroke="1.5" />
           </Badge>
-        </IconButton>
+        </IconButton> */}
 
         <Box flexGrow={1} />
         <Stack spacing={1} direction="row" alignItems="center">
-          <Button
+          {/* <Button
             startIcon={<IconBellRinging />}
             color="secondary"            
             size='small' disableElevation variant="contained" href="">
@@ -100,9 +102,9 @@ const Header = ({ toggleMobileSidebar }: ItemType) => {
           </Button>
           <Button size='small' variant="contained" disableElevation color="secondary" href="">
             Chức năng 3
-          </Button>
+          </Button> */}
           <DarkModeToggle />
-          <Profile />
+          {session?.user && <Profile />}
         </Stack>
       </ToolbarStyled>
     </AppBarStyled>

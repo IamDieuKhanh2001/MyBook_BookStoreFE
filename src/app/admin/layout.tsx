@@ -16,30 +16,4 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   );
 };
 
-// export const getServerSideProps = async (context : GetServerSidePropsContext) => {
-//   const session = await getSession(context);
-
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: '/authentication/login',
-//         permanent: false,
-//       },
-//     };
-//   }
-//   if (session.user.userInfo.roles[0].roleName !== 'admin') {
-//     return {
-//       redirect: {
-//         destination: '/404',
-//         permanent: false,
-//       },
-//     };
-//   }
-
-//   return {
-//     props: {},
-//   };
-// };
-
-
 export default AdminLayout;

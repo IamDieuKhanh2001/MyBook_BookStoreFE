@@ -1,0 +1,20 @@
+@import '../../../style/responsive';
+@import '../../../style/variable';
+
+.myAccount {
+    padding: 20px 15px;
+    margin-top: 0 !important;
+
+    .pageTitle {
+        margin-bottom: 20px;
+        h1 {
+            font-size: 25px;
+            font-weight: 600;
+        }
+    }
+
+    .formAccountInfo {
+        display: inline;
+
+    }
+}

@@ -1,0 +1,42 @@
+.filterCurrent {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    align-items: center;
+
+    .filterHeader {
+        font-size: 14px;
+        color: black;
+        margin-right: 10px;
+    }
+
+    .displayFilterCurrent {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+
+        .filterItem {
+            padding: 10px 10px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            p {
+                margin: 0;
+                margin-right: 5px;
+            }
+
+            button {
+                position: inherit;
+                padding: 0 0 ;
+            }
+        }
+
+        .dismissAllFilter {
+            padding: 10px 10px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+    }
+}

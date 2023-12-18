@@ -1,0 +1,136 @@
+@import '../../../style/variable';
+@import '../../../style/responsive';
+
+.loginForm {
+    .loginFormContent {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+
+        .loginWindow {
+            position: relative;
+            width: 450px;
+            max-width: calc(100vw - 20px);
+
+            .popupLoginTab {
+                padding: 24px 8px 8px 8px !important;
+                font-weight: normal;
+                margin: 0;
+                list-style: none;
+
+                .popupLoginTabLogin {
+                    display: inline-block;
+                    text-align: center;
+                    cursor: pointer;
+                    padding: 0 8px;
+                    user-select: none;
+                    width: calc(50% - 16px);
+
+                    a {
+                        color: #646464;
+                        font-size: 17px;
+                        transition: all 300ms ease-in 0s;
+                    }
+
+                    hr {
+                        color: transparent;
+                        height: 3px;
+                        margin: 5px 0;
+                        transition: all 0.5s ease-in-out;
+                        width: 20%;
+                        margin-block-start: 1px;
+                        margin-block-end: 1px;
+                        margin-inline-start: auto;
+                        margin-inline-end: auto;
+                        box-sizing: content-box;
+                    }
+
+                    &:hover {
+                        a {
+                            font-weight: bold;
+                            color: $secondary-color;
+
+                        }
+
+                        hr {
+                            width: 100%;
+                            color: $secondary-color;
+                        }
+                    }
+                }
+
+                .popupLoginTabRegister {
+                    display: inline-block;
+                    text-align: center;
+                    cursor: pointer;
+                    padding: 0 8px;
+                    user-select: none;
+                    width: calc(50% - 16px);
+
+                    a {
+                        font-size: 17px;
+                        color: #646464;
+                        transition: all 300ms ease-in 0s;
+                    }
+
+                    hr {
+                        color: transparent;
+                        height: 3px;
+                        margin: 5px 0;
+                        transition: all 0.5s ease-in-out;
+                        width: 20%;
+                        margin-block-start: 1px;
+                        margin-block-end: 1px;
+                        margin-inline-start: auto;
+                        margin-inline-end: auto;
+                        box-sizing: content-box;
+                    }
+
+                    &:hover {
+                        a {
+                            font-weight: bold;
+                            color: $secondary-color;
+
+                        }
+
+                        hr {
+                            width: 100%;
+                            color: $secondary-color;
+                        }
+                    }
+                }
+
+                .active {
+                    a {
+                        font-weight: bold;
+                        color: $secondary-color;
+                    }
+
+                    hr {
+                        color: $secondary-color;
+                        width: 100%;
+                    }
+                }
+            }
+
+            .popupLoginContent {
+                padding: 0 32px 16px 32px;
+            }
+
+            .popupRegisterContent {
+                padding: 0 32px 16px 32px;
+
+            }
+
+            .show {
+                display: block;
+            }
+
+            .hide {
+                display: none;
+            }
+        }
+    }
+}

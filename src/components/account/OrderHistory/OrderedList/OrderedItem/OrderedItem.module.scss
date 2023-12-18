@@ -1,0 +1,36 @@
+@import '../../../../../style/variable';
+
+.orderItem {
+    padding: 15px 0;
+    display: flex;
+    border-top: 1px solid #ced4da;
+
+    div {
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .orderItemId {
+        flex-basis: 20%;
+    }
+
+    .orderPaymentMethod {
+        flex-basis: 20%;
+    }
+
+    .orderStatus {
+        flex-basis: 20%;
+    }
+
+    .orderDetailRedirect {
+        flex-basis: 20%;
+    }
+
+    .orderTotalPrice {
+        flex-basis: 20%;
+        color: $secondary-color;
+        font-weight: bold;
+    }
+}

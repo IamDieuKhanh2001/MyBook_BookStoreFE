@@ -1,0 +1,146 @@
+.orderViewContentInfo {
+    position: relative;
+
+    .orderViewTitle {
+        font-size: 15px;
+        text-transform: uppercase;
+        color: black;
+        font-weight: bold;
+    }
+
+    .orderViewId {
+        padding-bottom: 10px;
+
+        span {
+            &:nth-child(2) {
+                margin-left: 5px;
+                font-size: 14px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .orderViewDate {
+        padding-bottom: 10px;
+
+        span {
+            &:nth-child(2) {
+                margin-left: 5px;
+                font-size: 14px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .orderViewTotal {
+        padding-bottom: 10px;
+
+        span {
+            &:nth-child(2) {
+                margin-left: 5px;
+                font-size: 14px;
+                font-weight: bold;
+            }
+        }
+
+        .price {
+            font-size: 15px;
+        }
+    }
+
+    .orderViewNote {
+        display: flex;
+        align-items: center;
+
+        .noteTitle {
+            flex: 2;
+        }
+
+        .noteContent {
+            flex: 15;
+            font-weight: normal !important;
+            font-size: 13px !important;
+        }
+    }
+
+    .overviewBtns {
+        position: absolute;
+        top: 20%;
+        display: flex;
+        right: 80px;
+        flex-direction: column;
+        width: 22%;
+        min-width: 203px;
+    }
+
+    .orderReceivedBtn {
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 8px;
+        background: #C92127;
+        padding: 7px 20px;
+        color: white !important;
+        border: none;
+        margin-bottom: 10px;
+
+        &:disabled {
+            cursor: not-allowed;
+            background-color: #E0E0E0;
+        }
+    }
+}
+
+.orderViewContentBox {
+    display: flex;
+
+    .orderViewBox {
+        flex: 1;
+        border: 1px solid #E0E0E0;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+
+        &:nth-child(2) {
+            margin: 0px 10px;
+        }
+
+        .orderBoxTitle {
+            border-bottom: 1px solid #E0E0E0;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+
+            .orderViewTitle {
+                font-size: 13px;
+                text-transform: uppercase;
+                color: black;
+                font-weight: bold;
+            }
+        }
+
+        .orderShippingDesc {
+            border-bottom: 1px solid #E0E0E0;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+
+            .orderViewTitle {
+                font-size: 13px;
+                text-transform: uppercase;
+                color: black;
+                font-weight: bold;
+            }
+        }
+
+        .orderBoxInfo {
+            flex: 100%;
+            display: flex;
+            flex-direction: column;
+
+            address {
+                line-height: 20px;
+                margin-bottom: 0px;
+                font-style: normal;
+                font-size: 14px;
+            }
+        }
+    }
+}

@@ -11,13 +11,17 @@
             vertical-align: middle;
             margin-left: 8px;
         }
+
+        .badgeQty {
+            font-size: 11px;
+        }
     }
 
     .dropdownMenu {
+        border-radius: 8px;
         min-width: 264px;
         min-height: 220px;
         box-shadow: 0 4px 6px rgb(32 33 36 / 28%);
-        cursor: pointer;
 
         .cartHeader {
             padding: 16px;
@@ -35,7 +39,7 @@
         }
 
         .cartContent {
-            max-height: 368px;
+            max-height: 290px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -44,7 +48,7 @@
             padding: 0;
             list-style: none;
 
-            
+
         }
     }
 }
@@ -55,7 +59,7 @@
             display: block;
             visibility: hidden;
             top: 140%;
-            left: -700%;
+            left: -500%;
             transform: rotateX(-75deg);
             transform-origin: 0% 0%;
             transition: .5s;

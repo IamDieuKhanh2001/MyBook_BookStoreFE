@@ -1,5 +1,5 @@
+import ClientLayout from '@/layouts/ClientLayout/ClientLayout';
 import React, { ReactNode } from 'react';
-import BlankLayout from '@/layouts/blank/BlankLayout';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -7,9 +7,9 @@ interface AdminLayoutProps {
 
 const AuthenticationLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   return (
-    <BlankLayout>
+    <ClientLayout>
       {children}
-    </BlankLayout>
+    </ClientLayout>
   );
 };
 

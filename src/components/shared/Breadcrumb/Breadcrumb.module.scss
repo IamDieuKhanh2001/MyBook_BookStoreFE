@@ -1,0 +1,36 @@
+@import '../../../style/variable';
+
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    list-style: none;
+
+    .breadcrumbItem {
+        display: flex;
+
+        + {
+            .breadcrumbItem {
+                padding-left: 0.5rem;
+
+                &::before {
+                    display: inline-block;
+                    padding-right: 0.5rem;
+                    color: #6c757d;
+                    content: "/";
+                }
+
+                &:hover {
+                    &::before {
+                        text-decoration: underline;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .active {
+        color: $primary-color;
+    }
+}

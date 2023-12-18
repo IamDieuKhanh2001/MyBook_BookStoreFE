@@ -1,25 +1,14 @@
 import React from 'react'
 import { Grid, Box } from '@mui/material';
-import PageContainer from '@/components/container/PageContainer'
-import SalesOverview from '@/components/dashboard/SalesOverview';
-import YearlyBreakup from '@/components/dashboard/YearlyBreakup';
-import MonthlyEarnings from '@/components/dashboard/MonthlyEarnings';
-import RecentTransactions from '@/components/dashboard/RecentTransactions';
-import ProductPerformance from '@/components/dashboard/ProductPerformance';
-import Blog from '@/components/dashboard/Blog';
+import PageContainer from '@/components/admin/container/PageContainer'
+import SalesOverview from '@/components/admin/dashboard/SalesOverview';
+import YearlyBreakup from '@/components/admin/dashboard/YearlyBreakup';
+import MonthlyEarnings from '@/components/admin/dashboard/MonthlyEarnings';
+import RecentTransactions from '@/components/admin/dashboard/RecentTransactions';
+import ProductPerformance from '@/components/admin/dashboard/ProductPerformance';
 const AdminHomePage = () => {
     return (
-        <PageContainer title="Dashboard" description="this is Dashboard"
-        // footer={
-        //     <Typography variant="h5" sx={{ color: (theme) => theme.palette.warning.main }}>
-        //         Footer
-        //     </Typography>
-        // }
-        // cardheading={"Card heading"}
-        // headtitle={"Head title"}
-        // headsubtitle={"Head subtitle"}
-        // middlecontent={"Middle content"}
-        >
+        <PageContainer title="Dashboard" description="this is Dashboard">
             <Box>
                 <Grid container spacing={3}>
                     <Grid item xs={12} lg={8}>
@@ -40,9 +29,6 @@ const AdminHomePage = () => {
                     </Grid>
                     <Grid item xs={12} lg={8}>
                         <ProductPerformance />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Blog />
                     </Grid>
                 </Grid>
             </Box>

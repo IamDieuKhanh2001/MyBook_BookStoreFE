@@ -1,0 +1,41 @@
+@import '../../../../../style/responsive';
+
+.flashSalePeriodActive {
+    .time {
+        color: #D22121 !important;
+    }
+
+    .status {
+        color: #D22121 !important;
+    }
+}
+
+.flashSalePeriodItem {
+    text-align: center;
+
+    .flashSalePeriodsLabel {
+        display: inline-block;
+        cursor: pointer;
+        color: #646464;
+        text-decoration: none;
+        background: transparent;
+
+        .time {
+            font-size: 20px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .status {
+            font-size: 15px;
+            color: #000;
+        }
+    }
+}
+
+
+@include Responsive(M) {
+    .flashSalePeriodItem {
+        padding-bottom: 15px;
+    }
+}

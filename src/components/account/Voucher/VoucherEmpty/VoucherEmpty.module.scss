@@ -1,0 +1,13 @@
+.voucherEmpty {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    max-height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        margin-bottom: 15px;
+    }
+}
