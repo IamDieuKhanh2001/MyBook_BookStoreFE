@@ -24,6 +24,7 @@ import { IBookLanguage } from '../../../../../../types/IBookLanguage';
 import useAPIBook from '@/lib/hooks/api/useAPIBook';
 import { errorHandler } from '@/lib/utils/ErrorHandler';
 import { IBook } from '../../../../../../types/IBook';
+import CustomAutoComplete from '@/components/forms/theme-elements/CustomAutoComplete';
 
 interface FormValues {
     pcategoryId: number,
@@ -193,7 +194,6 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                 languageId,
                 bookFormId
             )
-            console.log(res)
             setProductCreated(res.data)
             toast.success("Thêm thông tin sách thành công!!")
             setCurrentStepCompleted()
@@ -426,6 +426,43 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                 )}
                             </Box>
                             <Box sx={{ mt: 2 }}>
+                                <CustomAutoComplete
+                                    disabled={stepCompleted}
+                                    disablePortal
+                                    id="pcategoryId"
+                                    options={pCatgoryList || []}
+                                    getOptionLabel={(option: IParentCategory) => option.name}
+                                    value={pCatgoryList.find((option: IParentCategory) => option.id === values.pcategoryId) || null}
+                                    onChange={(event: any, newValue) => {
+                                        const selectedId = newValue ? newValue.id : 0;
+                                        setFieldValue('pcategoryId', selectedId);
+                                        setFieldValue('ccategoryId', 0);
+                                        setSelectedPCategoryId(selectedId);
+                                    }}
+                                    sx={{ width: '100%' }}
+                                    renderInput={
+                                        (params) =>
+                                            <CustomTextField
+                                                {...params}
+                                                name='pcategoryId'
+                                                label="Chọn loại sách"
+                                            />
+                                    }
+                                    renderOption={(props, option: IParentCategory) => {
+                                        return (
+                                            <li {...props} key={`pcategory__id_${option.id}`}>
+                                                {option.name}
+                                            </li>
+                                        );
+                                    }}
+                                />
+                                {errors.pcategoryId && touched.pcategoryId && (
+                                    <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
+                                        {errors.pcategoryId}
+                                    </Typography>
+                                )}
+                            </Box>
+                            {/* <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
                                     disabled={stepCompleted}
                                     labelId="pcategoryId"
@@ -448,8 +485,43 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                         {errors.pcategoryId}
                                     </Typography>
                                 )}
-                            </Box>
+                            </Box> */}
                             <Box sx={{ mt: 2 }}>
+                                <CustomAutoComplete
+                                    disabled={stepCompleted}
+                                    disablePortal
+                                    id="ccategoryId"
+                                    options={pCategoryDetail.childrenCategory || []}
+                                    getOptionLabel={(option: IChildCategory) => option.name}
+                                    value={pCategoryDetail.childrenCategory?.find((option: IChildCategory) => option.id === values.ccategoryId) || null}
+                                    onChange={(event: any, newValue) => {
+                                        const selectedId = newValue ? newValue.id : 0;
+                                        setFieldValue('ccategoryId', selectedId);
+                                    }}
+                                    sx={{ width: '100%' }}
+                                    renderInput={
+                                        (params) =>
+                                            <CustomTextField
+                                                {...params}
+                                                name='ccategoryId'
+                                                label="Hãy chọn thể loại"
+                                            />
+                                    }
+                                    renderOption={(props, option: IChildCategory) => {
+                                        return (
+                                            <li {...props} key={`ccategory__id_${option.id}`}>
+                                                {option.name}
+                                            </li>
+                                        );
+                                    }}
+                                />
+                                {errors.ccategoryId && touched.ccategoryId && (
+                                    <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
+                                        {errors.ccategoryId}
+                                    </Typography>
+                                )}
+                            </Box>
+                            {/* <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
                                     disabled={stepCompleted}
                                     labelId="ccategoryId"
@@ -470,8 +542,43 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                         {errors.ccategoryId}
                                     </Typography>
                                 )}
-                            </Box>
+                            </Box> */}
                             <Box sx={{ mt: 2 }}>
+                                <CustomAutoComplete
+                                    disabled={stepCompleted}
+                                    disablePortal
+                                    id="authorId"
+                                    options={authorList || []}
+                                    getOptionLabel={(option: IAuthor) => option.author_name}
+                                    value={authorList.find((option: IAuthor) => option.id === values.authorId) || null}
+                                    onChange={(event: any, newValue) => {
+                                        const selectedId = newValue ? newValue.id : 0;
+                                        setFieldValue('authorId', selectedId);
+                                    }}
+                                    sx={{ width: '100%' }}
+                                    renderInput={
+                                        (params) =>
+                                            <CustomTextField
+                                                {...params}
+                                                name='authorId'
+                                                label="Hãy chọn tác giả"
+                                            />
+                                    }
+                                    renderOption={(props, option: IAuthor) => {
+                                        return (
+                                            <li {...props} key={`author__id_${option.id}`}>
+                                                {option.author_name}
+                                            </li>
+                                        );
+                                    }}
+                                />
+                                {errors.authorId && touched.authorId && (
+                                    <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
+                                        {errors.authorId}
+                                    </Typography>
+                                )}
+                            </Box>
+                            {/* <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
                                     disabled={stepCompleted}
                                     labelId="authorId"
@@ -492,8 +599,43 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                         {errors.authorId}
                                     </Typography>
                                 )}
-                            </Box>
+                            </Box> */}
                             <Box sx={{ mt: 2 }}>
+                                <CustomAutoComplete
+                                    disabled={stepCompleted}
+                                    disablePortal
+                                    id="publisherId"
+                                    options={publisherList || []}
+                                    getOptionLabel={(option: IPublisher) => option.name}
+                                    value={publisherList.find((option: IPublisher) => option.id === values.publisherId) || null}
+                                    onChange={(event: any, newValue) => {
+                                        const selectedId = newValue ? newValue.id : 0;
+                                        setFieldValue('publisherId', selectedId);
+                                    }}
+                                    sx={{ width: '100%' }}
+                                    renderInput={
+                                        (params) =>
+                                            <CustomTextField
+                                                {...params}
+                                                name='publisherId'
+                                                label="Hãy chọn nhà xuất bản"
+                                            />
+                                    }
+                                    renderOption={(props, option: IPublisher) => {
+                                        return (
+                                            <li {...props} key={`publisher__id_${option.id}`}>
+                                                {option.name}
+                                            </li>
+                                        );
+                                    }}
+                                />
+                                {errors.publisherId && touched.publisherId && (
+                                    <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
+                                        {errors.publisherId}
+                                    </Typography>
+                                )}
+                            </Box>
+                            {/* <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
                                     disabled={stepCompleted}
                                     labelId="publisherId"
@@ -514,8 +656,43 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                         {errors.publisherId}
                                     </Typography>
                                 )}
-                            </Box>
+                            </Box> */}
                             <Box sx={{ mt: 2 }}>
+                                <CustomAutoComplete
+                                    disabled={stepCompleted}
+                                    disablePortal
+                                    id="providerId"
+                                    options={providerList || []}
+                                    getOptionLabel={(option: IProvider) => option.name}
+                                    value={providerList.find((option: IProvider) => option.id === values.providerId) || null}
+                                    onChange={(event: any, newValue) => {
+                                        const selectedId = newValue ? newValue.id : 0;
+                                        setFieldValue('providerId', selectedId);
+                                    }}
+                                    sx={{ width: '100%' }}
+                                    renderInput={
+                                        (params) =>
+                                            <CustomTextField
+                                                {...params}
+                                                name='providerId'
+                                                label="Hãy chọn nhà cung cấp"
+                                            />
+                                    }
+                                    renderOption={(props, option: IProvider) => {
+                                        return (
+                                            <li {...props} key={`provider__id_${option.id}`}>
+                                                {option.name}
+                                            </li>
+                                        );
+                                    }}
+                                />
+                                {errors.providerId && touched.providerId && (
+                                    <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
+                                        {errors.providerId}
+                                    </Typography>
+                                )}
+                            </Box>
+                            {/* <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
                                     disabled={stepCompleted}
                                     labelId="providerId"
@@ -536,8 +713,43 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                         {errors.providerId}
                                     </Typography>
                                 )}
-                            </Box>
+                            </Box> */}
                             <Box sx={{ mt: 2 }}>
+                                <CustomAutoComplete
+                                    disabled={stepCompleted}
+                                    disablePortal
+                                    id="languageId"
+                                    options={languageList || []}
+                                    getOptionLabel={(option: IBookLanguage) => option.language_name}
+                                    value={languageList.find((option: IBookLanguage) => option.id === values.languageId) || null}
+                                    onChange={(event: any, newValue) => {
+                                        const selectedId = newValue ? newValue.id : 0;
+                                        setFieldValue('languageId', selectedId);
+                                    }}
+                                    sx={{ width: '100%' }}
+                                    renderInput={
+                                        (params) =>
+                                            <CustomTextField
+                                                {...params}
+                                                name='languageId'
+                                                label="Hãy chọn ngôn ngữ sách"
+                                            />
+                                    }
+                                    renderOption={(props, option: IBookLanguage) => {
+                                        return (
+                                            <li {...props} key={`language__id_${option.id}`}>
+                                                {option.language_name}
+                                            </li>
+                                        );
+                                    }}
+                                />
+                                {errors.languageId && touched.languageId && (
+                                    <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
+                                        {errors.languageId}
+                                    </Typography>
+                                )}
+                            </Box>
+                            {/* <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
                                     disabled={stepCompleted}
                                     labelId="languageId"
@@ -558,8 +770,43 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                         {errors.languageId}
                                     </Typography>
                                 )}
-                            </Box>
+                            </Box> */}
                             <Box sx={{ mt: 2 }}>
+                                <CustomAutoComplete
+                                    disabled={stepCompleted}
+                                    disablePortal
+                                    id="bookFormId"
+                                    options={bookFormList || []}
+                                    getOptionLabel={(option: IBookForm) => option.name}
+                                    value={bookFormList.find((option: IBookForm) => option.id === values.bookFormId) || null}
+                                    onChange={(event: any, newValue) => {
+                                        const selectedId = newValue ? newValue.id : 0;
+                                        setFieldValue('bookFormId', selectedId);
+                                    }}
+                                    sx={{ width: '100%' }}
+                                    renderInput={
+                                        (params) =>
+                                            <CustomTextField
+                                                {...params}
+                                                name='bookFormId'
+                                                label="Hãy chọn hình thức sách"
+                                            />
+                                    }
+                                    renderOption={(props, option: IBookForm) => {
+                                        return (
+                                            <li {...props} key={`form__id_${option.id}`}>
+                                                {option.name}
+                                            </li>
+                                        );
+                                    }}
+                                />
+                                {errors.bookFormId && touched.bookFormId && (
+                                    <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
+                                        {errors.bookFormId}
+                                    </Typography>
+                                )}
+                            </Box>
+                            {/* <Box sx={{ mt: 2 }}>
                                 <CustomSelectBox
                                     disabled={stepCompleted}
                                     labelId="bookFormId"
@@ -580,7 +827,7 @@ const AddInfoProduct = (props: IAddInfoProductProps) => {
                                         {errors.bookFormId}
                                     </Typography>
                                 )}
-                            </Box>
+                            </Box> */}
                             <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
                                 {!stepCompleted ? (
                                     <CustomButton
