@@ -19,7 +19,10 @@ const OrderedList = () => {
                         Hình thức
                     </div>
                     <div className={styles.headerStatus}>
-                        Trạng thái
+                        Trạng thái đơn
+                    </div>
+                    <div className={styles.headerStatus}>
+                        Thanh toán
                     </div>
                     <div className={styles.headerOrderTotalPrice}>
                         Tổng

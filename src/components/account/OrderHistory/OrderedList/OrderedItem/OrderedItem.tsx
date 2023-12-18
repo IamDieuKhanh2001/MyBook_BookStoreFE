@@ -7,7 +7,7 @@ interface IOrderedItemProps {
 }
 const OrderedItem = (props: IOrderedItemProps) => {
     const { data } = props
-
+    console.log(data)
     return (
         <>
             <div className={styles.orderItem}>
@@ -19,6 +19,9 @@ const OrderedItem = (props: IOrderedItemProps) => {
                 </div>
                 <div className={styles.orderStatus}>
                     {data.status}
+                </div>
+                <div className={styles.orderStatus}>
+                    {data.payment_status}
                 </div>
                 <div className={styles.orderTotalPrice}>
                     {data.final_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}

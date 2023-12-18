@@ -29,7 +29,7 @@ const FlashSaleProduct = (props: IFlashSaleProductProps) => {
                     <div className='d-flex justify-content-center'>
                         <Link
                             target='_blank'
-                            href={`/product/detail/${data.isbn_code}`}
+                            href={`/product/detail/${data.product_info.slug}`}
                             className={styles.imgContainer}
                         >
                             <img
@@ -53,7 +53,7 @@ const FlashSaleProduct = (props: IFlashSaleProductProps) => {
                     )}
                 </div>
                 <div className="px-4 py-2">
-                    <Link className="d-block h6 mb-1" target='_blank' href={`/product/detail/${data.isbn_code}`} style={{ minHeight: '38px' }}>
+                    <Link className="d-block h6 mb-1" target='_blank' href={`/product/detail/${data.product_info.slug}`} style={{ minHeight: '38px' }}>
                         {
                             truncateText(data.product_info?.name, 40)
                         }

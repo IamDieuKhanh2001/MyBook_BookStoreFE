@@ -7,7 +7,6 @@ import FlashSalePageBanner from '@/components/product/FlashSale/FlashSalePageBan
 import FlashSalePeriods from '@/components/product/FlashSale/FlashSalePeriods/FlashSalePeriods'
 import FlashSalePeriodProducts from '@/components/product/FlashSale/FlashSalePeriodProducts/FlashSalePeriodProducts'
 import useAPIGuest from '@/lib/hooks/api/useAPIGuest'
-import dynamic from 'next/dynamic'
 import { IFlashSalePeriod } from '../../../../types/IFlashSalePeriod'
 import { useRouter } from 'next/navigation'
 import { convertMillisecondsToHours, convertMillisecondsToMinutes, convertMillisecondsToSeconds } from '@/lib/utils/DateTimeUtils'
@@ -24,10 +23,6 @@ const FlashSalePage = () => {
       setPeriodActive(flashSaleTodayData.hours[0])
     }
   }, [flashSaleTodayData])
-
-  // React.useEffect(() => {
-  //   console.log(periodActive)
-  // }, [periodActive])
 
   const renderFlashSaleHeader = () => {
     console.log(periodActive)

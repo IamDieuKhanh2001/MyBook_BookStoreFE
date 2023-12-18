@@ -4,16 +4,17 @@ import Breadcrumb from '@/components/shared/Breadcrumb/Breadcrumb'
 
 interface IProductDetailPageProps {
   params: {
-    isbn_code: string;
+    slug: string;
   };
 }
 const ProductDetailPage = ({ params }: IProductDetailPageProps) => {
-  const { isbn_code } = params
+  const { slug } = params
 
+  console.log(slug)
   return (
     <>
       <Breadcrumb />
-      <ProductDetail isbnCode={isbn_code} />
+      <ProductDetail slug={slug} />
     </>
   )
 }

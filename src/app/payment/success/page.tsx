@@ -15,7 +15,7 @@ const PaymentSuccessPage = () => {
                             <span className={styles.checkSuccess}>
                                 <i className="fa fa-check" />
                             </span>
-                            <span className="fw-bold fs-1">Hoàn tất thanh toán</span>
+                            <span className="fw-bold fs-1">Hoàn tất đặt hàng</span>
                             <small className="mt-2 fs-5">Cảm ơn bạn đã sử dụng dịch vụ</small>
                         </div>
                         <button

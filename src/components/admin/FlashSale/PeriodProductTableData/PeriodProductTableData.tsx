@@ -2,35 +2,17 @@
 
 import CustomButton from '@/components/forms/theme-elements/CustomButton';
 import { IconTrash } from '@tabler/icons-react';
-import { useConfirm } from 'material-ui-confirm';
 import React from 'react'
-import { toast } from 'react-toastify';
 import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import { truncateText } from '@/lib/utils/TextUtils';
 import { IFlashSalePeriod } from '../../../../../types/IFlashSalePeriod';
 
 interface IPeriodProductTableDataProps {
     periodData: IFlashSalePeriod
+    handleDeleteData: (flashSaleHourId: number, isbnCode: string) => void;
 }
 const PeriodProductTableData = (props: IPeriodProductTableDataProps) => {
-    const { periodData } = props
-    const confirm = useConfirm();
-
-    const handleDeleteData = async (id: number) => {
-        confirm({
-            title: `Đồng ý xóa ${id} ?`,
-            description: 'Bạn có chắc chắn muốn thực hiện hành động này?',
-        })
-            .then(async () => {
-                try {
-
-                    toast.success("Xóa sản phẩm flash sale hoàn tất id: " + id)
-                }
-                catch (e) {
-                    toast.error("Something when wrong, please try again")
-                }
-            })
-    }
+    const { periodData, handleDeleteData } = props
 
     return (
         <>
@@ -98,7 +80,7 @@ const PeriodProductTableData = (props: IPeriodProductTableDataProps) => {
                                     <CustomButton
                                         color='error'
                                         size="small"
-                                        onClick={() => handleDeleteData(productFlashSale.id)}
+                                        onClick={() => handleDeleteData(periodData.id, productFlashSale.isbn_code)}
                                     >
                                         <IconTrash />
                                     </CustomButton>

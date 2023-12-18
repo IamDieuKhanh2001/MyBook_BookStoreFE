@@ -17,7 +17,8 @@ interface IReviewFormProps {
 const ReviewForm = (props: IReviewFormProps) => {
     const { handleHideModal, orderId } = props
     const [ratingStar, setRatingStar] = useState(1);
-    const { updateOrCreateOrderReview } = useAPIUserOrder()
+    const { updateOrCreateOrderReview, getOrderDetail } = useAPIUserOrder()
+    const { mutate } = getOrderDetail(orderId)
 
     const handleStarHover = (starValue: number) => {
         // Xử lý khi người dùng hover vào sao
@@ -41,7 +42,9 @@ const ReviewForm = (props: IReviewFormProps) => {
         try {
             const { reviewComment } = values
             await updateOrCreateOrderReview(orderId, ratingStar, reviewComment)
+            mutate()
             toast.success("Gửi đánh giá thành công!!")
+            handleHideModal()
         }
         catch (e) {
             errorHandler(e)

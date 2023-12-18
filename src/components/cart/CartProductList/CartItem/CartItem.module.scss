@@ -62,7 +62,8 @@
             flex-direction: column;
             justify-content: space-between;
 
-            h2 {
+            .bookTitle {
+                color: black;
                 width: 100%;
                 margin: 0;
                 font-weight: normal;
@@ -74,9 +75,7 @@
             .itemOptions {
 
                 dd {
-                    padding-left: 10px;
                     margin: 0 0 6px;
-                    padding-right: 20px;
                     line-height: 1.428571429;
                 }
             }
@@ -152,13 +151,16 @@
             flex-basis: 8%;
             justify-content: flex-end;
         }
+
         .imgProductCart {
             flex-basis: 28%;
             padding: 6px 10px;
         }
+
         .groupProductInfo {
             flex-direction: column;
             flex-basis: 55%;
+
             .numberProductCart {
                 .cartPriceTotal {
                     display: none;
@@ -175,6 +177,7 @@
                 }
             }
         }
+
         .btnRemoveCart {
             flex-basis: 9%;
             align-items: flex-end;

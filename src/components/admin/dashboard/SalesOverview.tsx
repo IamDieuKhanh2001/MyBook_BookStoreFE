@@ -86,7 +86,7 @@ const SalesOverview = () => {
         },
         {
             name: 'Expense this month',
-            data: [280, 250, 325, 215, 250, 310, 280, 250],
+            data: [100, 250, 325, 215, 250, 310, 280, 250],
         },
     ];
 

@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import { errorHandler } from '@/lib/utils/ErrorHandler'
 import { useConfirm } from 'material-ui-confirm'
 import { ICartItem } from '../../../../../types/ICartItem'
+import Link from 'next/link'
 
 interface ICartItemProps {
     productData: ICartItem
@@ -19,6 +20,7 @@ const CartItem = (props: ICartItemProps) => {
     const confirm = useConfirm();
     const { increaseQty, decreaseQty, deleteCartItem, getMyCartList } = useAPIUserCart()
     const { mutate, isLoading } = getMyCartList()
+    const linkToDetail = `/product/detail/${productData.book_info.slug}`
 
     const onImageError = (e: any) => {
         e.target.src = '/img/book/no-image.jpg'
@@ -26,12 +28,10 @@ const CartItem = (props: ICartItemProps) => {
 
     const handleChangeCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked === true) {
-            console.log("Choose this")
             const currentItems = [...itemSelected];
             currentItems.push(productData.id);
             setItemSelected(currentItems)
         } else {
-            console.log("not choose this")
             const updatedItems = itemSelected.filter(item => item !== productData.id);
             setItemSelected(updatedItems)
         }
@@ -94,22 +94,24 @@ const CartItem = (props: ICartItemProps) => {
                     />
                 </div>
                 <div className={styles.imgProductCart}>
-                    <img
-                        className={styles.productImage}
-                        src={
-                            productData.book_info.images && productData.book_info.images.length > 0 ?
-                                productData.book_info.images[0].image_source : '/img/book/no-image.jpg'
-                        }
-                        onError={onImageError}
-                        alt="img product"
-                    />
+                    <Link href={linkToDetail}>
+                        <img
+                            className={styles.productImage}
+                            src={
+                                productData.book_info.images && productData.book_info.images.length > 0 ?
+                                    productData.book_info.images[0].image_source : '/img/book/no-image.jpg'
+                            }
+                            onError={onImageError}
+                            alt="img product"
+                        />
+                    </Link>
                 </div>
                 <div className={styles.groupProductInfo}>
                     <div className={styles.infoProductCart}>
                         <div>
-                            <h2>
+                            <Link className={styles.bookTitle} href={linkToDetail}>
                                 {productData.book_info.name}
-                            </h2>
+                            </Link>
                         </div>
                         <div className={styles.itemOptions}>
                             <dd>

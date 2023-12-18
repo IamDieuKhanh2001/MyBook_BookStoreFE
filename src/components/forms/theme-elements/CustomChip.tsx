@@ -6,7 +6,7 @@ import { ChipPropsSizeOverrides } from '@mui/material/Chip';
 
 interface ICustomChipProps {
     label?: string
-    bgColor?: "success" | "warning" | 'error'
+    bgColor?: "success" | "warning" | 'error' | 'info' | 'grey'
     size?: OverridableStringUnion<"small" | "medium", ChipPropsSizeOverrides> | undefined
 }
 const CustomChip = (props: ICustomChipProps) => {
@@ -24,7 +24,11 @@ const CustomChip = (props: ICustomChipProps) => {
                             ? theme.palette.warning.main
                             : bgColor === 'error'
                                 ? theme.palette.error.main
-                                : undefined,
+                                : bgColor === 'info'
+                                    ? theme.palette.info.main
+                                    : bgColor === 'grey'
+                                        ? theme.palette.grey[400]
+                                        : undefined,
                     color: "#fff",
                 }}
                 size={size}

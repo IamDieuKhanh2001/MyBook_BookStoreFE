@@ -195,6 +195,20 @@ const useAPIFlashSale = () => {
         }
     }
 
+    const deleteProductFromPeriod = async (flashSaleHourId: number, isbnCode: string) => {
+        try {
+            const session = await getSession();
+            const url = `${URL_PREFIX}/hour/${flashSaleHourId}/delete-product/${isbnCode}`
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
+            const response = await axiosAuth.delete(url, { headers })
+            return response;
+        } catch (error: any) {
+            throw error
+        }
+    };
+
     return {
         getFlashSaleDayListPaginated,
         createNewFlashSaleEvent,
@@ -202,6 +216,7 @@ const useAPIFlashSale = () => {
         getFlashSalePeriods,
         getFlashSalePeriodDetail,
         addProductToHour,
+        deleteProductFromPeriod,
     }
 }
 

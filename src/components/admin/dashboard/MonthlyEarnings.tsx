@@ -46,7 +46,6 @@ const MonthlyEarnings = () => {
     },
   };
 
-  console.log(theme.palette.mode)
   const seriescolumnchart: any = [
     {
       name: '',

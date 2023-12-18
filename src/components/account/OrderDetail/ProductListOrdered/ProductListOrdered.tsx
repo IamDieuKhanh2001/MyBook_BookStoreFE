@@ -3,9 +3,14 @@ import React from 'react'
 import styles from './ProductListOrdered.module.scss'
 import ProductItemOrdered from './ProductItemOrdered/ProductItemOrdered'
 import BadgeOrderCanceled from '../OrderOverview/StatusBadge/BadgeOrderCanceled/BadgeOrderCanceled'
-import BadgeOrderSuccess from '../OrderOverview/StatusBadge/BadgeOrderSuccess/BadgeOrderSuccess'
-import BadgeOrderUnpaid from '../OrderOverview/StatusBadge/BadgeOrderUnpaid/BadgeOrderUnpaid'
+import BadgeOrderSuccess from '../OrderOverview/StatusBadge/BadgeOrderDelivering/BadgeOrderDelivering'
+import BadgeOrderUnpaid from '../OrderOverview/StatusBadge/BadgeOrderConfirm/BadgeOrderConfirm'
 import PaymentStatus from '@/enum/PaymentStatus'
+import OrderStatus from '@/enum/OrderStatus'
+import BadgeOrderCompleted from '../OrderOverview/StatusBadge/BadgeOrderCompleted/BadgeOrderCompleted'
+import BadgeOrderConfirm from '../OrderOverview/StatusBadge/BadgeOrderConfirm/BadgeOrderConfirm'
+import BadgeOrderPending from '../OrderOverview/StatusBadge/BadgeOrderPeding/BadgeOrderPeding'
+import BadgeOrderDelivering from '../OrderOverview/StatusBadge/BadgeOrderDelivering/BadgeOrderDelivering'
 
 interface IProductListOrderedProps {
     data: IOrder
@@ -27,14 +32,17 @@ const ProductListOrdered = (props: IProductListOrderedProps) => {
                             </span>
                         </div>
                         {
-                            data.status === PaymentStatus.PAID
-                                ? <BadgeOrderSuccess />
-                                :
-                                data.status === PaymentStatus.UNPAID
-                                    ? <BadgeOrderUnpaid /> :
-                                    data.status === PaymentStatus.CANCEL
-                                        ? <BadgeOrderCanceled /> :
-                                        <></>
+                            data.status === OrderStatus.COMPLETED
+                                ? <BadgeOrderCompleted />
+                                : data.status === OrderStatus.CONFIRMED
+                                    ? <BadgeOrderConfirm /> :
+                                    data.status === OrderStatus.DELIVERING
+                                        ? <BadgeOrderDelivering /> :
+                                        data.status === OrderStatus.PENDING
+                                            ? <BadgeOrderPending /> :
+                                            data.status === OrderStatus.CANCELED
+                                                ? <BadgeOrderCanceled /> :
+                                                <></>
                         }
                         <div className={styles.orderViewQty}>
                             <span>

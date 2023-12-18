@@ -1,8 +1,8 @@
 'use client'
 import React from 'react'
-import styles from './BadgeOrderPaid.module.scss'
+import styles from './BadgeOrderCompleted.module.scss'
 
-const BadgeOrderPaid = () => {
+const BadgeOrderCompleted = () => {
     return (
         <>
             <div className={styles.orderViewStatus}>
@@ -12,4 +12,4 @@ const BadgeOrderPaid = () => {
     )
 }
 
-export default BadgeOrderPaid
+export default BadgeOrderCompleted

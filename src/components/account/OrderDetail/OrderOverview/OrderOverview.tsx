@@ -2,17 +2,60 @@
 import React from 'react'
 import styles from './OrderOverview.module.scss'
 import BadgeOrderCanceled from './StatusBadge/BadgeOrderCanceled/BadgeOrderCanceled'
-import PaymentStatus from '@/enum/PaymentStatus'
-import BadgeOrderSuccess from './StatusBadge/BadgeOrderSuccess/BadgeOrderSuccess'
-import BadgeOrderUnpaid from './StatusBadge/BadgeOrderUnpaid/BadgeOrderUnpaid'
 import ReviewOrderModal from './ReviewOrderModal/ReviewOrderModal'
-import BadgeOrderPaid from './StatusBadge/BadgeOrderPaid/BadgeOrderPaid'
+import BadgeOrderPaid from './StatusBadge/BadgeOrderCompleted/BadgeOrderCompleted'
+import useAPIUserOrder from '@/lib/hooks/api/useAPIUserOrder'
+import { useConfirm } from 'material-ui-confirm'
+import { KeyedMutator } from 'swr'
+import { toast } from 'react-toastify'
+import OrderStatus from '@/enum/OrderStatus'
+import BadgeOrderCompleted from './StatusBadge/BadgeOrderCompleted/BadgeOrderCompleted'
+import BadgeOrderDelivering from './StatusBadge/BadgeOrderDelivering/BadgeOrderDelivering'
+import BadgeOrderConfirm from './StatusBadge/BadgeOrderConfirm/BadgeOrderConfirm'
+import BadgeOrderPending from './StatusBadge/BadgeOrderPeding/BadgeOrderPeding'
 
 interface IOrderOverviewProps {
     data: IOrder
+    mutate: KeyedMutator<any>
 }
 const OrderOverview = (props: IOrderOverviewProps) => {
-    const { data } = props
+    const { data, mutate } = props
+    const { cancelOrder, completeOrder } = useAPIUserOrder()
+    const confirm = useConfirm()
+
+    const handleCancelOrder = async (id: number) => {
+        confirm({
+            title: `Đồng ý hủy đơn hàng ${id} ?`,
+            description: 'Bạn có chắc chắn muốn thực hiện hành động này?',
+        })
+            .then(async () => {
+                try {
+                    await cancelOrder(id)
+                    mutate()
+                    toast.success("Hủy đơn hàng hoàn tất id: " + id)
+                }
+                catch (e) {
+                    toast.error("Có lỗi xảy ra, vui lòng thử lại")
+                }
+            })
+    }
+
+    const handleCompleteOrder = async (id: number) => {
+        confirm({
+            title: `Xác nhận đã nhận đơn hàng ${id} ?`,
+            description: 'Bạn có chắc chắn muốn thực hiện hành động này?',
+        })
+            .then(async () => {
+                try {
+                    await completeOrder(id)
+                    mutate()
+                    toast.success("Xác nhận đơn hàng hoàn tất id: " + id)
+                }
+                catch (e) {
+                    toast.error("Có lỗi xảy ra, vui lòng thử lại")
+                }
+            })
+    }
 
     return (
         <>
@@ -22,15 +65,17 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                 </div>
                 <div>
                     {
-                        data.status === PaymentStatus.PAID
-                            ? <BadgeOrderPaid />
-                            : data.status === PaymentStatus.UNPAID
-                                ? <BadgeOrderSuccess /> :
-                                data.status === PaymentStatus.UNPAID
-                                    ? <BadgeOrderUnpaid /> :
-                                    data.status === PaymentStatus.CANCEL
-                                        ? <BadgeOrderCanceled /> :
-                                        <></>
+                        data.status === OrderStatus.COMPLETED
+                            ? <BadgeOrderCompleted />
+                            : data.status === OrderStatus.CONFIRMED
+                                ? <BadgeOrderConfirm /> :
+                                data.status === OrderStatus.DELIVERING
+                                    ? <BadgeOrderDelivering /> :
+                                    data.status === OrderStatus.PENDING
+                                        ? <BadgeOrderPending /> :
+                                        data.status === OrderStatus.CANCELED
+                                            ? <BadgeOrderCanceled /> :
+                                            <></>
                     }
                     <div className={styles.orderViewId}>
                         <span>
@@ -38,6 +83,14 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                         </span>
                         <span>
                             {data.id}
+                        </span>
+                    </div>
+                    <div className={styles.orderViewId}>
+                        <span>
+                            Thanh toán:
+                        </span>
+                        <span>
+                            {data.payment_status}
                         </span>
                     </div>
                     <div className={styles.orderViewDate}>
@@ -75,10 +128,32 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                     </div>
                 </div>
                 <div className={styles.overviewBtns}>
-                    <button className={styles.orderReceivedBtn}>
-                        Xác nhận đã nhận hàng
-                    </button>
-                    <ReviewOrderModal orderId={data.id} />
+                    {/* delivering  */}
+                    {data.status === OrderStatus.DELIVERING && (
+                        <button
+                            className={styles.orderReceivedBtn}
+                            onClick={() => handleCompleteOrder(data.id)}
+                        >
+                            Xác nhận đã nhận hàng
+                        </button>
+                    )}
+                    {/* pedding , cofirm  */}
+                    {
+                        (data.status === OrderStatus.CONFIRMED || data.status === OrderStatus.PENDING)
+                        &&
+                        <button
+                            className={styles.orderReceivedBtn}
+                            onClick={() => handleCancelOrder(data.id)}
+                        >
+                            Huỷ bỏ đơn hàng
+                        </button>
+                    }
+                    {/* completed  */}
+                    {data.status === OrderStatus.COMPLETED && !data.review &&
+                        (
+                            <ReviewOrderModal orderId={data.id} />
+                        )
+                    }
                 </div>
             </div >
             <div className="card mb-2 py-3 px-4">

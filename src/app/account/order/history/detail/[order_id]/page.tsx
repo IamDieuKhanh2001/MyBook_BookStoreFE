@@ -14,11 +14,11 @@ interface IOrderedDetailPageProps {
 const OrderedDetailPage = (props: IOrderedDetailPageProps) => {
     const { params } = props
     const { getOrderDetail } = useAPIUserOrder()
-    const { data, error, isLoading } = getOrderDetail(params.order_id)
+    const { data, error, isLoading, mutate } = getOrderDetail(params.order_id)
 
     return (
         <>
-            <OrderOverview data={data} />
+            <OrderOverview data={data} mutate={mutate} />
             <ProductListOrdered data={data} />
         </>
     )

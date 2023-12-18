@@ -9,7 +9,7 @@ interface ICartMiniItemProps {
 }
 const CartMiniItem = (props: ICartMiniItemProps) => {
     const { cartItemData } = props
-    const linkToDetail = `/product/detail/${cartItemData.isbn_code}`
+    const linkToDetail = `/product/detail/${cartItemData.book_info.slug}`
 
     const onImageError = (e: any) => {
         e.target.src = '/img/book/no-image.jpg'

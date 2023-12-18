@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation'
 import useAPIFlashSale from '@/lib/hooks/api/useAPIFlashSale'
 import PeriodProductTableData from '@/components/admin/FlashSale/PeriodProductTableData/PeriodProductTableData'
 import AddProductEventModal from '@/components/admin/FlashSale/AddProductEventModal/AddProductEventModal'
+import { useConfirm } from 'material-ui-confirm'
+import { toast } from 'react-toastify'
 
 interface IFlashSalePeriodPageProps {
     params: {
@@ -18,9 +20,28 @@ interface IFlashSalePeriodPageProps {
 const FlashSalePeriodPage = (props: IFlashSalePeriodPageProps) => {
     const router = useRouter()
     const { params } = props
-    const { getFlashSalePeriodDetail } = useAPIFlashSale()
+    const { getFlashSalePeriodDetail, deleteProductFromPeriod } = useAPIFlashSale()
     const { data, error, isLoading, mutate } = getFlashSalePeriodDetail(params.period_id)
     const [showModalCreate, setShowModalCreate] = useState<boolean>(false);
+
+    const confirm = useConfirm();
+
+    const handleDeleteData = async (flashSaleHourId: number, isbnCode: string) => {
+        confirm({
+            title: `Đồng ý xóa ${isbnCode} khỏi khung giờ sale ?`,
+            description: 'Bạn có chắc chắn muốn thực hiện hành động này?',
+        })
+            .then(async () => {
+                try {
+                    await deleteProductFromPeriod(flashSaleHourId, isbnCode)
+                    mutate()
+                    toast.success("Xóa sản phẩm flash sale hoàn tất id: " + isbnCode)
+                }
+                catch (e) {
+                    toast.error("Something when wrong, please try again")
+                }
+            })
+    }
 
     return (
         <>
@@ -89,6 +110,7 @@ const FlashSalePeriodPage = (props: IFlashSalePeriodPageProps) => {
                                     </Typography>
                                     <PeriodProductTableData
                                         periodData={data}
+                                        handleDeleteData={handleDeleteData}
                                     />
                                 </>
                             ) : (

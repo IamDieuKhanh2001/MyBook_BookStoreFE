@@ -11,20 +11,25 @@ import {
 } from '@mui/material'
 import { truncateText } from '@/lib/utils/TextUtils'
 import CustomButton from '@/components/forms/theme-elements/CustomButton'
-import { IconCheck, IconX } from '@tabler/icons-react'
+import { IconCheck, IconTruckDelivery, IconX } from '@tabler/icons-react'
 import CustomChip from '@/components/forms/theme-elements/CustomChip'
 import PaymentStatus from '@/enum/PaymentStatus'
+import OrderStatus from '@/enum/OrderStatus'
 
 interface IOrderDetailTableProps {
     orderData: IOrder
+    handleDeliveringOrder: (id: number) => Promise<void>
+    handleConfirmOrder: (id: number) => Promise<void>
+    handleCancelOrder: (id: number) => Promise<void>
 }
 const OrderDetailTable = (props: IOrderDetailTableProps) => {
-    const { orderData } = props
+    const { orderData, handleDeliveringOrder, handleConfirmOrder, handleCancelOrder } = props
     const {
         id,
         user,
         payment_method,
         customer_note,
+        payment_status,
         status,
         created_at,
         product_price,
@@ -79,24 +84,65 @@ const OrderDetailTable = (props: IOrderDetailTableProps) => {
                     <TableRow>
                         <TableCell align='left' sx={{ minWidth: '200px', width: '200px' }}>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                Trạng thái
+                                Trạng thái thanh toán
                             </Typography>
                         </TableCell>
                         <TableCell align='left'>
                             <CustomChip
                                 bgColor={
-                                    status === PaymentStatus.PAID
+                                    payment_status === PaymentStatus.PAID
                                         ? ('success')
-                                        : status === PaymentStatus.UNPAID
+                                        : payment_status === PaymentStatus.UNPAID
                                             ? ('error')
-                                            : undefined
+                                            : payment_status === PaymentStatus.REFUNDED ?
+                                                ('warning')
+                                                : undefined
                                 }
                                 label={
-                                    status === PaymentStatus.PAID
+                                    payment_status === PaymentStatus.PAID
                                         ? ('Đã thanh toán')
-                                        : status === PaymentStatus.UNPAID
+                                        : payment_status === PaymentStatus.UNPAID
                                             ? ('Chưa thanh toán')
-                                            : undefined
+                                            : payment_status === PaymentStatus.REFUNDED ?
+                                                ('Đã hoàn tiền')
+                                                : undefined
+                                }
+                            />
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell align='left' sx={{ minWidth: '200px', width: '200px' }}>
+                            <Typography variant="subtitle2" fontWeight={600}>
+                                Trạng thái đơn hàng
+                            </Typography>
+                        </TableCell>
+                        <TableCell align='left'>
+                            <CustomChip
+                                bgColor={
+                                    status === OrderStatus.COMPLETED
+                                        ? ('success')
+                                        : status === OrderStatus.CONFIRMED
+                                            ? ('info')
+                                            : status === OrderStatus.DELIVERING ?
+                                                ('warning')
+                                                : status === OrderStatus.PENDING ?
+                                                    ('error')
+                                                    : status === OrderStatus.CANCELED ?
+                                                        ('grey')
+                                                        : undefined
+                                }
+                                label={
+                                    status === OrderStatus.COMPLETED
+                                        ? ('Đã nhận hàng')
+                                        : status === OrderStatus.CONFIRMED
+                                            ? ('Đã xác nhận')
+                                            : status === OrderStatus.DELIVERING ?
+                                                ('Đang vận chuyển')
+                                                : status === OrderStatus.PENDING ?
+                                                    ('Đang chờ xác nhận')
+                                                    : status === OrderStatus.CANCELED ?
+                                                        ('Đã hủy')
+                                                        : undefined
                                 }
                             />
                         </TableCell>
@@ -183,28 +229,54 @@ const OrderDetailTable = (props: IOrderDetailTableProps) => {
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
                                 {customer_note}
                             </Typography>
-                        </TableCell> 
+                        </TableCell>
                     </TableRow>
                 </TableBody>
             </Table>
-            <CustomButton
-                startIcon={<IconCheck />}
-                color="success"
-                size='small' disableElevation variant="contained" href=""
-                sx={{ mr: 2, mt: 2 }}
-                disabled={true}
-            >
-                Xác nhận đơn
-            </CustomButton>
-            <CustomButton
-                startIcon={<IconX />}
-                color="error"
-                size='small' disableElevation variant="contained" href=""
-                sx={{ mr: 2, mt: 2 }}
-                disabled={true}
-            >
-                Hủy đơn hàng
-            </CustomButton>
+            {
+                (status === OrderStatus.PENDING ||
+                    status === OrderStatus.CONFIRMED ||
+                    status === OrderStatus.DELIVERING)
+                &&
+                (
+                    <>
+                        <CustomButton
+                            startIcon={<IconCheck />}
+                            color="success"
+                            size='small' disableElevation variant="contained" href=""
+                            sx={{ mr: 2, mt: 2 }}
+                            disabled={
+                                status !== OrderStatus.PENDING
+                            }
+                            onClick={() => handleConfirmOrder(id)}
+                        >
+                            Xác nhận đơn
+                        </CustomButton>
+                        <CustomButton
+                            startIcon={<IconTruckDelivery />}
+                            color="success"
+                            size='small' disableElevation variant="contained" href=""
+                            sx={{ mr: 2, mt: 2 }}
+                            disabled={
+                                status !== OrderStatus.CONFIRMED
+                            }
+                            onClick={() => handleDeliveringOrder(id)}
+                        >
+                            Đã gửi vận chuyển
+                        </CustomButton>
+                        <CustomButton
+                            startIcon={<IconX />}
+                            color="error"
+                            size='small' disableElevation variant="contained" href=""
+                            sx={{ mr: 2, mt: 2 }}
+                            onClick={() => handleCancelOrder(id)}
+                        >
+                            Hủy đơn hàng
+                        </CustomButton>
+                    </>
+                )
+            }
+
         </>
     )
 }
