@@ -3,7 +3,11 @@
   publish = ".next"  
 
 [build.environment]
-  JWT_SECRET = "ThisIsTheSecureKey1234567890"  
+  JWT_SECRET = "ThisIsTheSecureKey1234567890" 
+  NEXT_USE_NETLIFY_EDGE = "true" 
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [[headers]]
   for = "/*"
