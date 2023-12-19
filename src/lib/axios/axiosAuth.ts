@@ -6,7 +6,7 @@
 // const BASE_URL = "http://127.0.0.1:3333";
 
 // Production environment:
-const BASE_URL = "https://api.sachviet.top:3333";
+const BASE_URL = "https://api.sachviet.top";
 
 import axios from "axios";
 import axiosRetry from "axios-retry";
