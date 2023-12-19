@@ -31,7 +31,10 @@ const UserDropdown = () => {
                                 Account
                             </Link>
                             <li><hr className="dropdown-divider" /></li>
-                            <Link href="" onClick={() => signOut()} className="dropdown-item">
+                            {/* <Link href="" onClick={() => signOut()} className="dropdown-item">
+                                Logout
+                            </Link> */}
+                            <Link href="/api/auth/signout" className="dropdown-item">
                                 Logout
                             </Link>
                         </div>
