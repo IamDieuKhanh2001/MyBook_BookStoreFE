@@ -59,6 +59,7 @@ function ClientNavBar() {
         }
     }, [session, status])
 
+    console.log(session)
     return (
         <>
             {/* Navbar Start */}
