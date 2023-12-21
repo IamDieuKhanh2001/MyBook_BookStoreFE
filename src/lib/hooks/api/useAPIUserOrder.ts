@@ -3,12 +3,102 @@ import useAxiosAuth from '../utils/useAxiosAuth'
 import { getSession } from 'next-auth/react'
 import PaymentMethod from '@/enum/PaymentMethod'
 import useSWR from 'swr'
+import useSWRInfinite from 'swr/infinite'
 
 const useAPIUserOrder = () => {
     const URL_PREFIX = '/user/order'
     const axiosAuth = useAxiosAuth()
 
-    const getOrderList = () => {
+    const getAllOrderPaginated = (
+        limit: string = '10',
+    ) => {
+        const getKey = (pageIndex: number, previousPageData: any) => {
+            if (previousPageData && !previousPageData.length) {
+                return null;
+            }
+            const params = new URLSearchParams({
+                page: (pageIndex + 1).toString(),
+                limit: limit,
+            });
+            return `${URL_PREFIX}/my-order?${params.toString()}`;
+        };
+        const fetcher = async (url: string) => {
+            try {
+                const session = await getSession();
+                const headers = {
+                    Authorization: `Bearer ${session?.user.jwtToken}`,
+                }
+                const response = await axiosAuth.get(url, { headers });
+                return response.data.data;
+            } catch (error) {
+                console.error('Lỗi khi fetch:', error);
+                return Promise.reject(error); // Trả về một Promise bị từ chối
+            }
+        }
+        const { data, size, setSize, error, isLoading, mutate } = useSWRInfinite(
+            getKey,
+            fetcher
+        )
+        const paginatedData: IMyOrder[] = data?.flat() ?? []
+        const isReachedEnd = data && data[data.length - 1]?.length < limit
+
+        return {
+            paginatedData,
+            isReachedEnd,
+            size,
+            setSize,
+            mutate,
+            isLoading,
+            error,
+        }
+    }
+
+    const getOrderByStatus = (
+        orderStatus: string,
+        limit: string = '10'
+    ) => {
+        const getKey = (pageIndex: number, previousPageData: any) => {
+            if (previousPageData && !previousPageData.length) {
+                return null;
+            }
+            const params = new URLSearchParams({
+                page: (pageIndex + 1).toString(),
+                limit: limit,
+            });
+            return `${URL_PREFIX}/my-order/status/${orderStatus}?${params.toString()}`;
+        };
+        const fetcher = async (url: string) => {
+            try {
+                const session = await getSession();
+                const headers = {
+                    Authorization: `Bearer ${session?.user.jwtToken}`,
+                }
+                const response = await axiosAuth.get(url, { headers });
+                return response.data.data;
+            } catch (error) {
+                console.error('Lỗi khi fetch:', error);
+                return Promise.reject(error); // Trả về một Promise bị từ chối
+            }
+        }
+        const { data, size, setSize, error, isLoading, mutate } = useSWRInfinite(
+            getKey,
+            fetcher
+        )
+        const paginatedData: IMyOrder[] = data?.flat() ?? []
+        const isReachedEnd = data && data[data.length - 1]?.length < limit
+
+        return {
+            paginatedData,
+            isReachedEnd,
+            size,
+            setSize,
+            mutate,
+            isLoading,
+            error,
+        }
+    }
+
+    const getMyOrderStatistics = () => {
         const fetcher = async (url: string) => {
             try {
                 const session = await getSession();
@@ -25,21 +115,22 @@ const useAPIUserOrder = () => {
         }
 
         const { data, mutate, isLoading, error } = useSWR(
-            `${URL_PREFIX}/my-order`,
+            `${URL_PREFIX}/statistic`,
             fetcher,
             {
                 revalidateOnReconnect: false,
             }
         )
 
-        const orderList: IOrder[] = data?.data ?? []
+        const flashSalePeriodsData: IMyOrderStatistics[] = data?.data ?? []
         return {
-            data: orderList ?? [], // nếu data = undefined sẽ là mảng rỗng
+            data: flashSalePeriodsData ?? [], // nếu data = undefined sẽ là mảng rỗng
             mutate: mutate,
             isLoading: !error && !data,
             error: error,
         }
     }
+
 
     const getOrderDetail = (orderId: number) => {
         const fetcher = async (url: string) => {
@@ -153,7 +244,9 @@ const useAPIUserOrder = () => {
     };
 
     return {
-        getOrderList,
+        getAllOrderPaginated,
+        getOrderByStatus,
+        getMyOrderStatistics,
         getOrderDetail,
         createOrder,
         updateOrCreateOrderReview,

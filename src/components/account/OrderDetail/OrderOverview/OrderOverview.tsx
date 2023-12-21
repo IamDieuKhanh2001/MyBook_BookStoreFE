@@ -98,7 +98,7 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                             Ngày mua:
                         </span>
                         <span>
-                            20/11/2023
+                            {data.created_at}
                         </span>
                     </div>
                     <div className={styles.orderViewTotal}>

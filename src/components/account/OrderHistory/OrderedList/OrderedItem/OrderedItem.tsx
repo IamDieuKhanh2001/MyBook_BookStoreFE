@@ -3,11 +3,11 @@ import styles from './OrderedItem.module.scss'
 import Link from 'next/link'
 
 interface IOrderedItemProps {
-    data: IOrder
+    data: IMyOrder
 }
 const OrderedItem = (props: IOrderedItemProps) => {
     const { data } = props
-    console.log(data)
+
     return (
         <>
             <div className={styles.orderItem}>
