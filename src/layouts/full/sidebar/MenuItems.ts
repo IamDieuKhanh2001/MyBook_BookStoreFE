@@ -22,6 +22,17 @@ import { uniqueId } from 'lodash';
 
 //Nơi chứa hiển thị thông tin của side bar các items
 const Menuitems = [
+  //Home group
+  {
+    navlabel: true,
+    subheader: 'Home',
+  },
+  {
+    id: uniqueId(),
+    title: 'Dashboard',
+    icon: IconLayoutDashboard,
+    href: '/admin',
+  },
   //Order group 
   {
     navlabel: true,
@@ -102,17 +113,6 @@ const Menuitems = [
     icon: IconUser,
     href: '/admin/manage/user',
   },
-  //Home group
-  {
-    navlabel: true,
-    subheader: 'Home',
-  },
-  {
-    id: uniqueId(),
-    title: 'Dashboard',
-    icon: IconLayoutDashboard,
-    href: '/admin',
-  },
   //recover data
   {
     navlabel: true,
@@ -155,48 +155,48 @@ const Menuitems = [
     href: '/admin/manage/provider/recycle-bin',
   },
   //Test group (remove in future)
-  {
-    navlabel: true,
-    subheader: 'Test Page 2 (Remove)',
-  },
-  {
-    id: uniqueId(),
-    title: 'Test API',
-    icon: IconTypography,
-    href: '/admin/test-api',
-  },
-  {
-    navlabel: true,
-    subheader: 'Utils (remove)',
-  },
-  {
-    id: uniqueId(),
-    title: 'Typography',
-    icon: IconTypography,
-    href: '/utilities/typography',
-  },
-  {
-    id: uniqueId(),
-    title: 'Shadow',
-    icon: IconCopy,
-    href: '/utilities/shadow',
-  },
-  {
-    id: uniqueId(),
-    title: 'Icons',
-    icon: IconMoodHappy,
-    href: '/utilities/icons',
-  },
-  {
-    navlabel: true,
-    subheader: 'Test Page 1 (Remove)',
-  },
-  {
-    id: uniqueId(),
-    title: 'Sample Page',
-    icon: IconAperture,
-    href: '/admin/sample-page',
-  },
+  // {
+  //   navlabel: true,
+  //   subheader: 'Test Page 2 (Remove)',
+  // },
+  // {
+  //   id: uniqueId(),
+  //   title: 'Test API',
+  //   icon: IconTypography,
+  //   href: '/admin/test-api',
+  // },
+  // {
+  //   navlabel: true,
+  //   subheader: 'Utils (remove)',
+  // },
+  // {
+  //   id: uniqueId(),
+  //   title: 'Typography',
+  //   icon: IconTypography,
+  //   href: '/utilities/typography',
+  // },
+  // {
+  //   id: uniqueId(),
+  //   title: 'Shadow',
+  //   icon: IconCopy,
+  //   href: '/utilities/shadow',
+  // },
+  // {
+  //   id: uniqueId(),
+  //   title: 'Icons',
+  //   icon: IconMoodHappy,
+  //   href: '/utilities/icons',
+  // },
+  // {
+  //   navlabel: true,
+  //   subheader: 'Test Page 1 (Remove)',
+  // },
+  // {
+  //   id: uniqueId(),
+  //   title: 'Sample Page',
+  //   icon: IconAperture,
+  //   href: '/admin/sample-page',
+  // },
 ];
 
 export default Menuitems;
