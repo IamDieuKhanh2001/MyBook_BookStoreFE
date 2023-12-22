@@ -243,6 +243,20 @@ const useAPIUserOrder = () => {
         }
     };
 
+    const requestInvoice = async (id: number) => {
+        try {
+            const session = await getSession();
+            const url = `${URL_PREFIX}/my-order/${id}/invoice`
+            const headers = {
+                Authorization: `Bearer ${session?.user.jwtToken}`,
+            }
+            const response = await axiosAuth.get(url, { headers })
+            return response;
+        } catch (error: any) {
+            throw error;
+        }
+    };
+
     return {
         getAllOrderPaginated,
         getOrderByStatus,
@@ -252,6 +266,7 @@ const useAPIUserOrder = () => {
         updateOrCreateOrderReview,
         cancelOrder,
         completeOrder,
+        requestInvoice,
     }
 }
 
