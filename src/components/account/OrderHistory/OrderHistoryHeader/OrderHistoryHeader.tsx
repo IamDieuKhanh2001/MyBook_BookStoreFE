@@ -40,6 +40,29 @@ const OrderHistoryHeader = (props: IOrderHistoryHeaderProps) => {
         setActiveTab(tabName)
     }
 
+    const tabNameByStatus = (status: string) => {
+        switch (status) {
+            case 'pending': {
+                return 'Chờ xác nhận'
+            }
+            case 'confirmed': {
+                return 'Đã xác nhận'
+            }
+            case 'delivering': {
+                return 'Đang vận chuyển'
+            }
+            case 'completed': {
+                return 'Hoàn thành'
+            }
+            case 'canceled': {
+                return 'Đã hủy'
+            }
+            default: {
+                return 'Unname tab'
+            }
+        }
+    }
+
     return (
         <div className="card mb-4">
             <div className={styles.pageTitle}>
@@ -58,7 +81,7 @@ const OrderHistoryHeader = (props: IOrderHistoryHeaderProps) => {
                                 }, 0)}
                             </div>
                             <div className={styles.tabHistoryItemText}>
-                                All
+                                Tất cả
                             </div>
                             <div className={styles.tabHistoryItemBorderRight}></div>
                         </div>
@@ -73,7 +96,7 @@ const OrderHistoryHeader = (props: IOrderHistoryHeaderProps) => {
                                     {item.total}
                                 </div>
                                 <div className={styles.tabHistoryItemText}>
-                                    {item.status}
+                                    {tabNameByStatus(item.status)}
                                 </div>
                                 <div className={styles.tabHistoryItemBorderRight}></div>
                             </div>

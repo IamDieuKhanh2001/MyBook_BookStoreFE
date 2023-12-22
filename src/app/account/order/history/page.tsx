@@ -10,7 +10,7 @@ const OrderPage = () => {
     const [activeTab, setActiveTab] = useState('all') //all,pending,confirmed,delivering,completed,canceled
     const { getAllOrderPaginated, getOrderByStatus } = useAPIUserOrder()
     const { paginatedData: allOrder, setSize: setSizeAll, isReachedEnd: isAllReachedEnd } = getAllOrderPaginated()
-    const { paginatedData: pendingOrder, setSize: setSizePending, isReachedEnd: isPendingReachedEnd } = getOrderByStatus(OrderStatus.PENDING)
+    const { paginatedData: pendingOrder,setSize: setSizePending, isReachedEnd: isPendingReachedEnd } = getOrderByStatus(OrderStatus.PENDING)
     const { paginatedData: confirmedOrder, setSize: setSizeConfirmed, isReachedEnd: isConfimedReachedEnd } = getOrderByStatus(OrderStatus.CONFIRMED)
     const { paginatedData: deliveringOrder, setSize: setSizeDelivering, isReachedEnd: isDeliveringReachedEnd } = getOrderByStatus(OrderStatus.DELIVERING)
     const { paginatedData: completedOrder, setSize: setSizeCompleted, isReachedEnd: isCompletedReachedEnd } = getOrderByStatus(OrderStatus.COMPLETED)

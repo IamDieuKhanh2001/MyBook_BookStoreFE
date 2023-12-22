@@ -82,6 +82,7 @@ const UserTableData = (props: IUserTableDataProps) => {
                                         onClick={() => {
                                             // router.push(`/admin/manage/products/detail/${item.isbn_code}`)
                                         }}
+                                        disabled={true}
                                     >
                                         <IconEye />
                                     </Button>

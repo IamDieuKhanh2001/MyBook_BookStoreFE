@@ -15,6 +15,7 @@ import {
   IconTicket,
   IconNotes,
   IconReceiptTax,
+  IconUser,
 } from '@tabler/icons-react';
 
 import { uniqueId } from 'lodash';
@@ -95,6 +96,12 @@ const Menuitems = [
     icon: IconTicket,
     href: '/admin/manage/voucher',
   },
+  {
+    id: uniqueId(),
+    title: 'Người dùng',
+    icon: IconUser,
+    href: '/admin/manage/user',
+  },
   //Home group
   {
     navlabel: true,
@@ -116,12 +123,6 @@ const Menuitems = [
     title: 'Danh mục cha',
     icon: IconHistory,
     href: '/admin/manage/categories/recycle-bin',
-  },
-  {
-    id: uniqueId(),
-    title: 'Sách',
-    icon: IconHistory,
-    href: '/admin/manage/products/recycle-bin',
   },
   {
     id: uniqueId(),

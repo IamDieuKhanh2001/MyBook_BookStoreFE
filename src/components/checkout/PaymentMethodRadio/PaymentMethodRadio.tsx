@@ -39,7 +39,7 @@ const PaymentMethodRadio = (props: IPaymentMethodRadioProps) => {
                                 <div className={styles.paymentNameWithIconContainer}>
                                     <div
                                         style={{
-                                            backgroundImage: 'url("https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_momopay.svg?q=10294")',
+                                            backgroundImage: `url("/img/payment/${paymentMethod.key}.svg")`,
                                             backgroundRepeat: 'no-repeat',
                                             backgroundPosition: 'center center',
                                         }}
