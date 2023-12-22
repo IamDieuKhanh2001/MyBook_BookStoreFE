@@ -8,6 +8,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { toast } from "react-toastify";
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
+import { errorHandler } from '@/lib/utils/ErrorHandler'
 
 interface FormValues {
     email: string;
@@ -48,6 +49,7 @@ const LoginForm = () => {
             setIsLoading(false)
         } catch (e) {
             setIsLoading(false)
+            errorHandler(e)
         }
     };
 
