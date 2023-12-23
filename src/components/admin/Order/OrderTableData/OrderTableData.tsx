@@ -55,7 +55,7 @@ const OrderTableData = (props: IOrderTableDataProps) => {
                         </TableCell>
                         <TableCell align='right'>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                xem chi tiết
+                                Xem chi tiết
                             </Typography>
                         </TableCell>
                     </TableRow>
