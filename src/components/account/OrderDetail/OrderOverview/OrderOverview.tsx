@@ -13,6 +13,10 @@ import BadgeOrderCompleted from './StatusBadge/BadgeOrderCompleted/BadgeOrderCom
 import BadgeOrderDelivering from './StatusBadge/BadgeOrderDelivering/BadgeOrderDelivering'
 import BadgeOrderConfirm from './StatusBadge/BadgeOrderConfirm/BadgeOrderConfirm'
 import BadgeOrderPending from './StatusBadge/BadgeOrderPeding/BadgeOrderPeding'
+import PaymentMethod from '@/enum/PaymentMethod'
+import PaymentStatus from '@/enum/PaymentStatus'
+import { useRouter } from 'next/navigation'
+import { errorHandler } from '@/lib/utils/ErrorHandler'
 
 interface IOrderOverviewProps {
     data: IOrder
@@ -20,8 +24,9 @@ interface IOrderOverviewProps {
 }
 const OrderOverview = (props: IOrderOverviewProps) => {
     const { data, mutate } = props
-    const { cancelOrder, completeOrder } = useAPIUserOrder()
+    const { cancelOrder, completeOrder, requestInvoice } = useAPIUserOrder()
     const confirm = useConfirm()
+    const router = useRouter()
 
     const handleCancelOrder = async (id: number) => {
         confirm({
@@ -55,6 +60,17 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                     toast.error("Có lỗi xảy ra, vui lòng thử lại")
                 }
             })
+    }
+
+    const handleRequestInvoice = async (orderId: number) => {
+        try {
+            const res = await requestInvoice(orderId)
+            if (res.status === 200) {
+                router.push(res.data)
+            }
+        } catch (e) {
+            errorHandler(e)
+        }
     }
 
     return (
@@ -98,7 +114,7 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                             Ngày mua:
                         </span>
                         <span>
-                            20/11/2023
+                            {data.created_at}
                         </span>
                     </div>
                     <div className={styles.orderViewTotal}>
@@ -154,6 +170,19 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                             <ReviewOrderModal orderId={data.id} />
                         )
                     }
+                    {
+                        (data.payment_method === PaymentMethod.VnPay || data.payment_method === PaymentMethod.PayPal)
+                        &&
+                        data.payment_status === PaymentStatus.PAID
+                        &&
+                        <button
+                            className={styles.invoiceRequestBtn}
+                            onClick={() => handleRequestInvoice(data.id)}
+                        >
+                            In hóa đơn
+                        </button>
+                    }
+
                 </div>
             </div >
             <div className="card mb-2 py-3 px-4">

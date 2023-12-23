@@ -5,11 +5,14 @@ import styles from './AccountOverview.module.scss'
 import { useSession } from 'next-auth/react'
 import ChangeAvatarModal from './ChangeAvatarModal/ChangeAvatarModal'
 import useAPIUserAddress from '@/lib/hooks/api/useAPIUserAddress'
+import useAPIUserProfile from '@/lib/hooks/api/useAPIUserProfile'
 
 const AccountOverview = () => {
     const { data: session } = useSession();
     const { getDefaultAddress } = useAPIUserAddress()
+    const { getUserInfo } = useAPIUserProfile()
     const { addressDefault, isLoadingDefaultAddress } = getDefaultAddress()
+    const { data, isLoading } = getUserInfo()
 
     const onImageAvatarError = (e: any) => {
         e.target.src = '/img/avatar/default.png'
@@ -52,9 +55,9 @@ const AccountOverview = () => {
                         </div>
                         <div className="col-sm-9">
                             <p className="text-muted mb-0">
-                                {session?.user.userInfo.profile?.firstname}
+                                {data.profile?.firstname}
                                 &nbsp;
-                                {session?.user.userInfo.profile?.lastname}
+                                {data.profile?.lastname}
                             </p>
                         </div>
                     </div>
@@ -65,7 +68,7 @@ const AccountOverview = () => {
                         </div>
                         <div className="col-sm-9">
                             <p className="text-muted mb-0">
-                                {session?.user.userInfo.profile?.phone_number}
+                                {data.profile?.phone_number}
                             </p>
                         </div>
                     </div>
@@ -84,7 +87,7 @@ const AccountOverview = () => {
                             <p className="mb-0">Số credit</p>
                         </div>
                         <div className="col-sm-9">
-                            <p className="text-muted mb-0">{session?.user.userInfo.money} VND</p>
+                            <p className="text-muted mb-0">{data.money?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
                         </div>
                     </div>
                 </div>

@@ -18,6 +18,10 @@
 
     .orderPaymentMethod {
         flex-basis: 20%;
+
+        .paymentIcon {
+            // width: 0px;
+        }
     }
 
     .orderStatus {

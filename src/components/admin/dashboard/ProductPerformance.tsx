@@ -10,51 +10,16 @@ import {
     Chip
 } from '@mui/material';
 import DashboardCard from '../../shared/DashboardCard';
-
-const products = [
-    {
-        id: "1",
-        name: "Sunil Joshi",
-        post: "Web Designer",
-        pname: "Elite Admin",
-        priority: "Low",
-        pbg: "primary.main",
-        budget: "3.9",
-    },
-    {
-        id: "2",
-        name: "Andrew McDownland",
-        post: "Project Manager",
-        pname: "Real Homes WP Theme",
-        priority: "Medium",
-        pbg: "secondary.main",
-        budget: "24.5",
-    },
-    {
-        id: "3",
-        name: "Christopher Jamil",
-        post: "Project Manager",
-        pname: "MedicalPro WP Theme",
-        priority: "High",
-        pbg: "error.main",
-        budget: "12.8",
-    },
-    {
-        id: "4",
-        name: "Nirav Joshi",
-        post: "Frontend Engineer",
-        pname: "Hosting Press HTML",
-        priority: "Critical",
-        pbg: "success.main",
-        budget: "2.4",
-    },
-];
-
+import useAPIStatistic from '@/lib/hooks/api/useAPIStatistic';
+import { truncateText } from '@/lib/utils/TextUtils';
 
 const ProductPerformance = () => {
+    const { getProductStatistics } = useAPIStatistic()
+    const { paginatedData, isLoading } = getProductStatistics()
+
     return (
 
-        <DashboardCard title="Product Performance">
+        <DashboardCard title="Top 5 sản phẩm bán chạy">
             <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                 <Table
                     aria-label="simple table"
@@ -67,34 +32,34 @@ const ProductPerformance = () => {
                         <TableRow>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Id
+                                    Mã số
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Assigned
+                                    Tổng đã bán
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Name
+                                    Tổng doanh thu
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Priority
+                                    Tên
                                 </Typography>
                             </TableCell>
                             <TableCell align="right">
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Budget
+                                    Danh mục
                                 </Typography>
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {products.map((product) => (
-                            <TableRow key={product.name}>
+                        {paginatedData.map((product) => (
+                            <TableRow key={product.isbn_code}>
                                 <TableCell>
                                     <Typography
                                         sx={{
@@ -102,7 +67,17 @@ const ProductPerformance = () => {
                                             fontWeight: "500",
                                         }}
                                     >
-                                        {product.id}
+                                        {product.isbn_code}
+                                    </Typography>
+                                </TableCell>
+                                <TableCell align='center'>
+                                    <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
+                                        {product.total_quantity_sold}
+                                    </Typography>
+                                </TableCell>
+                                <TableCell align='center'>
+                                    <Typography variant="h6">
+                                        {product.total_revenue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                     </Typography>
                                 </TableCell>
                                 <TableCell>
@@ -114,37 +89,15 @@ const ProductPerformance = () => {
                                     >
                                         <Box>
                                             <Typography variant="subtitle2" fontWeight={600}>
-                                                {product.name}
-                                            </Typography>
-                                            <Typography
-                                                color="textSecondary"
-                                                sx={{
-                                                    fontSize: "13px",
-                                                }}
-                                            >
-                                                {product.post}
+                                                {truncateText(product.book_name, 20)}
                                             </Typography>
                                         </Box>
                                     </Box>
                                 </TableCell>
                                 <TableCell>
                                     <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                        {product.pname}
+                                        {product.ccategory_name}
                                     </Typography>
-                                </TableCell>
-                                <TableCell>
-                                    <Chip
-                                        sx={{
-                                            px: "4px",
-                                            backgroundColor: product.pbg,
-                                            color: "#fff",
-                                        }}
-                                        size="small"
-                                        label={product.priority}
-                                    ></Chip>
-                                </TableCell>
-                                <TableCell align="right">
-                                    <Typography variant="h6">${product.budget}k</Typography>
                                 </TableCell>
                             </TableRow>
                         ))}
