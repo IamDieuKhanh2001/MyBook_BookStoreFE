@@ -106,7 +106,7 @@ const useAPIUserAddress = () => {
         }
 
         return {
-            addressDefault: data?.data,
+            addressDefault: data?.data ?? {},
             mutateAddressDefault: mutate,
             isLoadingDefaultAddress: !error && !data,
             addressDefaultError: error,
