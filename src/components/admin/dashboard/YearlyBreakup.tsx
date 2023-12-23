@@ -71,7 +71,7 @@ const YearlyBreakup = () => {
   ];
 
   return (
-    <DashboardCard title={`So sánh doanh thu giữa 2 năm`}>
+    <DashboardCard title={`Doanh thu năm nay`}>
       <Grid container spacing={3}>
         {/* column */}
         <Grid item xs={7} sm={7}>
