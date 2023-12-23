@@ -9,7 +9,10 @@ const useAPIOrder = () => {
     const URL_PREFIX = '/admin/order'
 
     const getAllOrderPaginated = (
-        limit: string = '8',
+        limit: string = '10',
+        email: string = '',
+        status: string = '',
+        payment_status: string = ''
     ) => {
         const getKey = (pageIndex: number, previousPageData: any) => {
             if (previousPageData && !previousPageData.length) {
@@ -19,6 +22,9 @@ const useAPIOrder = () => {
             const params = new URLSearchParams({
                 page: (pageIndex + 1).toString(),
                 limit: limit,
+                email: email,
+                status: status,
+                payment_status: payment_status,
             });
             return `${URL_PREFIX}/all?${params.toString()}`;
         };
@@ -84,7 +90,7 @@ const useAPIOrder = () => {
         }
     }
 
-    const  confirmOrder = async (id: number) => {
+    const confirmOrder = async (id: number) => {
         try {
             const session = await getSession();
             const url = `${URL_PREFIX}/confirmed/${id}`
