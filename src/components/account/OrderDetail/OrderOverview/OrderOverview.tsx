@@ -73,6 +73,23 @@ const OrderOverview = (props: IOrderOverviewProps) => {
         }
     }
 
+    const translatePaymentStatus = (paymentStatus: string) => {
+        switch (paymentStatus) {
+            case 'unpaid': {
+                return 'Chưa thanh toán'
+            }
+            case 'paid': {
+                return 'Đã thanh toán'
+            }
+            case 'refunded': {
+                return 'Đã hoàn tiền'
+            }
+            default: {
+                return 'Undefined payment status'
+            }
+        }
+    }
+
     return (
         <>
             <div className={`card mb-2 py-3 px-4 ${styles.orderViewContentInfo}`}>
@@ -106,7 +123,7 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                             Thanh toán:
                         </span>
                         <span>
-                            {data.payment_status}
+                            {translatePaymentStatus(data.payment_status)}
                         </span>
                     </div>
                     <div className={styles.orderViewDate}>
