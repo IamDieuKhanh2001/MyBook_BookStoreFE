@@ -65,13 +65,6 @@ const authorPage = () => {
                                 </Alert>
                             )}
                             <Button
-                                color='error'
-                                size="small"
-                                onClick={() => setSize(1)}
-                            >
-                                reset
-                            </Button>
-                            <Button
                                 sx={{ mt: 2 }}
                                 startIcon={<IconPlus />}
                                 color="success"
