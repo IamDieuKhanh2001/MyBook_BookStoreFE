@@ -80,9 +80,8 @@ const UserTableData = (props: IUserTableDataProps) => {
                                         color='success'
                                         size="small"
                                         onClick={() => {
-                                            // router.push(`/admin/manage/products/detail/${item.isbn_code}`)
+                                            router.push(`/admin/manage/user/detail/${user.id}`)
                                         }}
-                                        disabled={true}
                                     >
                                         <IconEye />
                                     </Button>

@@ -10,4 +10,5 @@ interface UserInfo {
   userLevel: UserLevel
   userRole: UserRole
   profile: IProfile | null
+  addresses?: IUserAddress[]
 }

@@ -41,6 +41,7 @@ const RecentTransactions = () => {
         >
           {data.map((transaction, index) => (
             <TimelineItem key={index}>
+              {transaction.invoice_status}
               <TimelineOppositeContent>{transaction.transaction_date}</TimelineOppositeContent>
               <TimelineSeparator>
                 <TimelineDot color="success" variant="outlined" />

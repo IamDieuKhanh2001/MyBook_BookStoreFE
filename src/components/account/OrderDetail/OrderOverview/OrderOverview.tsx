@@ -220,7 +220,7 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                             </div>
                         </div>
                         <div className={styles.orderBoxInfo}>
-                            {data.payment_method}
+                            {data.payment?.name}
                         </div>
                     </div>
                 </div>
