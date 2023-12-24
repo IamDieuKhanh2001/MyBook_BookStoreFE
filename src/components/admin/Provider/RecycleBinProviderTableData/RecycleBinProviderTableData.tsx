@@ -11,9 +11,9 @@ interface IProps {
     loadMoreRef: (node?: Element | null | undefined) => void
 }
 const RecycleBinProviderTableData = (props: IProps) => {
-    const { 
-        recycleBinList, 
-        handleDestroyData, 
+    const {
+        recycleBinList,
+        handleDestroyData,
         handleRestoreData,
         isReachedEnd,
         loadMoreRef
@@ -105,7 +105,7 @@ const RecycleBinProviderTableData = (props: IProps) => {
                         <TableRow>
                             <TableCell colSpan={5}>
                                 <Typography align="center" variant="h4" mt={2}>
-                                    Empty data list
+                                    Danh sách rỗng
                                 </Typography>
                             </TableCell>
                         </TableRow>

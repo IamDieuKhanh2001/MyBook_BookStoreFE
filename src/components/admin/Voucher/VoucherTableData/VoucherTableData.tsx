@@ -143,7 +143,7 @@ const VoucherTableData = (props: IVoucherTableDataProps) => {
                         <TableRow>
                             <TableCell colSpan={6}>
                                 <Typography align="center" variant="h4" mt={2}>
-                                    Empty data list
+                                    Danh sách rỗng
                                 </Typography>
                             </TableCell>
                         </TableRow>
