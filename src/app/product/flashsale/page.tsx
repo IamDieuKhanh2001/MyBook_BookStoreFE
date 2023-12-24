@@ -81,7 +81,7 @@ const FlashSalePage = () => {
 
   return (
     <>
-      {/* <Breadcrumb /> */}
+      <Breadcrumb />
       <div className="container-xxl">
         {flashSaleTodayData && !isLoading && (
           <>

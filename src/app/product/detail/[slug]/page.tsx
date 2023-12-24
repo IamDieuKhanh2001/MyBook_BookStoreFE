@@ -13,7 +13,7 @@ const ProductDetailPage = ({ params }: IProductDetailPageProps) => {
   console.log(slug)
   return (
     <>
-      {/* <Breadcrumb /> */}
+      <Breadcrumb />
       <ProductDetail slug={slug} />
     </>
   )
