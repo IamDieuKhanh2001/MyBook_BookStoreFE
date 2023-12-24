@@ -80,7 +80,7 @@ const AuthorTableData = (props: IAuthorTableDataProps) => {
                 </TableCell>
                 <TableCell>
                   <Typography variant="subtitle2" fontWeight={500}>
-                  {author.created_at}
+                    {author.created_at}
                   </Typography>
                 </TableCell>
                 <TableCell align="right">
@@ -110,7 +110,7 @@ const AuthorTableData = (props: IAuthorTableDataProps) => {
             <TableRow>
               <TableCell colSpan={5}>
                 <Typography align="center" variant="h4" mt={2}>
-                  No data available
+                  Danh sách rỗng
                 </Typography>
               </TableCell>
             </TableRow>

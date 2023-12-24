@@ -153,7 +153,7 @@ const OrderTableData = (props: IOrderTableDataProps) => {
                         <TableRow>
                             <TableCell colSpan={5}>
                                 <Typography align="center" variant="h4" mt={2}>
-                                    No data available
+                                    Danh sách rỗng
                                 </Typography>
                             </TableCell>
                         </TableRow>

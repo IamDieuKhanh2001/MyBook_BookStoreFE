@@ -101,7 +101,7 @@ const BookFormTableData = (props: IBookFormTableDataProps) => {
             <TableRow>
               <TableCell colSpan={5}>
                 <Typography align="center" variant="h4" mt={2}>
-                  Empty data list
+                  Danh sách rỗng
                 </Typography>
               </TableCell>
             </TableRow>
