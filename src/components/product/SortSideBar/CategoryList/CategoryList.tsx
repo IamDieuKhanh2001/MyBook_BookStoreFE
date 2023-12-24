@@ -32,7 +32,7 @@ const CategoryList = (props: ICategoryListProps) => {
                                         className={ccategory.id === filters.ccategory?.id ? styles.active : ''}
                                         href={`/product/category/${ccategory.id}?ccategoryname=${ccategory.name}&pcategoryid=${ccategory.parent_category_id}`}
                                     >
-                                        {ccategory.name} {ccategory.id} {filters.ccategory?.id}
+                                        {ccategory.name}
                                     </Link>
                                 </li>
                             ))}
