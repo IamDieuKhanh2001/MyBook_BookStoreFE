@@ -40,7 +40,7 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: 'Đơn hàng đặt',
+    title: 'Quản lý đơn hàng',
     icon: IconNotes,
     href: '/admin/manage/order',
   },
