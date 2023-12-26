@@ -21,7 +21,6 @@ const ReviewOrderModal = (props: IReviewOrderModalProps) => {
     return (
         <>
             <button
-                style={{ marginBottom: '10px' }}
                 className={styles.reviewOrderBtn}
                 onClick={handleShowModal}
             >
