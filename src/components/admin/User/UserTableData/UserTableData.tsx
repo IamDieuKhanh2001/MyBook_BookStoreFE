@@ -38,7 +38,7 @@ const UserTableData = (props: IUserTableDataProps) => {
                         </TableCell>
                         <TableCell>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                Gmail đăng nhập
+                                Email
                             </Typography>
                         </TableCell>
                         <TableCell>
@@ -48,7 +48,7 @@ const UserTableData = (props: IUserTableDataProps) => {
                         </TableCell>
                         <TableCell align='right'>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                xem chi tiết
+                                Xem chi tiết
                             </Typography>
                         </TableCell>
                         <TableCell align='right'>

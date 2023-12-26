@@ -27,7 +27,7 @@ const FlashSaleDayTableData = (props: IFlashSaleDayTableDataProps) => {
                         <TableCell />
                         <TableCell>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                id
+                                ID
                             </Typography>
                         </TableCell>
                         <TableCell align="right">
@@ -47,7 +47,7 @@ const FlashSaleDayTableData = (props: IFlashSaleDayTableDataProps) => {
                         </TableCell>
                         <TableCell align='right'>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                xóa
+                                Xóa
                             </Typography>
                         </TableCell>
                     </TableRow>

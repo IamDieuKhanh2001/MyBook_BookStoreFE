@@ -26,8 +26,8 @@ const FlashSalePage = () => {
             <PageContainer title='Flash sale day CRUD' description='CRUD Operation for Flash sale day'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Flash sale day List'
-                        subtitle='Manage parent Flash sale day list'
+                        title='Sự kiện Flash Sale'
+                        subtitle='Quản lý danh sách sự kiện Flash Sale'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                             {error && (

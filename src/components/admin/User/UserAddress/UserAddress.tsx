@@ -16,7 +16,7 @@ const UserAddress = (props: IUserAddressProps) => {
                 </Grid>
                 <Grid item xs={10}>
                     <Typography variant="h6">
-                        Địa chỉ người nhận:
+                        Địa chỉ người nhận:&nbsp;
                         {address.recipient_name}
                     </Typography>
                     <Typography variant="body1">

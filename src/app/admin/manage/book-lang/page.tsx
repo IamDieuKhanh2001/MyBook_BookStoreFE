@@ -43,8 +43,8 @@ const bookLanguagePage = () => {
             <PageContainer title='language CRUD' description='CRUD Operation for language'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Language List'
-                        subtitle='Manage language list'
+                        title='Danh sách ngôn ngữ sản phẩm'
+                        subtitle='Quản lý ngôn ngữ sản phẩm'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                             {error && (
