@@ -64,6 +64,17 @@ const AccountOverview = () => {
                     <hr />
                     <div className="row">
                         <div className="col-sm-3">
+                            <p className="mb-0">Giới tính</p>
+                        </div>
+                        <div className="col-sm-9">
+                            <p className="text-muted mb-0">
+                                {data.profile?.gender === 'female' ? 'Nữ' : (data.profile?.gender === 'male' ? 'Nam' : 'Không xác định')}
+                            </p>
+                        </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                        <div className="col-sm-3">
                             <p className="mb-0">Số điện thoại</p>
                         </div>
                         <div className="col-sm-9">
