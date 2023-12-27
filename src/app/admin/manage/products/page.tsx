@@ -51,8 +51,8 @@ const ProductManagementPage = () => {
             <PageContainer title='Product CRUD' description='My CRUD Operation for Product'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Product List'
-                        subtitle='Manage product'
+                        title='Danh sách sản phẩm'
+                        subtitle='Quản lý sản phẩm'
                     >
                         <Box sx={{ width: { xs: '280px', sm: 'auto' } }}>
                             {error && (

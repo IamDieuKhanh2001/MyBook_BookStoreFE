@@ -73,8 +73,8 @@ const UserPage = () => {
             <PageContainer title='User CRUD' description='My CRUD Operation for Product'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='User List'
-                        subtitle='Manage user'
+                        title='Danh sách người dùng'
+                        subtitle='Quản lý người dùng'
                     >
                         <Box sx={{ width: { xs: '280px', sm: 'auto' } }}>
                             {error && (

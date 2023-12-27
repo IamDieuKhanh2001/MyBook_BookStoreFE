@@ -37,8 +37,8 @@ const OrderPage = () => {
             <PageContainer title='Order' description='My CRUD Operation for order'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Order List'
-                        subtitle='Manage Order'
+                        title='Danh sách đơn hàng'
+                        subtitle='Quản lý đơn hàng'
                     >
                         <Box sx={{ width: { xs: '280px', sm: 'auto' } }}>
                             {error && (

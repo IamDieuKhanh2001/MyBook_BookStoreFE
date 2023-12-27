@@ -152,6 +152,9 @@ const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
                                         fullWidth
                                         type="submit"
                                         disabled={false}
+                                        style={{
+                                            marginBottom: '10px'
+                                        }}
                                     >
                                         {
                                             isSubmitting ?

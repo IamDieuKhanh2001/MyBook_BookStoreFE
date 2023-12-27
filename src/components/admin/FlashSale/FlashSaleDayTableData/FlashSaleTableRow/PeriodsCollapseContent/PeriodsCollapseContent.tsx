@@ -60,13 +60,13 @@ const PeriodsCollapseContent = (props: IPeriodsCollapseContentProps) => {
         <Table aria-label="flash-sale-periods">
           <TableHead>
             <TableRow>
-              <TableCell>Id</TableCell>
+              <TableCell>ID</TableCell>
               <TableCell>Phần trăm giảm</TableCell>
               <TableCell align="right">Giờ bắt đầu</TableCell>
               <TableCell align="right">Giờ kết thúc</TableCell>
-              <TableCell align="right">xem sản phẩm</TableCell>
-              <TableCell align="right">sửa khung giờ</TableCell>
-              <TableCell align="right">xóa</TableCell>
+              <TableCell align="right">Xem sản phẩm</TableCell>
+              <TableCell align="right">Sửa khung giờ</TableCell>
+              <TableCell align="right">Xóa</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

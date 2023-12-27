@@ -54,8 +54,8 @@ const authorPage = () => {
             <PageContainer title='Author CRUD' description='CRUD Operation for author'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Author List'
-                        subtitle='Manage author list'
+                        title='Danh sách tác giả'
+                        subtitle='Quản lý tác giả sản phẩm'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                             {error && (
