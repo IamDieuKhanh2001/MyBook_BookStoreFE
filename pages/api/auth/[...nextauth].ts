@@ -23,11 +23,9 @@ export const authOptions: AuthOptions = {
                     const user = res.data;
                     if (res.status === 200 && user) {
                         return user;
-                    } else {
-                        return null;
                     }
-                } catch (e) {
-                    return null;
+                } catch (e: any) {
+                    throw new Error(e.response.data.message)
                 }
             }
 
