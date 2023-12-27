@@ -60,7 +60,7 @@ const ClientFooter = () => {
                         </div>
                         <div className="row">
                             <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                                © 2023 <a href="#">MyBook.com</a>, All Right Reserved.
+                                © 2023 <a href="#">Sachviet.top</a>, All Right Reserved.
                             </div>
                             <div className="col-md-6 text-center text-md-end">
                                 Khóa luận tốt nghiệp khóa 2019 | <a href="#">Đại Học Sư Phạm Kĩ Thuật</a>
