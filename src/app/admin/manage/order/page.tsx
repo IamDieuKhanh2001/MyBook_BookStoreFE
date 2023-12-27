@@ -8,6 +8,7 @@ import OrderTableData from '@/components/admin/Order/OrderTableData/OrderTableDa
 import useAPIOrder from '@/lib/hooks/api/useAPIOrder'
 import { useInView } from 'react-intersection-observer'
 import OrderFilter from '@/components/admin/Order/OrderFilter/OrderFilter'
+import DownloadReportModal from '@/components/admin/Order/DownloadReportModal/DownloadReportModal'
 
 const OrderPage = () => {
     const [filters, setFilters] = React.useState({
@@ -39,6 +40,9 @@ const OrderPage = () => {
                     <DashboardCard
                         title='Danh sách đơn hàng'
                         subtitle='Quản lý đơn hàng'
+                        action={
+                            <DownloadReportModal />
+                        }
                     >
                         <Box sx={{ width: { xs: '280px', sm: 'auto' } }}>
                             {error && (
