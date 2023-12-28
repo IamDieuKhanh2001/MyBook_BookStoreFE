@@ -1,7 +1,8 @@
+'use client'
+
+import { CircularProgress } from "@mui/material";
 
 export default function AdminLoading() {
   // Or a custom loading skeleton component
-  return <h1 style={{
-    color: "#ffff"
-  }}>Hiệu ứng loading... 'Thay đổi bằng skeleton loading or hiệu hứng khác'</h1>
+  return <CircularProgress color="secondary" size="lg" />
 }

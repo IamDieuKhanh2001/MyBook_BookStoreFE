@@ -47,7 +47,7 @@ const SearchFormSuggestion = (props: ISearchFormSuggestionProps) => {
                 </div>
                 <div className={styles.productSuggestList}>
                     {suggestData.map((item, index) => (
-                        <Link key={index} href={`/product/detail/${item.isbn_code}`} className={styles.productSuggestItem}>
+                        <Link key={index} href={`/product/detail/${item.slug}`} className={styles.productSuggestItem}>
                             <img
                                 src={item.images[0].image_source}
                                 alt='aaa'
