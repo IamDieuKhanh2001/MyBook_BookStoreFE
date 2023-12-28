@@ -10,7 +10,7 @@ interface IProps {
 }
 const RecycleBinParentCategoryTableData = (props: IProps) => {
     const { recycleBinList, handleDestroyData, handleRestoreData } = props
-    
+
     return (
         <>
             <Table
@@ -97,7 +97,7 @@ const RecycleBinParentCategoryTableData = (props: IProps) => {
                         <TableRow>
                             <TableCell colSpan={5}>
                                 <Typography align="center" variant="h4" mt={2}>
-                                    Empty data list
+                                    Danh sách rỗng
                                 </Typography>
                             </TableCell>
                         </TableRow>

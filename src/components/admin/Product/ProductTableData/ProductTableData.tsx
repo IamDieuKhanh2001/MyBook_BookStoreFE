@@ -44,7 +44,7 @@ const ProductTableData = (props: IProductTableDataProps) => {
                         </TableCell>
                         <TableCell align='right'>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                xem chi tiết
+                                Xem chi tiết
                             </Typography>
                         </TableCell>
                         <TableCell align='right'>
@@ -118,7 +118,7 @@ const ProductTableData = (props: IProductTableDataProps) => {
                         <TableRow>
                             <TableCell colSpan={5}>
                                 <Typography align="center" variant="h4" mt={2}>
-                                    No data available
+                                    Danh sách rỗng
                                 </Typography>
                             </TableCell>
                         </TableRow>

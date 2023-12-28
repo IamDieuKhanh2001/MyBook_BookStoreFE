@@ -20,6 +20,9 @@ interface IOrder {
     created_at: string
     updated_at: string
   }
+  payment?: {
+    name: string
+  } 
   user: UserInfo
   items?: ItemOrdered[]
 }

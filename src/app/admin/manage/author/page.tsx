@@ -54,8 +54,8 @@ const authorPage = () => {
             <PageContainer title='Author CRUD' description='CRUD Operation for author'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Author List'
-                        subtitle='Manage author list'
+                        title='Danh sách tác giả'
+                        subtitle='Quản lý tác giả sản phẩm'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                             {error && (
@@ -64,13 +64,6 @@ const authorPage = () => {
                                     Something when wrong — <strong>check your connection and reload page!</strong>
                                 </Alert>
                             )}
-                            <Button
-                                color='error'
-                                size="small"
-                                onClick={() => setSize(1)}
-                            >
-                                reset
-                            </Button>
                             <Button
                                 sx={{ mt: 2 }}
                                 startIcon={<IconPlus />}

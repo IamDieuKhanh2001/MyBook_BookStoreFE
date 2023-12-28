@@ -16,8 +16,7 @@ const AddVoucherPage = () => {
             <PageContainer title='Voucher CRUD' description='CRUD Operation for Voucher'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Voucher Add'
-                        subtitle='Manage Voucher'
+                        title='Thêm mã khuyến mãi'
                     >
                         <Box sx={{ width: { xs: '280px', sm: 'auto' } }}>
                             <CustomButton

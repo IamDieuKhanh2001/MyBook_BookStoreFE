@@ -2,20 +2,26 @@
 import React from 'react'
 import styles from './OrderItem.module.scss'
 import { ICartItem } from '../../../../../types/ICartItem'
+import { useRouter } from 'next/navigation'
 
 interface IOrderItemProps {
     data: ICartItem
 }
 const OrderItem = (props: IOrderItemProps) => {
     const { data } = props
+    const router = useRouter()
 
     const totalOrderItem = () => {
         let total = 0
         total = data.book_info.price * data.quantity
         return total
     }
+
     return (
-        <div className={styles.checkoutProductItem}>
+        <div
+            className={styles.checkoutProductItem}
+            onClick={() => router.push(`/product/detail/${data.book_info.slug}`)}
+        >
             <div className={styles.checkoutProductItemImg}>
                 <img src={data.book_info.images[0].image_source} alt={data.book_info.isbn_code} />
             </div>

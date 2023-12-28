@@ -1,25 +1,41 @@
 "use client"
 import React from 'react';
-import { Select, MenuItem } from '@mui/material';
+import { Select, MenuItem, SelectChangeEvent } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import DashboardCard from '../../shared/DashboardCard';
 import dynamic from "next/dynamic";
+import useAPIStatistic from '@/lib/hooks/api/useAPIStatistic';
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 
 const SalesOverview = () => {
+    const [currentYearSelected, setCurrentYearSelected] = React.useState<number>(new Date().getFullYear());
+    const { getYearStatistic } = useAPIStatistic()
+    const { data: currentYearStatistic, error, isLoading } = getYearStatistic(currentYearSelected)
 
-    // select
-    const [month, setMonth] = React.useState('1');
-
-    const handleChange = (event: any) => {
-        setMonth(event.target.value);
-    };
-
+    const handleChangeYear = (year: number) => {
+        setCurrentYearSelected(year)
+    }
     // chart color
     const theme = useTheme();
     const primary = theme.palette.success.main;
     const secondary = theme.palette.warning.main;
+
+    //xaxis label
+    const monthLabels = [
+        "Jan",
+        "Feb",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ];
 
     // chart
     const optionscolumnchart: any = {
@@ -69,7 +85,7 @@ const SalesOverview = () => {
             tickAmount: 4,
         },
         xaxis: {
-            categories: ['16/08', '17/08', '18/08', '19/08', '20/08', '21/08', '22/08', '23/08'],
+            categories: monthLabels,
             axisBorder: {
                 show: false,
             },
@@ -81,37 +97,39 @@ const SalesOverview = () => {
     };
     const seriescolumnchart: any = [
         {
-            name: 'Eanings this month',
-            data: [355, 390, 300, 350, 390, 180, 355, 390],
+            name: `Eanings this month in ${currentYearSelected}`,
+            data: currentYearStatistic.map((month) => (month.total_revenue)),
         },
-        {
-            name: 'Expense this month',
-            data: [100, 250, 325, 215, 250, 310, 280, 250],
-        },
+        // {
+        //     name: 'Expense this month',
+        //     data: [100, 250, 325, 215, 250, 310, 280, 250],
+        // },
     ];
 
     return (
 
-        <DashboardCard title="Sales Overview" action={
-            <Select
-                labelId="month-dd"
-                id="month-dd"
-                value={month}
-                size="small"
-                onChange={handleChange}
-            >
-                <MenuItem value={1}>March 2023</MenuItem>
-                <MenuItem value={2}>April 2023</MenuItem>
-                <MenuItem value={3}>May 2023</MenuItem>
-            </Select>
-        }>
+        <DashboardCard title={`Thống kê doanh thu năm ${currentYearSelected}`}
+            action={
+                <Select
+                    labelId="month-dd"
+                    id="month-dd"
+                    value={currentYearSelected}
+                    size="small"
+                    onChange={(e: SelectChangeEvent<number>) => handleChangeYear(+e.target.value)}
+                >
+                    <MenuItem value={new Date().getFullYear()}>Năm {new Date().getFullYear()}</MenuItem>
+                    <MenuItem value={new Date().getFullYear() - 1}>Năm {new Date().getFullYear() - 1}</MenuItem>
+                    <MenuItem value={new Date().getFullYear() - 2}>Năm {new Date().getFullYear() - 2}</MenuItem>
+                </Select>
+            }
+        >
             <Chart
                 options={optionscolumnchart}
                 series={seriescolumnchart}
                 type="bar"
                 height={370}
                 width={"100%"}
-                />
+            />
         </DashboardCard>
     );
 };

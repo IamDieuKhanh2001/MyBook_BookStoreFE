@@ -33,11 +33,6 @@ const ChangeAvatarModal = () => {
         setPreviewImg(view)
     }
 
-    useEffect(() => {
-        console.log(previewImg)
-        console.log(session)
-    }, [previewImg, session])
-
     const handleSubmit = async () => {
         try {
             setIsLoading(true)

@@ -2,6 +2,7 @@ interface UserInfo {
   id: number
   email: string
   money: number
+  status: string
   user_level_id: number
   user_role_id: number
   is_email_verified: number
@@ -9,4 +10,5 @@ interface UserInfo {
   userLevel: UserLevel
   userRole: UserRole
   profile: IProfile | null
+  addresses?: IUserAddress[]
 }

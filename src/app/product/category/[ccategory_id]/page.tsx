@@ -70,7 +70,6 @@ const ProductByCategoryPage = (props: IProductByCategoryPageProps) => {
                     {/* Title start */}
                     <MainSectionTitle
                         title={filters.ccategory?.name || 'Undefined name category'}
-                        shortDescription={`id: ${filters.ccategory?.parent_category_id}`}
                     />
                     <div className='row'>
                         <div className='col-xl-3 col-sm-12 filterProduct'>

@@ -53,8 +53,8 @@ const publisherPage = () => {
             <PageContainer title='publisher CRUD' description='CRUD Operation for publisher'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='publisher List'
-                        subtitle='Manage publisher list'
+                        title='Danh sách nhà xuất bản'
+                        subtitle='Quản lý nhà xuất bản sản phẩm'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                             {error && (

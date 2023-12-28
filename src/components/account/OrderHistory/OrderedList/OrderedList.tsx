@@ -1,16 +1,29 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './OrderedList.module.scss'
 import OrderedItem from './OrderedItem/OrderedItem'
-import useAPIUserOrder from '@/lib/hooks/api/useAPIUserOrder'
+import { useInView } from 'react-intersection-observer'
+import LoadingList from './LoadingList/LoadingList'
 
-const OrderedList = () => {
-    const { getOrderList } = useAPIUserOrder()
-    const { data, error, isLoading } = getOrderList()
+interface IOrderedListProps {
+    dataList: IMyOrder[]
+    display?: boolean
+    isReachedEnd: boolean | undefined
+    setSize: (size: number | ((_size: number) => number)) => Promise<any[] | undefined>
+}
+const OrderedList = (props: IOrderedListProps) => {    
+    const { dataList = [], display = false, isReachedEnd, setSize } = props
+    const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
+
+    useEffect(() => {
+        if (inView) {
+          setSize((previousSize) => previousSize + 1)
+        }
+      }, [inView]);
 
     return (
         <>
-            <div className="card mb-4">
+            <div className="card mb-4" style={{ display: `${display ? 'block' : 'none'}` }}>
                 <div className={styles.headerListOrder}>
                     <div className={styles.headerIdOrder}>
                         Mã đơn
@@ -32,13 +45,12 @@ const OrderedList = () => {
                     </div>
                 </div>
                 <div className={styles.listContent}>
-                    {data.length > 0 ? (
-                        data.map((item) => (
+                    {dataList.length > 0 && (
+                        dataList.map((item) => (
                             <OrderedItem key={item.id} data={item} />
                         ))
-                    ) : (
-                        <>Trống</>
                     )}
+                    {isReachedEnd === false && <LoadingList loadingRef={ref} />}
                 </div>
             </div>
         </>

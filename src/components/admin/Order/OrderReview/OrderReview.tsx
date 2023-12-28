@@ -44,11 +44,6 @@ const OrderReview = (props: IOrderReviewProps) => {
                                 </p>
                             </Grid>
                         </Grid>
-                        <Grid container wrap="nowrap" spacing={2}>
-                            <Grid justifyContent="left" item xs zeroMinWidth>
-                                <h6 style={{ margin: 0, textAlign: "left" }}>Chưa có phản hồi</h6>
-                            </Grid>
-                        </Grid>
                     </BoxMaterial>
                 </DashboardCard>
             </BoxMaterial>

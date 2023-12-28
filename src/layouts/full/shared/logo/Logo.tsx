@@ -12,7 +12,7 @@ const LinkStyled = styled(Link)(() => ({
 
 const Logo = () => {
   return (
-    <LinkStyled href="/">
+    <LinkStyled href="/admin">
       <h1 className="fw-bold text-primary m-0">
         Sá<span className="text-secondary">ch</span>Vi<span className="text-secondary">ệt</span>
       </h1>

@@ -11,7 +11,7 @@ const TopBar = () => {
                 </small>
                 <small className="ms-4">
                     <i className="fa fa-envelope me-2" />
-                    mybook@gmail.com
+                    contact@sachviet.top
                 </small>
             </div>
             <div className="col-lg-6 px-5 text-end">

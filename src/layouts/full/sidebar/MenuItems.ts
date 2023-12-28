@@ -15,12 +15,24 @@ import {
   IconTicket,
   IconNotes,
   IconReceiptTax,
+  IconUser,
 } from '@tabler/icons-react';
 
 import { uniqueId } from 'lodash';
 
 //Nơi chứa hiển thị thông tin của side bar các items
 const Menuitems = [
+  //Home group
+  {
+    navlabel: true,
+    subheader: 'Home',
+  },
+  {
+    id: uniqueId(),
+    title: 'Dashboard',
+    icon: IconLayoutDashboard,
+    href: '/admin',
+  },
   //Order group 
   {
     navlabel: true,
@@ -28,7 +40,7 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: 'Đơn hàng đặt',
+    title: 'Quản lý đơn hàng',
     icon: IconNotes,
     href: '/admin/manage/order',
   },
@@ -95,16 +107,11 @@ const Menuitems = [
     icon: IconTicket,
     href: '/admin/manage/voucher',
   },
-  //Home group
-  {
-    navlabel: true,
-    subheader: 'Home',
-  },
   {
     id: uniqueId(),
-    title: 'Dashboard',
-    icon: IconLayoutDashboard,
-    href: '/admin',
+    title: 'Người dùng',
+    icon: IconUser,
+    href: '/admin/manage/user',
   },
   //recover data
   {
@@ -116,12 +123,6 @@ const Menuitems = [
     title: 'Danh mục cha',
     icon: IconHistory,
     href: '/admin/manage/categories/recycle-bin',
-  },
-  {
-    id: uniqueId(),
-    title: 'Sách',
-    icon: IconHistory,
-    href: '/admin/manage/products/recycle-bin',
   },
   {
     id: uniqueId(),
@@ -154,48 +155,48 @@ const Menuitems = [
     href: '/admin/manage/provider/recycle-bin',
   },
   //Test group (remove in future)
-  {
-    navlabel: true,
-    subheader: 'Test Page 2 (Remove)',
-  },
-  {
-    id: uniqueId(),
-    title: 'Test API',
-    icon: IconTypography,
-    href: '/admin/test-api',
-  },
-  {
-    navlabel: true,
-    subheader: 'Utils (remove)',
-  },
-  {
-    id: uniqueId(),
-    title: 'Typography',
-    icon: IconTypography,
-    href: '/utilities/typography',
-  },
-  {
-    id: uniqueId(),
-    title: 'Shadow',
-    icon: IconCopy,
-    href: '/utilities/shadow',
-  },
-  {
-    id: uniqueId(),
-    title: 'Icons',
-    icon: IconMoodHappy,
-    href: '/utilities/icons',
-  },
-  {
-    navlabel: true,
-    subheader: 'Test Page 1 (Remove)',
-  },
-  {
-    id: uniqueId(),
-    title: 'Sample Page',
-    icon: IconAperture,
-    href: '/admin/sample-page',
-  },
+  // {
+  //   navlabel: true,
+  //   subheader: 'Test Page 2 (Remove)',
+  // },
+  // {
+  //   id: uniqueId(),
+  //   title: 'Test API',
+  //   icon: IconTypography,
+  //   href: '/admin/test-api',
+  // },
+  // {
+  //   navlabel: true,
+  //   subheader: 'Utils (remove)',
+  // },
+  // {
+  //   id: uniqueId(),
+  //   title: 'Typography',
+  //   icon: IconTypography,
+  //   href: '/utilities/typography',
+  // },
+  // {
+  //   id: uniqueId(),
+  //   title: 'Shadow',
+  //   icon: IconCopy,
+  //   href: '/utilities/shadow',
+  // },
+  // {
+  //   id: uniqueId(),
+  //   title: 'Icons',
+  //   icon: IconMoodHappy,
+  //   href: '/utilities/icons',
+  // },
+  // {
+  //   navlabel: true,
+  //   subheader: 'Test Page 1 (Remove)',
+  // },
+  // {
+  //   id: uniqueId(),
+  //   title: 'Sample Page',
+  //   icon: IconAperture,
+  //   href: '/admin/sample-page',
+  // },
 ];
 
 export default Menuitems;

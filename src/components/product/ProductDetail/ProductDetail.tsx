@@ -103,13 +103,19 @@ const ProductDetail = (props: IProductDetailProps) => {
                             <h3 className="mb-2">{product?.name}</h3>
                             <div className="d-flex mb-1">
                                 <div className="text-primary me-2">
-                                    <small className="fas fa-star" />
-                                    <small className="fas fa-star" />
-                                    <small className="fas fa-star" />
-                                    <small className="fas fa-star-half-alt" />
-                                    <small className="far fa-star" />
+                                    {/* <small className="fas fa-star" />
+                                       <small className="fas fa-star" />
+                                       <small className="fas fa-star" />
+                                       <small className="fas fa-star-half-alt" />
+                                       <small className="far fa-star" /> */}
+                                    {[1, 2, 3, 4, 5].map((starValue) => (
+                                        <i
+                                            key={starValue}
+                                            className={`fa-star ${starValue <= +(product.comment_info?.avg_star || 0) ? 'fas' : 'far'}`}
+                                        />
+                                    ))}
                                 </div>
-                                <small className="pt-1">(99 Reviews)</small>
+                                <small className="pt-1">({product.comment_info?.total_comment || 0} Reviews)</small>
                             </div>
                             {renderFlashSaleCountDown()}
                             <h2 className='d-flex align-items-center'>

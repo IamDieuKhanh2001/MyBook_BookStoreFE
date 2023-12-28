@@ -85,7 +85,7 @@ const FlashSalePeriodPage = (props: IFlashSalePeriodPageProps) => {
                             {!isLoading && !error ? (
                                 <>
                                     <Typography fontSize={20} paragraph>
-                                        id: {data.id}
+                                        ID: {data.id}
                                     </Typography>
                                     <Typography fontSize={20} paragraph>
                                         Flash sale id: {data.flash_sale_id}

@@ -71,9 +71,9 @@ const CreateChildCategoryModal = (props: ICreateChildCategoryModalProps) => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2"
-                        style={{ color: theme.palette.text.primary }}
+                        style={{ color: theme.palette.text.primary, marginBottom: "10px" }}
                     >
-                        Create child category
+                        Thêm danh mục con
                     </Typography>
                     <Formik
                         initialValues={initialValues}
@@ -92,7 +92,7 @@ const CreateChildCategoryModal = (props: ICreateChildCategoryModalProps) => {
                                             mb="5px"
                                             style={{ color: theme.palette.text.primary }}
                                         >
-                                            Ten loai
+                                            Tên danh mục con
                                         </Typography>
                                         <Field
                                             as={CustomTextField}
@@ -101,6 +101,7 @@ const CreateChildCategoryModal = (props: ICreateChildCategoryModalProps) => {
                                             // onChange={handleChange}
                                             variant="outlined"
                                             fullWidth
+                                            style={{ marginBottom: "10px" }}
                                         />
                                         {errors.name && touched.name && (
                                             <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -117,6 +118,7 @@ const CreateChildCategoryModal = (props: ICreateChildCategoryModalProps) => {
                                         fullWidth
                                         type="submit"
                                         disabled={false}
+                                        style={{ marginBottom: "10px" }}
                                     >
                                         {
                                             isSubmitting ?

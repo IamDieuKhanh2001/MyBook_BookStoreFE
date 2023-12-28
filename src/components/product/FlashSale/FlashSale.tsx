@@ -13,7 +13,6 @@ const FlashSale = () => {
     const { data: flashSalePeriodCurrent, error, isLoading } = getFlashSaleNow()
 
     const renderFlashSaleHeader = () => {
-        console.log(flashSalePeriodCurrent)
         if (!flashSalePeriodCurrent.time_end || isLoading) {
             return <></>
         }
@@ -24,7 +23,6 @@ const FlashSale = () => {
         const timeDifferenceToEnd = endTime.getTime() - dateTimeNow.getTime();
         switch (true) {
             case timeDifferenceToEnd > 0:
-                console.log("timeDifferenceToEnd " + timeDifferenceToEnd)
                 return (
                     <FlashSaleHeader
                         flashSaleLabel='Kết thúc trong'
@@ -34,7 +32,6 @@ const FlashSale = () => {
                     />
                 )
             default:
-                console.log("k gia tri")
                 return (
                     <FlashSaleHeader
                         flashSaleLabel='Khung giờ sự kiện đã kết thúc'

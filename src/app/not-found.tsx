@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 export default function NotFound() {
     return (
+        
         <ClientLayout>
             <div className="container-xxl py-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div className="container text-center">

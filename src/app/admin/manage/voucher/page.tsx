@@ -41,8 +41,8 @@ const VoucherManagePage = () => {
             <PageContainer title='Voucher CRUD' description='CRUD Operation for Voucher'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Voucher List'
-                        subtitle='Manage Voucher list'
+                        title='Danh sách mã khuyến mãi'
+                        subtitle='Quản lý danh sách mã khuyến mãi'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                             {/* {error && (

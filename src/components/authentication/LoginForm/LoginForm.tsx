@@ -2,12 +2,13 @@
 import React, { useState } from 'react'
 import styles from './LoginForm.module.scss'
 import { Alert, AlertTitle } from '@mui/material'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import * as Yup from 'yup';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { toast } from "react-toastify";
-import { signIn } from 'next-auth/react'
+import { getSession, signIn } from 'next-auth/react'
 import Link from 'next/link'
+import { errorHandler } from '@/lib/utils/ErrorHandler'
 
 interface FormValues {
     email: string;
@@ -19,6 +20,7 @@ const LoginForm = () => {
     const isSessionExpired = searchParams ? searchParams.get("isSessionExpired") === "true" : false;
     const [isLoading, setIsLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
+    const router = useRouter()
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword)
@@ -35,20 +37,26 @@ const LoginForm = () => {
     });
 
     const handleSubmit = async (values: FormValues) => {
-        try {
-            // Xử lý logic khi form được submit
-            toast.warning("Login with " + values.email + " " + values.password)
-            setIsLoading(true)
-            const result = await signIn("credentials", {
-                email: values?.email,
-                password: values?.password,
-                redirect: true,
-                callbackUrl: "/",
-            });
-            setIsLoading(false)
-        } catch (e) {
-            setIsLoading(false)
+        setIsLoading(true)
+        const res = await signIn("credentials", {
+            email: values?.email,
+            password: values?.password,
+            redirect: false,
+        });
+        if (res && res.error) {
+            // Xử lý lỗi đăng nhập
+            toast.error(res.error)
+        } else {
+            const session = await getSession();
+            // Kiểm tra và chuyển hướng dựa trên vai trò người dùng
+            if (session?.user?.userInfo?.userRole?.name === "Admin") {
+                router.push("/admin");
+            } else {
+                router.push("/");
+            }
+            toast.success("Chào mừng trở lại: " + values.email)
         }
+        setIsLoading(false)
     };
 
     return (
@@ -135,9 +143,9 @@ const LoginForm = () => {
                                         </span>
                                     )}
                                 </button>
-                                <button title="Đăng nhập" className={styles.btnFacebook}>
+                                {/* <button title="Đăng nhập" className={styles.btnFacebook}>
                                     <span>Đăng nhập với facebook</span>
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                     </Form>

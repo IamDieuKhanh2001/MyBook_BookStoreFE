@@ -34,6 +34,7 @@ const OrderDetailTable = (props: IOrderDetailTableProps) => {
         created_at,
         product_price,
         fee_price,
+        discount_price,
         final_price,
         voucher,
     } = orderData
@@ -191,7 +192,7 @@ const OrderDetailTable = (props: IOrderDetailTableProps) => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                {voucher}
+                                {voucher === null ? 'Không sử dụng' : voucher + ' (-' + discount_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) + ')'}
                             </Typography>
                         </TableCell>
                     </TableRow>

@@ -14,8 +14,9 @@ interface ICustomDatePickerProps {
     value: string,
     onChangeEvent: (value: any) => void
     disablePast?: boolean
+    disableFuture?: boolean
 }
-const CustomDatePicker = ({ value, onChangeEvent, disablePast = false }: ICustomDatePickerProps) => {
+const CustomDatePicker = ({ value, onChangeEvent, disablePast = false, disableFuture = false }: ICustomDatePickerProps) => {
     const theme = useTheme()
 
     return (
@@ -23,6 +24,7 @@ const CustomDatePicker = ({ value, onChangeEvent, disablePast = false }: ICustom
             <DynamicDatePicker
                 views={["day", "month", "year"]}
                 format="DD-MM-YYYY"
+                disableFuture={disableFuture}
                 disablePast={disablePast}
                 value={dayjs(value).format('DD-MM-YYYY')}
                 onChange={onChangeEvent}

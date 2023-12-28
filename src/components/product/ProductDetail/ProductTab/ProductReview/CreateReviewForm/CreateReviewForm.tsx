@@ -17,7 +17,7 @@ interface ICreateReviewFormProps {
 }
 const CreateReviewForm = (props: ICreateReviewFormProps) => {
     const { isbnCode, mutate } = props
-    const [rating, setRating] = useState(1);
+    const [rating, setRating] = useState(5);
     const { createNewComment } = useAPIProductComment()
 
     const handleStarHover = (starValue: number) => {
@@ -84,7 +84,7 @@ const CreateReviewForm = (props: ICreateReviewFormProps) => {
                                 name="content"
                                 cols={30}
                                 rows={5}
-                                placeholder="Ko hay, thiếu tình tiết, ..."
+                                placeholder="Nội dung rất hay, cuốn hút,..."
                                 className={'form-control'}
                                 value={values.content}
                             />
