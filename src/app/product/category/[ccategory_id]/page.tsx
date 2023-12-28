@@ -60,8 +60,7 @@ const ProductByCategoryPage = (props: IProductByCategoryPageProps) => {
             setSize((previousSize) => previousSize + 1)
         }
     }, [inView]);
-    console.log('categoryName ' + ccategoryName)
-    console.log('pcategoryid ' + pcategoryId)
+
     return (
         <>
             <Breadcrumb />

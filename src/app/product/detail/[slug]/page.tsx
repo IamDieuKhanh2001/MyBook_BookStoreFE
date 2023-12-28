@@ -10,7 +10,6 @@ interface IProductDetailPageProps {
 const ProductDetailPage = ({ params }: IProductDetailPageProps) => {
   const { slug } = params
 
-  console.log(slug)
   return (
     <>
       <Breadcrumb />

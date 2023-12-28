@@ -57,7 +57,6 @@ const EditProductImg = (props: IEditProductImgProps) => {
     // Revoke the data uris to avoid memory leaks
     return () => {
       files.forEach(file => URL.revokeObjectURL(file.preview))
-      console.log('revoke file')
     }
   }, [])
 
@@ -118,10 +117,6 @@ const EditProductImg = (props: IEditProductImgProps) => {
         setCurrentStepCompleted()
       })
   }
-
-  // useEffect(() => {
-  //   console.log('Updated files:', files);
-  // }, [files]);
 
   return (
     <>

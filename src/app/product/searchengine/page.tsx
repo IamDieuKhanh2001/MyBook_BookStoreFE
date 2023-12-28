@@ -52,10 +52,6 @@ const ProductListAllPage = () => {
   }, [inView]);
 
   useEffect(() => {
-    console.log(filters)
-  }, [filters])
-
-  useEffect(() => {
     setFilters((prevFilters) => ({
       ...prevFilters,
       search: searchKeyword,
@@ -64,7 +60,6 @@ const ProductListAllPage = () => {
 
   useEffect(() => {
     return () => {
-      console.log("call cleanup")
       dispatch(productActions.updateKeyword(''))
     }
   }, [])

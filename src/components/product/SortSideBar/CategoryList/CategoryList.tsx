@@ -14,7 +14,6 @@ const CategoryList = (props: ICategoryListProps) => {
     const { filters, setFilters } = props
     const { getParentCategoryDetail } = useAPIGuest()
     const { data, isLoading } = getParentCategoryDetail(filters.ccategory?.parent_category_id)
-    console.log(filters.ccategory?.id)
 
     return (
         <div>

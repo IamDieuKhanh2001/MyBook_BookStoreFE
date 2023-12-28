@@ -65,9 +65,6 @@ const AddProductPage = () => {
         router.push('/admin/manage/products')
     }
 
-    useEffect(() => {
-        console.log(productCreated)
-    }, [productCreated])
     return (
         <>
             <PageContainer title='Product add' description='Add new product'>

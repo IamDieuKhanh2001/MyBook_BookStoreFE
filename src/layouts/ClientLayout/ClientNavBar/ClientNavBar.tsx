@@ -32,7 +32,6 @@ function ClientNavBar() {
                 }
             });
         } catch (e) {
-            console.log("Can not update session")
         }
     }
     React.useEffect(() => {
@@ -53,7 +52,6 @@ function ClientNavBar() {
             }
         }
         if (status === 'authenticated' && session) {
-            // console.log(session)
             handleCallCHeckMail()
         }
     }, [session, status])

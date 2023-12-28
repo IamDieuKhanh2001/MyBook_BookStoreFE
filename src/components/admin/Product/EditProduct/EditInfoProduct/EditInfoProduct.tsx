@@ -179,7 +179,6 @@ const EditInfoProduct = (props: IEditInfoProductProps) => {
                 languageId,
                 bookFormId
             } = values
-            console.log(values)
             setIsLoading(true)
             const res = await updateBookInfo(
                 ccategoryId,
