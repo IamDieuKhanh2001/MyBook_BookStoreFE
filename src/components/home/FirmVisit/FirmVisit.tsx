@@ -10,8 +10,8 @@ const FirmVisit = () => {
                 <div className="container">
                     <div className="row g-5 align-items-center">
                         <div className="col-md-7 wow fadeIn" data-wow-delay="0.1s">
-                            <h1 className="display-5 text-white mb-3">Xem thêm thông tin chúng tôi</h1>
-                            <p className="text-white mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos.</p>
+                            <h1 className="display-5 text-white mb-3">Về chúng tôi</h1>
+                            <p className="text-white mb-0">Chào mừng đến với sachviet, nơi tinh tế của tri thức và sự đam mê. Chúng tôi tự hào là điểm đến lý tưởng cho những tâm hồn mê đọc, nơi mà từng trang sách là một cửa sổ mở ra thế giới vô tận.</p>
                         </div>
                         <div className="col-md-5 text-md-end wow fadeIn" data-wow-delay="0.5s">
                             <a className="btn btn-lg btn-secondary rounded-pill py-3 px-5" href="">Visit Now</a>

@@ -42,8 +42,8 @@ const bookFormPage = () => {
             <PageContainer title='Book Form CRUD' description='CRUD Operation for book form'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Book Form List'
-                        subtitle='Manage Book Form list'
+                        title='Danh sách hình thức'
+                        subtitle='Quản lý hình thức sản phẩm'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                             {error && (

@@ -63,8 +63,7 @@ const authorRecycleBinPage = () => {
             <PageContainer title='recycle bin' description='recycle bin'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Recycle bin author List'
-                        subtitle='Manage recycle bin author List'
+                        title='Danh sách các tác giả đã xóa'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                             <Button

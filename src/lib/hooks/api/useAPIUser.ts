@@ -2,6 +2,7 @@ import React from 'react'
 import useAxiosAuth from '../utils/useAxiosAuth'
 import { getSession } from 'next-auth/react'
 import useSWRInfinite from 'swr/infinite'
+import useSWR from 'swr'
 
 const useAPIUser = () => {
     const axiosAuth = useAxiosAuth()
@@ -56,6 +57,37 @@ const useAPIUser = () => {
         }
     }
 
+    const getUserDetail = (idUser: number) => {
+        const fetcher = async (url: string) => {
+            try {
+                const session = await getSession();
+                const headers = {
+                    Authorization: `Bearer ${session?.user.jwtToken}`,
+                }
+                const response = await axiosAuth.get(url, { headers });
+                return response.data;
+            } catch (error) {
+                console.error('Lỗi khi fetch:', error);
+                return Promise.reject(error); // Trả về một Promise bị từ chối
+            }
+        }
+
+        const { data, mutate, isLoading, error } = useSWR(
+            `${URL_PREFIX}/detail/${idUser}`,
+            fetcher,
+            {
+                revalidateOnReconnect: false,
+            }
+        )
+        const userData: UserInfo = data ?? {}
+        return {
+            data: userData,
+            mutate: mutate,
+            isLoading: !error && !data,
+            error: error,
+        }
+    }
+
     const blockUser = async (userId: number) => {
         try {
             const session = await getSession();
@@ -86,6 +118,7 @@ const useAPIUser = () => {
 
     return {
         getUserListPaginated,
+        getUserDetail,
         blockUser,
         unblockUser,
     }

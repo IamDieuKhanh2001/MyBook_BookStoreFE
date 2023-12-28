@@ -11,9 +11,9 @@ const ClientFooter = () => {
                     <div className="row g-5">
                         <div className="col-lg-3 col-md-6">
                             <h1 className="fw-bold text-primary mb-4">
-                                M<span className="text-secondary">y</span>Bo<span className="text-secondary">ok</span>
+                                Sá<span className="text-secondary">ch</span>Vi<span className="text-secondary">ệt</span>
                             </h1>
-                            <p>Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita</p>
+                            <p>Hệ thống SachViet - Chuyên cung cấp sách online toàn quốc</p>
                             <div className="d-flex pt-2">
                                 <a className={`btn btn-square btn-outline-light rounded-circle me-1`} href=""><i className="fab fa-twitter" /></a>
                                 <a className={`btn btn-square btn-outline-light rounded-circle me-1`} href=""><i className="fab fa-facebook-f" /></a>
@@ -23,9 +23,10 @@ const ClientFooter = () => {
                         </div>
                         <div className="col-lg-3 col-md-6">
                             <h4 className="text-light mb-4">Address</h4>
-                            <p><i className="fa fa-map-marker-alt me-3" />123 Street, New York, USA</p>
-                            <p><i className="fa fa-phone-alt me-3" />+012 345 67890</p>
-                            <p><i className="fa fa-envelope me-3" />info@example.com</p>
+                            <p><i className="fa fa-map-marker-alt me-3" />1 Vo Van Ngan Street, Thu Duc, Ho Chi Minh City, Viet Nam</p>
+                            <p><i className="fa fa-phone-alt me-3" />+84 334674390</p>
+                            <p><i className="fa fa-phone-alt me-3" />+84 938427896</p>
+                            <p><i className="fa fa-envelope me-3" />contact@sachviet.top</p>
                         </div>
                         <div className="col-lg-3 col-md-6">
                             <h4 className="text-light mb-4">Quick Links</h4>
@@ -36,8 +37,8 @@ const ClientFooter = () => {
                             <a className={`${styles.btnLinkFooterCustom} btn btn-link`} href="">Support</a>
                         </div>
                         <div className="col-lg-3 col-md-6">
-                            <h4 className="text-light mb-4">Newsletter</h4>
-                            <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                            <h4 className="text-light mb-4">Đăng ký tin mới</h4>
+                            <p>Điền địa chỉ email của bạn bên dưới.</p>
                             <div className="position-relative mx-auto" style={{ maxWidth: 400 }}>
                                 <input className="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email" />
                                 <button type="button" className="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
@@ -59,7 +60,7 @@ const ClientFooter = () => {
                         </div>
                         <div className="row">
                             <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                                © 2023 <a href="#">MyBook.com</a>, All Right Reserved.
+                                © 2023 <a href="#">Sachviet.top</a>, All Right Reserved.
                             </div>
                             <div className="col-md-6 text-center text-md-end">
                                 Khóa luận tốt nghiệp khóa 2019 | <a href="#">Đại Học Sư Phạm Kĩ Thuật</a>

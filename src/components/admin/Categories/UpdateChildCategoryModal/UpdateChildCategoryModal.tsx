@@ -86,9 +86,9 @@ const UpdateChildCategoryModal = (props: IUpdateChildCategoryModalProps) => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2"
-                        style={{ color: theme.palette.text.primary }}
+                        style={{ color: theme.palette.text.primary, marginBottom: "10px" }}
                     >
-                        Edit child category
+                        Chỉnh sửa danh mục con
                     </Typography>
                     <Formik
                         initialValues={initialValues}
@@ -107,7 +107,7 @@ const UpdateChildCategoryModal = (props: IUpdateChildCategoryModalProps) => {
                                             htmlFor="maLoai"
                                             mb="5px"
                                         >
-                                            Ma loai
+                                            Mã danh mục con
                                         </Typography>
                                         <Field
                                             as={CustomTextField}
@@ -134,7 +134,7 @@ const UpdateChildCategoryModal = (props: IUpdateChildCategoryModalProps) => {
                                             mb="5px"
                                             style={{ color: theme.palette.text.primary }}
                                         >
-                                            Ten loai
+                                            Tên danh mục con
                                         </Typography>
                                         <Field
                                             as={CustomTextField}
@@ -143,6 +143,7 @@ const UpdateChildCategoryModal = (props: IUpdateChildCategoryModalProps) => {
                                             onChange={handleChange}
                                             variant="outlined"
                                             fullWidth
+                                            style={{ marginBottom: "10px" }}
                                         />
                                         {errors.name && touched.name && (
                                             <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -159,6 +160,7 @@ const UpdateChildCategoryModal = (props: IUpdateChildCategoryModalProps) => {
                                         fullWidth
                                         type="submit"
                                         disabled={isSubmitting}
+                                        style={{ marginBottom: "10px" }}
                                     >
                                         {
                                             isSubmitting ?

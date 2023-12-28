@@ -99,6 +99,7 @@ const ProductListOrdered = (props: IProductListOrderedProps) => {
                         <div>
                             <p><span>Thành tiền: </span></p>
                             <p><span>Phí vận chuyển: </span></p>
+                            <p><span>Đã giảm giá: </span></p>
                             <p><span>Tổng Số Tiền (gồm VAT): </span></p>
                         </div>
                         <div>
@@ -110,6 +111,11 @@ const ProductListOrdered = (props: IProductListOrderedProps) => {
                             <p className={styles.orderTotalPrice}>
                                 <span>
                                     {data.fee_price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                </span>
+                            </p>
+                            <p className={styles.orderTotalPrice}>
+                                <span>
+                                    -{data.discount_price?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                 </span>
                             </p>
                             <p className={styles.orderTotalPrice}>

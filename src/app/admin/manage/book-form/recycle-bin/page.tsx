@@ -54,8 +54,7 @@ const bookFormRecycleBinPage = () => {
             <PageContainer title='recycle bin' description='recycle bin'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Recycle bin book form List'
-                        subtitle='Manage recycle bin book form List'
+                        title='Danh sách các hình thức sản phẩm đã xóa'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                             <Button

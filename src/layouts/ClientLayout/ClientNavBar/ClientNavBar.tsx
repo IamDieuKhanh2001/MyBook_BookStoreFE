@@ -21,7 +21,6 @@ function ClientNavBar() {
 
     const updateSessionVerifyStatus = async () => {
         try {
-            console.log("update sesssion")
             await update({
                 ...session,
                 user: {
@@ -59,10 +58,8 @@ function ClientNavBar() {
         }
     }, [session, status])
 
-    console.log(session)
     return (
         <>
-            {/* Navbar Start */}
             <div
                 className={`${styles.fixedTop} container-fluid px-0 wow fadeIn fixed-top`}
                 data-wow-delay="0.1s"

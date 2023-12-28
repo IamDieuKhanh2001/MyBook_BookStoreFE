@@ -70,9 +70,9 @@ const CreateProviderModal = (props: ICreateProviderModalProps) => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2"
-                        style={{ color: theme.palette.text.primary }}
+                        style={{ color: theme.palette.text.primary, marginBottom: "10px" }}
                     >
-                        Create new provider
+                        Thêm nhà cung cấp
                     </Typography>
                     <Formik
                         initialValues={initialValues}
@@ -100,6 +100,7 @@ const CreateProviderModal = (props: ICreateProviderModalProps) => {
                                             onChange={handleChange}
                                             variant="outlined"
                                             fullWidth
+                                            style={{ marginBottom: "10px" }}
                                         />
                                         {errors.name && touched.name && (
                                             <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -116,6 +117,7 @@ const CreateProviderModal = (props: ICreateProviderModalProps) => {
                                         fullWidth
                                         type="submit"
                                         disabled={isSubmitting}
+                                        style={{ marginBottom: "10px" }}
                                     >
                                         {
                                             isSubmitting ?

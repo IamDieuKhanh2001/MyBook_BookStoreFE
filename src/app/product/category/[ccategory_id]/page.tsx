@@ -64,13 +64,12 @@ const ProductByCategoryPage = (props: IProductByCategoryPageProps) => {
     console.log('pcategoryid ' + pcategoryId)
     return (
         <>
-            {/* <Breadcrumb /> */}
+            <Breadcrumb />
             <div className="container-xxl mt-2 section-container">
                 <div className="container py-4">
                     {/* Title start */}
                     <MainSectionTitle
                         title={filters.ccategory?.name || 'Undefined name category'}
-                        shortDescription={`id: ${filters.ccategory?.parent_category_id}`}
                     />
                     <div className='row'>
                         <div className='col-xl-3 col-sm-12 filterProduct'>

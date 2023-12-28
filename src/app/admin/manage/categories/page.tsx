@@ -42,8 +42,8 @@ const categoriesManagementPage = () => {
       <PageContainer title='Categories CRUD' description='CRUD Operation for categories'>
         <Grid item xs={12} lg={8}>
           <DashboardCard
-            title='Parent categories List'
-            subtitle='Manage parent categories list'
+            title='Danh sách danh mục'
+            subtitle='Quản lý danh mục sản phẩm'
           >
             <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
               {error && (

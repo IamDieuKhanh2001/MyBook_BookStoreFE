@@ -101,7 +101,7 @@ const ProductDetailTable = (props: IProductDetailTableProps) => {
                         </TableCell>
                         <TableCell align='left'>
                             <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                {data?.price} VND
+                                {data?.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                             </Typography>
                         </TableCell>
                     </TableRow>
@@ -120,7 +120,7 @@ const ProductDetailTable = (props: IProductDetailTableProps) => {
                     <TableRow>
                         <TableCell align='left' sx={{ minWidth: '200px', width: '200px' }}>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                số lượng
+                                Số lượng
                             </Typography>
                         </TableCell>
                         <TableCell align='left'>

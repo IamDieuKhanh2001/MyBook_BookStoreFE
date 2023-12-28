@@ -1,31 +1,33 @@
 'use client'
 
-import CustomDatePicker from '@/components/forms/theme-elements/CustomDatePicker';
-import CustomTextField from '@/components/forms/theme-elements/CustomTextField';
-import useAPIFlashSale from '@/lib/hooks/api/useAPIFlashSale';
-import { errorHandler } from '@/lib/utils/ErrorHandler';
-import { Box, CircularProgress, Modal, Typography, useTheme, Stack, Button } from '@mui/material';
-import dayjs from 'dayjs';
-import { Field, Form, Formik } from 'formik';
-import React from 'react'
-import { toast } from 'react-toastify';
-import { KeyedMutator } from 'swr';
+import CustomButton from '@/components/forms/theme-elements/CustomButton'
+import { IconPrinter } from '@tabler/icons-react'
+import React, { useState } from 'react'
+import {
+    Box,
+    CircularProgress,
+    Modal,
+    Typography,
+    useTheme,
+    Stack,
+    Button
+} from '@mui/material';
 import * as Yup from 'yup';
+import { Field, Form, Formik } from 'formik';
+import dayjs from 'dayjs';
+import { toast } from 'react-toastify';
+import { errorHandler } from '@/lib/utils/ErrorHandler';
+import CustomDatePicker from '@/components/forms/theme-elements/CustomDatePicker';
+import Domain from '@/enum/Domain';
 
 interface FormValues {
-    eventDate: string,
-    eventName: string;
+    dateFrom: string,
+    dateTo: string;
 }
-interface ICreateFlashSaleDayModalProps {
-    showModalCreate: boolean;
-    setShowModalCreate: (value: boolean) => void;
-    mutate: KeyedMutator<any[]>;
-}
-const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
-    const { showModalCreate, setShowModalCreate, mutate } = props;
-    const theme = useTheme();
-    const { createNewFlashSaleEvent, } = useAPIFlashSale()
+const DownloadReportModal = () => {
+    const [showModalCreate, setShowModalCreate] = useState<boolean>(false)
 
+    const theme = useTheme();
     const style = {
         position: 'absolute' as 'absolute',
         top: '50%',
@@ -38,21 +40,12 @@ const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
         p: 4,
     };
 
-    //Formik init
-    const initialValues: FormValues = {
-        eventDate: '',
-        eventName: '',
-    };
-    const validationSchema = Yup.object({
-        eventName: Yup.string()
-            .max(50, "*Tên sự kiện không quá 50 kí tự")
-            .required("*Tên sự kiện không được trống"),
-        eventDate: Yup.string()
-            .required("*Chọn ngày diễn ra sự kiện"),
-    });
-
     const handleCloseModal = () => {
         setShowModalCreate(false);
+    }
+
+    const handleOpenModal = () => {
+        setShowModalCreate(true);
     }
 
     const handleChangeDateFormat = (value: any) => { // value is ISO-8601 
@@ -60,21 +53,42 @@ const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
         return date.format('DD-MM-YYYY')
     }
 
+    //Formik init
+    const initialValues: FormValues = {
+        dateFrom: '',
+        dateTo: '',
+    };
+    const validationSchema = Yup.object({
+        dateFrom: Yup.string()
+            .required("*Chọn ngày diễn ra sự kiện"),
+        dateTo: Yup.string()
+            .required("*Chọn ngày diễn ra sự kiện"),
+    });
+
+
     const handleSubmit = async (values: FormValues) => {
         try {
-            const { eventDate, eventName } = values
-            await createNewFlashSaleEvent(eventName, eventDate)
+            const { dateFrom, dateTo } = values
+            const newTabUrl = `${Domain.BACKEND_DOMAIN}/api/statistic/revenue/export?from=${dateFrom}&to=${dateTo}`;
+            window.open(newTabUrl, '_blank');
+            toast.success("Đã tạo xong báo cáo")
             handleCloseModal()
-            mutate(); 
-            toast.success("Tạo sự kiện <" + values.eventName + '> thành công cho ngày <' + values.eventDate + '>')
         }
         catch (e) {
-            errorHandler(e)
+            toast.error("Không thể tạo báo cáo, vui lòng thử lại!")
         }
     };
-
     return (
         <>
+            <CustomButton
+                startIcon={<IconPrinter />}
+                color="secondary"
+                size='small' disableElevation variant="contained" href=""
+                sx={{ mr: 2 }}
+                onClick={() => handleOpenModal()}
+            >
+                Xuất báo cáo
+            </CustomButton>
             <Modal
                 open={showModalCreate}
                 onClose={() => handleCloseModal()}
@@ -85,7 +99,7 @@ const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
                     <Typography id="modal-modal-title" variant="h6" component="h2"
                         style={{ color: theme.palette.text.primary }}
                     >
-                        Tạo mới ngày sự kiện
+                        Xuất báo cáo
                     </Typography>
                     <Formik
                         initialValues={initialValues}
@@ -99,22 +113,22 @@ const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
                                         variant="subtitle1"
                                         fontWeight={600}
                                         component="label"
-                                        htmlFor="eventDate"
+                                        htmlFor="dateFrom"
                                         mb="5px"
                                         style={{ color: theme.palette.text.primary }}
                                     >
-                                        Ngày diễn ra sự kiện
+                                        Từ ngày
                                     </Typography>
                                     <CustomDatePicker
-                                        value={values.eventDate}
+                                        value={values.dateFrom}
                                         onChangeEvent={
-                                            (value: any) => setFieldValue('eventDate', handleChangeDateFormat(value))
+                                            (value: any) => setFieldValue('dateFrom', handleChangeDateFormat(value))
                                         }
-                                        disablePast={true}
+                                        disableFuture={true}
                                     />
-                                    {errors.eventDate && touched.eventDate && (
+                                    {errors.dateFrom && touched.dateFrom && (
                                         <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
-                                            {errors.eventDate}
+                                            {errors.dateFrom}
                                         </Typography>
                                     )}
                                 </Box>
@@ -123,24 +137,22 @@ const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
                                         variant="subtitle1"
                                         fontWeight={600}
                                         component="label"
-                                        htmlFor="password"
+                                        htmlFor="dateTo"
                                         mb="5px"
                                         style={{ color: theme.palette.text.primary }}
                                     >
-                                        Tên sự kiện
+                                        Đến ngày
                                     </Typography>
-                                    <Field
-                                        as={CustomTextField}
-                                        id={"eventName"}
-                                        name="eventName"
-                                        value={values.eventName}
-                                        onChange={handleChange}
-                                        variant="outlined"
-                                        fullWidth
+                                    <CustomDatePicker
+                                        value={values.dateTo}
+                                        onChangeEvent={
+                                            (value: any) => setFieldValue('dateTo', handleChangeDateFormat(value))
+                                        }
+                                        disableFuture={true}
                                     />
-                                    {errors.eventName && touched.eventName && (
+                                    {errors.dateTo && touched.dateTo && (
                                         <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
-                                            {errors.eventName}
+                                            {errors.dateTo}
                                         </Typography>
                                     )}
                                 </Box>
@@ -160,7 +172,7 @@ const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
                                             isSubmitting ?
                                                 (<CircularProgress color="inherit" size={25} />)
                                                 :
-                                                "Save"
+                                                "Tạo báo cáo"
                                         }
                                     </Button>
                                     <Button
@@ -170,7 +182,7 @@ const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
                                         fullWidth
                                         onClick={() => handleCloseModal()}
                                     >
-                                        Cancel
+                                        Hủy
                                     </Button>
                                 </Box>
                             </Form>
@@ -182,4 +194,4 @@ const CreateFlashSaleDayModal = (props: ICreateFlashSaleDayModalProps) => {
     )
 }
 
-export default CreateFlashSaleDayModal
+export default DownloadReportModal

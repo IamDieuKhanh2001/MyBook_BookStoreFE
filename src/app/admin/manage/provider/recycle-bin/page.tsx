@@ -63,8 +63,7 @@ const bookProviderRecycleBinPage = () => {
             <PageContainer title='recycle bin' description='recycle bin'>
                 <Grid item xs={12} lg={8}>
                     <DashboardCard
-                        title='Recycle bin provider List'
-                        subtitle='Manage recycle bin provider List'
+                        title='Danh sách các nhà cung cấp đã xóa'
                     >
                         <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                             <Button

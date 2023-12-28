@@ -39,14 +39,23 @@ const RecentTransactions = () => {
             },
           }}
         >
-          {data.map((transaction) => (
-            <TimelineItem>
+          {/* ENUM('unpaid', 'paid', 'cancel') */}
+          {data.map((transaction, index) => (
+            <TimelineItem key={index}>
               <TimelineOppositeContent>{transaction.transaction_date}</TimelineOppositeContent>
               <TimelineSeparator>
-                <TimelineDot color="success" variant="outlined" />
+                <TimelineDot
+                  color={
+                    transaction.invoice_status === 'paid'
+                      ? 'success' : transaction.invoice_status === 'unpaid'
+                        ? 'warning' : transaction.invoice_status === 'cancel'
+                          ? 'error' : 'grey'
+                  }
+                  variant="outlined"
+                />
                 <TimelineConnector />
               </TimelineSeparator>
-              <TimelineContent>{transaction.message}</TimelineContent>
+              <TimelineContent sx={{ overflow: 'hidden' }}>{transaction.message}</TimelineContent>
             </TimelineItem>
           ))}
         </Timeline>

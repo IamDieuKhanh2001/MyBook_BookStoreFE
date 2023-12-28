@@ -38,7 +38,7 @@ const UserTableData = (props: IUserTableDataProps) => {
                         </TableCell>
                         <TableCell>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                Gmail đăng nhập
+                                Email
                             </Typography>
                         </TableCell>
                         <TableCell>
@@ -48,7 +48,7 @@ const UserTableData = (props: IUserTableDataProps) => {
                         </TableCell>
                         <TableCell align='right'>
                             <Typography variant="subtitle2" fontWeight={600}>
-                                xem chi tiết
+                                Xem chi tiết
                             </Typography>
                         </TableCell>
                         <TableCell align='right'>
@@ -80,9 +80,8 @@ const UserTableData = (props: IUserTableDataProps) => {
                                         color='success'
                                         size="small"
                                         onClick={() => {
-                                            // router.push(`/admin/manage/products/detail/${item.isbn_code}`)
+                                            router.push(`/admin/manage/user/detail/${user.id}`)
                                         }}
-                                        disabled={true}
                                     >
                                         <IconEye />
                                     </Button>
@@ -112,7 +111,7 @@ const UserTableData = (props: IUserTableDataProps) => {
                         <TableRow>
                             <TableCell colSpan={5}>
                                 <Typography align="center" variant="h4" mt={2}>
-                                    No data available
+                                    Danh sách rỗng
                                 </Typography>
                             </TableCell>
                         </TableRow>

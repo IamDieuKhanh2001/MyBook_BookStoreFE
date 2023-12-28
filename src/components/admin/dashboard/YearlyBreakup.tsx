@@ -71,12 +71,12 @@ const YearlyBreakup = () => {
   ];
 
   return (
-    <DashboardCard title={`So sánh doanh thu giữa 2 năm`}>
+    <DashboardCard title={`Doanh thu năm nay`}>
       <Grid container spacing={3}>
         {/* column */}
         <Grid item xs={7} sm={7}>
           <Typography variant="h3" fontWeight="700">
-            {data.total_revenue_for_2_year?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+            {data.current_year_revenue?.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
           </Typography>
           <Stack direction="row" spacing={1} mt={1} alignItems="center">
             <Avatar sx={{ bgcolor: successlight, width: 27, height: 27 }}>

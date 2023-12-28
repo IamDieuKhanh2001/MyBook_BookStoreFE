@@ -64,7 +64,7 @@ const MonthlyEarnings = () => {
 
   return (
     <DashboardCard
-      title="Doanh thu tháng so với năm trước"
+      title="Doanh thu tháng này"
       action={
         <Fab color="secondary" size="medium" sx={{ color: '#ffffff' }}>
           <IconCurrencyDollar width={24} />
