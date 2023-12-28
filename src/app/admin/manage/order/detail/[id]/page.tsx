@@ -83,8 +83,7 @@ const OrderDetailPage = (props: IOrderDetailPageProps) => {
                 <Grid container spacing={2}>
                     <Grid item xs={12} lg={6}>
                         <DashboardCard
-                            title={`Order: aaa`}
-                            subtitle={`ID: ${data.id}`}
+                            title={`Đơn hàng #${data.id}`}
                         >
                             <Box sx={{ width: { xs: '280px', sm: 'auto' } }}>
                                 {error && <Alert sx={{ mb: 2 }} severity="error">
