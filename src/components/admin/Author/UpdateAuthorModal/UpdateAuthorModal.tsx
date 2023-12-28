@@ -85,9 +85,9 @@ const UpdateAuthorModal = (props: IProps) => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2"
-                        style={{ color: theme.palette.text.primary }}
+                        style={{ color: theme.palette.text.primary, marginBottom: "10px" }}
                     >
-                        Edit author
+                        Chỉnh sửa tác giả
                     </Typography>
                     <Formik
                         initialValues={initialValues}
@@ -106,7 +106,7 @@ const UpdateAuthorModal = (props: IProps) => {
                                             htmlFor="maLoai"
                                             mb="5px"
                                         >
-                                            Mã số
+                                            Mã tác giả
                                         </Typography>
                                         <Field
                                             as={CustomTextField}
@@ -142,6 +142,7 @@ const UpdateAuthorModal = (props: IProps) => {
                                             onChange={handleChange}
                                             variant="outlined"
                                             fullWidth
+                                            style={{ marginBottom: "10px" }}
                                         />
                                         {errors.name && touched.name && (
                                             <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -158,6 +159,7 @@ const UpdateAuthorModal = (props: IProps) => {
                                         fullWidth
                                         type="submit"
                                         disabled={isSubmitting}
+                                        style={{ marginBottom: "10px" }}
                                     >
                                         {
                                             isSubmitting ?

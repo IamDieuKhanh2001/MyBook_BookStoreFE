@@ -83,9 +83,9 @@ const UpdateCategoriesModal = (props: IProps) => {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2"
-                        style={{ color: theme.palette.text.primary }}
+                        style={{ color: theme.palette.text.primary, marginBottom: "10px" }}
                     >
-                        Edit category
+                        Chỉnh sửa danh mục
                     </Typography>
                     <Formik
                         initialValues={initialValues}
@@ -104,7 +104,7 @@ const UpdateCategoriesModal = (props: IProps) => {
                                             htmlFor="maLoai"
                                             mb="5px"
                                         >
-                                            Ma loai
+                                            Mã danh mục
                                         </Typography>
                                         <Field
                                             as={CustomTextField}
@@ -131,7 +131,7 @@ const UpdateCategoriesModal = (props: IProps) => {
                                             mb="5px"
                                             style={{ color: theme.palette.text.primary }}
                                         >
-                                            Ten loai
+                                            Tên danh mục
                                         </Typography>
                                         <Field
                                             as={CustomTextField}
@@ -140,6 +140,7 @@ const UpdateCategoriesModal = (props: IProps) => {
                                             onChange={handleChange}
                                             variant="outlined"
                                             fullWidth
+                                            style={{ marginBottom: "10px" }}
                                         />
                                         {errors.name && touched.name && (
                                             <Typography variant="body1" sx={{ color: (theme) => theme.palette.error.main }}>
@@ -156,6 +157,7 @@ const UpdateCategoriesModal = (props: IProps) => {
                                         fullWidth
                                         type="submit"
                                         disabled={isSubmitting}
+                                        style={{ marginBottom: "10px" }}
                                     >
                                         {
                                             isSubmitting ?
