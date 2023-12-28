@@ -12,7 +12,6 @@ export const APIUserLogin = async (email: string = "", password: string = ""): P
         const response = await defaultAxios.post(url, body);
         return response;
     } catch (error) {
-        console.log("Can't call API after 1 retries", error);
         throw error; // Rethrow the error so it can be caught by the caller if needed
     }
 };
@@ -29,7 +28,6 @@ export const APIUserRegister = async (email: string = "", password: string = "",
         const response = await defaultAxios.post(url, body);
         return response;
     } catch (error) {
-        console.log("Can't call API after 1 retries", error);
         throw error; // Rethrow the error so it can be caught by the caller if needed
     }
 }
@@ -57,7 +55,6 @@ export const APIRefreshJwtToken = async (jwtToken: string = "", refreshToken: st
         const response = await defaultAxios.post(url, body);
         return response;
     } catch (error) {
-        console.log("Can't call API after 1 retries", error);
         throw error; // Rethrow the error so it can be caught by the caller if needed
     }
 };

@@ -51,10 +51,6 @@ const SearchBarInput = () => {
         }, 1000);
     }
 
-    // useEffect(() => {
-    //     console.log('setShowSuggestions: ', showSuggestions);
-    // }, [showSuggestions]);
-
     const { getBookSuggestion } = useAPIGuest()
     const { suggestData } = getBookSuggestion(keywordRecommend, '5')
 

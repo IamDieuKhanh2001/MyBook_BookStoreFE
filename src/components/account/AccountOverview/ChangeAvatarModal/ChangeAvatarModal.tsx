@@ -59,7 +59,6 @@ const ChangeAvatarModal = () => {
             setIsLoading(false)
             handleHideModal()
         } catch (e) {
-            console.log(e)
             setIsLoading(false)
             toast.error("Có lỗi xảy ra, vui lòng thử lại sau!")
         }

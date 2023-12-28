@@ -103,6 +103,22 @@
             background-color: #E0E0E0;
         }
     }
+
+    .btnPaymentNow {
+        font-size: 15px;
+        font-weight: bold;
+        border-radius: 8px;
+        background: white;
+        padding: 7px 20px;
+        color: #b0d608 !important;
+        border: 2px solid #b0d608;
+        margin-bottom: 10px;
+    
+        &:disabled {
+            cursor: not-allowed;
+            background-color: #E0E0E0;
+        }
+    }
 }
 
 .orderViewContentBox {

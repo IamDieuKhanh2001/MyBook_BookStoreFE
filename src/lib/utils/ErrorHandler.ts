@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
 
 export const errorHandler = (e: any) => {
-    console.log(e)
     const { status, data } = e.response;
     const errorStatusCode = status
     switch (errorStatusCode) {

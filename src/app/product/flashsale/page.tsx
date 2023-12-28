@@ -25,7 +25,6 @@ const FlashSalePage = () => {
   }, [flashSaleTodayData])
 
   const renderFlashSaleHeader = () => {
-    console.log(periodActive)
     if (!periodActive) {
       return <></>
     }
@@ -40,7 +39,6 @@ const FlashSalePage = () => {
     const timeDifferenceToStart = startTime.getTime() - dateTimeNow.getTime();
     switch (true) {
       case timeDifferenceToStart > 0:
-        console.log("timeDifferenceToStart " + timeDifferenceToStart)
         return (
           <FlashSaleHeader
             flashSaleLabel='Sẽ bắt đầu trong'
@@ -50,7 +48,6 @@ const FlashSalePage = () => {
           />
         )
       case timeDifferenceToEnd > 0:
-        console.log("timeDifferenceToEnd " + timeDifferenceToEnd)
         return (
           <FlashSaleHeader
             flashSaleLabel='Kết thúc trong'
@@ -60,7 +57,6 @@ const FlashSalePage = () => {
           />
         )
       default:
-        console.log("k gia tri")
         return (
           <FlashSaleHeader
             flashSaleLabel='Khung giờ sự kiện đã kết thúc'

@@ -55,7 +55,6 @@ const CreatePublisherModal = (props: ICreatePublisherModalProps) => {
             toast.success("Create publisher complete with name: " + values.name)
         }
         catch (e: any) {
-            console.log(e)
             errorHandler(e)
         }
     };
