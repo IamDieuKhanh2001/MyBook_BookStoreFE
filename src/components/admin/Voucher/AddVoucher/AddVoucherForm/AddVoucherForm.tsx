@@ -92,7 +92,6 @@ const AddVoucherForm = () => {
 
     const handleAddVoucher = async (values: FormValues) => {
         try {
-            console.log(values)
             const {
                 voucherName,
                 voucherType,

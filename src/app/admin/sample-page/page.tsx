@@ -47,7 +47,6 @@ const SamplePage = () => {
     // Revoke the data uris to avoid memory leaks
     return () => {
       files.forEach(file => URL.revokeObjectURL(file.preview))
-      console.log('revoke file')
     }
   }, [])
 
@@ -71,15 +70,9 @@ const SamplePage = () => {
       toast.error("Upload ảnh thất bại, chưa chọn file")
       return
     }
-    files.map((file) => {
-      console.log(file)
-    })
     toast.success("Upload ảnh thành công")
   }
 
-  useEffect(() => {
-    console.log('Updated files:', files);
-  }, [files]);
 
   return (
     <>

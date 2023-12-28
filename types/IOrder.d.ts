@@ -5,7 +5,6 @@ interface IOrder {
   final_price: number
   discount_price: number
   voucher: string
-  userAddress: IUserAddress
   payment_method: string
   status: string
   payment_status: string
@@ -23,7 +22,12 @@ interface IOrder {
   payment?: {
     name: string
   } 
+  invoice?: {
+    id: number
+    pay_url: string
+  }
   user: UserInfo
+  userAddress: IUserAddress
   items?: ItemOrdered[]
 }
 

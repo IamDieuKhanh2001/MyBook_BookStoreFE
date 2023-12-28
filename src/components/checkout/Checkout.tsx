@@ -31,7 +31,6 @@ const Checkout = () => {
     const handlePreOrder = async (productCartIdList: number[], voucherCode?: string) => {
         try {
             const res = await preOrder(productCartIdList, voucherCode)
-            console.log(res)
             setPreOrderData(res.data)
         }
         catch (e) {
@@ -72,7 +71,6 @@ const Checkout = () => {
                 selectedAddress.id,
                 selectedPaymentMethod.key
             )
-            console.log(resData)
             setLoading(false)
             navigatePaymentSite(resData)
         } catch (e) {
@@ -98,10 +96,6 @@ const Checkout = () => {
             }
         }
     }
-
-    useEffect(() => {
-        console.log(preOrderData)
-    }, [preOrderData])
 
     return (
         <div className='container'>

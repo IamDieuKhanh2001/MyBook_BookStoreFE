@@ -28,19 +28,13 @@ const useAxiosAuth = () => {
     //========================================
     const handle401Error = async (error: AxiosError) => {
         const session = await getSession();
-        console.log(session)
-        console.log(">>>>>>401")
         if (session) {
-            console.log("call refresh api")
             //if api catch error will redirect to login
             try {
                 const res = await APIRefreshJwtToken(session.user.jwtToken, session.user.refreshToken)
-                console.log(res)
                 if (res && res.data.success === false && res.status === 200) {
-                    console.log("redirect back to login success false")
                     await signOut({ callbackUrl: '/authentication/login?isSessionExpired=true' }); // clear session
                 } else if (res && res.data.success === true && res.status === 200) {
-                    console.log("change session current to new session jwt, success")
                     await update({
                         ...session,
                         user: {
@@ -49,19 +43,14 @@ const useAxiosAuth = () => {
                             refreshToken: res.data?.data.refreshToken,
                         }
                     })
-                    console.log("new session >> " + session)
                 } else {
-                    console.log("Error occured, clear session, redirect login")
                     await signOut({ callbackUrl: '/authentication/login?isSessionExpired=true' }); // clear session
                 }
             } catch (e) {
                 await signOut({ callbackUrl: '/authentication/login?isSessionExpired=true' }); // clear session
-                console.log("redirect back to login catch error refresh")
-                console.log(">>>catch refresh error: " + e)
             }
         } else {
             await signOut({ callbackUrl: '/authentication/login?isSessionExpired=true' }); // clear session
-            console.log("redirect back to login session undefined")
         }
     }
     useEffect(() => {
@@ -84,7 +73,6 @@ const useAxiosAuth = () => {
         const responseIntercept = axiosAuth.interceptors.response.use(
             async (response: any) => response,
             async (error: AxiosError) => {
-                console.log(error.response)
                 if (error.response && error.response.status === 401) {
                     handle401Error(error)
                     return Promise.reject(error); //reject other error 401

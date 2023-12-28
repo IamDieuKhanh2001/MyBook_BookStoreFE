@@ -66,9 +66,7 @@ const TestPage = () => {
     const LoadGetTestAPIAdmin = async () => {
         try {
             const response = await axiosAuth.get(`/test`);
-            console.log(response)
         } catch (error) {
-            console.log(">>>>>>", error);
         }
     }
 
