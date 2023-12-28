@@ -54,8 +54,7 @@ const recycleBinParentCategoryPage = () => {
       <PageContainer title='recycle bin' description='recycle bin'>
         <Grid item xs={12} lg={8}>
           <DashboardCard
-            title='Recycle bin parent categories List'
-            subtitle='Manage Recycle bin parent categories list'
+            title='Danh sách các danh mục đã xóa'
           >
             <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
               <Button
