@@ -53,11 +53,9 @@ const RegisterForm = (props: RegisterFormProps) => {
     const handleSubmit = async (values: FormValues) => {
         try {
             // Xử lý logic khi form được submit
-            console.log(values)
             toast.warning("Register with " + values.email + " " + values.password)
             setIsLoading(true)
             const resRegister = await APIUserRegister(values.email, values.password, values.retypePassword)
-            console.log(resRegister)
             toast.success("Đăng ký hoàn tất, Tự động đăng nhập" + values.email)
             const result = await signIn("credentials", {
                 email: values?.email,
@@ -68,7 +66,6 @@ const RegisterForm = (props: RegisterFormProps) => {
             // Đoạn mã bạn muốn thực thi sau 5 giây
             setIsLoading(false)
         } catch (e: any) {
-            console.log(e)
             setIsLoading(false)
             setErrorList(e.response.data.errors)
             toast.error("Can not Register with " + values.email)

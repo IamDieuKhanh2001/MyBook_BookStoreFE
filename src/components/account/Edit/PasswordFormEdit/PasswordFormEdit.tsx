@@ -39,11 +39,9 @@ const PasswordFormEdit = () => {
 
     const handleChangePasswordSubmit = async (values: FormChangePasswordValues, formikHelpers: FormikHelpers<FormChangePasswordValues>) => {
         try {
-            console.log(values)
             setIsLoading(true)
             const { currentPassword, newPassword, retypePassword } = values
             const res = await changeAccountPassword(currentPassword, newPassword, retypePassword)
-            console.log(res)
             setIsLoading(false)
             formikHelpers.resetForm()
             toast.success("Đổi mật khẩu thành công ")

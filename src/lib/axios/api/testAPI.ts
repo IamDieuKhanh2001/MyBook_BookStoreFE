@@ -11,7 +11,6 @@ export const APITest = async (email: string = "", password: string = ""): Promis
         const response = await defaultAxios.get(url, body);
         return response;
     } catch (error) {
-        console.log("Can't call API after 1 retries", error);
         throw error; // Rethrow the error so it can be caught by the caller if needed
     }
 };

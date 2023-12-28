@@ -21,7 +21,7 @@ interface IOrderFilterProps {
 const OrderFilter = (props: IOrderFilterProps) => {
     const { filters, setFilters } = props
     const { getAllOrderStatistics } = useAPIOrder()
-    const { data } = getAllOrderStatistics()
+    const { data } = getAllOrderStatistics(filters.email)
 
     return (
         <>
@@ -45,7 +45,7 @@ const OrderFilter = (props: IOrderFilterProps) => {
                         value=''
                         label='Tất cả'
                         total={
-                            data.reduce((accumulator, currentValue) => {
+                            data.status?.reduce((accumulator, currentValue) => {
                                 return accumulator + currentValue.total;
                             }, 0)
                         }
@@ -54,31 +54,31 @@ const OrderFilter = (props: IOrderFilterProps) => {
                         color='success'
                         value='pending'
                         label='Chờ xác nhận'
-                        total={data.find(obj => obj.status === 'pending')?.total || 0}
+                        total={data.status?.find(obj => obj.status === 'pending')?.total || 0}
                     />
                     <FilterItem
                         color='success'
                         value='confirmed'
                         label='Đã xác nhận'
-                        total={data.find(obj => obj.status === 'confirmed')?.total || 0}
+                        total={data.status?.find(obj => obj.status === 'confirmed')?.total || 0}
                     />
                     <FilterItem
                         color='success'
                         value='delivering'
                         label='Đang vận chuyển'
-                        total={data.find(obj => obj.status === 'delivering')?.total || 0}
+                        total={data.status?.find(obj => obj.status === 'delivering')?.total || 0}
                     />
                     <FilterItem
                         color='success'
                         value='completed'
                         label='Đã hoàn thành'
-                        total={data.find(obj => obj.status === 'completed')?.total || 0}
+                        total={data.status?.find(obj => obj.status === 'completed')?.total || 0}
                     />
                     <FilterItem
                         color='success'
                         value='canceled'
                         label='Đã hủy'
-                        total={data.find(obj => obj.status === 'canceled')?.total || 0}
+                        total={data.status?.find(obj => obj.status === 'canceled')?.total || 0}
                     />
                 </RadioGroup>
             </FormControl>
@@ -93,10 +93,30 @@ const OrderFilter = (props: IOrderFilterProps) => {
                     value={filters.payment_status}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => setFilters({ ...filters, payment_status: event.target.value })}
                 >
-                    <FilterItem value='' label='Tất cả' total={10} />
-                    <FilterItem value='unpaid' label='Chưa thanh toán' total={10} />
-                    <FilterItem value='paid' label='Đã thanh toán' total={10} />
-                    <FilterItem value='refunded' label='Đã hoàn tiền' total={10} />
+                    <FilterItem
+                        value=''
+                        label='Tất cả'
+                        total={
+                            data.payment_status?.reduce((accumulator, currentValue) => {
+                                return accumulator + currentValue.total;
+                            }, 0)
+                        }
+                    />
+                    <FilterItem
+                        value='unpaid'
+                        label='Chưa thanh toán'
+                        total={data.payment_status?.find(obj => obj.status === 'unpaid')?.total || 0}
+                    />
+                    <FilterItem
+                        value='paid'
+                        label='Đã thanh toán'
+                        total={data.payment_status?.find(obj => obj.status === 'paid')?.total || 0}
+                    />
+                    <FilterItem
+                        value='refunded'
+                        label='Đã hoàn tiền'
+                        total={data.payment_status?.find(obj => obj.status === 'refunded')?.total || 0}
+                    />
                 </RadioGroup>
             </FormControl>
         </>

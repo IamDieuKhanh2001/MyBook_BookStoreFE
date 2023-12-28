@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 export default withAuth(
   // `withAuth` augments your `Request` with the user's token.
   function middleware(req) {
-    // console.log(">>>>>>>>>>token: ", req.nextauth.token); //req.nextauth.token same type as session user
 
     if (req.nextUrl.pathname.startsWith("/admin") && (req.nextauth.token as any)?.userInfo.userRole.name !== "Admin")
       return NextResponse.rewrite(

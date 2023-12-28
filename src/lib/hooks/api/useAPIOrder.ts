@@ -132,7 +132,7 @@ const useAPIOrder = () => {
         }
     };
 
-    const getAllOrderStatistics = () => {
+    const getAllOrderStatistics = (email: string = '') => {
         const fetcher = async (url: string) => {
             try {
                 const session = await getSession();
@@ -149,16 +149,16 @@ const useAPIOrder = () => {
         }
 
         const { data, mutate, isLoading, error } = useSWR(
-            `${URL_PREFIX}/statistic`,
+            `${URL_PREFIX}/statistic?email=${email}`,
             fetcher,
             {
                 revalidateOnReconnect: false,
             }
         )
 
-        const flashSalePeriodsData: IMyOrderStatistics[] = data?.data ?? []
+        const flashSalePeriodsData: IOrderStatistics = data?.data ?? {}
         return {
-            data: flashSalePeriodsData ?? [], // nếu data = undefined sẽ là mảng rỗng
+            data: flashSalePeriodsData ?? {},
             mutate: mutate,
             isLoading: !error && !data,
             error: error,
