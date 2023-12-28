@@ -73,6 +73,18 @@ const OrderOverview = (props: IOrderOverviewProps) => {
         }
     }
 
+    const handlePaymentNow = () => {
+        try {
+            if (!data.invoice?.pay_url) {
+                toast.error("Hiện tại không thể thanh toán, vui lòng quay lại sau!")
+                return
+            }
+            window.open(data.invoice.pay_url, '_blank');
+        } catch (e) {
+            errorHandler(e)
+        }
+    }
+
     const translatePaymentStatus = (paymentStatus: string) => {
         switch (paymentStatus) {
             case 'unpaid': {
@@ -161,6 +173,21 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                     </div>
                 </div>
                 <div className={styles.overviewBtns}>
+                    {/* Payment Now */}
+                    {
+                        data.payment_method !== PaymentMethod.COD
+                        &&
+                        data.payment_status === PaymentStatus.UNPAID
+                        &&
+                        (
+                            <button
+                                className={styles.btnPaymentNow}
+                                onClick={() => handlePaymentNow()}
+                            >
+                                Thanh toán ngay
+                            </button>
+                        )
+                    }
                     {/* delivering  */}
                     {data.status === OrderStatus.DELIVERING && (
                         <button
@@ -199,7 +226,6 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                             In hóa đơn
                         </button>
                     }
-
                 </div>
             </div >
             <div className="card mb-2 py-3 px-4">
