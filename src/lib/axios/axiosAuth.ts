@@ -2,11 +2,7 @@
 //          Axios configuration  
 //====================================
 //Note: Only allow one enviroment, comment 1 of these your enviroment you are not using
-// Developer environment:
-const BASE_URL = "http://127.0.0.1:3333";
-
-// Production environment:
-// const BASE_URL = "https://api.sachviet.top";
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_DOMAIN
 
 import axios from "axios";
 import axiosRetry from "axios-retry";

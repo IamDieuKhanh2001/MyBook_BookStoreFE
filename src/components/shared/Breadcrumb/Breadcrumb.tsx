@@ -112,7 +112,7 @@ const Breadcrumb = () => {
                                 {
                                     breadcrumbs.map((breadcrumb, index) => {
                                         return (
-                                            <a className={`${styles.breadcrumbItem} text-dark`} onClick={() => gotoBreadCrumb(event, breadcrumb)}>{breadcrumb.text}</a>
+                                            <a key={index} className={`${styles.breadcrumbItem} text-dark`} onClick={() => gotoBreadCrumb(event, breadcrumb)}>{breadcrumb.text}</a>
                                         )
                                     })
                                 }
