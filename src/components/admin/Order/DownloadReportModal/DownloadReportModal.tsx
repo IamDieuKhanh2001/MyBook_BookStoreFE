@@ -69,7 +69,7 @@ const DownloadReportModal = () => {
     const handleSubmit = async (values: FormValues) => {
         try {
             const { dateFrom, dateTo } = values
-            const newTabUrl = `${Domain.BACKEND_DOMAIN}/api/statistic/revenue/export?from=${dateFrom}&to=${dateTo}`;
+            const newTabUrl = `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/statistic/revenue/export?from=${dateFrom}&to=${dateTo}`;
             window.open(newTabUrl, '_blank');
             toast.success("Đã tạo xong báo cáo")
             handleCloseModal()
