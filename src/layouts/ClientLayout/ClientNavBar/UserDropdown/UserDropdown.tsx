@@ -32,10 +32,7 @@ const UserDropdown = () => {
                             </Link>
                             <li><hr className="dropdown-divider" /></li>
                             <Link href="#" onClick={() => signOut()} className="dropdown-item">
-                                Logout 1
-                            </Link>
-                            <Link href="/api/auth/signout" className="dropdown-item">
-                                Logout 2
+                                Logout
                             </Link>
                         </div>
                     </div>
