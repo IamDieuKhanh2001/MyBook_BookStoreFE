@@ -172,61 +172,63 @@ const OrderOverview = (props: IOrderOverviewProps) => {
                         </span>
                     </div>
                 </div>
-                <div className={styles.overviewBtns}>
-                    {/* Payment Now */}
-                    {
-                        data.payment_method !== PaymentMethod.COD
-                        &&
-                        data.payment_status === PaymentStatus.UNPAID
-                        &&
-                        (
+                {data.status !== OrderStatus.CANCELED && (
+                    <div className={styles.overviewBtns}>
+                        {/* Payment Now */}
+                        {
+                            data.payment_method !== PaymentMethod.COD
+                            &&
+                            data.payment_status === PaymentStatus.UNPAID
+                            &&
+                            (
+                                <button
+                                    className={styles.btnPaymentNow}
+                                    onClick={() => handlePaymentNow()}
+                                >
+                                    Thanh toán ngay
+                                </button>
+                            )
+                        }
+                        {/* delivering  */}
+                        {data.status === OrderStatus.DELIVERING && (
                             <button
-                                className={styles.btnPaymentNow}
-                                onClick={() => handlePaymentNow()}
+                                className={styles.orderReceivedBtn}
+                                onClick={() => handleCompleteOrder(data.id)}
                             >
-                                Thanh toán ngay
+                                Xác nhận đã nhận hàng
                             </button>
-                        )
-                    }
-                    {/* delivering  */}
-                    {data.status === OrderStatus.DELIVERING && (
-                        <button
-                            className={styles.orderReceivedBtn}
-                            onClick={() => handleCompleteOrder(data.id)}
-                        >
-                            Xác nhận đã nhận hàng
-                        </button>
-                    )}
-                    {/* pedding , cofirm  */}
-                    {
-                        (data.status === OrderStatus.CONFIRMED || data.status === OrderStatus.PENDING)
-                        &&
-                        <button
-                            className={styles.orderReceivedBtn}
-                            onClick={() => handleCancelOrder(data.id)}
-                        >
-                            Huỷ bỏ đơn hàng
-                        </button>
-                    }
-                    {/* completed  */}
-                    {data.status === OrderStatus.COMPLETED && !data.review &&
-                        (
-                            <ReviewOrderModal orderId={data.id} />
-                        )
-                    }
-                    {
-                        (data.payment_method === PaymentMethod.VnPay || data.payment_method === PaymentMethod.PayPal)
-                        &&
-                        data.payment_status === PaymentStatus.PAID
-                        &&
-                        <button
-                            className={styles.invoiceRequestBtn}
-                            onClick={() => handleRequestInvoice(data.id)}
-                        >
-                            In hóa đơn
-                        </button>
-                    }
-                </div>
+                        )}
+                        {/* pedding , cofirm  */}
+                        {
+                            (data.status === OrderStatus.CONFIRMED || data.status === OrderStatus.PENDING)
+                            &&
+                            <button
+                                className={styles.orderReceivedBtn}
+                                onClick={() => handleCancelOrder(data.id)}
+                            >
+                                Huỷ bỏ đơn hàng
+                            </button>
+                        }
+                        {/* completed  */}
+                        {data.status === OrderStatus.COMPLETED && !data.review &&
+                            (
+                                <ReviewOrderModal orderId={data.id} />
+                            )
+                        }
+                        {
+                            (data.payment_method === PaymentMethod.VnPay || data.payment_method === PaymentMethod.PayPal)
+                            &&
+                            data.payment_status === PaymentStatus.PAID
+                            &&
+                            <button
+                                className={styles.invoiceRequestBtn}
+                                onClick={() => handleRequestInvoice(data.id)}
+                            >
+                                In hóa đơn
+                            </button>
+                        }
+                    </div>
+                )}
             </div >
             <div className="card mb-2 py-3 px-4">
                 <div className={styles.orderViewContentBox}>
