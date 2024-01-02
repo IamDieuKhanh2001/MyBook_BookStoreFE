@@ -4,15 +4,19 @@ import React from 'react';
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { useTheme } from '@mui/material/styles';
-import { Grid, Stack, Typography, Avatar } from '@mui/material';
+import { Grid, Stack, Typography, Avatar, Select, MenuItem, Box, SelectChangeEvent } from '@mui/material';
 import { IconArrowDownLeft, IconArrowUpLeft } from '@tabler/icons-react';
 
 import DashboardCard from '../../shared/DashboardCard';
 import useAPIStatistic from '@/lib/hooks/api/useAPIStatistic';
 
 const YearlyBreakup = () => {
+  const [fromYearSelected, setFromYearSelected] = React.useState<number>(new Date().getFullYear());
+  const [toYearSelected, setToYearSelected] = React.useState<number>(new Date().getFullYear() - 1);
   const { getCompareYear } = useAPIStatistic()
-  const { data, isLoading } = getCompareYear()
+  const { data, isLoading } = getCompareYear(fromYearSelected, toYearSelected)
+  const currentYear = new Date().getFullYear()
+
   // chart color
   const theme = useTheme();
   const primary = theme.palette.success.main;
@@ -70,9 +74,56 @@ const YearlyBreakup = () => {
     data.previous_year_revenue,
   ];
 
+  const handleChangeFromYear = (year: number) => {
+    setFromYearSelected(year)
+  }
+
+  const handleChangeToYear = (year: number) => {
+    setToYearSelected(year)
+  }
+
   return (
-    <DashboardCard title={`Doanh thu năm nay`}>
+    <DashboardCard
+      title={`Doanh thu của năm`}
+      action={
+        <Select
+          labelId="from-year-select"
+          id="from-year-select"
+          value={fromYearSelected}
+          size="small"
+          onChange={(e: SelectChangeEvent<number>) => handleChangeFromYear(+e.target.value)}
+        >
+          {[0, 1, 2, 3, 4].map((value, key) => (
+            <MenuItem disabled={(currentYear - value) === toYearSelected} key={key} value={currentYear - value}>{currentYear - value}</MenuItem>
+          ))}
+        </Select>
+      }
+    >
       <Grid container spacing={3}>
+        <Stack
+          direction="row"
+          spacing={1}
+          mt={1}
+          ml={3}
+          alignItems="center"
+        >
+          <Box
+            sx={{ ml: 2 }}
+          >
+            So với năm
+          </Box>
+          <Select
+            labelId="to-year-select"
+            id="to-year-select"
+            value={toYearSelected}
+            size="small"
+            onChange={(e: SelectChangeEvent<number>) => handleChangeToYear(+e.target.value)}
+          >
+            {[0, 1, 2, 3, 4].map((value, key) => (
+              <MenuItem disabled={(currentYear - value) === fromYearSelected} key={key} value={currentYear - value}>{currentYear - value}</MenuItem>
+            ))}
+          </Select>
+        </Stack>
         {/* column */}
         <Grid item xs={7} sm={7}>
           <Typography variant="h3" fontWeight="700">
@@ -88,9 +139,6 @@ const YearlyBreakup = () => {
             </Avatar>
             <Typography variant="subtitle2" fontWeight="600">
               {data.financial_performance === 'decrease' ? "-" : "+"}{data.percentage_change}%
-            </Typography>
-            <Typography variant="subtitle2" color="textSecondary">
-              last year
             </Typography>
           </Stack>
           <Stack spacing={3} mt={5} direction="row">
