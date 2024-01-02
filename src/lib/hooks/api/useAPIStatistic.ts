@@ -149,7 +149,7 @@ const useAPIStatistic = () => {
         }
     }
 
-    const getCompareYear = () => {
+    const getCompareYear = (fromYear: number, toYear: number) => {
         const fetcher = async (url: string) => {
             try {
                 const session = await getSession();
@@ -165,7 +165,7 @@ const useAPIStatistic = () => {
         }
 
         const { data, mutate, isLoading, error } = useSWR(
-            `${URL_PREFIX}/revenue/current-year`,
+            `${URL_PREFIX}/revenue/compare-year?current_year=${fromYear}&previous_year=${toYear}`,
             fetcher,
             {
                 revalidateOnReconnect: false,
