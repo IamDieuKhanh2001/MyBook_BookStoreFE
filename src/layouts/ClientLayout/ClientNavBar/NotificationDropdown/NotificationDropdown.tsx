@@ -4,8 +4,8 @@ import React, { useState } from 'react'
 import styles from './NotificationDropdown.module.scss'
 import NotificationItem from './NotificationItem/NotificationItem'
 import useAPINotification from '@/lib/hooks/api/useAPINotification'
-import CartEmptyAlert from '@/components/cart/CartProductList/CartEmptyAlert/CartEmptyAlert'
 import NotificationLoading from './NotificationLoading/NotificationLoading'
+import NotificationEmptyAlert from './NotificationEmptyAlert/NotificationEmptyAlert'
 
 const NotificationDropdown = () => {
     const [filters, setFilters] = useState({
@@ -27,7 +27,7 @@ const NotificationDropdown = () => {
     const handleClickReadAll = async () => {
         try {
             await checkReadAll()
-        } catch(e) {
+        } catch (e) {
 
         }
     }
@@ -76,27 +76,30 @@ const NotificationDropdown = () => {
                 {
                     paginatedData.length === 0
                     &&
-                    <CartEmptyAlert />
+                    <NotificationEmptyAlert />
                 }
-                <div className={styles.notiListFooter}>
-                    <div
-                        style={
-                            !isReachedEnd
-                                &&
-                                !isLoading
-                                ?
-                                { visibility: 'visible' }
-                                :
-                                { visibility: 'hidden' }
-                        }
-                        className={styles.loadMore}
-                        onClick={handleLoadMoreNoti}
-                    >
-                        Tải thêm
+                {
+                    paginatedData.length !== 0
+                    &&
+                    <div className={styles.notiListFooter}>
+                        <div
+                            style={
+                                !isReachedEnd
+                                    &&
+                                    !isLoading
+                                    ?
+                                    { visibility: 'visible' }
+                                    :
+                                    { visibility: 'hidden' }
+                            }
+                            className={styles.loadMore}
+                            onClick={handleLoadMoreNoti}
+                        >
+                            Tải thêm
+                        </div>
+                        <div className={styles.markReadAll} onClick={handleClickReadAll}>Đã xem hết</div>
                     </div>
-                    <div className={styles.markReadAll} onClick={handleClickReadAll}>Đã xem hết</div>
-                </div>
-
+                }
             </div>
         </div>
 
