@@ -30,8 +30,17 @@
             font-weight: bold;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            text-align: left;
+            justify-content: space-between;
+
+            .centerLeft {
+                display: flex;
+                align-items: center;
+            }
+
+            .btnSeeAll {
+                color: #2489F4;
+                cursor: pointer;
+            }
 
             >.notiListTitle {
                 line-height: normal;
@@ -50,14 +59,21 @@
             list-style: none;
         }
 
-        .loadMore {
+        .notiListFooter {
             padding-top: 16px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 15px;
-            cursor: pointer;
-            color: $primary-color;
+            justify-content: space-evenly;
+
+            .loadMore {
+                font-size: 15px;
+                cursor: pointer;
+                color: $primary-color;
+            }
+
+            .markReadAll {
+                cursor: pointer;
+            }
         }
     }
 }

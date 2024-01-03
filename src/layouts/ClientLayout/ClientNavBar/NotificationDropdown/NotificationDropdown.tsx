@@ -12,8 +12,9 @@ const NotificationDropdown = () => {
         limit: 4,
         // page: 2,
     });
-    const { getNotificationList } = useAPINotification()
+    const { getNotificationList, getNotiStatistics, checkReadAll } = useAPINotification()
     const { paginatedData, isLoading, isReachedEnd, setSize } = getNotificationList(filters.limit)
+    const { data: notificationStatistics } = getNotiStatistics()
 
     const handleLoadMoreNoti = () => {
         // setFilters(prevFilters => ({
@@ -23,7 +24,14 @@ const NotificationDropdown = () => {
         setSize((previousSize) => previousSize + 1)
     }
 
-    console.log(paginatedData)
+    const handleClickReadAll = async () => {
+        try {
+            await checkReadAll()
+        } catch(e) {
+
+        }
+    }
+
     return (
         <div className={`${styles.navItem} dropdown`}>
             <div
@@ -32,16 +40,25 @@ const NotificationDropdown = () => {
                 role="button"
             >
                 <small className="fa fa-bell fa-lg text-body position-relative">
-                    {/* <span className={`${styles.badgeQty} position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger`}>
-                        1
-                    </span> */}
+                    {
+                        notificationStatistics?.countUnread > 0
+                        &&
+                        <span className={`${styles.badgeQty} position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger`}>
+                            {notificationStatistics?.countUnread || 0}
+                        </span>
+                    }
                 </small>
             </div>
             <div className={`${styles.dropdownMenu} dropdown-menu dropdown-menu-start m-0`}>
                 <div className={styles.notiHeader}>
-                    <i className="fa fa-shopping-bag me-2"></i>
-                    <span className={styles.notiListTitle}>Thông báo</span>
-                    <span className={`${styles.notiListTitle} ms-2`}>({paginatedData.length})</span>
+                    <div className={styles.centerLeft}>
+                        <i className="fa fa-shopping-bag me-2"></i>
+                        <span className={styles.notiListTitle}>Thông báo</span>
+                        <span className={`${styles.notiListTitle} ms-2`}>({notificationStatistics?.countTotal || 0})</span>
+                    </div>
+                    <a className={styles.btnSeeAll}>
+                        Xem tất cả
+                    </a>
                 </div>
                 {/* content  */}
                 <div
@@ -61,15 +78,25 @@ const NotificationDropdown = () => {
                     &&
                     <CartEmptyAlert />
                 }
-                {
-                    !isReachedEnd
-                    &&
-                    !isLoading
-                    &&
-                    <div className={styles.loadMore} onClick={handleLoadMoreNoti}>
-                        Tải thêm thông báo cũ hơn
+                <div className={styles.notiListFooter}>
+                    <div
+                        style={
+                            !isReachedEnd
+                                &&
+                                !isLoading
+                                ?
+                                { visibility: 'visible' }
+                                :
+                                { visibility: 'hidden' }
+                        }
+                        className={styles.loadMore}
+                        onClick={handleLoadMoreNoti}
+                    >
+                        Tải thêm
                     </div>
-                }
+                    <div className={styles.markReadAll} onClick={handleClickReadAll}>Đã xem hết</div>
+                </div>
+
             </div>
         </div>
 

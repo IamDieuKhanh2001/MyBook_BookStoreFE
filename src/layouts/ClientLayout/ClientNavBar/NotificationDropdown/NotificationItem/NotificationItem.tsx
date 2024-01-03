@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import React from 'react'
 import styles from './NotificationItem.module.scss'
+import useAPINotification from '@/lib/hooks/api/useAPINotification'
 
 interface INotificationItemProps {
     notificationData: INotification
@@ -10,12 +11,22 @@ interface INotificationItemProps {
 const NotificationItem = (props: INotificationItemProps) => {
     const { notificationData } = props
     const { id, is_read, message, created_at, title } = notificationData
+    const { checkReadedById } = useAPINotification()
 
+
+    const handleCheckReadedById = async (notiId: number) => {
+        try {
+            await checkReadedById(notiId)
+        } catch (e) {
+
+        }
+    }
     return (
         <Link
             className={styles.notificationItem}
             style={is_read === 0 ? { backgroundColor: "#F7F9FA" } : {}}
-            href="#"
+            href=""
+            onClick={is_read === 0 ? () => handleCheckReadedById(id) : undefined} //Allow set status while unread
         >
             <div className={styles.notificationItemContainer}>
                 <div className={styles.contentLeft} style={{ marginRight: 12 }}>
@@ -34,7 +45,7 @@ const NotificationItem = (props: INotificationItemProps) => {
                         {message}
                     </div>
                     <div className={styles.notiCreateAt}>
-                        03-01-2024 15:06:09
+                        {created_at}
                     </div>
                 </div>
             </div>
