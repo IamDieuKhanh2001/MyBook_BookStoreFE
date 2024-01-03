@@ -73,7 +73,7 @@ const SearchBarInput = () => {
                         id="inputEmailAddress"
                         type="text"
                         value={keyword}
-                        placeholder={"search"}
+                        placeholder={"Đắc nhân tâm,..."}
                         onChange={(e) => handleChangeKW(e)}
                         onKeyUp={handlePressEnter}
                     />
