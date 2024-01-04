@@ -122,9 +122,9 @@ const useAPIUserOrder = () => {
             }
         )
 
-        const flashSalePeriodsData: IMyOrderStatistics[] = data?.data ?? []
+        const orderStatistics: IMyOrderStatistics[] = data?.data ?? []
         return {
-            data: flashSalePeriodsData ?? [], // nếu data = undefined sẽ là mảng rỗng
+            data: orderStatistics ?? [], // nếu data = undefined sẽ là mảng rỗng
             mutate: mutate,
             isLoading: !error && !data,
             error: error,

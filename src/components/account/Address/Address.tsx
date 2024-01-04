@@ -136,7 +136,7 @@ const Address = () => {
                                                     className='fw-bold border border-1 border-dark border-top-0 border-bottom-0 border-start-0 pe-1'
                                                     onClick={() => handleSetDefaultAddress(addressItem.id)}
                                                 >
-                                                    đặt mặc định
+                                                    Đặt mặc định
                                                 </Link>
                                                 <Link href=""
                                                     className='fw-bold border border-1 border-dark border-top-0 border-bottom-0 border-start-0 px-1'

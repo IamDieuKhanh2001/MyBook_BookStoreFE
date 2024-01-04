@@ -10,13 +10,16 @@ import axiosRetry from "axios-retry";
 export default axios.create({
     //default instance axios config for axios calling
     baseURL: BASE_URL,
-    headers: { "Content-Type": "application/json" },
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": "",
+    },
 });
 export const axiosAuth = axios.create({ //axios instance create
     //Stater config for axios calling
     baseURL: BASE_URL,
-    headers: { 
-        "Content-Type": "application/json" ,
+    headers: {
+        "Content-Type": "application/json",
     },
 });
 // const retryDelay = (retryNumber = 0) => {

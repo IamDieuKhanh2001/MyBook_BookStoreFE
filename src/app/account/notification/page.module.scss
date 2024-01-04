@@ -1,0 +1,28 @@
+.pageTitle {
+    padding: 20px 30px 0px 30px;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+
+    h1 {
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: 400;
+        line-height: 36px;
+    }
+}
+
+.notificationBody {
+    padding: 5px;
+    border-top: none;
+    background-color: #fff;
+    overflow-y: auto;
+    padding-right: 15px;
+    max-height: 400px;
+
+    .notificationBodyList {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+}

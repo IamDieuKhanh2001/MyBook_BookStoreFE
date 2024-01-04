@@ -6,6 +6,7 @@ import useSWR from 'swr';
 import { IFlashSaleEventDay } from '../../../../types/IFlashSaleEventDay';
 import { IFlashSaleBook } from '../../../../types/IFlashSaleBook';
 import { IFlashSalePeriod } from '../../../../types/IFlashSalePeriod';
+import { getSession } from 'next-auth/react';
 
 const useAPIGuest = () => {
     const axiosAuth = useAxiosAuth()
@@ -47,7 +48,11 @@ const useAPIGuest = () => {
         };
         const fetcher = async (url: string) => {
             try {
-                const response = await axiosAuth.get(url);
+                const session = await getSession();
+                const headers = {
+                    Authorization: `Bearer ${session?.user.jwtToken || ""}`,
+                }
+                const response = await axiosAuth.get(url, { headers });
                 return response.data.data;
             } catch (error) {
                 console.error('Lỗi khi fetch:', error);
@@ -145,6 +150,7 @@ const useAPIGuest = () => {
     const getParentCategoryDetail = (id: number = 0) => {
         const fetcher = async (url: string) => {
             try {
+                const session = await getSession();
                 const response = await axiosAuth.get(url);
                 return response.data;
             } catch (error) {
@@ -341,38 +347,15 @@ const useAPIGuest = () => {
         }
     }
 
-    // const getBookDetail = (isbnCode: string) => {
-    //     const fetcher = async (url: string) => {
-    //         try {
-    //             const response = await axiosAuth.get(url);
-    //             return response.data;
-    //         } catch (error) {
-    //             console.error('Lỗi khi fetch:', error);
-    //             return Promise.reject(error); // Trả về một Promise bị từ chối
-    //         }
-    //     }
-
-    //     const { data, mutate, isLoading, error } = useSWR(
-    //         `${URL_PREFIX}/book/${isbnCode}`,
-    //         fetcher,
-    //         {
-    //             revalidateOnReconnect: false,
-    //         }
-    //     )
-    //     const bookDetailData: IBook = data ?? {}
-    //     return {
-    //         data: bookDetailData,
-    //         mutate: mutate,
-    //         isLoading: !error && !data,
-    //         error: error,
-    //     }
-    // }
-
     type getBookDetailParams = { isbnCode: string } | { slug: string };
     const getBookDetail = (params: getBookDetailParams) => {
         const fetcher = async (url: string) => {
             try {
-                const response = await axiosAuth.get(url);
+                const session = await getSession();
+                const headers = {
+                    Authorization: `Bearer ${session?.user.jwtToken || ""}`,
+                }
+                const response = await axiosAuth.get(url, { headers });
                 return response.data;
             } catch (error) {
                 console.error('Lỗi khi fetch:', error);

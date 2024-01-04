@@ -104,7 +104,7 @@ const useAPIUserCart = () => {
         }
     }
 
-    const preOrder = async (listIdProductOrder: number[], voucherCode: string = '') => {
+    const preOrder = async (listIdProductOrder: number[], voucherCode: string = '', userAddressId?: number) => {
         try {
             const session = await getSession();
             const url = `${URL_PREFIX}/pre_order`
@@ -113,7 +113,8 @@ const useAPIUserCart = () => {
             }
             const body = {
                 ids: listIdProductOrder,
-                voucherCode: voucherCode
+                voucherCode: voucherCode,
+                userAddressId: userAddressId,
             }
             const response = await axiosAuth.post(url, body, { headers })
             return response;

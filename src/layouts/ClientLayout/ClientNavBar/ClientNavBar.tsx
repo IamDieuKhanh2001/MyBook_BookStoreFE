@@ -13,6 +13,7 @@ import SearchBarInput from './SearchBarInput/SearchBarInput';
 import { useSession } from 'next-auth/react';
 import AlertConfirmEmail from '../AlertConfirmEmail/AlertConfirmEmail';
 import useAPIAuthentication from '@/lib/hooks/api/useAPIAuthentication';
+import NotificationDropdown from './NotificationDropdown/NotificationDropdown';
 
 function ClientNavBar() {
     const { data: session, update, status } = useSession();
@@ -92,6 +93,7 @@ function ClientNavBar() {
                             <SearchBarInput />
                             {session && (
                                 <>
+                                    <NotificationDropdown />
                                     <CartDropdown />
                                 </>
                             )}

@@ -27,12 +27,12 @@ const CategoryList = (props: ICategoryListProps) => {
                         <ul className={styles.subCategoryList}>
                             {data && data.childrenCategory?.map((ccategory: IChildCategory) => (
                                 <li key={ccategory.id} className={styles.subCategoryListItem}>
-                                    <Link
+                                    <a
                                         className={ccategory.id === filters.ccategory?.id ? styles.active : ''}
                                         href={`/product/category/${ccategory.id}?ccategoryname=${ccategory.name}&pcategoryid=${ccategory.parent_category_id}`}
                                     >
                                         {ccategory.name}
-                                    </Link>
+                                    </a>
                                 </li>
                             ))}
                         </ul>
