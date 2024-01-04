@@ -38,7 +38,7 @@ const useAPINotification = () => {
             getKey,
             fetcher,
             {
-                refreshInterval: 3000,
+                // refreshInterval: 3000,
             }
         )
         const paginatedData: INotification[] = data?.flat() ?? []
@@ -80,8 +80,7 @@ const useAPINotification = () => {
             `${URL_PREFIX}/statistics`,
             fetcher,
             {
-                revalidateOnReconnect: false,
-                refreshInterval: 3000,
+                // refreshInterval: 3000,
             }
         )
 
