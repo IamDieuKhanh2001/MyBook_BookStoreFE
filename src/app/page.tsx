@@ -37,9 +37,7 @@ export default function Home() {
   const { paginatedData } = getBookFilterPaginated()
   const { paginatedData: studentBook } = getBookFilterPaginated(undefined, undefined, undefined, undefined, undefined, undefined, undefined, '53', undefined, undefined, undefined);
   const { data: recommentBook, isLoading } = getRecommentProducts()
-
-  console.log("NEXT_PUBLIC_BACKEND_DOMAIN " + process.env.NEXT_PUBLIC_BACKEND_DOMAIN)
-  console.log("NEXTAUTH_URL " + process.env.NEXTAUTH_URL)
+  
   return (
     <ClientLayout>
       {/* <Carousel /> */}
