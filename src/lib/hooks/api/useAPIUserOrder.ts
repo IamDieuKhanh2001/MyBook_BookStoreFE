@@ -122,7 +122,7 @@ const useAPIUserOrder = () => {
             }
         )
 
-        const orderStatistics: IMyOrderStatistics = data?.data ?? []
+        const orderStatistics: IMyOrderStatistics[] = data?.data ?? []
         return {
             data: orderStatistics ?? [], // nếu data = undefined sẽ là mảng rỗng
             mutate: mutate,
