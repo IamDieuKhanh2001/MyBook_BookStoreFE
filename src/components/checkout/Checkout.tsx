@@ -28,9 +28,9 @@ const Checkout = () => {
     const [loading, setLoading] = useState<boolean>(false)
 
     const { createOrder } = useAPIUserOrder()
-    const handlePreOrder = async (productCartIdList: number[], voucherCode?: string) => {
+    const handlePreOrder = async (productCartIdList: number[], voucherCode?: string, userAddressId?: number) => {
         try {
-            const res = await preOrder(productCartIdList, voucherCode)
+            const res = await preOrder(productCartIdList, voucherCode, userAddressId)
             setPreOrderData(res.data)
         }
         catch (e) {
@@ -45,12 +45,12 @@ const Checkout = () => {
         }
         try {
             const decodedData: number[] = JSON.parse(LZString.decompressFromBase64(productStateParam));
-            handlePreOrder(decodedData, selectedVoucher?.voucher_code)
+            handlePreOrder(decodedData, selectedVoucher?.voucher_code, selectedAddress?.id)
         } catch (e: any) {
             toast.error(e)
             router.push('/404')
         }
-    }, [selectedVoucher, productStateParam])
+    }, [selectedVoucher, selectedAddress, productStateParam])
 
     const handleCheckoutProduct = async () => {
         if (!selectedAddress) {

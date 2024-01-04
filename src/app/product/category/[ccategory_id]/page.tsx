@@ -23,23 +23,26 @@ const ProductByCategoryPage = (props: IProductByCategoryPageProps) => {
     const { ref, inView } = useInView(); // Gán ref theo dõi div Spinner
     let ccategoryName = searchParams && searchParams.get('ccategoryname')
     let pcategoryId = searchParams && searchParams.get('pcategoryid') || '0'
-    const [filters, setFilters] = useState<IBookFilter>({
-        limit: '5',
-        search: '',
-        minPrice: '',
-        maxPrice: '',
-        orderBy: 'price,desc',
-        language: null,
-        author: null,
-        ccategory: {
-            id: params.ccategory_id,
-            name: ccategoryName ?? '',
-            parent_category_id: parseInt(pcategoryId, 10)
-        },
-        publisher: null,
-        provider: null,
-        bookForm: null,
-    });
+    const [filters, setFilters] = useState<IBookFilter>(
+        {
+            limit: '5',
+            search: '',
+            minPrice: '',
+            maxPrice: '',
+            orderBy: 'price,desc',
+            language: null,
+            author: null,
+            ccategory: {
+                id: params.ccategory_id,
+                name: ccategoryName ?? '',
+                parent_category_id: parseInt(pcategoryId, 10)
+            },
+            publisher: null,
+            provider: null,
+            bookForm: null,
+        }
+    );
+
     const { getBookFilterPaginated } = useAPIGuest()
     const { paginatedData, setSize, error, isLoading, isReachedEnd } = getBookFilterPaginated(
         filters.search,

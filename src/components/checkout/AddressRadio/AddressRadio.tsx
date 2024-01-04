@@ -67,9 +67,9 @@ const AddressRadio = (props: AddressRadioProps) => {
                                         {address.recipient_name} | {address.street}, {address.wards.name},{address.wards.district.name},{address.wards.district.province.name}, VN | {address.recipient_phone}
                                         {address.is_default && <span className="badge rounded-pill bg-success ms-1">Mặc định</span>}
                                     </label>
-                                    <div className='d-flex'>
+                                    {/* <div className='d-flex'>
                                         <span className={styles.editAddress}>Sửa</span>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         ))

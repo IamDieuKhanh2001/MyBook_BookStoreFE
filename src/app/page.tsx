@@ -27,11 +27,16 @@ import Link from 'next/link'
 import useAPIGuest from '@/lib/hooks/api/useAPIGuest'
 import ProductList from '@/components/product/ProductList/ProductList'
 import FlashSale from '@/components/product/FlashSale/FlashSale'
+import useAPIRecommendation from '@/lib/hooks/api/useAPIRecommendation'
+import { useSession } from 'next-auth/react'
 
 export default function Home() {
+  const { data: session } = useSession()
   const { getBookFilterPaginated } = useAPIGuest()
+  const { getRecommentProducts } = useAPIRecommendation()
   const { paginatedData } = getBookFilterPaginated()
   const { paginatedData: studentBook } = getBookFilterPaginated(undefined, undefined, undefined, undefined, undefined, undefined, undefined, '53', undefined, undefined, undefined);
+  const { data: recommentBook, isLoading } = getRecommentProducts()
 
   return (
     <ClientLayout>
@@ -40,6 +45,18 @@ export default function Home() {
       <FlashSale />
       <div className="container-xxl pt-5">
         <div className="container">
+          {recommentBook.length !== 0 && (
+            <>
+              <MainSectionTitle
+                title='Gợi ý dành cho bạn'
+              />
+              <div className='row pb-4'>
+                <ProductList
+                  dataList={recommentBook}
+                />
+              </div>
+            </>
+          )}
           <MainSectionTitle
             title='Xu hướng mua sắm'
             shortDescription='Các sản phẩm dưới đây có lượt doanh thu cao nhất'

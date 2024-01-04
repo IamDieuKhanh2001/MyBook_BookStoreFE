@@ -1,0 +1,103 @@
+@import "../../../../style/variable";
+
+.navItem {
+    .dropdownToggle {
+        &::after {
+            display: none;
+            border: none;
+            content: "\f107";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+
+        .badgeQty {
+            font-size: 11px;
+        }
+    }
+
+    .dropdownMenu {
+        border-radius: 8px;
+        min-width: 300px;
+        min-height: 220px;
+        box-shadow: 0 4px 6px rgb(32 33 36 / 28%);
+
+        .notiHeader {
+            padding: 16px;
+            border-bottom: 1px solid #F2F4F5;
+            color: $dark-color;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .centerLeft {
+                display: flex;
+                align-items: center;
+            }
+
+            .btnSeeAll {
+                color: #2489F4;
+                cursor: pointer;
+            }
+
+            >.notiListTitle {
+                line-height: normal;
+            }
+        }
+
+        .notificationList {
+            max-height: 290px;
+            max-width: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .notiListFooter {
+            padding-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+
+            .loadMore {
+                font-size: 15px;
+                cursor: pointer;
+                color: $primary-color;
+            }
+
+            .markReadAll {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .navItem {
+        .dropdownMenu {
+            display: block;
+            visibility: hidden;
+            top: 140%;
+            left: -500%;
+            transform: rotateX(-75deg);
+            transform-origin: 0% 0%;
+            transition: .5s;
+            opacity: 0;
+        }
+
+        &:hover {
+            .dropdownMenu {
+                transform: rotateX(0deg);
+                visibility: visible;
+                transition: .5s;
+                opacity: 1;
+            }
+        }
+    }
+}
