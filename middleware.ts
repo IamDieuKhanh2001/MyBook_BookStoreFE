@@ -11,7 +11,7 @@ export default withAuth(
       );
   },
   {
-    secret: process.env.JWT_SECRET, // Thêm secret vào đây
+    // secret: process.env.JWT_SECRET, //Đã sử dụng NEXTAUTH_SECRET trong .env
     callbacks: {
       authorized: ({ token }) => !!token, //Redirect to login if user session is unavailable
     },
