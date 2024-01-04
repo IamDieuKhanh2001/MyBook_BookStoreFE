@@ -57,6 +57,8 @@ function ClientNavBar() {
         }
     }, [session, status])
 
+    console.log("NEXTAUTH_URL " + process.env.NEXTAUTH_URL)
+    console.log("NEXT_PUBLIC_BACKEND_DOMAIN " + process.env.NEXT_PUBLIC_BACKEND_DOMAIN)
     return (
         <>
             <div
