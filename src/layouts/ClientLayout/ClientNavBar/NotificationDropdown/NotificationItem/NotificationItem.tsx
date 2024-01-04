@@ -24,7 +24,7 @@ const NotificationItem = (props: INotificationItemProps) => {
     return (
         <Link
             className={styles.notificationItem}
-            style={is_read === 0 ? { backgroundColor: "#F7F9FA" } : {}}
+            style={is_read === 0 ? { backgroundColor: "#F9FFD6" } : {}}
             href=""
             onClick={is_read === 0 ? () => handleCheckReadedById(id) : undefined} //Allow set status while unread
         >
