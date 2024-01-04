@@ -37,7 +37,7 @@ export default function Home() {
   const { paginatedData } = getBookFilterPaginated()
   const { paginatedData: studentBook } = getBookFilterPaginated(undefined, undefined, undefined, undefined, undefined, undefined, undefined, '53', undefined, undefined, undefined);
   const { data: recommentBook, isLoading } = getRecommentProducts()
-
+  
   return (
     <ClientLayout>
       {/* <Carousel /> */}

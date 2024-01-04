@@ -44,7 +44,7 @@ export const authOptions: AuthOptions = {
             return session;
         },
     },
-    secret: process.env.JWT_SECRET,
+    // secret: process.env.JWT_SECRET, //Đã sử dụng NEXTAUTH_SECRET trong .env
     pages: {
         signIn: "/authentication/login",
     },
