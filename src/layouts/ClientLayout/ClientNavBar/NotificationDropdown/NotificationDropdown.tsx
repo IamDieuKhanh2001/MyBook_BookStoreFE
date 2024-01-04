@@ -1,28 +1,30 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './NotificationDropdown.module.scss'
 import NotificationItem from './NotificationItem/NotificationItem'
 import useAPINotification from '@/lib/hooks/api/useAPINotification'
 import NotificationLoading from './NotificationLoading/NotificationLoading'
 import NotificationEmptyAlert from './NotificationEmptyAlert/NotificationEmptyAlert'
+import { useInView } from 'react-intersection-observer'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 const NotificationDropdown = () => {
     const [filters, setFilters] = useState({
         limit: 4,
-        // page: 2,
     });
+    const { ref: loadMoreRef, inView } = useInView(); // Gán ref theo dõi div Spinner
     const { getNotificationList, getNotiStatistics, checkReadAll } = useAPINotification()
     const { paginatedData, isLoading, isReachedEnd, setSize } = getNotificationList(filters.limit)
     const { data: notificationStatistics } = getNotiStatistics()
+    const router = useRouter()
 
-    const handleLoadMoreNoti = () => {
-        // setFilters(prevFilters => ({
-        //     ...prevFilters,
-        //     page: prevFilters.page + 1,
-        // }));
-        setSize((previousSize) => previousSize + 1)
-    }
+    useEffect(() => {
+        if (inView) {
+            setSize((previousSize) => previousSize + 1)
+        }
+    }, [inView]);
 
     const handleClickReadAll = async () => {
         try {
@@ -32,11 +34,18 @@ const NotificationDropdown = () => {
         }
     }
 
+    const handleNotiClick = () => {
+        // Xử lý việc chuyển đến trang "/cart" khi nhấn icon cart trên nav
+        router.push('/account/notification');
+    }
+
+
+
     return (
         <div className={`${styles.navItem} dropdown`}>
             <div
                 className={`${styles.dropdownToggle} nav-link dropdown-toggle btn-sm-square ms-3`}
-                // onClick={handleCartClick}
+                onClick={handleNotiClick}
                 role="button"
             >
                 <small className="fa fa-bell fa-lg text-body position-relative">
@@ -56,9 +65,12 @@ const NotificationDropdown = () => {
                         <span className={styles.notiListTitle}>Thông báo</span>
                         <span className={`${styles.notiListTitle} ms-2`}>({notificationStatistics?.countTotal || 0})</span>
                     </div>
-                    <a className={styles.btnSeeAll}>
+                    <Link
+                        className={styles.btnSeeAll}
+                        href={'/account/notification'}
+                    >
                         Xem tất cả
-                    </a>
+                    </Link>
                 </div>
                 {/* content  */}
                 <div
@@ -68,9 +80,11 @@ const NotificationDropdown = () => {
                         <NotificationItem notificationData={notification} key={notification.id} />
                     ))}
                     {
-                        isLoading
+                        !isReachedEnd
                         &&
-                        <NotificationLoading />
+                        <NotificationLoading
+                            loadMoreRef={loadMoreRef}
+                        />
                     }
                 </div>
                 {
@@ -78,28 +92,13 @@ const NotificationDropdown = () => {
                     &&
                     <NotificationEmptyAlert />
                 }
-                {
-                    paginatedData.length !== 0
-                    &&
-                    <div className={styles.notiListFooter}>
-                        <div
-                            style={
-                                !isReachedEnd
-                                    &&
-                                    !isLoading
-                                    ?
-                                    { visibility: 'visible' }
-                                    :
-                                    { visibility: 'hidden' }
-                            }
-                            className={styles.loadMore}
-                            onClick={handleLoadMoreNoti}
-                        >
-                            Tải thêm
-                        </div>
-                        <div className={styles.markReadAll} onClick={handleClickReadAll}>Đã xem hết</div>
+                <div className={styles.notiListFooter}>
+                    <div
+                        className={styles.markReadAll}
+                        onClick={handleClickReadAll}>
+                        Đánh dấu đã đọc
                     </div>
-                }
+                </div>
             </div>
         </div>
 

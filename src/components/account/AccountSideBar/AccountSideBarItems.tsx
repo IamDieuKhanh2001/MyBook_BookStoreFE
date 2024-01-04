@@ -26,6 +26,12 @@ const accountSideBarItems = [
         icon: <i className="fas fa-ticket-alt fa-lg" style={{ color: '#333333' }} />,
         href: '/account/voucher',
     },
+    {
+        id: uniqueId(),
+        title: 'Thông báo',
+        icon: <i className="fa fa-bell fa-lg" style={{ color: '#333333' }} />,
+        href: '/account/notification',
+    },
 ];
 
 export default accountSideBarItems;

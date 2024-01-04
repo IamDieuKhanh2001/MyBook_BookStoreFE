@@ -1,0 +1,21 @@
+.notificationItem {
+    border-bottom: 1px solid #e6e6e6;
+    padding: 10px 10px;
+
+    .notificationItemHeader {
+        margin-bottom: 10px;
+
+        .notificationItemTitle {
+            font-size: 14px;
+            font-weight: bold;
+            float: left;
+        }
+
+        .notificationItemDate {
+            font-style: italic;
+            float: right;
+        }
+    }
+
+    .notificationItemText {}
+}
