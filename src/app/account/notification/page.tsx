@@ -12,8 +12,8 @@ const NotificationPage = () => {
         limit: 10,
     });
     const { ref: loadMoreRef, inView } = useInView(); // Gán ref theo dõi div Spinner
-    const { getNotificationList } = useAPINotification()
-    const { paginatedData, isLoading, isReachedEnd, setSize } = getNotificationList(filters.limit)
+    const { getNotificationList, checkReadedById } = useAPINotification()
+    const { paginatedData, isLoading, isReachedEnd, setSize, mutate } = getNotificationList(filters.limit)
 
     useEffect(() => {
         if (inView) {
@@ -21,6 +21,14 @@ const NotificationPage = () => {
         }
     }, [inView]);
 
+    const handleCheckReadedById = async (notiId: number) => {
+        try {
+            await checkReadedById(notiId)
+            mutate()
+        } catch (e) {
+
+        }
+    }
     return (
         <div className="card mb-2">
             <div className={styles.pageTitle}>
@@ -30,7 +38,11 @@ const NotificationPage = () => {
                 <div className={styles.notificationBody}>
                     <ul className={styles.notificationBodyList}>
                         {paginatedData.map((notification) => (
-                            <NotificationItem notificationData={notification} key={notification.id} />
+                            <NotificationItem
+                                key={notification.id}
+                                notificationData={notification}
+                                handleCheckReaded={handleCheckReadedById}
+                            />
                         ))}
                         {
                             !isReachedEnd
