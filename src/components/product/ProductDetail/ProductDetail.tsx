@@ -89,6 +89,13 @@ const ProductDetail = (props: IProductDetailProps) => {
         }
     }
 
+    const handlePreviewAudio = () => {
+        const newWindow = window.open(
+            `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/book/preview/audio/${product.slug}`,
+            '_blank'
+        );
+    }
+
     return (
         <>
             <div className="container-xxl py-3 mt-2 section-container">
@@ -101,6 +108,18 @@ const ProductDetail = (props: IProductDetailProps) => {
                         </div>
                         <div className="col-lg-6 col-md-12 wow fadeIn" data-wow-delay="0.5s">
                             <h3 className="mb-2">{product?.name}</h3>
+                            <div className='d-flex align-items-center'>
+                                <div className='pe-2'>
+                                    Nghe thử nội dung:
+                                </div>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-secondary rounded-circle"
+                                    onClick={handlePreviewAudio}
+                                >
+                                    <i className="fas fa-volume-up" />
+                                </button>
+                            </div>
                             <div className="d-flex mb-1">
                                 <div className="text-primary me-2">
                                     {/* <small className="fas fa-star" />
