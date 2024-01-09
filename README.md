@@ -2,8 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Đồ Án Khóa Luận Tốt Nghiệp Đại Học Sư Phạm Kỹ Thuật TP.HCM 2023 
 
-Sử dụng dự án đã deploy trên netlify:
-Truy cập đường dẫn [https://khoaluantotnghiephcmute.netlify.app/](https://khoaluantotnghiephcmute.netlify.app/)
+Sử dụng dự án đã deploy trên Digital Ocean Ubuntu:
+Truy cập đường dẫn [https://sachviet.top/](https://sachviet.top/)
 
 Khởi động dự án tại localhost:
 
