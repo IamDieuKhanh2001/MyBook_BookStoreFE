@@ -68,7 +68,7 @@ const ProductTab = (props: IProductTabProps) => {
                     role="tabpanel"
                     aria-labelledby="nav-desc-tab"
                 >
-                    <ProductDesc desc={product.desc} />
+                    <ProductDesc desc={product.desc} slug={product.slug} />
                 </div>
                 <div
                     className="tab-pane fade"

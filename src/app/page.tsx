@@ -35,8 +35,9 @@ export default function Home() {
   const { getBookFilterPaginated } = useAPIGuest()
   const { getRecommentProducts } = useAPIRecommendation()
   const { paginatedData } = getBookFilterPaginated()
-  const { paginatedData: studentBook } = getBookFilterPaginated(undefined, undefined, undefined, undefined, undefined, undefined, undefined, '53', undefined, undefined, undefined);
+  // const { paginatedData: studentBook } = getBookFilterPaginated(undefined, undefined, undefined, undefined, undefined, undefined, undefined, '53', undefined, undefined, undefined);
   const { data: recommentBook, isLoading } = getRecommentProducts()
+  const { paginatedData: popularBook } = getBookFilterPaginated(undefined, undefined, undefined, 'price,asc', undefined, undefined, undefined, undefined, undefined, undefined, undefined);
 
   return (
     <ClientLayout>
@@ -58,6 +59,20 @@ export default function Home() {
             </>
           )}
           <MainSectionTitle
+            title='Sách phổ biến'
+            shortDescription='Những sách được ưa chuộng rộng rãi'
+          />
+          <div className='row pb-4'>
+            <ProductList
+              dataList={popularBook}
+            />
+          </div>
+          <div className="col-12 text-center">
+            <Link className="btn btn-primary rounded-pill py-3 px-5" href={`/product/searchengine`}>
+              Xem thêm
+            </Link>
+          </div>
+          <MainSectionTitle
             title='Xu hướng mua sắm'
             shortDescription='Các sản phẩm dưới đây có lượt doanh thu cao nhất'
           />
@@ -72,7 +87,7 @@ export default function Home() {
               Xem thêm
             </Link>
           </div>
-          <MainSectionTitle
+          {/* <MainSectionTitle
             title='Sách giáo Khoa'
             shortDescription='Ưu đãi cho học sinh & Sinh viên'
           />
@@ -82,11 +97,10 @@ export default function Home() {
             />
           </div>
           <div className="col-12 text-center">
-            {/* Go to product list page  */}
             <Link className="btn btn-primary rounded-pill py-3 px-5" href={`/product/category/53?ccategoryname=Sách%20Giáo%20Khoa&pcategoryid=7`}>
               Xem thêm
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
       <FirmVisit />
