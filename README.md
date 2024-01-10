@@ -1,9 +1,9 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Đồ Án Khóa Luận Tốt Nghiệp Đại Học Sư Phạm Kỹ Thuật TP.HCM 2023 
 
-Tài liệu dự án: https://drive.google.com/file/d/1LciEgaxC_XNe2PEcYOd_7KrtnLfspTNr/view?usp=sharing
-Sử dụng dự án đã deploy trên Digital Ocean Ubuntu:
+## Tài liệu dự án: 
+Liên kết: https://drive.google.com/file/d/1LciEgaxC_XNe2PEcYOd_7KrtnLfspTNr/view?usp=sharing
+
+## Sử dụng dự án đã deploy trên Digital Ocean Ubuntu:
 Truy cập đường dẫn [https://sachviet.top/](https://sachviet.top/)
 
 Khởi động dự án tại localhost:
